@@ -22,7 +22,9 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void OpenPersonnelRecordsWindow()
         {
-            MessageBox.Show("Open personnel records window");
+            DepartmentsEmployeesPanelWindow departmentsEmployeesPanelWindow = new DepartmentsEmployeesPanelWindow();
+            departmentsEmployeesPanelWindow.Show();
+            _adminPanelWindow.Close();
         }
 
         public ICommand IOpenUserRegistrationWindow => new RelayCommand(openUserRegistrationWindow => OpenUserRegistrationWindow());
