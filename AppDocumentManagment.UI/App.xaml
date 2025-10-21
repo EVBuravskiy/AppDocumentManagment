@@ -4,5 +4,11 @@
              xmlns:local="clr-namespace:AppDocumentManagment.UI"
              StartupUri="Views/AdminPanelWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/ElementStyles.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/ElementColors.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Styles\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
 
