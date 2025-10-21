@@ -5,8 +5,104 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
-        Title="AdminPanelWindow" Height="450" Width="800">
+        Title="АИС Документооборот"  
+        MinHeight="450" 
+        MinWidth="800" 
+        Height="800"
+        Width="1000"
+        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40px"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF7D00FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Label x:Name="GreetingLabel"
+                   Content="Панель администратора" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" 
+                   FontFamily="Arial" 
+                   FontSize="14" 
+                   FontWeight="Bold"
+                   Padding="20,0"
+                   Foreground="WhiteSmoke"/>
+            <Label x:Name="CurrentUserName" 
+                   Content="Сотрудник"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   FontFamily="Arial" 
+                   FontSize="14" 
+                   FontWeight="Bold"
+                   Margin="100, 0"
+                   Foreground="WhiteSmoke"/>
+            <Button x:Name="ExitBtn"
+                    Content="Выйти"
+                    HorizontalAlignment="Right"
+                    FontFamily="Arial" 
+                    FontSize="14" 
+                    Margin="10, 5"
+                    Padding="10, 0"
+                    FontWeight="Bold"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" 
+                        Orientation="Vertical">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF7F00FF" Offset="0"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Button x:Name="PersonnelBtn"
+                        Content="Учет кадров"    
+                        FontFamily="Arial" 
+                        FontSize="14" 
+                        FontWeight="Bold"
+                        Padding="10"
+                        Margin="5"
+                        Command="{Binding IOpenPersonellRecordsWindow}"/>
+                <Button x:Name="DocumentBtn"
+                        Content="Учет документов"    
+                        FontFamily="Arial" 
+                        FontSize="14" 
+                        FontWeight="Bold"
+                        Padding="10"
+                        Margin="5"/>
+                <Button x:Name="TasksBtn"
+                        Content="Учет задач"    
+                        FontFamily="Arial" 
+                        FontSize="14" 
+                        FontWeight="Bold"
+                        Padding="10"
+                        Margin="5"/>
+                <Button x:Name="RegistrationBtn"
+                        Content="Регистрация пользователей"    
+                        FontFamily="Arial" 
+                        FontSize="14" 
+                        FontWeight="Bold"
+                        Padding="10"
+                        Margin="5"
+                        Command="{Binding IOpenUserRegistrationWindow}"/>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <Image Source="/Resources/Images/StartPageImage.png" 
+                       VerticalAlignment="Top" 
+                       Stretch="UniformToFill" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Background="Black"/>
+
     </Grid>
 </Window>

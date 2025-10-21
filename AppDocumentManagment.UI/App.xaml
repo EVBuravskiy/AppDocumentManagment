@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:AppDocumentManagment.UI"
              StartupUri="Views/AdminPanelWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>
