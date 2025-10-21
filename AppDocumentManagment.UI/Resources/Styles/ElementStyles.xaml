@@ -28,5 +28,14 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Top panel label -->
+    <Style x:Key="TopPanelLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
 
 </ResourceDictionary>
