@@ -1,12 +1,7 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -39,8 +34,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(AddBtnContent));
             }
         }
-
-        public ObservableCollection<Department> Departments { get; private set; }
+        private List<Department> allDepartments { get; set; }
+        public ObservableCollection<Department> Departments { get; set; }
         private Department _selectedDepartment = null;
         public Department SelectedDepartment
         {
@@ -58,8 +53,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
             }
         }
-
-        public ObservableCollection<Employee> Employees { get; private set; }
+        private List<Employee> allEmployees { get; set; }
+        public ObservableCollection<Employee> Employees { get; set; }
 
         private Employee _selectedEmployee = null;
         public Employee SelectedEmployee
@@ -72,7 +67,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ObservableCollection<Employee> EmployeesOfDepartment { get; private set; }
+        public ObservableCollection<Employee> EmployeesOfDepartment { get; set; }
         private Employee _deputyGeneralDirector;
         public Employee DeputyGeneralDirector
         {
@@ -93,11 +88,37 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(HeaderOfDepartment));
             }
         }
-        public ObservableCollection<Employee> PerformersOfDepartment { get; private set; }
+        public ObservableCollection<Employee> PerformersOfDepartment { get; set; }
+
+        private Employee _selectedPerformer = null;
+        public Employee SelectedPerformer
+        {
+            get => _selectedPerformer;
+            set
+            {
+                _selectedPerformer = value;
+                OnPropertyChanged(nameof(SelectedPerformer));
+                UpdatePerformer();
+            }
+        }
+
+        private string _searchString;
+        public string SearchString
+        {
+            get => _searchString;
+            set
+            {
+                _searchString = value;
+                OnPropertyChanged(nameof(SearchString));
+            }
+        }
 
         public DepartmentsEmployeesPanelViewModel(DepartmentsEmployeesPanelWindow inputWindow)
         {
             DepartmentsEmployeesPanelWindow = inputWindow;
+            Departments = new ObservableCollection<Department>();
+            EmployeesOfDepartment = new ObservableCollection<Employee>();
+            PerformersOfDepartment = new ObservableCollection<Employee>();
             InitializeDepartments();
             InitializeEmployees();
             SelectedDepartment = Departments.FirstOrDefault();
@@ -105,12 +126,12 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void InitializeDepartments()
         {
-            Departments = new ObservableCollection<Department>();
+            Departments.Clear();
             DepartmentController departmentController = new DepartmentController();
-            List<Department> departmentList = departmentController.GetAllDepartments();
-            if (departmentList.Count > 0)
+            allDepartments = departmentController.GetAllDepartments();
+            if (allDepartments.Count > 0)
             {
-                foreach (Department department in departmentList)
+                foreach (Department department in allDepartments)
                 {
                     Departments.Add(department);
                 }
@@ -121,19 +142,28 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             Employees = new ObservableCollection<Employee>();
             EmployeeController employeeController = new EmployeeController();
-            List<Employee> employeeList = employeeController.GetAllEmployees();
-            if (employeeList.Count > 0)
+            allEmployees = employeeController.GetAllEmployees();
+            if (allEmployees.Count > 0)
             {
-                foreach (Employee employee in employeeList)
+                foreach (Employee employee in allEmployees)
+                {
+                    Department department = Departments.Where(x => x.DepartmentID == employee.DepartmentID).FirstOrDefault();
+                    employee.Department = department;
+                }
+            }
+            if (allEmployees.Count > 0)
+            {
+                foreach (Employee employee in allEmployees)
                 {
                     Employees.Add(employee);
                 }
             }
+            OnPropertyChanged(nameof(Employees));
         }
 
         private void GetEmployeesOfDepartment()
         {
-            EmployeesOfDepartment = new ObservableCollection<Employee>();
+            EmployeesOfDepartment.Clear();
             if (SelectedDepartment != null) {
                 foreach (Employee employee in Employees)
                 {
@@ -165,7 +195,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void GetPerformersOfDepartment()
         {
-            PerformersOfDepartment = new ObservableCollection<Employee>();
+            PerformersOfDepartment.Clear();
             if (SelectedDepartment != null && EmployeesOfDepartment.Count > 0)
             {
                 foreach (Employee employee in EmployeesOfDepartment)
@@ -200,6 +230,196 @@ namespace AppDocumentManagment.UI.ViewModels
             DepartmentsEmployeesPanelWindow.DetailDepartmentInfo.Visibility = Visibility.Hidden;
             DepartmentsEmployeesPanelWindow.EmployeeDetailInfo.Visibility = Visibility.Visible;
             _isEmployee = true;
+        }
+        public ICommand IFindItem => new RelayCommand(findItem => FindItem());
+
+        private void FindItem()
+        {
+            FindItems(SearchString);
+        }
+
+        public void FindItems(string searchString)
+        {
+            SearchString = searchString;
+            if (!_isEmployee)
+            {
+                FindDepartment();
+            }
+            else
+            {
+                FindEmployee();
+            }
+        }
+
+        private void FindDepartment()
+        {
+            Departments.Clear();
+            if(string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString)) 
+            {
+                if (allDepartments.Count > 0)
+                {
+                    foreach (Department department in allDepartments)
+                    {
+                        Departments.Add(department);
+                    }
+                }
+                SelectedDepartment = Departments.FirstOrDefault();
+                return;
+            }
+            List<Department> findingDepartment = new List<Department>();
+            string tempSearchString = SearchString.ToLower().Trim();
+            findingDepartment = allDepartments.Where(x => x.DepartmentTitle.ToLower().Contains(tempSearchString)).ToList();
+            if (findingDepartment.Count == 0)
+            {
+                findingDepartment = allDepartments.Where(x => x.DepartmentShortTitle.ToLower().Contains(tempSearchString)).ToList();
+            }
+            foreach (Department department in findingDepartment)
+            {
+                Departments.Add(department);
+            }
+            SelectedDepartment = Departments.FirstOrDefault();
+        }
+
+        private void FindEmployee()
+        {
+            Employees.Clear();
+            if (string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString))
+            {
+                if (allEmployees.Count > 0)
+                {
+                    foreach (Employee employee in allEmployees)
+                    {
+                        Employees.Add(employee);
+                    }
+                }
+                SelectedEmployee = Employees.FirstOrDefault();
+                return;
+            }
+            List<Employee> findingEmployee = new List<Employee>();
+            string tempSearchString = SearchString.ToLower().Trim();
+            findingEmployee = allEmployees.Where(x => x.EmployeeFullName.ToLower().Contains(tempSearchString)).ToList();
+            if (findingEmployee.Count > 0)
+            {
+                foreach (Employee employee in findingEmployee)
+                {
+                    Employees.Add(employee);
+                }
+            }
+            SelectedEmployee = Employees.FirstOrDefault();
+        }
+
+        public ICommand IAddItem => new RelayCommand(addItem => AddItem());
+        private void AddItem()
+        {
+            if (!_isEmployee)
+            {
+                AddNewDepartment();
+            }
+            else
+            {
+                AddNewEmployee();
+            }
+        }
+
+        public ICommand IAddNewDepartment => new RelayCommand(addNewDepartment => AddNewDepartment());
+        private void AddNewDepartment()
+        {
+            DepartmentWindow departmentWindow = new DepartmentWindow(null);
+            departmentWindow.ShowDialog();
+            Departments.Clear();
+            InitializeDepartments();
+            if (SelectedDepartment != null)
+            {
+                Department department = Departments.Where(x => x.DepartmentID == SelectedDepartment.DepartmentID).FirstOrDefault();
+                if (department != null)
+                {
+                    SelectedDepartment = department;
+                }
+            }
+            else
+            {
+                SelectedDepartment = Departments.FirstOrDefault();
+            }
+        }
+
+        public ICommand IEditSelectedDepartment => new RelayCommand(editSelectedDepartment => EditSelectedDepartment());
+        private void EditSelectedDepartment()
+        {
+            if (SelectedDepartment != null)
+            {
+                DepartmentWindow departmentWindow = new DepartmentWindow(SelectedDepartment);
+                departmentWindow.ShowDialog();
+                Departments.Clear();
+                InitializeDepartments();
+                if (SelectedDepartment != null)
+                {
+                    Department department = Departments.Where(x => x.DepartmentID == SelectedDepartment.DepartmentID).FirstOrDefault();
+                    if (department != null)
+                    {
+                        SelectedDepartment = department;
+                    }
+                }
+                else
+                {
+                    SelectedDepartment = Departments.FirstOrDefault();
+                }
+            }
+        }
+
+        public ICommand IAddNewEmployee => new RelayCommand(addEmployee => AddNewEmployee());
+        private void AddNewEmployee()
+        {
+            EmployeeWindow employeeWindow = new EmployeeWindow(null);
+            employeeWindow.ShowDialog();
+            Employees.Clear();
+            InitializeEmployees();
+            if (SelectedEmployee != null)
+            {
+                Employee employee = Employees.Where(x => x.EmployeeID == SelectedEmployee.EmployeeID).FirstOrDefault();
+                if (employee != null)
+                {
+                    SelectedEmployee = employee;
+                }
+            }
+            else
+            {
+                SelectedEmployee = Employees.FirstOrDefault();
+            }
+        }
+        public ICommand IUpdateEmployee => new RelayCommand(updateEmployee => UpdateEmployee());
+        private void UpdateEmployee()
+        {
+            if (SelectedEmployee != null)
+            {
+                UpdateCurrentEmployee(SelectedEmployee);
+            }
+        }
+
+        private void UpdatePerformer()
+        {
+            if (SelectedPerformer != null)
+            {
+                UpdateCurrentEmployee(SelectedPerformer);
+            }
+        }
+        private void UpdateCurrentEmployee(Employee inputEmployee)
+        {
+            EmployeeWindow employeeWindow = new EmployeeWindow(inputEmployee);
+            employeeWindow.Show();
+            Employees.Clear();
+            InitializeEmployees();
+            if (SelectedEmployee != null)
+            {
+                Employee employee = Employees.Where(x => x.EmployeeID == SelectedEmployee.EmployeeID).FirstOrDefault();
+                if (employee != null)
+                {
+                    SelectedEmployee = employee;
+                }
+            }
+            else
+            {
+                SelectedEmployee = Employees.FirstOrDefault();
+            }
         }
 
     }

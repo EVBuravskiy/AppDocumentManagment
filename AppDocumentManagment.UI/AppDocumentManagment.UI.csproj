@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Resources\Images\AppIcon.png" />
     <Resource Include="Resources\Images\defaultContact.png" />
     <Resource Include="Resources\Images\SearchIcon.png" />

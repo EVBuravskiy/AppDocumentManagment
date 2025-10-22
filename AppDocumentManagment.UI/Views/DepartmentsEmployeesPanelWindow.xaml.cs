@@ -32,8 +32,8 @@ namespace AppDocumentManagment.UI.Views
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            //_departmentsEmployeesPanelViewModel.SearchString = textBox.Text;
-            //_departmentsEmployeesPanelViewModel.FindItem(textBox.Text);
+            _departmentsEmployeesPanelViewModel.SearchString = textBox.Text;
+            _departmentsEmployeesPanelViewModel.FindItems(textBox.Text);
         }
     }
 }

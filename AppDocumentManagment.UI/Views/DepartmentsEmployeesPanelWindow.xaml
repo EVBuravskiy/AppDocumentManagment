@@ -207,9 +207,6 @@
                                     <Button x:Name="EditDepartment"
                                             Content="Редактировать отдел"
                                             Style="{StaticResource Buttons}"
-                                            FontFamily="Arial" 
-                                            FontSize="14" 
-                                            FontWeight="Bold"
                                             Padding="10"
                                             Margin="10 5 10 5"
                                             HorizontalAlignment="Right"
@@ -361,7 +358,7 @@
                                           BorderBrush="DimGray"
                                           BorderThickness="1"
                                           ItemsSource="{Binding PerformersOfDepartment}"
-                                          SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}"
+                                          SelectedItem="{Binding SelectedPerformer, Mode=TwoWay}"
                                           ScrollViewer.CanContentScroll="True">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
