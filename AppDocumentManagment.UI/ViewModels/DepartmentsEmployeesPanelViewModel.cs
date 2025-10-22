@@ -98,7 +98,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 _selectedPerformer = value;
                 OnPropertyChanged(nameof(SelectedPerformer));
-                UpdatePerformer();
+                if (value != null)
+                {
+                    UpdatePerformer();
+                }
             }
         }
 
@@ -173,6 +176,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                 }
             }
+            OnPropertyChanged(nameof(EmployeesOfDepartment));
         }
 
         private void GetDeptyOfDepartment()
@@ -206,6 +210,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                 }
             }
+            OnPropertyChanged(nameof(PerformersOfDepartment));
         }
 
         public ICommand ISelectDepartments => new RelayCommand(selectDepartments => SelectDepartments());
@@ -218,6 +223,9 @@ namespace AppDocumentManagment.UI.ViewModels
             DepartmentsEmployeesPanelWindow.DetailDepartmentInfo.Visibility = Visibility.Visible;
             DepartmentsEmployeesPanelWindow.EmployeeDetailInfo.Visibility = Visibility.Hidden;
             _isEmployee = false;
+            InitializeDepartments();
+            InitializeEmployees();
+            SelectedDepartment = Departments.FirstOrDefault();
         }
 
         public ICommand ISelectEmployees => new RelayCommand(selectEmployees => SelectEmployees());
@@ -230,6 +238,7 @@ namespace AppDocumentManagment.UI.ViewModels
             DepartmentsEmployeesPanelWindow.DetailDepartmentInfo.Visibility = Visibility.Hidden;
             DepartmentsEmployeesPanelWindow.EmployeeDetailInfo.Visibility = Visibility.Visible;
             _isEmployee = true;
+            SelectedEmployee = Employees.FirstOrDefault();
         }
         public ICommand IFindItem => new RelayCommand(findItem => FindItem());
 
@@ -351,6 +360,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 departmentWindow.ShowDialog();
                 Departments.Clear();
                 InitializeDepartments();
+                InitializeEmployees();
+                OnPropertyChanged(nameof(Employees));
                 if (SelectedDepartment != null)
                 {
                     Department department = Departments.Where(x => x.DepartmentID == SelectedDepartment.DepartmentID).FirstOrDefault();
@@ -385,6 +396,13 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 SelectedEmployee = Employees.FirstOrDefault();
             }
+            if(SelectedDepartment != null)
+            {
+                GetEmployeesOfDepartment();
+                GetDeptyOfDepartment();
+                GetHeadOfDepartment();
+                GetPerformersOfDepartment();
+            }
         }
         public ICommand IUpdateEmployee => new RelayCommand(updateEmployee => UpdateEmployee());
         private void UpdateEmployee()
@@ -400,12 +418,18 @@ namespace AppDocumentManagment.UI.ViewModels
             if (SelectedPerformer != null)
             {
                 UpdateCurrentEmployee(SelectedPerformer);
+                if (SelectedDepartment != null)
+                {
+                    GetEmployeesOfDepartment();
+                    GetPerformersOfDepartment();
+                }
             }
+            SelectedPerformer = null;
         }
         private void UpdateCurrentEmployee(Employee inputEmployee)
         {
             EmployeeWindow employeeWindow = new EmployeeWindow(inputEmployee);
-            employeeWindow.Show();
+            employeeWindow.ShowDialog();
             Employees.Clear();
             InitializeEmployees();
             if (SelectedEmployee != null)
@@ -421,6 +445,29 @@ namespace AppDocumentManagment.UI.ViewModels
                 SelectedEmployee = Employees.FirstOrDefault();
             }
         }
+        public ICommand IRemoveEmployee => new RelayCommand(removeEmployee => RemoveEmployee());
+        private void RemoveEmployee()
+        {
+            if (SelectedEmployee != null)
+            {
+                EmployeeController employeeController = new EmployeeController();
+                bool result = employeeController.DeleteEmployee(SelectedEmployee);
+                if (result)
+                {
+                    MessageBox.Show($"Удаление {SelectedEmployee.EmployeeFullName} выполнено");
+                }
+                else
+                {
+                    MessageBox.Show($"Ошибка. Удаление {SelectedEmployee.EmployeeFullName} не выполнено");
+                }
+            }
+            InitializeEmployees();
+        }
 
+        public ICommand IExit => new RelayCommand(exit => Exit());
+        private void Exit()
+        {
+            DepartmentsEmployeesPanelWindow.Close();
+        }
     }
 }

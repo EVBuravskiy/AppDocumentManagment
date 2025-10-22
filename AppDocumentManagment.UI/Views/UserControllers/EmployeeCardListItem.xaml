@@ -34,11 +34,13 @@
                     </Border>
                     <StackPanel Orientation="Vertical" 
                                 Grid.Column="1">
-                        <Label FontFamily="Arial"
-                               FontSize="14"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Center"
-                               Content="{Binding Department.DepartmentTitle}"/>
+                        <TextBlock FontFamily="Arial"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding Department.DepartmentTitle}"/>
                         <TextBlock Grid.Row="1"
                                    Padding="10, 0"
                                    FontFamily="Arial"

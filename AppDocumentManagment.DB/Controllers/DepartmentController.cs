@@ -85,5 +85,21 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return result;
         }
+        public bool RemoveDepartment(Department inputDepartment)
+        {
+            bool result = false;
+            using(ApplicationContext context = new ApplicationContext())
+            {
+                Department currentDepartment = context.Departments.FirstOrDefault(x => x.DepartmentID == inputDepartment.DepartmentID);
+                if (currentDepartment == null)
+                {
+                    return result;
+                }
+                context.Departments.Remove(currentDepartment);
+                context.SaveChanges();
+                result = true;
+            }
+            return result;
+        }
     }
 }

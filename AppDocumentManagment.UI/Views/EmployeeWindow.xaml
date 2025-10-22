@@ -9,7 +9,7 @@
         Title="АИС Документооборот"  
         Height="500"
         Width="500"
-        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <uc:EmployeeRoleConverter x:Name="ToIntConverter" x:Key="ToIntConveter"/>

@@ -50,12 +50,31 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ICommand ICanselEditing => new RelayCommand(canselEditing => CanselEditing());
+        public ICommand IDelete => new RelayCommand(delete => Delete());
 
-        private void CanselEditing()
+        private void Delete()
         {
-            DepartmentTitle = "";
-            DepartmentShortTitle = "";
+            bool result = false;
+            if (_selectedDepartment != null)
+            {
+                EmployeeController employeeController = new EmployeeController();
+                List<Employee> employeesDepartment = employeeController.GetEmployeesByDeparmentID(_selectedDepartment.DepartmentID);
+                foreach (Employee employee in employeesDepartment)
+                {
+                    employeeController.DeleteEmployee(employee);
+                }
+                DepartmentController departmentController = new DepartmentController();
+                result = departmentController.RemoveDepartment(_selectedDepartment);
+            }
+            if (result)
+            {
+                MessageBox.Show($"Удаление отдела {DepartmentTitle} выполнено успешно");
+                DepartmentTitle = "";
+                DepartmentShortTitle = "";
+                return;
+            }
+            MessageBox.Show($"Ошибка! Удаление отдела {DepartmentTitle} не выполнено");
+            DepartmentWindow.Close();
         }
 
         public ICommand ISave => new RelayCommand(save => Save());

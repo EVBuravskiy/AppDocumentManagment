@@ -82,7 +82,7 @@
                    Margin="30 10"/>
         </Grid>
         <Grid Grid.Row="3">
-            <Button Content="Очистить данные" 
+            <Button Content="Удалить отдел" 
                     HorizontalAlignment="Left"
                     Style="{StaticResource Buttons}"
                     Padding="10 5"
@@ -90,8 +90,8 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding ICanselEditing}"/>
-            <Button Content="Сохранить" 
+                    Command="{Binding IDelete}"/>
+            <Button Content="Сохранить изменения" 
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
                     Padding="10, 5"
