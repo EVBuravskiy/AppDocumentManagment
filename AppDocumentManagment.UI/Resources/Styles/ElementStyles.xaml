@@ -133,4 +133,14 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- Textblock for Admin and Document panel -->
+    <Style x:Key="AdminDocumentTextblock" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
 </ResourceDictionary>
