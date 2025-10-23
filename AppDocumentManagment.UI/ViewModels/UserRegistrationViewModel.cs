@@ -27,8 +27,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedEmployee));
                 if (SelectedEmployee != null)
                 {
-                    RegisterUserWindow registerUserWindow = new RegisterUserWindow(SelectedEmployee, SelectedUser.UserIsRegistrated);
-                    registerUserWindow.ShowDialog();
+                    OpenResterUserWindow();
                 }
             }
         }
@@ -68,7 +67,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 _comboSelectedDepartment = value;
                 OnPropertyChanged(nameof(ComboSelectedDepartment));
                 int index = 0;
-                for (; index <= ComboDepartments.Count; index++)
+                for (; index < ComboDepartments.Count; index++)
                 {
                     if (value.Equals(ComboDepartments[index]))
                     {
@@ -112,12 +111,11 @@ namespace AppDocumentManagment.UI.ViewModels
             AllUsers = new ObservableCollection<User>();
             Users = new ObservableCollection<User>();
             InitializeDepartments();
-            InitializeComboDepartments();
             InitializeEmployees();
             InitializeRegistratedUsers();
             InitialiseAllUsers();
-            GetRegistratedUsersList();
             InitializeComboDepartments();
+            GetRegistratedUsersList();
         }
 
         private void InitializeDepartments()
@@ -137,7 +135,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ComboDepartments.Clear();
             ComboDepartments.Add("Все отделы/департаменты");
-            foreach (var user in Users)
+            foreach (var user in AllUsers)
             {
                 if (ComboDepartments.Contains(user.EmployeeDepartmentTitle)) continue;
                 ComboDepartments.Add(user.EmployeeDepartmentTitle);
@@ -307,13 +305,13 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             GetUsersByStatus();
             GetUsersBySelectedDepartmentTitle();
-            searchString = searchString.Trim();
             SearchString = searchString;
         }
 
         private void GetUserBySearchString()
         {
-            if (string.IsNullOrWhiteSpace(SearchString) || string.IsNullOrEmpty(SearchString))
+            string searchString = SearchString.Trim();
+            if (string.IsNullOrWhiteSpace(searchString) || string.IsNullOrEmpty(searchString))
             {
                 return;
             }
@@ -322,7 +320,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 List<User> users = new List<User>();
                 foreach (var user in Users)
                 {
-                    if (user.EmployeeFullName.ToLower().Contains(SearchString.ToLower()))
+                    if (user.EmployeeFullName.ToLower().Contains(searchString.ToLower()))
                     {
                         users.Add(user);
                     }
@@ -333,6 +331,18 @@ namespace AppDocumentManagment.UI.ViewModels
                     Users.Add(user);
                 }
             }
+        }
+
+        private void OpenResterUserWindow()
+        {
+            RegisterUserWindow registerUserWindow = new RegisterUserWindow(SelectedEmployee, SelectedUser.UserIsRegistrated);
+            registerUserWindow.ShowDialog();
+            InitializeRegistratedUsers();
+            InitialiseAllUsers();
+            InitializeComboDepartments();
+            GetAllUsers();
+            GetRegistratedUsers();
+            GetNotRegistratedUsers();
         }
 
         public ICommand IBack => new RelayCommand(back => Back());
