@@ -132,8 +132,7 @@
                              Margin="15 0"
                              FontFamily="Arial"
                              FontSize="14"
-                             Text="{Binding SearchString}"
-                             TextChanged="SearchTextBox_TextChanged"/>
+                             Text="{Binding SearchString}"/>
                     <Label Grid.Row="1"
                            IsHitTestVisible="False" 
                            Content="Поиск по наименованию документа или наименованию контрагента..."
