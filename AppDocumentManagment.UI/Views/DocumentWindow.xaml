@@ -11,6 +11,12 @@
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0.778"/>
+                <GradientStop Color="White" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
             <RowDefinition Height="200px"/>
@@ -195,12 +201,6 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="4">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF7D00FF" Offset="0"/>
-                    <GradientStop Color="Black" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
             <Button Content="Удалить документ" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"

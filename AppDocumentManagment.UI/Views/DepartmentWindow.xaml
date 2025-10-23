@@ -6,10 +6,16 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="280"
+        Height="240"
         Width="500"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0.778"/>
+                <GradientStop Color="White" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
             <RowDefinition Height="60px"/>
@@ -100,14 +106,6 @@
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding ISave}"/>
-        </Grid>
-        <Grid Grid.Row="4">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF7D00FF" Offset="0"/>
-                    <GradientStop Color="Black" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
         </Grid>
     </Grid>
 </Window>
