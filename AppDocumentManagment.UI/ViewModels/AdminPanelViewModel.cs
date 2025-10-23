@@ -30,7 +30,9 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IOpenUserRegistrationWindow => new RelayCommand(openUserRegistrationWindow => OpenUserRegistrationWindow());
         private void OpenUserRegistrationWindow()
         {
-            MessageBox.Show("Open user registration window");
+            UserRegistrationWindow userRegistrationWindow = new UserRegistrationWindow();
+            userRegistrationWindow.Show();
+            _adminPanelWindow.Close();
         }
 
     }
