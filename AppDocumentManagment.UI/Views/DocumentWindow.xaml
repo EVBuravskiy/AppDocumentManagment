@@ -38,7 +38,7 @@
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
                     Margin="10, 5"
-                    Padding="10, 0"
+                    Padding="20, 0"
                     Command="{Binding IExit}"/>
         </Grid>
         <Grid Grid.Row="1">
@@ -92,7 +92,7 @@
                                     HorizontalContentAlignment="Center"
                                     Margin="20 0"
                                     Padding="10 0"
-                                    Width="200" SelectedDateFormat="Long" IsDropDownOpen="True"/>
+                                    Width="200" SelectedDateFormat="Long" IsDropDownOpen="False"/>
                     </Grid>
                     <TextBox x:Name="DocumentTitle" 
                              Grid.Row="3"
@@ -109,13 +109,14 @@
                            Content="Введите наименование документа..."
                            VerticalAlignment="Top"
                            FontSize="14"
-                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentNumber, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"/>
                 </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <Button Style="{StaticResource Buttons}"
+                    Width="200"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     Padding="10 5"
@@ -139,7 +140,8 @@
                            TextAlignment="Center"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3"
+              Margin="0 0 0 20">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -152,6 +154,7 @@
                        Margin="20 0"
                        Content="Файлы документа: "/>
                 <Button Grid.Row="2" 
+                        Width="200"
                         Style="{StaticResource Buttons}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -160,6 +163,7 @@
                         Margin="20 0"/>
                 <Button Grid.Row="2" 
                         Style="{StaticResource Buttons}"
+                        Width="250"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Content="Добавить файл документа"
@@ -170,14 +174,20 @@
                 </Viewbox>
             </Grid>
         </Grid>
-        <Grid Grid.Row="4"
-              Margin="0 20">
+        <Grid Grid.Row="4">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF7D00FF" Offset="0"/>
+                    <GradientStop Color="Black" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Button Content="Удалить документ" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"
+                    Width="200"
                     Padding="10 5"
-                    Margin="20 10"
+                    Margin="20 30"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -186,8 +196,9 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
+                    Width="200"
                     Padding="10, 5"
-                    Margin="20 10"
+                    Margin="20 30"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -195,21 +206,15 @@
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
+                    Width="250"
                     Padding="35, 5"
-                    Margin="20 5"
+                    Margin="20 30"
                     FontFamily="Arial" 
                     FontSize="16"
                     FontWeight="Bold">
                 <TextBlock TextAlignment="Center"> Передать <LineBreak/> на рассмотрение </TextBlock>
             </Button>
         </Grid>
-        <Grid Grid.Row="7">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF7D00FF" Offset="0"/>
-                    <GradientStop Color="Black" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-        </Grid>
+        <Grid Grid.Row="7" Background="Black"/>
     </Grid>
 </Window>
