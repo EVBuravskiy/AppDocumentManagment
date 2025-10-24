@@ -12,6 +12,8 @@ namespace AppDocumentManagment.DB.Controllers
         public DbSet<Employee> Employees { get; set; } = null!;
         public DbSet<RegistredUser> RegistredUsers { get; set; } = null!;
         public DbSet<ContractorCompany> ContractorCompanies { get; set; } = null!;
+        public DbSet<Document> Documents { get; set; } = null!;
+        public DbSet<DocumentFile> DocumentFiles { get; set; } = null!;
         public ApplicationContext() 
         {
             Database.EnsureCreated();
