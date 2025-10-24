@@ -78,7 +78,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 ContractorCompanyShortTitle = selectedContractorCompany.ContractorCompanyShortTitle;
                 ContractorCompanyAddress = selectedContractorCompany.ContractorCompanyAddress;
                 ContractorCompanyPhone = selectedContractorCompany.ContractorCompanyPhone;
-                ContractorCompanyEmail = selectedContractorCompany.ContractorCompanyPhone;
+                ContractorCompanyEmail = selectedContractorCompany.ContractorCompanyEmail;
             }
         }
 

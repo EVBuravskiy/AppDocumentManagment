@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDocumentManagment.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,19 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class ContractorСompanyListWindow : Window
     {
+        private ContractorCompanyListViewModel viewModel;
         public ContractorСompanyListWindow()
         {
             InitializeComponent();
+            viewModel = new ContractorCompanyListViewModel(this);
+            DataContext = viewModel;
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            viewModel.SearchString = textBox.Text;
+            viewModel.GetContractorCompanyBySearchString(textBox.Text);
         }
     }
 }

@@ -73,17 +73,35 @@
                            FontFamily="Arial"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=SearchStringBox, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Button HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0 0 25 0"
+                            Padding="10"
+                            Background="White"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource SearchButton}"
+                            Height="25"
+                            Width="25">
+                        <Image Width="25" Height="25" Source="/Resources/Images/SearchIcon.png"/>
+                    </Button>
                     <Button Grid.Column="1"
                             Style="{StaticResource Buttons}"
                             Padding="10 5"
-                            Margin="20 0">
+                            Margin="20 0"
+                            Command="{Binding IAddNewContractorCompany}">
                         <TextBlock TextAlignment="Center">Добавить <LineBreak/> контрагента</TextBlock>
                     </Button>
                 </Grid>
                 <Grid Grid.Row="1"
                       Margin="20 10">
-                    <ListView>
-
+                    <ListView ItemsSource="{Binding ContractorCompanies}"
+                              SelectedItem="{Binding SelectedContractorCompany}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ContractorCompanyTitle}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
             </Grid>
@@ -98,7 +116,8 @@
                     VerticalAlignment="Center"
                     Content="Редактировать контрагента"
                     Padding="10 10"
-                    Margin="20 0"/>
+                    Margin="20 0"
+                    Command="{Binding IEditContractorCompany}"/>
             <Button Style="{StaticResource Buttons}"
                     Width="250"
                     Height="40"
