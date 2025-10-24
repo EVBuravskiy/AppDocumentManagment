@@ -64,8 +64,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedDocumentType = value;
                 OnPropertyChanged(nameof(SelectedDocumentType));
-                SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(value);
-                OnPropertyChanged(nameof(SelectedDocumentTypeIndex));
+                //SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(value);
             }
         }
 
@@ -84,8 +83,84 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string textBlockCompanyTitle = "Наименование контрагента";
+        public string TextBlockCompanyTitle
+        {
+            get => textBlockCompanyTitle;
+            set
+            {
+                textBlockCompanyTitle = value;
+                OnPropertyChanged(nameof(TextBlockCompanyTitle));
+            }
+        }
+
+        private string textBlockCompanyShortTitle = "Сокращенное наименование контрагента";
+        public string TextBlockCompanyShortTitle
+        {
+            get => textBlockCompanyShortTitle;
+            set
+            {
+                textBlockCompanyShortTitle = value;
+                OnPropertyChanged(nameof(TextBlockCompanyTitle));
+            }
+        }
+
+        private string textBlockCompanyAddress = "Юридический адрес:";
+        public string TextBlockCompanyAddress
+        {
+            get => textBlockCompanyAddress;
+            set
+            {
+                textBlockCompanyAddress = value;
+                OnPropertyChanged(nameof(TextBlockCompanyAddress));
+            }
+        }
+
+        private string textBlockCompanyPhone = "Контактный телефон:";
+        public string TextBlockCompanyPhone
+        {
+            get => textBlockCompanyPhone;
+            set
+            {
+                textBlockCompanyPhone = value;
+                OnPropertyChanged(nameof(TextBlockCompanyPhone));
+            }
+        }
+
         public List<DocumentFile> DocumentFiles { get; set; }
         private DateTime RegistrationDate { get; set; }
+
+        public DocumentViewController(DocumentWindow window, Document selectedDocument)
+        {
+            DocumentWindow = window;
+            SelectedDocument = selectedDocument;
+            if (SelectedDocument != null)
+            {
+                DocumentTitle = SelectedDocument.DocumentTitle;
+                DocumentNumber = SelectedDocument.DocumentNumber;
+                DocumentDate = SelectedDocument.DocumentDate;
+                ContractorCompany = SelectedDocument.ContractorCompany;
+                ContractorCompanyID = SelectedDocument.ContractorCompanyID;
+                SelectedDocumentType = SelectedDocument.DocumentType;
+                DocumentFiles = SelectedDocument.DocumentFiles;
+            }
+            else
+            {
+                DocumentDate = DateTime.Now;
+            } 
+            InitializeDocumentTypes();
+        }
+
+        private void InitializeDocumentTypes()
+        {
+            DocumentTypes = new List<string>();
+            var documentTypes = Enum.GetValues(typeof(DocumentType));
+            foreach (var type in documentTypes)
+            {
+                DocumentTypes.Add(DocumentTypeConverter.ConvertToString(type));
+            }
+        }
+
 
     }
 }

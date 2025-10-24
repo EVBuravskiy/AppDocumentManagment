@@ -64,8 +64,17 @@
                                Content="Выберите тип документа"/>
                         <ComboBox HorizontalAlignment="Right"
                                   Margin="30 0"
-                                  Width="250"
-                                  Height="30"/>
+                                  Width="300"
+                                  Height="30"
+                                  FontFamily="Arial"
+                                  FontSize="14"
+                                  FontWeight="DemiBold"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  Background="WhiteSmoke"
+                                  ItemsSource="{Binding DocumentTypes}"
+                                  SelectedIndex="{Binding SelectedDocumentTypeIndex}"
+                                  SelectedItem="{Binding SelectedDocumentType}"/>
                     </Grid>
                     <TextBox x:Name="DocumentNumber" 
                              Grid.Row="1"
@@ -98,7 +107,8 @@
                                     HorizontalContentAlignment="Center"
                                     Margin="20 0"
                                     Padding="10 0"
-                                    Width="200" SelectedDateFormat="Long" IsDropDownOpen="False"/>
+                                    Width="200" SelectedDateFormat="Long" IsDropDownOpen="False"
+                                    SelectedDate="{Binding DocumentDate}"/>
                     </Grid>
                     <TextBox x:Name="DocumentTitle" 
                              Grid.Row="3"
@@ -136,32 +146,34 @@
                 <Grid Grid.Row="1"
                       Margin="20 10">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" 
-                                   Style="{StaticResource AdminDocumentTextblock}"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   Text="Наименование контрагента"/>
-                        <TextBlock Grid.Row="1" 
-                                   Style="{StaticResource AdminDocumentTextblock}"
-                                   HorizontalAlignment="Center"
-                                   FontSize="16"
-                                   Text="Сокращенное наименование контрагента"/>
-                        <TextBlock Grid.Row="2" 
-                                   Style="{StaticResource AdminDocumentTextblock}"
-                                   HorizontalAlignment="Center"
-                                   FontSize="14"
-                                   Text="Адрес контрагента"/>
-                        <TextBlock Grid.Row="3" 
-                                   Style="{StaticResource AdminDocumentTextblock}"
-                                   HorizontalAlignment="Center"
-                                   FontSize="14"
-                                   Text="Контактный телефон"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Text="Информация о контрагенте"
+                                       Margin="0 5 0 5"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Text="{Binding TextBlockCompanyTitle}"
+                                       Margin="0 5 0 0"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Center"
+                                       FontSize="16"
+                                       Text="{Binding TextBlockCompanyShortTitle}"
+                                       Margin="0 0 0 10"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Left"
+                                       FontSize="14"
+                                       Text="{Binding TextBlockCompanyAddress}"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Left"
+                                       Margin="0 0 0 3"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Left"
+                                       FontSize="14"
+                                       Text="{Binding TextBlockCompanyPhone}"/>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </Grid>
@@ -176,7 +188,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Style="{StaticResource TopPanelLabel}"
-                       Foreground="Black"
+                       Foreground="White"
                        Margin="20 0"
                        Content="Файлы документа: "/>
                 <Button Grid.Row="2" 

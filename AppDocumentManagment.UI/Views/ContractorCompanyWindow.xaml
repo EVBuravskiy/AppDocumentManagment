@@ -99,12 +99,14 @@
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
                              Height="80"
-                             TextWrapping="Wrap"/>
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Top"/>
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите адрес контрагента..."
                            VerticalAlignment="Top"
                            FontSize="14"
+                           Height="80"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyAddress, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"/>
                 </Grid>
