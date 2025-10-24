@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="550"
+        Height="530"
         Width="520"
         Icon="/Resources/Images/AppIcon.png" 
         WindowStartupLocation="CenterScreen" 
@@ -24,8 +24,7 @@
             <RowDefinition Height="150px"/>
             <RowDefinition Height="50px"/>
             <RowDefinition Height="180px"/>
-            <RowDefinition Height="40px"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.Background>
@@ -201,21 +200,25 @@
                     Style="{StaticResource Buttons}"
                     Padding="10 5"
                     Margin="30 5"
+                    Width="200"
+                    Height="40"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IRemoveRegistration}"
                     Visibility="Hidden"/>
             <Button x:Name="EditBtn"
+                    Content="Зарегистрировать"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
                     Padding="10, 5"
                     Margin="30 5"
                     FontFamily="Arial" 
+                    Width="200"
+                    Height="40"
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IRegisterUser}"/>
         </Grid>
-        <Grid Grid.Row="5"/>
     </Grid>
 </Window>

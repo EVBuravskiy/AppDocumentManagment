@@ -93,6 +93,7 @@
               Background="Black">
             <Button Style="{StaticResource Buttons}"
                     Width="250"
+                    Height="40"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Редактировать контрагента"
@@ -100,6 +101,7 @@
                     Margin="20 0"/>
             <Button Style="{StaticResource Buttons}"
                     Width="250"
+                    Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Content="Выбрать контрагента"

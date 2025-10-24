@@ -193,6 +193,8 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
+                    Width="200"
+                    Height="40"
                     Command="{Binding IRemove}"/>
             <Button Content="Сохранить изменения" 
                     HorizontalAlignment="Right"
@@ -202,16 +204,9 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
+                    Width="200"
+                    Height="40"
                     Command="{Binding ISave}"/>
-            <Button x:Name="EditBtn" Content="Редактировать" 
-                    HorizontalAlignment="Right"
-                    Style="{StaticResource Buttons}"
-                    Padding="10, 5"
-                    Margin="140 5"
-                    FontFamily="Arial" 
-                    FontSize="14"
-                    FontWeight="Bold"
-                    Visibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>
