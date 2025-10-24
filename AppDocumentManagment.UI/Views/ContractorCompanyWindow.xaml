@@ -95,7 +95,7 @@
                              Style="{StaticResource ItemTitleBox}"
                              VerticalAlignment="Top"
                              FontSize="14"
-                             Text="{Binding ContractorCompanyShortTitle}"
+                             Text="{Binding ContractorCompanyAddress}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
                              Height="80"
@@ -113,7 +113,7 @@
                              Style="{StaticResource ItemTitleBox}"
                              VerticalAlignment="Top"
                              FontSize="14"
-                             Text="{Binding ContractorCompanyShortTitle}"
+                             Text="{Binding ContractorCompanyPhone}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"/>
                     <Label IsHitTestVisible="False" 
@@ -129,7 +129,7 @@
                              Style="{StaticResource ItemTitleBox}"
                              VerticalAlignment="Top"
                              FontSize="14"
-                             Text="{Binding ContractorCompanyShortTitle}"
+                             Text="{Binding ContractorCompanyEmail}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"/>
                     <Label IsHitTestVisible="False" 
@@ -153,7 +153,7 @@
                     FontWeight="Bold"
                     Width="200"
                     Height="40"
-                    Command="{Binding IRemove}"/>
+                    Command="{Binding IRemoveContractorCompany}"/>
             <Button Content="Сохранить изменения" 
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
@@ -164,7 +164,7 @@
                     FontWeight="Bold"
                     Width="200"
                     Height="40"
-                    Command="{Binding ISave}"/>
+                    Command="{Binding ISaveContractorCompany}"/>
         </Grid>
     </Grid>
 </Window>

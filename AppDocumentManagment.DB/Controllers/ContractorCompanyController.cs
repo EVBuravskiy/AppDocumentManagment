@@ -38,6 +38,34 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return null;
         }
+        public bool UpdateContractorCompany(ContractorCompany contractorCompany)
+        {
+            bool result = false;
+            if (contractorCompany != null)
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    ContractorCompany aviableContractorCompany = context.ContractorCompanies.Where(x => x.ContractorCompanyID == contractorCompany.ContractorCompanyID).FirstOrDefault();
+                    if (aviableContractorCompany != null)
+                    {
+                        aviableContractorCompany.ContractorCompanyTitle = contractorCompany.ContractorCompanyTitle;
+                        aviableContractorCompany.ContractorCompanyShortTitle = contractorCompany.ContractorCompanyShortTitle;
+                        aviableContractorCompany.ContractorCompanyAddress = contractorCompany.ContractorCompanyAddress;
+                        aviableContractorCompany.ContractorCompanyPhone = contractorCompany.ContractorCompanyPhone;
+                        aviableContractorCompany.ContractorCompanyEmail = contractorCompany.ContractorCompanyEmail;
+                        context.ContractorCompanies.Update(aviableContractorCompany);
+                        context.SaveChanges();
+                        result = true;
+                    }
+                    else
+                    {
+                        result = AddContractorCompany(contractorCompany);
+                    }
+                }
+            }
+            return result;
+        }
+
         public bool RemoveContractorCompany(ContractorCompany contractorCompany)
         {
             bool result = false;
