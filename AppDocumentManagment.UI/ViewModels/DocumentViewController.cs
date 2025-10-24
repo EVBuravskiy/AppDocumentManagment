@@ -1,11 +1,13 @@
 ﻿using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
+using System.Windows.Input;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
     public class DocumentViewController : BaseViewModelClass
     {
+        private IImageDialogService fileDialogService;
         private DocumentWindow DocumentWindow { get; set; }
         private Document SelectedDocument { get; set; }
         private string documentTitle;
@@ -134,6 +136,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             DocumentWindow = window;
             SelectedDocument = selectedDocument;
+            fileDialogService = new WindowsDialogService();
             if (SelectedDocument != null)
             {
                 DocumentTitle = SelectedDocument.DocumentTitle;
@@ -161,6 +164,10 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-
+        public ICommand IBrowseDocumentFiles => new RelayCommand(browseDocumentFiles => BrowseDocumentFile());
+        private void BrowseDocumentFile()
+        {
+            var filePath = fileDialogService.OpenFile("Files|*.txt;*.jpg;*.jpeg;*.png;*.pdf|All files");
+        }
     }
 }

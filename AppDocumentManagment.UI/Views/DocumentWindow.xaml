@@ -206,7 +206,8 @@
                         VerticalAlignment="Center"
                         Content="Добавить файл документа"
                         Padding="10 10"
-                        Margin="20 0"/>
+                        Margin="20 0"
+                        Command="{Binding IBrowseDocumentFiles}"/>
                 <Viewbox Grid.Row="1"
                          Margin="20 5 20 10">
                 </Viewbox>
