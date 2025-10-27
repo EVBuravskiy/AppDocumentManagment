@@ -123,5 +123,11 @@ namespace AppDocumentManagment.UI.ViewModels
                 InitializeContractorCompanies();
             }
         }
+
+        public ICommand ISelectContractorCompany => new RelayCommand(selectContractorCompany => SelectContractorCompany());
+        private void SelectContractorCompany()
+        {
+            Window.Close();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AppDocumentManagment.UI.ViewModels;
+﻿using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class ContractorСompanyListWindow : Window
     {
-        private ContractorCompanyListViewModel viewModel;
+        public ContractorCompanyListViewModel viewModel;
         public ContractorСompanyListWindow()
         {
             InitializeComponent();

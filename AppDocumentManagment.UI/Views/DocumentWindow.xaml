@@ -139,7 +139,8 @@
                 <Grid Grid.Row="0">
                     <Button Style="{StaticResource Buttons}"
                             Padding="10 5"
-                            Margin="20 0">
+                            Margin="20 0"
+                            Command="{Binding IOpenContractorCompanyListWindow}">
                         <TextBlock TextAlignment="Center">Добавить <LineBreak/> контрагента</TextBlock>
                     </Button>
                 </Grid>
@@ -198,7 +199,8 @@
                         VerticalAlignment="Center"
                         Content="Удалить файл документа"
                         Padding="10 10"
-                        Margin="20 0"/>
+                        Margin="20 0"
+                        Command="{Binding IDeleteDocumentFile}"/>
                 <Button Grid.Row="2" 
                         Style="{StaticResource Buttons}"
                         Width="250"
@@ -208,9 +210,16 @@
                         Padding="10 10"
                         Margin="20 0"
                         Command="{Binding IBrowseDocumentFiles}"/>
-                <Viewbox Grid.Row="1"
-                         Margin="20 5 20 10">
-                </Viewbox>
+                <ListView Grid.Row="1"
+                          Margin="20 5 20 10"
+                          ItemsSource="{Binding DocumentFiles}"
+                          SelectedItem="{Binding SelectedDocumentFile}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}" Text="{Binding FileName}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
         <Grid Grid.Row="4">

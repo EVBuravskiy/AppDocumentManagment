@@ -18,5 +18,6 @@ namespace AppDocumentManagment.DB.Models
         public List<DocumentFile>? DocumentFiles { get; set; }
         public DateTime RegistrationDate { get; set; }
         public string RegistrationNumber => DocumentID.ToString();
+        public bool IsRegistated { get; set; }
     }
 }

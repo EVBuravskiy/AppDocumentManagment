@@ -125,7 +125,8 @@
                     VerticalAlignment="Center"
                     Content="Выбрать контрагента"
                     Padding="10 10"
-                    Margin="20 0"/>
+                    Margin="20 0"
+                    Command="{Binding ISelectContractorCompany}"/>
             </Grid>
     </Grid>
 </Window>
