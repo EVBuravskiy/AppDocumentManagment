@@ -18,6 +18,6 @@ namespace AppDocumentManagment.DB.Models
         public EmployeeRole EmployeeRole { get; set; }
         public string EmployeeImagePath { get; set; }
         public string EmployeeFullName => $"{EmployeeLastName} {EmployeeFirstName} {EmployeeMiddleName}";
-
+        public string EmployeeShortName => $"{EmployeeLastName} {EmployeeFirstName.ElementAt(0)}.{EmployeeMiddleName.ElementAt(0)}.";
     }
 }

@@ -1,4 +1,5 @@
-﻿using AppDocumentManagment.UI.ViewModels;
+﻿using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,10 @@ namespace AppDocumentManagment.UI.Views
     public partial class DocumentWindow : Window
     {
         private DocumentViewController viewController;
-        public DocumentWindow()
+        public DocumentWindow(Document inputDocument)
         {
             InitializeComponent();
-            viewController = new DocumentViewController(this, null);
+            viewController = new DocumentViewController(this, inputDocument);
             DataContext = viewController;
         }
     }
