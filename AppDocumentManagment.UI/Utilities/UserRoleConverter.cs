@@ -59,6 +59,7 @@ namespace AppDocumentManagment.UI.Utilities
                 3 => UserRole.HeadOfDepartment,
                 4 => UserRole.Performer,
                 5 => UserRole.Сlerk,
+                _ => UserRole.Performer,
             };
         }
     }

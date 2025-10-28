@@ -34,6 +34,5 @@ namespace AppDocumentManagment.UI.ViewModels
             userRegistrationWindow.Show();
             _adminPanelWindow.Close();
         }
-
     }
 }

@@ -30,6 +30,11 @@ namespace AppDocumentManagment.DB.Controllers
                 {
                     ContractorCompany contractorCompany = context.ContractorCompanies.Where(x => x.ContractorCompanyID == document.ContractorCompany.ContractorCompanyID).FirstOrDefault();
                     document.ContractorCompany = contractorCompany;
+                    if (document.EmployeeReceivedDocument != null)
+                    {
+                        Employee employee = context.Employees.Where(e => e.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
+                        document.EmployeeReceivedDocument = employee;
+                    }
                     context.Documents.Add(document);
                     context.SaveChanges();
                     return true;
@@ -68,6 +73,43 @@ namespace AppDocumentManagment.DB.Controllers
                 MessageBox.Show("Ошибка в удалении документа из базы данных или его файлов");
                 return false;
             }
+        }
+
+        public bool UpdateDocument(Document document)
+        {
+            bool result = false;
+            if (document == null) return result;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    Document aviableDocument = context.Documents.Where(x => x.DocumentID == document.DocumentID).FirstOrDefault();
+                    if (aviableDocument != null)
+                    {
+                        aviableDocument.DocumentTitle = document.DocumentTitle;
+                        aviableDocument.DocumentNumber = document.DocumentNumber;
+                        aviableDocument.DocumentDate = document.DocumentDate;
+                        ContractorCompany contractorCompany = context.ContractorCompanies.Where(x => x.ContractorCompanyID == document.ContractorCompany.ContractorCompanyID).FirstOrDefault();
+                        aviableDocument.ContractorCompany = contractorCompany;
+                        aviableDocument.DocumentType = document.DocumentType;
+                        aviableDocument.DocumentFiles = document.DocumentFiles;
+                        aviableDocument.RegistrationDate = document.RegistrationDate;
+                        aviableDocument.IsRegistated = document.IsRegistated;
+                        Employee employee = context.Employees.Where(x => x.EmployeeID == document.EmployeeID).FirstOrDefault();
+                        aviableDocument.EmployeeReceivedDocument = employee;
+                        aviableDocument.SendingDate = document.SendingDate;
+                        context.Documents.Update(aviableDocument);
+                        context.SaveChanges();
+                        result = true; 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка в обновлении документа в базе данных или его файлов");
+                result = false;
+            }
+            return result;
         }
     }
 }

@@ -275,20 +275,14 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IRegisterDocument => new RelayCommand(registerDocument => RegisterDocument());
         private void RegisterDocument()
         {
-            Document newDocument = new Document();
-            newDocument.DocumentTitle = DocumentTitle;
-            newDocument.DocumentNumber = DocumentNumber;
-            newDocument.DocumentDate = DocumentDate;
-            newDocument.ContractorCompany = ContractorCompany;
-            newDocument.DocumentType = SelectedDocumentType;
-            newDocument.DocumentFiles = DocumentFiles.ToList();
-            if (SelectedDocumentFile == null)
+            Document newDocument = CreateDocument();
+            bool result = false;
+            DocumentController documentController = new DocumentController();
+            if (SelectedDocument == null)
             {
                 newDocument.RegistrationDate = DateTime.Now;
                 newDocument.IsRegistated = true;
             }
-            bool result = false;
-            DocumentController documentController = new DocumentController();
             result = documentController.AddDocument(newDocument);
             if (result)
             {
@@ -300,6 +294,24 @@ namespace AppDocumentManagment.UI.ViewModels
                 MessageBox.Show("Ошибка в регистрации документа");
                 DocumentWindow.Close();
             }
+        }
+
+        private Document CreateDocument()
+        {
+            Document newDocument = new Document();
+            newDocument.DocumentTitle = DocumentTitle;
+            newDocument.DocumentNumber = DocumentNumber;
+            newDocument.DocumentDate = DocumentDate;
+            newDocument.ContractorCompany = ContractorCompany;
+            newDocument.DocumentType = SelectedDocumentType;
+            newDocument.DocumentFiles = DocumentFiles.ToList();
+            newDocument.IsRegistated = false;
+            if(SelectedDocument != null)
+            {
+                newDocument.RegistrationDate = SelectedDocument.RegistrationDate;
+                newDocument.IsRegistated = SelectedDocument.IsRegistated;
+            }
+            return newDocument;
         }
 
         public ICommand IRemoveDocument => new RelayCommand(removeDocument => RemoveDocument());
@@ -331,6 +343,33 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow();
             examiningPersonsWindow.ShowDialog();
+            bool result = false;
+            if (examiningPersonsWindow.viewModel.SelectedManager != null)
+            {
+                Document document = CreateDocument();
+                document.EmployeeReceivedDocument = examiningPersonsWindow.viewModel.SelectedManager;
+                DocumentController documentController = new DocumentController();
+                if (document.IsRegistated == false)
+                {
+                    document.RegistrationDate = DateTime.Now;
+                    document.SendingDate = DateTime.Now;
+                    document.IsRegistated = true;
+                    result = documentController.AddDocument(document);
+                }
+                else
+                {
+                    document.SendingDate = DateTime.Now;
+                    result = documentController.UpdateDocument(document);
+                }
+            }
+            if (result)
+            {
+                MessageBox.Show("Документ успешно направлен");
+            }
+            else
+            {
+                MessageBox.Show("Ошибка в отправке документа");
+            }
         }
     }
 }

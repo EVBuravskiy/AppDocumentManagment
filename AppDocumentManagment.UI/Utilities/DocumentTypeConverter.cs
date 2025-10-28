@@ -45,6 +45,7 @@ namespace AppDocumentManagment.UI.Utilities
                 DocumentType.CommercialOffer => 1,
                 DocumentType.Letter => 2,
                 DocumentType.GovernmentLetter => 3,
+                _ => 0,
             };
         }
 
@@ -58,6 +59,7 @@ namespace AppDocumentManagment.UI.Utilities
                 1 => DocumentType.CommercialOffer,
                 2 => DocumentType.Letter,
                 3 => DocumentType.GovernmentLetter,
+                _ => DocumentType.Contract
             };
         }
     }

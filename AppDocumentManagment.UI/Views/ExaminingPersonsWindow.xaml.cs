@@ -1,4 +1,5 @@
-﻿using AppDocumentManagment.UI.ViewModels;
+﻿using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,19 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class ExaminingPersonsWindow : Window
     {
-        private ExaminingPersonViewModel examiningPersonViewModel;
+        public ExaminingPersonViewModel viewModel;
         public ExaminingPersonsWindow()
         {
-            examiningPersonViewModel = new ExaminingPersonViewModel(this);
+            viewModel = new ExaminingPersonViewModel(this);
             InitializeComponent();
-            DataContext = examiningPersonViewModel;
+            DataContext = viewModel;
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            viewModel.SearchString = textBox.Text;
+            viewModel.GetManagerBySearchString(textBox.Text);
         }
     }
 }
