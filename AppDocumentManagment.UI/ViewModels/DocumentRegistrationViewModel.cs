@@ -80,7 +80,19 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 searchString = value;
                 OnPropertyChanged(nameof(SearchString));
-                GetDocumentBySearchString(SearchString);
+            }
+        }
+
+        private bool IsInternalDocuments = false;
+
+        private string textBlockTitle = "Зарегистрированные поступившие документы";
+        public string TextBlockTitle
+        {
+            get => textBlockTitle;
+            set
+            {
+                textBlockTitle = value;
+                OnPropertyChanged(nameof(TextBlockTitle));
             }
         }
 

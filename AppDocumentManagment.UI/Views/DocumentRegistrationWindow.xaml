@@ -100,7 +100,7 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60px"/>
+                        <RowDefinition Height="80px"/>
                         <RowDefinition Height="40px"/>
                         <RowDefinition Height="60px"/>
                         <RowDefinition Height="*"/>
@@ -112,12 +112,15 @@
                                FontSize="20"
                                FontWeight="DemiBold"
                                Margin="20, 0"
-                               Text="Изменяющийся список в соответствии с выбранным полем"/>
+                               Text="{Binding TextBlockTitle}"/>
                     <Button HorizontalAlignment="Right"
-                            Content="Изменяемая кнопка"
                             Padding="10"
-                            Margin="10"
-                            Style="{StaticResource Buttons}"/>
+                            Margin="0 10 20 10"
+                            Width="180"
+                            Style="{StaticResource Buttons}">
+                        <TextBlock TextAlignment="Center"> Зарегистрировать <LineBreak/> документ</TextBlock>
+                    </Button>
+
                     <TextBox Grid.Row="1" 
                              x:Name="SearchStringBox" 
                              Style="{StaticResource TaskListSearchBox}"
