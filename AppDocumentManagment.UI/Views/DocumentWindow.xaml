@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="820"
+        Height="860"
         Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -20,7 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
             <RowDefinition Height="200px"/>
-            <RowDefinition Height="200px"/>
+            <RowDefinition Height="240px"/>
             <RowDefinition Height="200px"/>
             <RowDefinition Height="120px"/>
             <RowDefinition Height="*"/>
@@ -173,7 +173,12 @@
                             <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                        HorizontalAlignment="Left"
                                        FontSize="14"
+                                       Margin="0 0 0 3"
                                        Text="{Binding TextBlockCompanyPhone}"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       HorizontalAlignment="Left"
+                                       FontSize="14"
+                                       Text="{Binding TextBlockCompanyEmail}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -233,7 +238,7 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IRemove}"/>
+                    Command="{Binding IRemoveDocument}"/>
             <Button Content="Зарегистрировать документ" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
@@ -244,7 +249,7 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding ISave}"/>
+                    Command="{Binding IRegisterDocument}"/>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
@@ -253,7 +258,8 @@
                     Margin="20 30"
                     FontFamily="Arial" 
                     FontSize="16"
-                    FontWeight="Bold">
+                    FontWeight="Bold"
+                    Command="{Binding ISendToExaminingPerson}">
                 <TextBlock TextAlignment="Center"> Передать <LineBreak/> на рассмотрение </TextBlock>
             </Button>
         </Grid>

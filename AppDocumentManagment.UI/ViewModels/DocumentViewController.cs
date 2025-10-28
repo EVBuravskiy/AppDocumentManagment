@@ -71,7 +71,6 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedDocumentType = value;
                 OnPropertyChanged(nameof(SelectedDocumentType));
-                //SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(value);
             }
         }
 
@@ -134,6 +133,17 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string textBlockCompanyEmail = "Электронная почта:";
+        public string TextBlockCompanyEmail
+        {
+            get => textBlockCompanyEmail;
+            set
+            {
+                textBlockCompanyEmail = value;
+                OnPropertyChanged(nameof(TextBlockCompanyEmail));
+            }
+        }
+
         private List<DocumentFile> DocumentFilesList { get; set; }
         
         public ObservableCollection<DocumentFile> DocumentFiles { get; set; }
@@ -181,12 +191,16 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ContractorСompanyListWindow contractorСompanyListWindow = new ContractorСompanyListWindow();
             contractorСompanyListWindow.ShowDialog();
-            ContractorCompany = contractorСompanyListWindow.viewModel.SelectedContractorCompany;
-            OnPropertyChanged(nameof(ContractorCompany));
-            TextBlockCompanyTitle = ContractorCompany.ContractorCompanyTitle;
-            TextBlockCompanyShortTitle = ContractorCompany.ContractorCompanyShortTitle;
-            TextBlockCompanyAddress = $"Юридический адрес: {ContractorCompany.ContractorCompanyAddress}";
-            TextBlockCompanyPhone = $"Контактный телефон: {ContractorCompany.ContractorCompanyPhone}";
+            if (contractorСompanyListWindow.viewModel.SelectedContractorCompany != null)
+            {
+                ContractorCompany = contractorСompanyListWindow.viewModel.SelectedContractorCompany;
+                OnPropertyChanged(nameof(ContractorCompany));
+                TextBlockCompanyTitle = ContractorCompany.ContractorCompanyTitle;
+                TextBlockCompanyShortTitle = ContractorCompany.ContractorCompanyShortTitle;
+                TextBlockCompanyAddress = $"Юридический адрес: {ContractorCompany.ContractorCompanyAddress}";
+                TextBlockCompanyPhone = $"Контактный телефон: {ContractorCompany.ContractorCompanyPhone}";
+                TextBlockCompanyEmail = $"Электронная почта: {ContractorCompany.ContractorCompanyEmail}";
+            }
         }
 
         private void GetDocumentFiles()
@@ -266,7 +280,6 @@ namespace AppDocumentManagment.UI.ViewModels
             newDocument.DocumentNumber = DocumentNumber;
             newDocument.DocumentDate = DocumentDate;
             newDocument.ContractorCompany = ContractorCompany;
-            newDocument.ContractorCompanyID = ContractorCompanyID;
             newDocument.DocumentType = SelectedDocumentType;
             newDocument.DocumentFiles = DocumentFiles.ToList();
             if (SelectedDocumentFile == null)
@@ -287,6 +300,37 @@ namespace AppDocumentManagment.UI.ViewModels
                 MessageBox.Show("Ошибка в регистрации документа");
                 DocumentWindow.Close();
             }
+        }
+
+        public ICommand IRemoveDocument => new RelayCommand(removeDocument => RemoveDocument());
+        private void RemoveDocument()
+        {
+            DocumentTitle = string.Empty;
+            DocumentNumber = string.Empty;
+            DocumentDate = DateTime.Now;
+            TextBlockCompanyTitle = "Наименование контрагента";
+            TextBlockCompanyShortTitle = "Сокращенное наименование контрагента";
+            TextBlockCompanyAddress = "Юридический адрес: ";
+            TextBlockCompanyPhone = "Контактный телефон: ";
+            TextBlockCompanyEmail = "Электронная почта: ";
+            SelectedDocumentType = DocumentType.Contract;
+            SelectedDocumentTypeIndex = 0;
+            DocumentFilesList.Clear();
+            DocumentFiles.Clear();
+            if (SelectedDocument != null)
+            {
+                DocumentController documentController = new DocumentController();
+                documentController.RemoveDocument(SelectedDocument);
+            }
+        }
+
+        public ICommand IExit => new RelayCommand(exit => DocumentWindow.Close());
+
+        public ICommand ISendToExaminingPerson => new RelayCommand(sendToExaminingPerson => SendToExaminingPerson());
+        private void SendToExaminingPerson()
+        {
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow();
+            examiningPersonsWindow.ShowDialog();
         }
     }
 }

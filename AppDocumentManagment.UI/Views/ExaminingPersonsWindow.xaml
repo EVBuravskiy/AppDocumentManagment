@@ -1,4 +1,4 @@
-﻿<Window x:Class="AppDocumentManagment.UI.Views.ContractorСompanyListWindow"
+﻿<Window x:Class="AppDocumentManagment.UI.Views.ExaminingPersonsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -19,7 +19,7 @@
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40px"/>
-            <RowDefinition Height="720px"/>
+            <RowDefinition Height="700px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -31,7 +31,7 @@
             </Grid.Background>
             <Label Grid.Row="0" 
                    x:Name="GreetingLabel"
-                   Content="Панель выбора контрагента" 
+                   Content="Руководство организации" 
                    HorizontalAlignment="Left" 
                    Padding="20,0"
                    Style="{StaticResource TopPanelLabel}"
@@ -52,21 +52,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" 
-                             x:Name="SearchStringBox" 
+                    <TextBox x:Name="SearchStringBox" 
                              Style="{StaticResource TaskListSearchBox}"
-                             Margin="20 5 5 5"
+                             Margin="20 5 20 5"
                              Padding="10 0 0 0"
                              FontFamily="Arial"
                              FontSize="14"
                              Text="{Binding SearchString}"/>
                     <Label IsHitTestVisible="False" 
-                           Content="Поиск контрагента..."
-                           Grid.Column="0"
+                           Content="Поиск..."
                            VerticalAlignment="Center"
                            Margin="30 0"
                            Foreground="Gray"
@@ -75,7 +69,7 @@
                            Visibility="{Binding Text.IsEmpty, ElementName=SearchStringBox, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <Button HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            Margin="0 0 25 0"
+                            Margin="0 0 30 0"
                             Padding="10"
                             Background="White"
                             BorderBrush="Transparent"
@@ -85,37 +79,56 @@
                             Width="25">
                         <Image Width="25" Height="25" Source="/Resources/Images/SearchIcon.png"/>
                     </Button>
-                    <Button Grid.Column="1"
-                            Style="{StaticResource Buttons}"
-                            Padding="10 5"
-                            Margin="20 0"
-                            Command="{Binding IAddNewContractorCompany}">
-                        <TextBlock TextAlignment="Center">Добавить <LineBreak/> контрагента</TextBlock>
-                    </Button>
                 </Grid>
                 <Grid Grid.Row="1"
                       Margin="20 10">
-                    <ListView ItemsSource="{Binding ContractorCompanies}"
-                              SelectedItem="{Binding SelectedContractorCompany}">
+                    <ListView ItemsSource="{Binding Managers}"
+                              SelectedItem="{Binding SelectedManager}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="2"
                                         BorderBrush="DimGray"
                                         CornerRadius="5"
-                                        Background="LightGray"
+                                        Background="WhiteSmoke"
                                         Padding="5">
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding ContractorCompanyTitle}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
-                                        <TextBlock Text="{Binding ContractorCompanyShortTitle}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
-                                        <TextBlock Text="{Binding ContractorCompanyAddress}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
-                                        <TextBlock Text="{Binding ContractorCompanyPhone}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
-                                        <TextBlock Text="{Binding ContractorCompanyEmail}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
-                                    </StackPanel>
+                                    <Grid>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50px"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <Border BorderBrush="DimGray"
+                                                            BorderThickness="2"
+                                                            CornerRadius="2">
+                                                    <Image Width="50"
+                                                           Height="50"
+                                                           Source="{Binding EmployeeImagePath,
+                                                        FallbackValue={StaticResource DefaultContactImage},
+                                                        TargetNullValue={StaticResource DefaultContactImage}}"
+                                                           Stretch="UniformToFill"/>
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock Grid.Row="1"
+                                                                   Margin="0 10 0 5"
+                                                                   Padding="10, 0"
+                                                                   FontFamily="Arial"
+                                                                   FontSize="14"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Left"
+                                                                   Text="{Binding Position}"/>
+                                                    <TextBlock Padding="10, 0"
+                                                                   FontFamily="Arial"
+                                                                   FontSize="14"
+                                                                   FontWeight="Bold"
+                                                                   HorizontalAlignment="Left"
+                                                                   Text="{Binding EmployeeFullName}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -129,21 +142,12 @@
             <Button Style="{StaticResource Buttons}"
                     Width="250"
                     Height="40"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Редактировать контрагента"
-                    Padding="10 10"
-                    Margin="20 0"
-                    Command="{Binding IEditContractorCompany}"/>
-            <Button Style="{StaticResource Buttons}"
-                    Width="250"
-                    Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Content="Выбрать контрагента"
+                    Content="Отправить на рассмотрение"
                     Padding="10 10"
                     Margin="20 0"
-                    Command="{Binding ISelectContractorCompany}"/>
-            </Grid>
+                    Command="{Binding ISendDocument}"/>
+        </Grid>
     </Grid>
 </Window>
