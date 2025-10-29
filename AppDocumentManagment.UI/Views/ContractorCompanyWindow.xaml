@@ -105,6 +105,7 @@
                            Foreground="DimGray"
                            Content="Введите адрес контрагента..."
                            VerticalAlignment="Top"
+                           VerticalContentAlignment="Center"
                            FontSize="14"
                            Height="80"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyAddress, Converter={StaticResource BooleanToVisibilityConverter}}"

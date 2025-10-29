@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Views;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -85,6 +86,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ISaveContractorCompany => new RelayCommand(saveContractorCompany => SaveContractorCompany());
         private void SaveContractorCompany()
         {
+            if (!ValidateContractorCompany()) return;
             if (isNew)
             {
                 ContractorCompany = new ContractorCompany();
@@ -113,6 +115,47 @@ namespace AppDocumentManagment.UI.ViewModels
                 MessageBox.Show($"Ошибка! Контрагент {ContractorCompany.ContractorCompanyTitle} не сохранен");
             }
             Exit();
+        }
+
+        private bool ValidateContractorCompany()
+        {
+            if (string.IsNullOrEmpty(ContractorCompanyTitle))
+            {
+                MessageBox.Show("Введите наименование организации");
+                ContractorCompanyWindow.ContractorCompanyTitle.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ContractorCompanyWindow.ContractorCompanyTitle.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(ContractorCompanyShortTitle))
+            {
+                MessageBox.Show("Введите сокращенное наименование организации");
+                ContractorCompanyWindow.ContractorCompanyShortTitle.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyShortTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ContractorCompanyWindow.ContractorCompanyShortTitle.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyShortTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(ContractorCompanyAddress))
+            {
+                MessageBox.Show("Введите адрес организации");
+                ContractorCompanyWindow.ContractorCompanyAddress.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyAddress.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ContractorCompanyWindow.ContractorCompanyAddress.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyAddress.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            return true;
         }
 
         public ICommand IRemoveContractorCompany => new RelayCommand(removeContractorCompany => RemoveContractorCompany());

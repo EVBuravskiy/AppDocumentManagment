@@ -98,13 +98,15 @@
                                Foreground="Black"
                                Margin="25 0"
                                Content="Введите или выберите дату документа:"/>
-                        <DatePicker HorizontalAlignment="Right"
+                        <DatePicker x:Name="DocumentDate"
+                                    Background="White"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     BorderBrush="Transparent"
                                     FontFamily="Arial"
                                     FontSize="14"
                                     FontWeight="DemiBold"
-                                    HorizontalContentAlignment="Center"
+                                    HorizontalContentAlignment="Stretch"
                                     Margin="20 0"
                                     Padding="10 0"
                                     Width="200" SelectedDateFormat="Long" IsDropDownOpen="False"
@@ -147,6 +149,10 @@
                 <Grid Grid.Row="1"
                       Margin="20 10">
                     <Grid>
+                        <Border x:Name="CompanyInfo"
+                                CornerRadius="5"
+                                BorderThickness="0"
+                                BorderBrush="Transparent">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                        HorizontalAlignment="Center"
@@ -180,6 +186,7 @@
                                        FontSize="14"
                                        Text="{Binding TextBlockCompanyEmail}"/>
                         </StackPanel>
+                        </Border>
                     </Grid>
                 </Grid>
             </Grid>
@@ -216,6 +223,7 @@
                         Margin="20 0"
                         Command="{Binding IBrowseDocumentFiles}"/>
                 <ListView Grid.Row="1"
+                          x:Name="FileList"
                           Margin="20 5 20 10"
                           ItemsSource="{Binding DocumentFiles}"
                           SelectedItem="{Binding SelectedDocumentFile}">

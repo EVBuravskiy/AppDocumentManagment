@@ -99,22 +99,31 @@
                               SelectedItem="{Binding SelectedContractorCompany}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="2"
+                                <Border HorizontalAlignment="Center"
+                                        Width="510"
+                                        BorderThickness="2"
                                         BorderBrush="DimGray"
                                         CornerRadius="5"
                                         Background="LightGray"
                                         Padding="5">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="{Binding ContractorCompanyTitle}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"/>
                                         <TextBlock Text="{Binding ContractorCompanyShortTitle}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"/>
                                         <TextBlock Text="{Binding ContractorCompanyAddress}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"/>
                                         <TextBlock Text="{Binding ContractorCompanyPhone}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"/>
                                         <TextBlock Text="{Binding ContractorCompanyEmail}"
-                                                   Style="{StaticResource AdminDocumentTextblock}"/>
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AppDocumentManagment.UI.ViewModels
@@ -280,6 +281,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IRegisterDocument => new RelayCommand(registerDocument => RegisterDocument());
         private void RegisterDocument()
         {
+            if (!ValidationDocument()) return;
             Document newDocument = CreateDocument();
             bool result = false;
             DocumentController documentController = new DocumentController();
@@ -348,6 +350,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ISendToExaminingPerson => new RelayCommand(sendToExaminingPerson => SendToExaminingPerson());
         private void SendToExaminingPerson()
         {
+            if (!ValidationDocument()) return;
             ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow();
             examiningPersonsWindow.ShowDialog();
             bool result = false;
@@ -377,6 +380,59 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 MessageBox.Show("Ошибка в отправке документа");
             }
+        }
+
+        private bool ValidationDocument()
+        {
+            if (string.IsNullOrEmpty(DocumentTitle))
+            {
+                MessageBox.Show("Введите наименование документа");
+                DocumentWindow.DocumentTitle.BorderThickness = new System.Windows.Thickness(2);
+                DocumentWindow.DocumentTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                DocumentWindow.DocumentTitle.BorderThickness = new System.Windows.Thickness(1);
+                DocumentWindow.DocumentTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (DocumentDate > DateTime.Now)
+            {
+                MessageBox.Show("Дата документа позднее текущей даты");
+                DocumentWindow.DocumentDate.BorderThickness = new System.Windows.Thickness(2);
+                DocumentWindow.DocumentDate.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                DocumentWindow.DocumentDate.BorderThickness = new System.Windows.Thickness(2);
+                DocumentWindow.DocumentDate.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (DocumentFiles == null || DocumentFiles.Count == 0)
+            {
+                MessageBox.Show("К документу не прикреплены файлы");
+                DocumentWindow.FileList.BorderThickness = new System.Windows.Thickness(2);
+                DocumentWindow.FileList.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                DocumentWindow.FileList.BorderThickness = new System.Windows.Thickness(2);
+                DocumentWindow.FileList.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (ContractorCompany == null)
+            {
+                MessageBox.Show("Не выбран контрагент");
+                DocumentWindow.CompanyInfo.BorderBrush = new SolidColorBrush(Colors.Red);
+                DocumentWindow.CompanyInfo.BorderThickness = new System.Windows.Thickness(2);
+                return false;
+            }
+            else
+            {
+                DocumentWindow.CompanyInfo.BorderBrush = new SolidColorBrush(Colors.Transparent);
+                DocumentWindow.CompanyInfo.BorderThickness = new System.Windows.Thickness(2);
+            }
+            return true;
         }
     }
 }

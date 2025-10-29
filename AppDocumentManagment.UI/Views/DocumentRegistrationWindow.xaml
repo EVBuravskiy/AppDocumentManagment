@@ -257,7 +257,7 @@
                                               SelectedItem="{Binding SelectedDocument, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Background="WhiteSmoke"
+                                                <Grid Background="Transparent"
                                                       Margin="0 5">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="80"/>
