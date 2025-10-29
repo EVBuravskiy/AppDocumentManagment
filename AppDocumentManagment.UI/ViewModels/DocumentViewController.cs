@@ -162,6 +162,11 @@ namespace AppDocumentManagment.UI.ViewModels
                 DocumentNumber = SelectedDocument.DocumentNumber;
                 DocumentDate = SelectedDocument.DocumentDate;
                 ContractorCompany = SelectedDocument.ContractorCompany;
+                TextBlockCompanyTitle = SelectedDocument.ContractorCompany.ContractorCompanyTitle;
+                TextBlockCompanyShortTitle = SelectedDocument.ContractorCompany.ContractorCompanyShortTitle;
+                TextBlockCompanyAddress = $"Юридический адрес: {SelectedDocument.ContractorCompany.ContractorCompanyAddress}";
+                TextBlockCompanyPhone = $"Контактный телефон: {SelectedDocument.ContractorCompany.ContractorCompanyPhone}";
+                TextBlockCompanyEmail = $"Электронная почта: {SelectedDocument.ContractorCompany.ContractorCompanyEmail}";
                 ContractorCompanyID = SelectedDocument.ContractorCompanyID;
                 SelectedDocumentType = SelectedDocument.DocumentType;
                 GetDocumentFiles();
@@ -308,6 +313,8 @@ namespace AppDocumentManagment.UI.ViewModels
             newDocument.IsRegistated = false;
             if(SelectedDocument != null)
             {
+                newDocument.ContractorCompany = SelectedDocument.ContractorCompany;
+                newDocument.DocumentID = SelectedDocument.DocumentID;
                 newDocument.RegistrationDate = SelectedDocument.RegistrationDate;
                 newDocument.IsRegistated = SelectedDocument.IsRegistated;
             }

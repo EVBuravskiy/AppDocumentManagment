@@ -24,7 +24,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             DepartmentsEmployeesPanelWindow departmentsEmployeesPanelWindow = new DepartmentsEmployeesPanelWindow();
             departmentsEmployeesPanelWindow.Show();
-            _adminPanelWindow.Close();
+            //_adminPanelWindow.Close();
         }
 
         public ICommand IOpenUserRegistrationWindow => new RelayCommand(openUserRegistrationWindow => OpenUserRegistrationWindow());
@@ -33,6 +33,13 @@ namespace AppDocumentManagment.UI.ViewModels
             UserRegistrationWindow userRegistrationWindow = new UserRegistrationWindow();
             userRegistrationWindow.Show();
             _adminPanelWindow.Close();
+        }
+
+        public ICommand IOpenDocumentRegistrationWindow => new RelayCommand(openDocumentRegistrationWindow => OpenDocumentRegistrationWindow());
+        private void OpenDocumentRegistrationWindow()
+        {
+            DocumentRegistrationWindow documentRegistrationWindow = new DocumentRegistrationWindow();
+            documentRegistrationWindow.Show();
         }
     }
 }

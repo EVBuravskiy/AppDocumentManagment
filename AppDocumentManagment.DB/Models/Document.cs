@@ -20,7 +20,7 @@ namespace AppDocumentManagment.DB.Models
         public string RegistrationNumber => DocumentID.ToString();
         public bool IsRegistated { get; set; }
         public Employee? EmployeeReceivedDocument { get; set; }
-        public int EmployeeID { get; set; }
+        public int? EmployeeID { get; set; }
         public DateTime? SendingDate { get; set; }
     }
 }

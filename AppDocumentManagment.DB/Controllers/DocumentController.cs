@@ -95,7 +95,7 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableDocument.DocumentFiles = document.DocumentFiles;
                         aviableDocument.RegistrationDate = document.RegistrationDate;
                         aviableDocument.IsRegistated = document.IsRegistated;
-                        Employee employee = context.Employees.Where(x => x.EmployeeID == document.EmployeeID).FirstOrDefault();
+                        Employee employee = context.Employees.Where(x => x.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
                         aviableDocument.EmployeeReceivedDocument = employee;
                         aviableDocument.SendingDate = document.SendingDate;
                         context.Documents.Update(aviableDocument);

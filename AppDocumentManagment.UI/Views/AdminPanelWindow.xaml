@@ -65,7 +65,8 @@
                         Content="Учет документов"    
                         Style="{StaticResource Buttons}"
                         Padding="10"
-                        Margin="5"/>
+                        Margin="5"
+                        Command="{Binding IOpenDocumentRegistrationWindow}"/>
                 <Button x:Name="TasksBtn"
                         Content="Учет задач"    
                         Style="{StaticResource Buttons}"

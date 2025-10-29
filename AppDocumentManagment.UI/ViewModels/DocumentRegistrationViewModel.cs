@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Linq;
 
 namespace AppDocumentManagment.UI.ViewModels
@@ -27,7 +28,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedDocument = value;
                 OnPropertyChanged(nameof(SelectedDocument));
-                OpenDocumentWindow(SelectedDocument);
+                if (SelectedDocument != null)
+                {
+                    OpenDocumentWindow(SelectedDocument);
+                }
             }
         }
 
@@ -63,11 +67,14 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 if (value != null)
                 {
-                    GetDocumentsByDocumentType();  
-                //    if (!string.IsNullOrEmpty(SearchString))
-                //    {
-                //        GetUserBySearchString();
-                //    }
+                    if (!string.IsNullOrEmpty(SearchString))
+                    {
+                        GetDocumentBySearchString(SearchString);
+                    }
+                    else
+                    {
+                        GetDocumentsByDocumentType();
+                    }
                 }
             }
         }
@@ -237,11 +244,19 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        public ICommand ICreateNewDocument => new RelayCommand(createNewDocument => CreateNewDocument());
+        private void CreateNewDocument()
+        {
+            OpenDocumentWindow(null);
+        }
 
         private void OpenDocumentWindow(Document document)
         {
             DocumentWindow documentWindow = new DocumentWindow(document);
             documentWindow.ShowDialog();
+            GetAllDocuments();
+            GetAllContractorCompanyes();
+            InitializeDocuments();
         }
 
     }
