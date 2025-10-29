@@ -12,5 +12,6 @@
         public DateTime RegistrationDate { get; set; }
         public bool IsRegistated { get; set; }
         public DateTime? SendingDate { get; set; }
+        public InternalDocumentStatus InternalDocumentStatus { get; set; }
     }
 }
