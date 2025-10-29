@@ -14,6 +14,9 @@ namespace AppDocumentManagment.DB.Controllers
         public DbSet<ContractorCompany> ContractorCompanies { get; set; } = null!;
         public DbSet<Document> Documents { get; set; } = null!;
         public DbSet<DocumentFile> DocumentFiles { get; set; } = null!;
+        public DbSet<InternalDocument> InternalDocuments { get; set; } = null!;
+        public DbSet<InternalDocumentFile> InternalDocumentFiles { get; set; } = null!;
+
         public ApplicationContext() 
         {
             Database.EnsureCreated();
