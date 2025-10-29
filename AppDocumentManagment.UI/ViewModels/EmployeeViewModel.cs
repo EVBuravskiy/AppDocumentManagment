@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -205,11 +206,16 @@ namespace AppDocumentManagment.UI.ViewModels
                     EmployeeWindow.Close();
                 }
             }
+            else
+            {
+                ClearFields();
+            }
         }
 
         public ICommand ISave => new RelayCommand(save => Save());
         private void Save()
         {
+            if (!ValidateEmployee()) return;
             Employee newEmployee = new Employee();
             newEmployee.EmployeeFirstName = EmployeeFirstName;
             newEmployee.EmployeeLastName = EmployeeLastName;
@@ -232,6 +238,47 @@ namespace AppDocumentManagment.UI.ViewModels
             }
             MessageBox.Show("Сохранение выполнено");
             EmployeeWindow.Close();
+        }
+
+        private bool ValidateEmployee()
+        {
+            if (string.IsNullOrEmpty(EmployeeLastName))
+            {
+                MessageBox.Show("Введите фамилию сотрудника");
+                EmployeeWindow.EmployeeLastName.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeLastName.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                EmployeeWindow.EmployeeLastName.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeLastName.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(EmployeeFirstName))
+            {
+                MessageBox.Show("Введите имя сотрудника");
+                EmployeeWindow.EmployeeFirstName.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeFirstName.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                EmployeeWindow.EmployeeFirstName.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeFirstName.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(EmployeePosition))
+            {
+                MessageBox.Show("Введите должность сотрудника");
+                EmployeeWindow.EmployeePosition.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeePosition.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                EmployeeWindow.EmployeePosition.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeePosition.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            return true;
         }
 
         public ICommand IBrowseEmployeeImage => new RelayCommand(browseEmployeeImage => EmployeeBrowseImage());

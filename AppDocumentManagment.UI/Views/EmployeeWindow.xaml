@@ -122,7 +122,7 @@
                     <Label IsHitTestVisible="False" 
                            Grid.Row="2"
                            Foreground="DimGray"
-                           Content="Введите отчество сотрудника..."
+                           Content="При наличии введите отчество сотрудника..."
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=EmployeeMiddleName, Converter={StaticResource BooleanToVisibilityConverter}}"

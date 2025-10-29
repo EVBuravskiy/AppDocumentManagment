@@ -267,21 +267,32 @@
                                                     <TextBlock Grid.Column="1"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
                                                                Text="{Binding EmployeeFullName}"/>
                                                     <TextBlock Grid.Column="2"
+                                                               Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
                                                                Text="{Binding EmployeeDepartmentTitle}"/>
                                                     <TextBlock Grid.Column="3"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
                                                                Text="{Binding EmployeePosition}"/>
                                                     <TextBlock Grid.Column="4"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
                                                                Text="{Binding Userlogin}"/>
                                                     <TextBlock Grid.Column="5"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
                                                                Text="{Binding UserRole}"/>
                                                 </Grid>
                                             </DataTemplate>

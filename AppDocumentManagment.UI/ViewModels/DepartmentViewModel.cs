@@ -125,14 +125,14 @@ namespace AppDocumentManagment.UI.ViewModels
             if (string.IsNullOrEmpty(DepartmentShortTitle))
             {
                 MessageBox.Show("Введите сокращенное наименование отдела/департамента");
-                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
-                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                DepartmentWindow.DepartmentShortTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentShortTitle.BorderBrush = new SolidColorBrush(Colors.Red);
                 return false;
             }
             else
             {
-                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
-                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+                DepartmentWindow.DepartmentShortTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentShortTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
             }
             return true;
         }

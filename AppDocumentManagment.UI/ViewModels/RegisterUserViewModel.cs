@@ -4,6 +4,7 @@ using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -184,6 +185,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IRegisterUser => new RelayCommand(registerUser => RegisterUser());
         private void RegisterUser()
         {
+            if (!ValidateUser()) return;
             if (string.IsNullOrEmpty(UserPassword))
             {
                 MessageBox.Show("Не введен пароль пользователя");
@@ -222,6 +224,35 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 MessageBox.Show($"Ошибка! Пользователь {registredUser.RegistredUserLogin} не зарегистрирован");
             }
+        }
+
+        private bool ValidateUser()
+        {
+            if (string.IsNullOrEmpty(UserLogin))
+            {
+                MessageBox.Show("Введите логин для сотрудника");
+                RegisterUserWindow.EmployeeLogin.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeeLogin.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                RegisterUserWindow.EmployeeLogin.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeeLogin.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(UserPassword))
+            {
+                MessageBox.Show("Введите пароль для сотрудника");
+                RegisterUserWindow.EmployeePassword.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                RegisterUserWindow.EmployeePassword.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            return true;
         }
 
         public ICommand IRemoveRegistration => new RelayCommand(removeRegistration => RemoveRegistration());
