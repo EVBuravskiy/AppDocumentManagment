@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppDocumentManagment.UI.Utilities
 {
-    public class WindowsDialogService : IImageDialogService
+    public class WindowsDialogService : IFileDialogService
     {
         public string OpenFile(string filter)
         {

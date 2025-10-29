@@ -103,6 +103,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string searchStringContent = "Поиск по наименованию документа или наименованию контрагента...";
+        public string SearchStringContent
+        {
+            get => searchStringContent;
+            set
+            {
+                searchStringContent = value;
+                OnPropertyChanged(nameof(SearchStringContent));
+            }
+        }
         public DocumentRegistrationViewModel(DocumentRegistrationWindow window)
         {
             DocumentRegistrationWindow = window;

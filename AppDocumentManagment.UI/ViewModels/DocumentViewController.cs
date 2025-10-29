@@ -13,7 +13,7 @@ namespace AppDocumentManagment.UI.ViewModels
 {
     public class DocumentViewController : BaseViewModelClass
     {
-        private IImageDialogService fileDialogService;
+        private IFileDialogService fileDialogService;
         private DocumentWindow DocumentWindow { get; set; }
         private Document SelectedDocument { get; set; }
         private string documentTitle;

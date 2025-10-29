@@ -15,7 +15,7 @@ namespace AppDocumentManagment.UI.ViewModels
 {
     public class EmployeeViewModel : BaseViewModelClass
     {
-        private IImageDialogService _imageDialogService;
+        private IFileDialogService _imageDialogService;
 
         private EmployeeWindow EmployeeWindow;
 

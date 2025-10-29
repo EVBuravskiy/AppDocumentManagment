@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppDocumentManagment.UI.Utilities
 {
-    public interface IImageDialogService
+    public interface IFileDialogService
     {
         string OpenFile(string filter);
         void ShowMessageBox(string message);
