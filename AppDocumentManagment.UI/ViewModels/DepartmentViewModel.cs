@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -80,8 +81,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ISave => new RelayCommand(save => Save());
         private void Save()
         {
-            if (string.IsNullOrEmpty(DepartmentTitle)) return;
-            if (string.IsNullOrEmpty(DepartmentShortTitle)) return;
+            if (!ValidateDepatment()) return;
             bool result = false;
             if (_selectedDepartment == null)
             {
@@ -106,6 +106,35 @@ namespace AppDocumentManagment.UI.ViewModels
                 return;
             }
             MessageBox.Show($"Ошибка! Сохранение отдела {DepartmentTitle} не выполнено");
+        }
+
+        private bool ValidateDepatment()
+        {
+            if (string.IsNullOrEmpty(DepartmentTitle))
+            {
+                MessageBox.Show("Введите наименование отдела/департамента");
+                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(DepartmentShortTitle))
+            {
+                MessageBox.Show("Введите сокращенное наименование отдела/департамента");
+                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                DepartmentWindow.DepartmentTitle.BorderThickness = new System.Windows.Thickness(2);
+                DepartmentWindow.DepartmentTitle.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            return true;
         }
 
         public ICommand IExit => new RelayCommand(exit => Exit());
