@@ -6,8 +6,11 @@
         public InternalDocumentTypes InternalDocumentType { get; set; }
         public DateTime InternalDocumentDate { get; set; }
         public List<Employee> Employees { get; set; }
+        public Employee? Signatory;
         public int SignatoryID { get; set; }
+        public Employee? ApprovedManager;
         public int ApprovedManagerID { get; set; }
+        public Employee? EmployeeRecivedDocument;
         public int EmployeeRecivedDocumentID { get; set; }
         public List<InternalDocumentFile>? InternalDocumentFiles { get; set; }  
         public DateTime RegistrationDate { get; set; }

@@ -66,8 +66,8 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ExaminingPersonsWindow = examiningPersonsWindow;
             NeedManager = needManager;
-            PanelName = NeedManager == true ? "Список руководства организации" : "Список работников";
-            SelectButtonName = NeedManager == true ? "Отправить документ" : "Выбрать сотрудника";
+            PanelName = NeedManager == true ? "Список руководства организации" : "Список сотрудников";
+            SelectButtonName = NeedManager == true ? "Выбрать руководителя" : "Выбрать сотрудника";
             EmployeesList = new List<Employee>();
             DepartmentsList = new List<Department>();
             Employees = new ObservableCollection<Employee>();

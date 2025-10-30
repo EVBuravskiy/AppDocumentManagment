@@ -11,10 +11,11 @@ namespace AppDocumentManagment.UI.ViewModels
     public class DocumentRegistrationViewModel : BaseViewModelClass
     {
         private DocumentRegistrationWindow DocumentRegistrationWindow;
-        private List<Document> DocumentList;
         private List<Employee> Employees;
         private List<ContractorCompany> ContractorCompanies;
-        public ObservableCollection<Document> DocumentsCollection {  get; set; }
+
+        private List<Document> DocumentList;
+        public ObservableCollection<Document> DocumentsCollection { get; set; }
         private Document selectedDocument;
         public Document SelectedDocument
         {
@@ -74,6 +75,69 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+
+        private List<InternalDocument> InternalDocumentList;
+        public ObservableCollection<InternalDocument> InternalDocumentsCollection { get; set; }
+        private InternalDocument selectedInternalDocument;
+        public InternalDocument SelectedInternalDocument
+        {
+            get => selectedInternalDocument;
+            set
+            {
+                selectedInternalDocument = value;
+                OnPropertyChanged(nameof(SelectedInternalDocument));
+                if (SelectedInternalDocument != null)
+                {
+                    //OpenInternalDocumentWindow(SelectedInternalDocument);
+                }
+            }
+        }
+
+        public ObservableCollection<string> InternalDocumentTypes { get; private set; }
+
+        private int selectedInternalDocumentTypeIndex;
+        public int SelectedInternalDocumentTypeIndex
+        {
+            get => selectedInternalDocumentTypeIndex;
+            set
+            {
+                selectedInternalDocumentTypeIndex = value;
+                OnPropertyChanged(nameof(SelectedInternalDocumentTypeIndex));
+            }
+        }
+
+        private string selectedInternalDocumentType;
+        public string SelectedInternalDocumentType
+        {
+            get => selectedInternalDocumentType;
+            set
+            {
+                selectedInternalDocumentType = value;
+                OnPropertyChanged(nameof(SelectedInternalDocumentType));
+                int index = 0;
+                for (; index < InternalDocumentTypes.Count; index++)
+                {
+                    if (value.Equals(InternalDocumentTypes[index]))
+                    {
+                        SelectedInternalDocumentTypeIndex = index;
+                        break;
+                    }
+                }
+                if (value != null)
+                {
+                    if (!string.IsNullOrEmpty(SearchString))
+                    {
+                        //GetInternalDocumentBySearchString(SearchString);
+                    }
+                    else
+                    {
+                        //GetInternalDocumentsByDocumentType();
+                    }
+                }
+            }
+        }
+
+
         private string searchString;
         public string SearchString
         {
@@ -116,18 +180,38 @@ namespace AppDocumentManagment.UI.ViewModels
             ContractorCompanies = new List<ContractorCompany>();
             DocumentsCollection = new ObservableCollection<Document>();
             DocumentTypes = new ObservableCollection<string>();
-            GetAllDocuments();
+            InitializeDocumentTypes();
+            InitializeInternalDocumentTypes();
             GetAllEmployees();
             GetAllContractorCompanyes();
-            InitializeDocumentTypes();
+            GetAllDocuments();
             InitializeDocuments();
+            GetAllInternalDocuments();
+            InitializeInternalDocuments();
         }
 
-        private void GetAllDocuments()
+        private void InitializeDocumentTypes()
         {
-            DocumentList.Clear();
-            DocumentController documentController = new DocumentController();
-            DocumentList = documentController.GetAllDocuments();
+            DocumentTypes.Clear();
+            DocumentTypes.Add("Все документы");
+            var documentTypes = Enum.GetValues(typeof(DocumentType));
+            foreach (var type in documentTypes)
+            {
+                DocumentTypes.Add(DocumentTypeConverter.ConvertToString(type));
+            }
+            SelectedDocumentType = DocumentTypes.FirstOrDefault();
+        }
+
+        private void InitializeInternalDocumentTypes()
+        {
+            InternalDocumentTypes.Clear();
+            InternalDocumentTypes.Add("Все документы");
+            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentTypes));
+            foreach (var type in internalDocumentTypes)
+            {
+                InternalDocumentTypes.Add(InternalDocumentTypeConverter.ConvertToString(type));
+            }
+            SelectedInternalDocumentType = InternalDocumentTypes.FirstOrDefault();
         }
 
         private void GetAllEmployees()
@@ -143,6 +227,13 @@ namespace AppDocumentManagment.UI.ViewModels
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             ContractorCompanies = contractorCompanyController.GetContractorCompanies();
         }
+        private void GetAllDocuments()
+        {
+            DocumentList.Clear();
+            DocumentController documentController = new DocumentController();
+            DocumentList = documentController.GetAllDocuments();
+        }
+
 
         private void InitializeDocuments()
         {
@@ -153,7 +244,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 foreach (Document document in DocumentList)
                 {
                     Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
-                    ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();   
+                    ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                     document.EmployeeReceivedDocument = employee;
                     document.ContractorCompany = contractorCompany;
                     DocumentsCollection.Add(document);
@@ -161,16 +252,31 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void InitializeDocumentTypes()
+        private void GetAllInternalDocuments()
         {
-            DocumentTypes.Clear();
-            DocumentTypes.Add("Все документы");
-            var documentTypes = Enum.GetValues(typeof(DocumentType));
-            foreach (var type in documentTypes)
+            InternalDocumentList.Clear();
+            InternalDocumentController internalDocumentController = new InternalDocumentController();
+            InternalDocumentList = internalDocumentController.GetInternalDocuments();
+        }
+
+
+        private void InitializeInternalDocuments()
+        {
+            InternalDocumentsCollection.Clear();
+            if (InternalDocumentList != null)
             {
-                DocumentTypes.Add(DocumentTypeConverter.ConvertToString(type));
+                InternalDocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                foreach (InternalDocument internalDocument in InternalDocumentList)
+                {
+                    Employee signatory = Employees.Where(e => e.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
+                    internalDocument.Signatory = signatory;
+                    Employee approvedManager = Employees.Where(e => e.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                    internalDocument.ApprovedManager = approvedManager;
+                    Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecivedDocumentID).FirstOrDefault();
+                    internalDocument.EmployeeRecivedDocument = employeeRecivedDocument;
+                    InternalDocumentsCollection.Add(internalDocument);
+                }
             }
-            SelectedDocumentType = DocumentTypes.FirstOrDefault();
         }
 
         private void GetDocumentsByDocumentType()
@@ -179,7 +285,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 InitializeDocuments();
             }
-            else 
+            else
             {
                 DocumentsCollection.Clear();
                 if (DocumentList != null)
@@ -203,7 +309,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         public void GetDocumentBySearchString(string searchingString)
         {
-            if(string.IsNullOrEmpty(searchingString))
+            if (string.IsNullOrEmpty(searchingString))
             {
                 DocumentsCollection.Clear();
                 GetDocumentsByDocumentType();
@@ -226,7 +332,7 @@ namespace AppDocumentManagment.UI.ViewModels
                         DocumentsCollection.Add(document);
                     }
                 }
-                if(DocumentsCollection.Count == 0)
+                if (DocumentsCollection.Count == 0)
                 {
                     foreach (Document document in documents)
                     {
@@ -264,5 +370,11 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeDocuments();
         }
 
+        //private void OpenInternalDocumentWindow(InternalDocument internalDocument)
+        //{
+        //    InternalDocumentWindow internalDocumentWindow = new InternalDocumentWindow(internalDocument);
+        //    internalDocumentWindow.ShowDialog();
+
+        //}
     }
 }
