@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppDocumentManagment.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,12 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class InternalDocumentWindow : Window
     {
+        private InternalDocumentViewModel viewModel;
         public InternalDocumentWindow()
         {
+            viewModel = new InternalDocumentViewModel(this);
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

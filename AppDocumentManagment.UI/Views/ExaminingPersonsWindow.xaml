@@ -31,7 +31,7 @@
             </Grid.Background>
             <Label Grid.Row="0" 
                    x:Name="GreetingLabel"
-                   Content="Руководство организации" 
+                   Content="{Binding PanelName}" 
                    HorizontalAlignment="Left" 
                    Padding="20,0"
                    Style="{StaticResource TopPanelLabel}"
@@ -83,8 +83,8 @@
                 </Grid>
                 <Grid Grid.Row="1"
                       Margin="20 10">
-                    <ListView ItemsSource="{Binding Managers}"
-                              SelectedItem="{Binding SelectedManager}">
+                    <ListView ItemsSource="{Binding Employees}"
+                              SelectedItem="{Binding SelectedEmployee}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="2"
@@ -145,15 +145,17 @@
         <Grid Grid.Row="2"
               Margin="0 0 0 0"
               Background="Black">
-            <Button Style="{StaticResource Buttons}"
+            <Button x:Name="SelectButton"
+                    Style="{StaticResource Buttons}"
                     Width="250"
                     Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Content="Отправить на рассмотрение"
+                    Content="{Binding SelectButtonName}"
                     Padding="10 10"
                     Margin="20 0"
-                    Command="{Binding ISendDocument}"/>
+                    Command="{Binding ISelectPerson}"
+                    Visibility="Visible"/>
         </Grid>
     </Grid>
 </Window>

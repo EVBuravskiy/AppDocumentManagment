@@ -1,12 +1,7 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace AppDocumentManagment.UI.ViewModels
@@ -15,20 +10,21 @@ namespace AppDocumentManagment.UI.ViewModels
     {
         ExaminingPersonsWindow ExaminingPersonsWindow;
 
-        private List<Employee> ManagersList {  get; set; }
-
+        private bool NeedManager = false;
         private List<Department> DepartmentsList { get; set; }
 
-        public ObservableCollection<Employee> Managers { get; set; }
+        private List<Employee> EmployeesList {  get; set; }
 
-        private Employee selectedManager;
-        public Employee SelectedManager
+        public ObservableCollection<Employee> Employees { get; set; }
+
+        private Employee selectedEmployee;
+        public Employee SelectedEmployee
         {
-            get => selectedManager;
+            get => selectedEmployee;
             set
             {
-                selectedManager = value;
-                OnPropertyChanged(nameof(SelectedManager));
+                selectedEmployee = value;
+                OnPropertyChanged(nameof(SelectedEmployee));
             }
         }
 
@@ -40,32 +36,67 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 _searchString = value;
                 OnPropertyChanged(nameof(SearchString));
-                GetManagerBySearchString(value);
+                GetEmployeeBySearchString(value);
             }
         }
 
-        public ExaminingPersonViewModel(ExaminingPersonsWindow examiningPersonsWindow)
+        private string panelName;
+        public string PanelName
         {
-            ExaminingPersonsWindow = examiningPersonsWindow;
-            ManagersList = new List<Employee>();
-            DepartmentsList = new List<Department>();
-            Managers = new ObservableCollection<Employee>();
-            GetManagersList();
-            GetDepartments();
-            InitializeManagers();
+            get => panelName;
+            set
+            {
+                panelName = value;
+                OnPropertyChanged(nameof(PanelName));
+            }
         }
 
-        private void GetManagersList()
+        private string selectButtonName;
+        public string SelectButtonName
         {
-            ManagersList.Clear();
+            get => selectButtonName;
+            set
+            {
+                selectButtonName = value;
+                OnPropertyChanged(nameof(SelectButtonName));
+            }
+        }
+
+        public ExaminingPersonViewModel(ExaminingPersonsWindow examiningPersonsWindow, bool needManager)
+        {
+            ExaminingPersonsWindow = examiningPersonsWindow;
+            NeedManager = needManager;
+            PanelName = NeedManager == true ? "Список руководства организации" : "Список работников";
+            SelectButtonName = NeedManager == true ? "Отправить документ" : "Выбрать сотрудника";
+            EmployeesList = new List<Employee>();
+            DepartmentsList = new List<Department>();
+            Employees = new ObservableCollection<Employee>();
+            GetDepartments();
+            GetEmployeeList();
+            InitializeEmployees();
+        }
+
+        private void GetEmployeeList()
+        {
+            EmployeesList.Clear();
             EmployeeController employeeController = new EmployeeController();
             List<Employee> employees = new List<Employee>();
             employees = employeeController.GetAllEmployees();
-            foreach (Employee employee in employees)
+            if (NeedManager)
             {
-                if(employee.EmployeeRole != EmployeeRole.Performer)
+                foreach (Employee employee in employees)
                 {
-                    ManagersList.Add(employee);
+                    if (employee.EmployeeRole != EmployeeRole.Performer)
+                    {
+                        EmployeesList.Add(employee);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Employee employee in employees)
+                {
+                    EmployeesList.Add(employee);
                 }
             }
         }
@@ -77,59 +108,59 @@ namespace AppDocumentManagment.UI.ViewModels
             DepartmentsList = departmentController.GetAllDepartments();
         }
 
-        private void InitializeManagers()
+        private void InitializeEmployees()
         {
-            Managers.Clear();
-            if (ManagersList.Count > 0)
+            Employees.Clear();
+            if (EmployeesList.Count > 0)
             {
-                ManagersList.Sort((m1, m2) => m1.DepartmentID.CompareTo(m2.DepartmentID));
-                foreach (Employee manager in ManagersList)
+                EmployeesList.Sort((m1, m2) => m1.DepartmentID.CompareTo(m2.DepartmentID));
+                foreach (Employee employee in EmployeesList)
                 {
                     if (DepartmentsList.Count > 0)
                     {
-                        Department department = DepartmentsList.Where(d => d.DepartmentID == manager.DepartmentID).FirstOrDefault();
-                        manager.Department = department;
+                        Department department = DepartmentsList.Where(d => d.DepartmentID == employee.DepartmentID).FirstOrDefault();
+                        employee.Department = department;
                     }
-                    Managers.Add(manager);
+                    Employees.Add(employee);
                 }
             }
         }
 
-        public void GetManagerBySearchString(string searchingString)
+        public void GetEmployeeBySearchString(string searchingString)
         {
             string searchString = searchingString.Trim();
             if (string.IsNullOrWhiteSpace(searchString) || string.IsNullOrEmpty(searchString))
             {
-                InitializeManagers();
+                InitializeEmployees();
                 return;
             }
-            Managers.Clear();
-            if (ManagersList?.Count > 0)
+            Employees.Clear();
+            if (EmployeesList?.Count > 0)
             {
-                foreach (var manager in ManagersList)
+                foreach (var employee in EmployeesList)
                 {
-                    if (manager.EmployeeFullName.ToLower().Contains(searchString.ToLower()))
+                    if (employee.EmployeeFullName.ToLower().Contains(searchString.ToLower()))
                     {
-                        Managers.Add(manager);
+                        Employees.Add(employee);
                     }
                 }
-                if(Managers.Count == 0)
+                if(Employees.Count == 0)
                 {
-                    foreach (var manager in ManagersList)
+                    foreach (var employee in EmployeesList)
                     {
-                        if (manager.Department.DepartmentTitle.ToLower().Contains(searchString.ToLower()))
+                        if (employee.Department.DepartmentTitle.ToLower().Contains(searchString.ToLower()))
                         {
-                            Managers.Add(manager);
+                            Employees.Add(employee);
                         }
                     }
                 }
             }
         }
 
-        public ICommand ISendDocument => new RelayCommand(sendDocument => SendDocument());
-        private void SendDocument()
+        public ICommand ISelectPerson => new RelayCommand(selectPerson => SelectPerson());
+        private void SelectPerson()
         {
-            if(SelectedManager != null)
+            if(SelectedEmployee != null)
             {
                 ExaminingPersonsWindow.Close();
             }

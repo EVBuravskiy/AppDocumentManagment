@@ -22,19 +22,19 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    if(inputDocument.Signatory == null)
+                    if(inputDocument.SignatoryID == 0)
                     {
                         return false;
                     }
                     else
                     {
-                        Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.Signatory.EmployeeID).FirstOrDefault();
-                        inputDocument.Signatory = signatory;
+                        Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.SignatoryID).FirstOrDefault();
+                        inputDocument.SignatoryID = signatory.EmployeeID;
                     }
-                    if (inputDocument.ApprovedManager != null)
+                    if (inputDocument.ApprovedManagerID != 0)
                     {
-                        Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManager.EmployeeID).FirstOrDefault();
-                        inputDocument.ApprovedManager = approvedManager;
+                        Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
+                        inputDocument.ApprovedManagerID = approvedManager.EmployeeID;
                     }
                     context.InternalDocuments.Add(inputDocument);
                     context.SaveChanges();
@@ -48,7 +48,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
         }
 
-        public bool RemoveDocument(InternalDocument inputDocument)
+        public bool RemoveInternalDocument(InternalDocument inputDocument)
         {
             if (inputDocument == null) return false;
             try
@@ -76,7 +76,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
         }
 
-        public bool UpdateDocument(InternalDocument inputDocument)
+        public bool UpdateInternalDocument(InternalDocument inputDocument)
         {
             bool result = false;
             if (inputDocument == null) return result;
@@ -88,10 +88,10 @@ namespace AppDocumentManagment.DB.Controllers
                     if (aviableDocument != null)
                     {
                         aviableDocument.InternalDocumentType = inputDocument.InternalDocumentType;
-                        Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.Signatory.EmployeeID).FirstOrDefault();
-                        aviableDocument.Signatory = signatory;
-                        Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManager.EmployeeID).FirstOrDefault();
-                        aviableDocument.ApprovedManager = approvedManager;
+                        Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.SignatoryID).FirstOrDefault();
+                        aviableDocument.SignatoryID = signatory.EmployeeID;
+                        Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
+                        aviableDocument.SignatoryID = approvedManager.EmployeeID;
                         aviableDocument.InternalDocumentFiles = inputDocument.InternalDocumentFiles;
                         aviableDocument.RegistrationDate = inputDocument.RegistrationDate;
                         aviableDocument.IsRegistated = inputDocument.IsRegistated;

@@ -23,6 +23,16 @@ namespace AppDocumentManagment.DB.Controllers
             return employees;
         }
 
+        public Employee GetEmployeeByID(int employeeID)
+        {
+            Employee employee = null;
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                employee = context.Employees.Where(e => e.EmployeeID == employeeID).FirstOrDefault();
+            }
+            return employee;
+        }
+
         public List<Employee> GetEmployeesByDeparmentID(int departmentID)
         {
             List<Employee> employeesByDepartment = new List<Employee>();

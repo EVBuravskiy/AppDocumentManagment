@@ -351,13 +351,13 @@ namespace AppDocumentManagment.UI.ViewModels
         private void SendToExaminingPerson()
         {
             if (!ValidationDocument()) return;
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow();
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(false);
             examiningPersonsWindow.ShowDialog();
             bool result = false;
-            if (examiningPersonsWindow.viewModel.SelectedManager != null)
+            if (examiningPersonsWindow.viewModel.SelectedEmployee != null)
             {
                 Document document = CreateDocument();
-                document.EmployeeReceivedDocument = examiningPersonsWindow.viewModel.SelectedManager;
+                document.EmployeeReceivedDocument = examiningPersonsWindow.viewModel.SelectedEmployee;
                 DocumentController documentController = new DocumentController();
                 if (document.IsRegistated == false)
                 {

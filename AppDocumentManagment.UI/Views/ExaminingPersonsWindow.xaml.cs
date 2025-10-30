@@ -22,9 +22,9 @@ namespace AppDocumentManagment.UI.Views
     public partial class ExaminingPersonsWindow : Window
     {
         public ExaminingPersonViewModel viewModel;
-        public ExaminingPersonsWindow()
+        public ExaminingPersonsWindow(bool needManager)
         {
-            viewModel = new ExaminingPersonViewModel(this);
+            viewModel = new ExaminingPersonViewModel(this, needManager);
             InitializeComponent();
             DataContext = viewModel;
         }
@@ -33,7 +33,7 @@ namespace AppDocumentManagment.UI.Views
         {
             TextBox textBox = (TextBox)sender;
             viewModel.SearchString = textBox.Text;
-            viewModel.GetManagerBySearchString(textBox.Text);
+            viewModel.GetEmployeeBySearchString(textBox.Text);
         }
     }
 }

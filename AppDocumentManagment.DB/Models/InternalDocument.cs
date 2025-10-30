@@ -1,13 +1,15 @@
-﻿namespace AppDocumentManagment.DB.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AppDocumentManagment.DB.Models
 {
     public class InternalDocument
     {
         public int InternalDocumentID { get; set; }
         public InternalDocumentTypes InternalDocumentType { get; set; }
-        public Employee Signatory {  get; set; }
+        public DateTime InternalDocumentDate { get; set; }
         public int SignatoryID { get; set; }
-        public Employee? ApprovedManager { get; set; }
-        public int? ApprovedManagerID { get; set; }
+        public int ApprovedManagerID { get; set; }
+        public int EmployeeRecivedDocumentID { get; set; }
         public List<InternalDocumentFile>? InternalDocumentFiles { get; set; }  
         public DateTime RegistrationDate { get; set; }
         public bool IsRegistated { get; set; }
