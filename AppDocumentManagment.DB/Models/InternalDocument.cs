@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace AppDocumentManagment.DB.Models
+﻿namespace AppDocumentManagment.DB.Models
 {
     public class InternalDocument
     {

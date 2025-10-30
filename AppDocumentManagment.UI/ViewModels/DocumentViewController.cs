@@ -4,10 +4,8 @@ using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AppDocumentManagment.UI.ViewModels
 {

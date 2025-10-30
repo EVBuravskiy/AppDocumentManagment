@@ -2,14 +2,9 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
+
 
 namespace AppDocumentManagment.UI.ViewModels
 {
