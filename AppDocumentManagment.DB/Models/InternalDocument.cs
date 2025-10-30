@@ -7,6 +7,7 @@ namespace AppDocumentManagment.DB.Models
         public int InternalDocumentID { get; set; }
         public InternalDocumentTypes InternalDocumentType { get; set; }
         public DateTime InternalDocumentDate { get; set; }
+        public List<Employee> Employees { get; set; }
         public int SignatoryID { get; set; }
         public int ApprovedManagerID { get; set; }
         public int EmployeeRecivedDocumentID { get; set; }
