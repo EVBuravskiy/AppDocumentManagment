@@ -13,7 +13,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documentFiles = context.DocumentFiles.ToList();
+                    documentFiles = context.DocumentFiles.Where(df => df.DocumentID == documentID).ToList();
                 }
             }
             catch (Exception ex)

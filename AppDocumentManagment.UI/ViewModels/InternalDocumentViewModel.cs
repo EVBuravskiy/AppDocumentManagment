@@ -209,6 +209,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentFilesList.Clear();
             InternalDocumentFileController fileController = new InternalDocumentFileController();
             InternalDocumentFilesList = fileController.GetInternalDocumentFiles(InternalDocument.InternalDocumentID);
+            SelectedInternalDocumentFile = InternalDocumentFiles.FirstOrDefault();
         }
         private void InitializeInternalDocumentFiles()
         {

@@ -90,8 +90,11 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableDocument.InternalDocumentType = inputDocument.InternalDocumentType;
                         Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.SignatoryID).FirstOrDefault();
                         aviableDocument.SignatoryID = signatory.EmployeeID;
-                        Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
-                        aviableDocument.ApprovedManagerID = approvedManager.EmployeeID;
+                        if (inputDocument.ApprovedManagerID != 0)
+                        {
+                            Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
+                            aviableDocument.ApprovedManagerID = approvedManager.EmployeeID;
+                        }
                         if(inputDocument.EmployeeRecievedDocumentID != 0)
                         {
                             Employee recievedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.EmployeeRecievedDocumentID).FirstOrDefault();

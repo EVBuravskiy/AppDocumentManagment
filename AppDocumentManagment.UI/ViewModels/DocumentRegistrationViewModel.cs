@@ -14,6 +14,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private DocumentRegistrationWindow DocumentRegistrationWindow;
         private List<Employee> Employees;
         private List<ContractorCompany> ContractorCompanies;
+        private List<Department> Departments;
 
         private List<Document> DocumentList;
         public ObservableCollection<Document> DocumentsCollection { get; set; }
@@ -180,6 +181,7 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentRegistrationWindow = window;
             Employees = new List<Employee>();
             ContractorCompanies = new List<ContractorCompany>();
+            Departments = new List<Department>();
             DocumentList = new List<Document>();
             DocumentsCollection = new ObservableCollection<Document>();
             DocumentTypes = new ObservableCollection<string>();
@@ -188,6 +190,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentTypes = new ObservableCollection<string>();
             InitializeDocumentTypes();
             InitializeInternalDocumentTypes();
+            GetAllDepartments();
             GetAllEmployees();
             GetAllContractorCompanyes();
             GetAllDocuments();
@@ -225,6 +228,14 @@ namespace AppDocumentManagment.UI.ViewModels
             Employees.Clear();
             EmployeeController employeeController = new EmployeeController();
             Employees = employeeController.GetAllEmployees();
+            if (Departments.Count > 0)
+            {
+                foreach (Employee employee in Employees)
+                {
+                    Department department = Departments.Where(d => d.DepartmentID == employee.DepartmentID).FirstOrDefault();
+                    employee.Department = department;
+                }
+            }
         }
 
         private void GetAllContractorCompanyes()
@@ -233,6 +244,14 @@ namespace AppDocumentManagment.UI.ViewModels
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             ContractorCompanies = contractorCompanyController.GetContractorCompanies();
         }
+
+        private void GetAllDepartments()
+        {
+            Departments.Clear();
+            DepartmentController departmentController = new DepartmentController();
+            Departments = departmentController.GetAllDepartments();
+        }
+
         private void GetAllDocuments()
         {
             DocumentList.Clear();

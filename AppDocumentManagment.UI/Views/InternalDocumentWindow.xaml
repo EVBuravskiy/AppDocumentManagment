@@ -92,7 +92,7 @@
                                     HorizontalContentAlignment="Stretch"
                                     Margin="20 0"
                                     Padding="10 0"
-                                    Width="200" SelectedDateFormat="Long" IsDropDownOpen="False"
+                                    SelectedDateFormat="Short" IsDropDownOpen="False"
                                     SelectedDate="{Binding InternalDocumentDate}"/>
                     </Grid>
                 </Grid>

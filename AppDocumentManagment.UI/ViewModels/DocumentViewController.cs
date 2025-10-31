@@ -154,6 +154,7 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentWindow = window;
             SelectedDocument = selectedDocument;
             fileDialogService = new WindowsDialogService();
+            DocumentFilesList = new List<DocumentFile>();
             DocumentFiles = new ObservableCollection<DocumentFile>();
             if (SelectedDocument != null)
             {
@@ -211,7 +212,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             if(SelectedDocument != null)
             {
-                DocumentFilesList = new List<DocumentFile>();
+                DocumentFilesList.Clear();
                 DocumentFileController documentFileController = new DocumentFileController();
                 DocumentFilesList = documentFileController.GetDocumentFiles(SelectedDocument.DocumentID);
             }
@@ -227,6 +228,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     DocumentFiles.Add(file);
                 }
             }
+            SelectedDocumentFile = DocumentFiles.FirstOrDefault();
         }
 
         public ICommand IBrowseDocumentFiles => new RelayCommand(browseDocumentFiles => BrowseDocumentFile());
