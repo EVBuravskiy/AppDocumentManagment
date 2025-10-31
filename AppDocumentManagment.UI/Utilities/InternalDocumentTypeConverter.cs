@@ -1,8 +1,10 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System.Globalization;
+using System.Windows.Data;
 
 namespace AppDocumentManagment.UI.Utilities
 {
-    public class InternalDocumentTypeConverter
+    public class InternalDocumentTypeConverter : IValueConverter
     {
         public static string ConvertToString(object value)
         {
@@ -54,6 +56,16 @@ namespace AppDocumentManagment.UI.Utilities
                 3 => InternalDocumentTypes.OfficialLetter,
                 _ => InternalDocumentTypes.Order
             };
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ConvertToString(value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ConvertToString(value);
         }
     }
 }

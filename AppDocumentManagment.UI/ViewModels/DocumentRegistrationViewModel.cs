@@ -127,14 +127,13 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 if (value != null)
                 {
-                    GetDocumentsByDocumentType();
                     if (!string.IsNullOrEmpty(SearchString))
                     {
-                        //GetInternalDocumentBySearchString(SearchString);
+                        GetDocumentBySearchString(SearchString);
                     }
                     else
                     {
-                        //GetInternalDocumentsByDocumentType();
+                        GetDocumentsByDocumentType();
                     }
                 }
             }
@@ -295,6 +294,9 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentRegistrationWindow.ComboBoxInternalDocumentTypes.Visibility = System.Windows.Visibility.Hidden;
             IsInternalDocuments = false;
             SearchString = string.Empty;
+            SelectedInternalDocumentType = "Все документы";
+            GetDocumentsByDocumentType();
+            SearchStringContent = "Поиск по наименованию документа или наименованию контрагента...";
         }
 
         public ICommand IShowInternalDocuments => new RelayCommand(showInternalDocuments => ShowInternalDocuments());
@@ -306,6 +308,9 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentRegistrationWindow.ComboBoxInternalDocumentTypes.Visibility = System.Windows.Visibility.Visible;
             IsInternalDocuments = true;
             SearchString = string.Empty;
+            SelectedDocumentType = "Все документы";
+            GetDocumentsByDocumentType();
+            SearchStringContent = "Поиск по инициатору/подписанту документа...";
         }
 
 
@@ -371,46 +376,78 @@ namespace AppDocumentManagment.UI.ViewModels
 
         public void GetDocumentBySearchString(string searchingString)
         {
-            if (string.IsNullOrEmpty(searchingString))
+            if (!IsInternalDocuments)
             {
-                DocumentsCollection.Clear();
-                GetDocumentsByDocumentType();
-                return;
-            }
-            GetDocumentsByDocumentType();
-            List<Document> documents = DocumentsCollection.ToList();
-            DocumentsCollection.Clear();
-            if (documents != null)
-            {
-                documents.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                foreach (Document document in documents)
+                if (string.IsNullOrEmpty(searchingString))
                 {
-                    Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
-                    ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
-                    document.EmployeeReceivedDocument = employee;
-                    document.ContractorCompany = contractorCompany;
-                    if (document.DocumentTitle.ToLower().Contains(searchingString.ToLower()))
-                    {
-                        DocumentsCollection.Add(document);
-                    }
+                    DocumentsCollection.Clear();
+                    GetDocumentsByDocumentType();
+                    return;
                 }
-                if (DocumentsCollection.Count == 0)
+                GetDocumentsByDocumentType();
+                List<Document> documents = DocumentsCollection.ToList();
+                DocumentsCollection.Clear();
+                if (documents != null)
                 {
+                    documents.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
                     foreach (Document document in documents)
                     {
-                        if (document.ContractorCompany.ContractorCompanyTitle.ToLower().Contains(searchingString.ToLower()))
+                        Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
+                        ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
+                        document.EmployeeReceivedDocument = employee;
+                        document.ContractorCompany = contractorCompany;
+                        if (document.DocumentTitle.ToLower().Contains(searchingString.ToLower()))
                         {
                             DocumentsCollection.Add(document);
                         }
                     }
-                }
-                if (DocumentsCollection.Count == 0)
-                {
-                    foreach (Document document in documents)
+                    if (DocumentsCollection.Count == 0)
                     {
-                        if (document.DocumentNumber != null && document.DocumentNumber.ToLower().Contains(searchingString.ToLower()))
+                        foreach (Document document in documents)
                         {
-                            DocumentsCollection.Add(document);
+                            if (document.ContractorCompany.ContractorCompanyTitle.ToLower().Contains(searchingString.ToLower()))
+                            {
+                                DocumentsCollection.Add(document);
+                            }
+                        }
+                    }
+                    if (DocumentsCollection.Count == 0)
+                    {
+                        foreach (Document document in documents)
+                        {
+                            if (document.DocumentNumber != null && document.DocumentNumber.ToLower().Contains(searchingString.ToLower()))
+                            {
+                                DocumentsCollection.Add(document);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(searchingString))
+                {
+                    InternalDocumentsCollection.Clear();
+                    GetDocumentsByDocumentType();
+                    return;
+                }
+                GetDocumentsByDocumentType();
+                List<InternalDocument> internalDocuments = InternalDocumentsCollection.ToList();
+                InternalDocumentsCollection.Clear();
+                if (internalDocuments != null)
+                {
+                    internalDocuments.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                    foreach (InternalDocument internalDocument in internalDocuments)
+                    {
+                        Employee signatory = Employees.Where(e => e.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
+                        internalDocument.Signatory = signatory;
+                        Employee approvedManager = Employees.Where(e => e.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                        internalDocument.ApprovedManager = approvedManager;
+                        Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                        internalDocument.EmployeeRecievedDocument = employeeRecivedDocument;
+                        if (internalDocument.Signatory.EmployeeFullName.ToLower().Contains(searchingString.ToLower()))
+                        {
+                            InternalDocumentsCollection.Add(internalDocument);
                         }
                     }
                 }

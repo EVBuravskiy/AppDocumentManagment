@@ -351,8 +351,11 @@ namespace AppDocumentManagment.UI.ViewModels
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
             newInternalDocument.SignatoryID = Signatory.EmployeeID;
             newInternalDocument.Signatory = Signatory;
-            newInternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
-            newInternalDocument.ApprovedManager = ApprovedManager;
+            if (ApprovedManager != null)
+            {
+                newInternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
+                newInternalDocument.ApprovedManager = ApprovedManager;
+            }
             newInternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
             newInternalDocument.InternalDocumentStatus = InternalDocumentStatus.Processing;
             newInternalDocument.InternalDocumentDate = InternalDocumentDate;

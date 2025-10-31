@@ -442,7 +442,7 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding InternalDocumentType}"/>
+                                                               Text="{Binding InternalDocumentType, Converter={StaticResource InternalDocumentTypeConverter}}"/>
                                                     <TextBlock Grid.Column="3"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
