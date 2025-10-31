@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Windows.Input;
 
 
@@ -78,6 +79,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private List<InternalDocument> InternalDocumentList;
         public ObservableCollection<InternalDocument> InternalDocumentsCollection { get; set; }
+
         private InternalDocument selectedInternalDocument;
         public InternalDocument SelectedInternalDocument
         {
@@ -88,7 +90,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedInternalDocument));
                 if (SelectedInternalDocument != null)
                 {
-                    //OpenInternalDocumentWindow(SelectedInternalDocument);
+                    OpenInternalDocumentWindow(SelectedInternalDocument);
                 }
             }
         }
@@ -125,6 +127,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 if (value != null)
                 {
+                    GetDocumentsByDocumentType();
                     if (!string.IsNullOrEmpty(SearchString))
                     {
                         //GetInternalDocumentBySearchString(SearchString);
@@ -136,6 +139,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
             }
         }
+
 
 
         private string searchString;
@@ -175,11 +179,14 @@ namespace AppDocumentManagment.UI.ViewModels
         public DocumentRegistrationViewModel(DocumentRegistrationWindow window)
         {
             DocumentRegistrationWindow = window;
-            DocumentList = new List<Document>();
             Employees = new List<Employee>();
             ContractorCompanies = new List<ContractorCompany>();
+            DocumentList = new List<Document>();
             DocumentsCollection = new ObservableCollection<Document>();
             DocumentTypes = new ObservableCollection<string>();
+            InternalDocumentList = new List<InternalDocument>();
+            InternalDocumentsCollection = new ObservableCollection<InternalDocument>();
+            InternalDocumentTypes = new ObservableCollection<string>();
             InitializeDocumentTypes();
             InitializeInternalDocumentTypes();
             GetAllEmployees();
@@ -272,35 +279,90 @@ namespace AppDocumentManagment.UI.ViewModels
                     internalDocument.Signatory = signatory;
                     Employee approvedManager = Employees.Where(e => e.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
                     internalDocument.ApprovedManager = approvedManager;
-                    Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecivedDocumentID).FirstOrDefault();
-                    internalDocument.EmployeeRecivedDocument = employeeRecivedDocument;
+                    Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                    internalDocument.EmployeeRecievedDocument = employeeRecivedDocument;
                     InternalDocumentsCollection.Add(internalDocument);
                 }
             }
         }
 
+        public ICommand IShowExternalDocuments => new RelayCommand(showExternalDocuments => ShowExternalDocuments());
+        private void ShowExternalDocuments()
+        {
+            DocumentRegistrationWindow.ExternalDocuments.Visibility = System.Windows.Visibility.Visible;
+            DocumentRegistrationWindow.InternalDocuments.Visibility = System.Windows.Visibility.Hidden;
+            DocumentRegistrationWindow.ComboBoxExternalDocumentTypes.Visibility = System.Windows.Visibility.Visible;
+            DocumentRegistrationWindow.ComboBoxInternalDocumentTypes.Visibility = System.Windows.Visibility.Hidden;
+            IsInternalDocuments = false;
+            SearchString = string.Empty;
+        }
+
+        public ICommand IShowInternalDocuments => new RelayCommand(showInternalDocuments => ShowInternalDocuments());
+        private void ShowInternalDocuments()
+        {
+            DocumentRegistrationWindow.ExternalDocuments.Visibility = System.Windows.Visibility.Hidden;
+            DocumentRegistrationWindow.InternalDocuments.Visibility = System.Windows.Visibility.Visible;
+            DocumentRegistrationWindow.ComboBoxExternalDocumentTypes.Visibility = System.Windows.Visibility.Hidden;
+            DocumentRegistrationWindow.ComboBoxInternalDocumentTypes.Visibility = System.Windows.Visibility.Visible;
+            IsInternalDocuments = true;
+            SearchString = string.Empty;
+        }
+
+
         private void GetDocumentsByDocumentType()
         {
-            if (SelectedDocumentType.Equals("Все документы"))
+            if (!IsInternalDocuments)
             {
-                InitializeDocuments();
+                if (SelectedDocumentType.Equals("Все документы"))
+                {
+                    InitializeDocuments();
+                }
+                else
+                {
+                    DocumentsCollection.Clear();
+                    if (DocumentList != null)
+                    {
+                        DocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                        foreach (Document document in DocumentList)
+                        {
+                            DocumentType documentType = DocumentTypeConverter.ConvertToEnum(SelectedDocumentType);
+                            if (document.DocumentType == documentType)
+                            {
+                                Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
+                                ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
+                                document.EmployeeReceivedDocument = employee;
+                                document.ContractorCompany = contractorCompany;
+                                DocumentsCollection.Add(document);
+                            }
+                        }
+                    }
+                }
             }
             else
             {
-                DocumentsCollection.Clear();
-                if (DocumentList != null)
+                if (SelectedInternalDocumentType.Equals("Все документы"))
                 {
-                    DocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                    foreach (Document document in DocumentList)
+                    InitializeInternalDocuments();
+                }
+                else
+                {
+                    InternalDocumentsCollection.Clear();
+                    if (InternalDocumentList != null)
                     {
-                        DocumentType documentType = DocumentTypeConverter.ConvertToEnum(SelectedDocumentType);
-                        if (document.DocumentType == documentType)
+                        InternalDocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                        foreach (InternalDocument internalDocument in InternalDocumentList)
                         {
-                            Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
-                            ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
-                            document.EmployeeReceivedDocument = employee;
-                            document.ContractorCompany = contractorCompany;
-                            DocumentsCollection.Add(document);
+                            InternalDocumentTypes internalDocumentType = InternalDocumentTypeConverter.ConvertToEnum(SelectedInternalDocumentType);
+                            if (internalDocument.InternalDocumentType == internalDocumentType)
+                            {
+                                Employee signatory = Employees.Where(e => e.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
+                                internalDocument.Signatory = signatory;
+                                Employee approvedManager = Employees.Where(e => e.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                                internalDocument.ApprovedManager = approvedManager;
+                                Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                                internalDocument.EmployeeRecievedDocument = employeeRecivedDocument;
+                                InternalDocumentsCollection.Add(internalDocument);
+                            }
                         }
                     }
                 }
@@ -358,23 +420,31 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ICreateNewDocument => new RelayCommand(createNewDocument => CreateNewDocument());
         private void CreateNewDocument()
         {
-            OpenDocumentWindow(null);
+            if (!IsInternalDocuments)
+            {
+                OpenDocumentWindow(null);
+            }
+            else
+            {
+                OpenInternalDocumentWindow(null);
+            }
         }
 
         private void OpenDocumentWindow(Document document)
         {
             DocumentWindow documentWindow = new DocumentWindow(document);
             documentWindow.ShowDialog();
-            GetAllDocuments();
             GetAllContractorCompanyes();
+            GetAllDocuments();
             InitializeDocuments();
         }
 
-        //private void OpenInternalDocumentWindow(InternalDocument internalDocument)
-        //{
-        //    InternalDocumentWindow internalDocumentWindow = new InternalDocumentWindow(internalDocument);
-        //    internalDocumentWindow.ShowDialog();
-
-        //}
+        private void OpenInternalDocumentWindow(InternalDocument internalDocument)
+        {
+            InternalDocumentWindow internalDocumentWindow = new InternalDocumentWindow(internalDocument);
+            internalDocumentWindow.ShowDialog();
+            GetAllInternalDocuments();
+            InitializeInternalDocuments();
+        }
     }
 }

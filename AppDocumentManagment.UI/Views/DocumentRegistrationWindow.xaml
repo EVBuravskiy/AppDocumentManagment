@@ -74,18 +74,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" 
-                        x:Name="NewUserRegistredBtn"
                         Style="{StaticResource Buttons}"
                         Padding="10"
                         Margin="10"
-                        Command="{Binding IGetRegistratedUsersList}">
+                        Command="{Binding IShowExternalDocuments}">
                     <TextBlock TextAlignment="Center"> Поступившие <LineBreak/> документы</TextBlock>
                 </Button>
                 <Button Grid.Row="1"
                         Style="{StaticResource Buttons}"
                         Padding="10"
                         Margin="10"
-                        Command="{Binding IGetAllUsersList}">
+                        Command="{Binding IShowInternalDocuments}">
                     <TextBlock TextAlignment="Center"> Внутренние <LineBreak/> документы</TextBlock>
                 </Button>
             </Grid>
@@ -163,7 +162,8 @@
                                Margin="20 5"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"/>
-                            <ComboBox x:Name="ComboBoxDepartments" 
+                            <Grid>
+                            <ComboBox x:Name="ComboBoxExternalDocumentTypes" 
                                       VerticalAlignment="Center"
                                       HorizontalAlignment="Right"
                                       Width="300"
@@ -177,13 +177,31 @@
                                       ItemsSource="{Binding DocumentTypes}"
                                       SelectedIndex="{Binding SelectedDocumentTypeIndex}"
                                       SelectedItem="{Binding SelectedDocumentType}"
-                                      ScrollViewer.CanContentScroll="True"/>
+                                      ScrollViewer.CanContentScroll="True"
+                                      Visibility="Visible"/>
+                            <ComboBox x:Name="ComboBoxInternalDocumentTypes" 
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Right"
+                                      Width="300"
+                                      Margin="20 5"
+                                      Height="40"
+                                      FontFamily="Arial"
+                                      FontSize="14"
+                                      FontWeight="Bold"
+                                      VerticalContentAlignment="Center"
+                                      HorizontalContentAlignment="Center"
+                                      ItemsSource="{Binding InternalDocumentTypes}"
+                                      SelectedIndex="{Binding SelectedInternalDocumentTypeIndex}"
+                                      SelectedItem="{Binding SelectedInternalDocumentType}"
+                                      ScrollViewer.CanContentScroll="True"
+                                      Visibility="Hidden"/>
+                            </Grid>
                         </StackPanel>
                     </Grid>
-                    <Grid x:Name="Documents"
+                    <Grid x:Name="ExternalDocuments"
                           Grid.Row="3"
                           Margin="20 15 20 10"
-                          Visibility="Hidden">
+                          Visibility="Visible">
                         <Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -322,7 +340,7 @@
                     <Grid x:Name="InternalDocuments"
                           Grid.Row="3"
                           Margin="20 15 20 10"
-                          Visibility="Visible">
+                          Visibility="Hidden">
                         <Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -394,8 +412,8 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <ListView ItemsSource="{Binding DocumentsCollection}"
-                                              SelectedItem="{Binding SelectedDocument, Mode=TwoWay}">
+                                    <ListView ItemsSource="{Binding InternalDocumentsCollection}"
+                                              SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Background="Transparent"
@@ -414,7 +432,7 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentID}"/>
+                                                               Text="{Binding InternalDocumentID}"/>
                                                     <TextBlock Grid.Column="1"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
@@ -424,27 +442,27 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentNumber}"/>
+                                                               Text="{Binding InternalDocumentType}"/>
                                                     <TextBlock Grid.Column="3"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentDate}"/>
+                                                               Text="{Binding InternalDocumentDate}"/>
                                                     <TextBlock Grid.Column="4"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentTitle}"/>
+                                                               Text="{Binding Signatory.EmployeeFullName}"/>
                                                     <TextBlock Grid.Column="5"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding ContractorCompany.ContractorCompanyTitle}"/>
+                                                               Text="{Binding ApprovedManager.EmployeeFullName}"/>
                                                     <TextBlock Grid.Column="6"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding EmployeeReceivedDocument.EmployeeShortName}"/>
+                                                               Text="{Binding EmployeeRecievedDocument.EmployeeFullName}"/>
                                                     <TextBlock Grid.Column="7"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"

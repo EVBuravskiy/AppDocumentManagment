@@ -350,7 +350,9 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocument newInternalDocument = new InternalDocument();
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
             newInternalDocument.SignatoryID = Signatory.EmployeeID;
+            newInternalDocument.Signatory = Signatory;
             newInternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
+            newInternalDocument.ApprovedManager = ApprovedManager;
             newInternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
             newInternalDocument.InternalDocumentStatus = InternalDocumentStatus.Processing;
             newInternalDocument.InternalDocumentDate = InternalDocumentDate;
@@ -359,8 +361,6 @@ namespace AppDocumentManagment.UI.ViewModels
                 newInternalDocument.InternalDocumentID = InternalDocument.InternalDocumentID;
                 newInternalDocument.RegistrationDate = InternalDocument.RegistrationDate;
                 newInternalDocument.IsRegistated = InternalDocument.IsRegistated;
-                newInternalDocument.SignatoryID = Signatory.EmployeeID;
-                newInternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
             }
             return newInternalDocument;
         }
@@ -391,7 +391,8 @@ namespace AppDocumentManagment.UI.ViewModels
             if (examiningPersonsWindow.viewModel.SelectedEmployee != null)
             {
                 InternalDocument internalDocument = CreateInternalDocument();
-                internalDocument.EmployeeRecivedDocumentID = examiningPersonsWindow.viewModel.SelectedEmployee.EmployeeID;
+                internalDocument.EmployeeRecievedDocumentID = examiningPersonsWindow.viewModel.SelectedEmployee.EmployeeID;
+                internalDocument.EmployeeRecievedDocument = examiningPersonsWindow.viewModel.SelectedEmployee;
                 InternalDocumentController internalDocumentController = new InternalDocumentController();
                 if (internalDocument.IsRegistated == false)
                 {

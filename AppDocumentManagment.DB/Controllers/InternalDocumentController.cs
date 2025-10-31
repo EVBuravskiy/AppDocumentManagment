@@ -91,7 +91,12 @@ namespace AppDocumentManagment.DB.Controllers
                         Employee signatory = context.Employees.Where(e => e.EmployeeID == inputDocument.SignatoryID).FirstOrDefault();
                         aviableDocument.SignatoryID = signatory.EmployeeID;
                         Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
-                        aviableDocument.SignatoryID = approvedManager.EmployeeID;
+                        aviableDocument.ApprovedManagerID = approvedManager.EmployeeID;
+                        if(inputDocument.EmployeeRecievedDocumentID != 0)
+                        {
+                            Employee recievedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                            aviableDocument.EmployeeRecievedDocumentID = recievedManager.EmployeeID;
+                        }
                         aviableDocument.InternalDocumentFiles = inputDocument.InternalDocumentFiles;
                         aviableDocument.RegistrationDate = inputDocument.RegistrationDate;
                         aviableDocument.IsRegistated = inputDocument.IsRegistated;
