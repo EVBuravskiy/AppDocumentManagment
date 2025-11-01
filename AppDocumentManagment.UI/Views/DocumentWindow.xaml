@@ -143,7 +143,14 @@
                             Padding="10 5"
                             Margin="20 0"
                             Command="{Binding IOpenContractorCompanyListWindow}">
-                        <TextBlock TextAlignment="Center">Добавить <LineBreak/> контрагента</TextBlock>
+                        <Grid>
+                        <TextBlock x:Name="ButtonAddCompany"
+                                   TextAlignment="Center"
+                                   Visibility="Visible">Добавить <LineBreak/> контрагента</TextBlock>
+                        <TextBlock x:Name="ButtonChangeCompany"
+                                   TextAlignment="Center"
+                                   Visibility="Hidden">Изменить <LineBreak/> контрагента</TextBlock>
+                        </Grid>
                     </Button>
                 </Grid>
                 <Grid Grid.Row="1"

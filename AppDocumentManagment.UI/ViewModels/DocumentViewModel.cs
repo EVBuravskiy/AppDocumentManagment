@@ -185,6 +185,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(SelectedDocument.DocumentType);
                 EmployeeReceivedDocument = SelectedDocument.EmployeeReceivedDocument;
                 RegisterOrUpdateBtnTitle = "Сохранить изменения";
+                DocumentWindow.ButtonAddCompany.Visibility = Visibility.Hidden;
+                DocumentWindow.ButtonChangeCompany.Visibility = Visibility.Visible;
                 GetDocumentFiles();
                 InitializeDocumentFiles();
             }

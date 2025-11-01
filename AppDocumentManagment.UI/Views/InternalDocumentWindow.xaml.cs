@@ -12,8 +12,8 @@ namespace AppDocumentManagment.UI.Views
         private InternalDocumentViewModel viewModel;
         public InternalDocumentWindow(InternalDocument inputDocument)
         {
-            viewModel = new InternalDocumentViewModel(this, inputDocument);
             InitializeComponent();
+            viewModel = new InternalDocumentViewModel(this, inputDocument);
             DataContext = viewModel;
         }
     }

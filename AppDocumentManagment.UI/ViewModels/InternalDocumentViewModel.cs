@@ -173,6 +173,8 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeDepartments();
             if (InternalDocument != null)
             {
+                InternalDocumentWindow.AddSignatoryBtnTitle.Visibility = Visibility.Hidden;
+                InternalDocumentWindow.ChangeSignatoryBtnTitle.Visibility = Visibility.Visible;
                 RegisterOrUpdateBtnTitle = "Сохранить изменения";
                 SelectedInternalDocumentType = InternalDocument.InternalDocumentType;
                 SelectedInternalDocumentTypeIndex = InternalDocumentTypeConverter.ToIntConvert(InternalDocument.InternalDocumentType);
@@ -182,6 +184,8 @@ namespace AppDocumentManagment.UI.ViewModels
                     ApprovedManager = controller.GetEmployeeByID(InternalDocument.ApprovedManagerID);
                     if(ApprovedManager != null)
                     {
+                        InternalDocumentWindow.AddApproveManagerBtnTitle.Visibility = Visibility.Hidden;
+                        InternalDocumentWindow.ChangeApproveManagerBtnTitle.Visibility = Visibility.Visible;
                         DepartmentController departmentController = new DepartmentController();
                         Department department = departmentController.GetDepartmentByID(ApprovedManager.DepartmentID);
                         ApprovedManager.Department = department;

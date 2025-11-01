@@ -109,7 +109,14 @@
                             Padding="10 5"
                             Margin="20 0"
                             Command="{Binding IOpenSignatoryWindow}">
-                        <TextBlock TextAlignment="Center">Добавить <LineBreak/> инициатора / подписанта</TextBlock>
+                        <Grid>
+                            <TextBlock x:Name="AddSignatoryBtnTitle"
+                                       TextAlignment="Center"
+                                       Visibility="Visible">Добавить <LineBreak/> инициатора / подписанта</TextBlock>
+                            <TextBlock x:Name="ChangeSignatoryBtnTitle"
+                                       TextAlignment="Center"
+                                       Visibility="Hidden">Изменить <LineBreak/> инициатора / подписанта</TextBlock>
+                        </Grid>
                     </Button>
                 </Grid>
                 <Grid Grid.Row="1"
@@ -159,7 +166,14 @@
                             Padding="10 5"
                             Margin="20 0"
                             Command="{Binding IOpenApprovedManagerWindow}">
-                        <TextBlock TextAlignment="Center">Добавить <LineBreak/> лицо согласовашее документ</TextBlock>
+                        <Grid>
+                            <TextBlock x:Name="AddApproveManagerBtnTitle"
+                                       TextAlignment="Center"
+                                       Visibility="Visible">Добавить <LineBreak/> лицо согласовашее документ</TextBlock>
+                            <TextBlock x:Name="ChangeApproveManagerBtnTitle"
+                                       TextAlignment="Center"
+                                       Visibility="Hidden">Изменить <LineBreak/> лицо согласовашее документ</TextBlock>
+                        </Grid>
                     </Button>
                 </Grid>
                 <Grid Grid.Row="1"
