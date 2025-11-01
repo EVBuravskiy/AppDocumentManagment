@@ -277,7 +277,7 @@
                                               SelectedItem="{Binding SelectedDocument, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Background="Transparent"
+                                                <Grid Background="WhiteSmoke"
                                                       Margin="0 5">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="50"/>
@@ -314,37 +314,33 @@
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
                                                                Text="{Binding DocumentTitle}"/>
-                                                    <Grid Grid.Column="5" VerticalAlignment="Center">
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                       TextAlignment="Center"
-                                                                       TextWrapping="Wrap"
-                                                                       Text="{Binding ContractorCompany.ContractorCompanyTitle}"/>
-                                                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                       TextAlignment="Center"
-                                                                       TextWrapping="Wrap"
-                                                                       FontSize="10"
-                                                                       Text="{Binding ContractorCompany.ContractorCompanyAddress}"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                    <Grid Grid.Column="6">
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                       TextAlignment="Center"
-                                                                       TextWrapping="Wrap"
-                                                                       Text="{Binding EmployeeReceivedDocument.Department.DepartmentTitle}"/>
-                                                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                       TextAlignment="Center"
-                                                                       TextWrapping="Wrap"
-                                                                       FontSize="10"
-                                                                       Text="{Binding EmployeeReceivedDocument.Position}"/>
-                                                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                       TextAlignment="Center"
-                                                                       TextWrapping="Wrap"
-                                                                       FontSize="10"
-                                                                       Text="{Binding EmployeeReceivedDocument.EmployeeFullName}"/>
-                                                        </StackPanel>
-                                                    </Grid>
+                                                    <StackPanel Grid.Column="5">
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   Text="{Binding ContractorCompany.ContractorCompanyTitle}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="10"
+                                                                   Text="{Binding ContractorCompany.ContractorCompanyAddress}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="6">
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   Text="{Binding EmployeeReceivedDocument.Department.DepartmentTitle}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="10"
+                                                                   Text="{Binding EmployeeReceivedDocument.Position}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="11"
+                                                                   Text="{Binding EmployeeReceivedDocument.EmployeeFullName}"/>
+                                                    </StackPanel>
                                                     <TextBlock Grid.Column="7"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
@@ -373,13 +369,13 @@
                                       Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="50"/>
                                             <ColumnDefinition Width="80"/>
                                             <ColumnDefinition Width="80"/>
                                             <ColumnDefinition Width="80"/>
                                             <ColumnDefinition Width="150"/>
                                             <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="150"/>
                                             <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
@@ -437,16 +433,16 @@
                                               SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Background="Transparent"
+                                                <Grid Background="WhiteSmoke"
                                                       Margin="0 5">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="80"/>
+                                                        <ColumnDefinition Width="50"/>
                                                         <ColumnDefinition Width="80"/>
                                                         <ColumnDefinition Width="80"/>
                                                         <ColumnDefinition Width="80"/>
                                                         <ColumnDefinition Width="150"/>
                                                         <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="150"/>
                                                         <ColumnDefinition Width="100"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0"
@@ -469,21 +465,55 @@
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
                                                                Text="{Binding InternalDocumentDate}"/>
-                                                    <TextBlock Grid.Column="4"
-                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                    <StackPanel Grid.Column="4">
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="12"
+                                                                   Text="{Binding Signatory.Department.DepartmentTitle}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="10"
+                                                                   Text="{Binding Signatory.Position}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="11"
+                                                                   Text="{Binding Signatory.EmployeeFullName}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="5">
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   Text="{Binding ApprovedManager.Department.DepartmentTitle}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="10"
+                                                                   Text="{Binding ApprovedManager.Position}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="11"
+                                                                   Text="{Binding ApprovedManager.EmployeeFullName}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="6">
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding Signatory.EmployeeFullName}"/>
-                                                    <TextBlock Grid.Column="5"
-                                                               Style="{StaticResource AdminDocumentTextblock}"
-                                                               TextAlignment="Center"
-                                                               TextWrapping="Wrap"
-                                                               Text="{Binding ApprovedManager.EmployeeFullName}"/>
-                                                    <TextBlock Grid.Column="6"
-                                                               Style="{StaticResource AdminDocumentTextblock}"
-                                                               TextAlignment="Center"
-                                                               TextWrapping="Wrap"
-                                                               Text="{Binding EmployeeRecievedDocument.EmployeeFullName}"/>
+                                                               Text="{Binding EmployeeRecievedDocument.Department.DepartmentTitle}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="10"
+                                                                   Text="{Binding EmployeeRecievedDocument.Position}"/>
+                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                                   TextAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   FontSize="11"
+                                                                   Text="{Binding EmployeeRecievedDocument.EmployeeFullName}"/>
+                                                    </StackPanel>
                                                     <TextBlock Grid.Column="7"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
