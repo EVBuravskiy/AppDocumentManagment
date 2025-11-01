@@ -21,11 +21,11 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class DocumentWindow : Window
     {
-        private DocumentViewController viewController;
+        private DocumentViewModel viewController;
         public DocumentWindow(Document inputDocument)
         {
             InitializeComponent();
-            viewController = new DocumentViewController(this, inputDocument);
+            viewController = new DocumentViewModel(this, inputDocument);
             DataContext = viewController;
         }
     }

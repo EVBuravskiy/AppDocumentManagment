@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
-    public class DocumentViewController : BaseViewModelClass
+    public class DocumentViewModel : BaseViewModelClass
     {
         private IFileDialogService fileDialogService;
         private DocumentWindow DocumentWindow { get; set; }
@@ -149,7 +149,20 @@ namespace AppDocumentManagment.UI.ViewModels
 
         public DocumentFile SelectedDocumentFile {  get; set; }
 
-        public DocumentViewController(DocumentWindow window, Document selectedDocument)
+        private Employee EmployeeReceivedDocument { get; set; }
+
+        private string registerOrUpdateBtnTitle = "Зарегистрировать документ";
+        public string RegisterOrUpdateBtnTitle
+        {
+            get => registerOrUpdateBtnTitle;
+            set
+            {
+                registerOrUpdateBtnTitle = value;
+                OnPropertyChanged(nameof(RegisterOrUpdateBtnTitle));
+            }
+        }
+
+        public DocumentViewModel(DocumentWindow window, Document selectedDocument)
         {
             DocumentWindow = window;
             SelectedDocument = selectedDocument;
@@ -169,6 +182,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 TextBlockCompanyEmail = $"Электронная почта: {SelectedDocument.ContractorCompany.ContractorCompanyEmail}";
                 ContractorCompanyID = SelectedDocument.ContractorCompanyID;
                 SelectedDocumentType = SelectedDocument.DocumentType;
+                EmployeeReceivedDocument = SelectedDocument.EmployeeReceivedDocument;
+                RegisterOrUpdateBtnTitle = "Сохранить изменения";
                 GetDocumentFiles();
                 InitializeDocumentFiles();
             }
@@ -278,10 +293,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ICommand IRegisterDocument => new RelayCommand(registerDocument => RegisterDocument());
-        private void RegisterDocument()
+        public ICommand IRegisterOrRenewDocument => new RelayCommand(registerOrRenewDocument => RegisterOrRenewDocument());
+        private void RegisterOrRenewDocument()
         {
             if (!ValidationDocument()) return;
+            if (SelectedDocument == null) RegisterDocument();
+            else UpdateDocument();
+        }
+
+        private void RegisterDocument()
+        {
             Document newDocument = CreateDocument();
             bool result = false;
             DocumentController documentController = new DocumentController();
@@ -299,6 +320,35 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в регистрации документа");
+                DocumentWindow.Close();
+            }
+        }
+
+        private void UpdateDocument()
+        {
+            SelectedDocument.DocumentTitle = DocumentTitle;
+            SelectedDocument.DocumentNumber = DocumentNumber;
+            SelectedDocument.DocumentDate = DocumentDate;
+            SelectedDocument.ContractorCompany = ContractorCompany;
+            SelectedDocument.DocumentType = SelectedDocumentType;
+            SelectedDocument.DocumentFiles = DocumentFiles.ToList();
+            SelectedDocument.IsRegistated = true;
+            if(SelectedDocument.EmployeeReceivedDocument == null || SelectedDocument.EmployeeReceivedDocument != EmployeeReceivedDocument)
+            {
+                SelectedDocument.EmployeeReceivedDocument = EmployeeReceivedDocument;
+                SelectedDocument.SendingDate = DateTime.Now;
+            }
+            bool result = false;
+            DocumentController documentController = new DocumentController();
+            result = documentController.UpdateDocument(SelectedDocument);
+            if (result)
+            {
+                MessageBox.Show("Документ обновлен");
+                DocumentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка в обновлении документа");
                 DocumentWindow.Close();
             }
         }

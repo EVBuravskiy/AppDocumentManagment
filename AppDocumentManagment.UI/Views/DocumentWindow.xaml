@@ -247,7 +247,8 @@
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IRemoveDocument}"/>
-            <Button Content="Зарегистрировать документ" 
+            <Button x:Name="RegisterOrUpdateBtn"
+                    Content="{Binding RegisterOrUpdateBtnTitle}" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
@@ -257,7 +258,7 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IRegisterDocument}"/>
+                    Command="{Binding IRegisterOrRenewDocument}"/>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
