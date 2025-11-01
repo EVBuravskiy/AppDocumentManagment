@@ -182,6 +182,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 TextBlockCompanyEmail = $"Электронная почта: {SelectedDocument.ContractorCompany.ContractorCompanyEmail}";
                 ContractorCompanyID = SelectedDocument.ContractorCompanyID;
                 SelectedDocumentType = SelectedDocument.DocumentType;
+                SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(SelectedDocument.DocumentType);
                 EmployeeReceivedDocument = SelectedDocument.EmployeeReceivedDocument;
                 RegisterOrUpdateBtnTitle = "Сохранить изменения";
                 GetDocumentFiles();

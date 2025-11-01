@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -136,6 +137,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private Employee EmployeeRecievedDocument { get; set; }
         private List<InternalDocumentFile> InternalDocumentFilesList { get; set; }
 
         public ObservableCollection<InternalDocumentFile> InternalDocumentFiles { get; set; }
@@ -143,6 +145,17 @@ namespace AppDocumentManagment.UI.ViewModels
         public InternalDocumentFile SelectedInternalDocumentFile { get; set; }
 
         private List<Department> Departments;
+
+        private string registerOrUpdateBtnTitle = "Зарегистрировать документ";
+        public string RegisterOrUpdateBtnTitle
+        {
+            get => registerOrUpdateBtnTitle;
+            set
+            {
+                registerOrUpdateBtnTitle = value;
+                OnPropertyChanged(nameof(RegisterOrUpdateBtnTitle));
+            }
+        }
 
         public InternalDocumentViewModel(InternalDocumentWindow internalDocumentWindow, InternalDocument internalDocument = null)
         {
@@ -160,7 +173,10 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeDepartments();
             if (InternalDocument != null)
             {
-                if (InternalDocument.ApprovedManagerID != 0 && InternalDocument.ApprovedManagerID != 0)
+                RegisterOrUpdateBtnTitle = "Сохранить изменения";
+                SelectedInternalDocumentType = InternalDocument.InternalDocumentType;
+                SelectedInternalDocumentTypeIndex = InternalDocumentTypeConverter.ToIntConvert(InternalDocument.InternalDocumentType);
+                if (InternalDocument.ApprovedManagerID != 0)
                 {
                     EmployeeController controller = new EmployeeController();
                     ApprovedManager = controller.GetEmployeeByID(InternalDocument.ApprovedManagerID);
@@ -175,7 +191,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     ApprovedManagerFullName = ApprovedManager.EmployeeFullName;
 
                 }
-                if (InternalDocument.SignatoryID != 0 && InternalDocument.SignatoryID != 0)
+                if (InternalDocument.SignatoryID != 0)
                 {
                     EmployeeController controller = new EmployeeController();
                     Signatory = controller.GetEmployeeByID(InternalDocument.SignatoryID);
@@ -188,6 +204,11 @@ namespace AppDocumentManagment.UI.ViewModels
                     SignatoryDepartment = Signatory.Department.DepartmentTitle;
                     SignatoryPosition = Signatory.Position;
                     SignatoryFullName = Signatory.EmployeeFullName;
+                }
+                if(InternalDocument.EmployeeRecievedDocumentID != 0)
+                {
+                    EmployeeController controller = new EmployeeController();
+                    EmployeeRecievedDocument = controller.GetEmployeeByID(InternalDocument.EmployeeRecievedDocumentID);
                 }
                 InternalDocumentDate = InternalDocument.InternalDocumentDate;
             }
@@ -321,10 +342,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ICommand IRegisterInternalDocument => new RelayCommand(registerInternalDocument => RegisterInternalDocument());
-        private void RegisterInternalDocument()
+        public ICommand IRegisterOrUpdateInternalDocument => new RelayCommand(registerOrUpdateInternalDocument => RegisterOrUpdateInternalDocument());
+        private void RegisterOrUpdateInternalDocument()
         {
             if (!ValidationInternalDocument()) return;
+            if (InternalDocument == null) RegisterInternalDocument();
+            else UpdateInternalDocument();
+        }
+        
+        private void RegisterInternalDocument()
+        {
             InternalDocument newInternalDocument = CreateInternalDocument();
             bool result = false;
             InternalDocumentController internalDocumentController = new InternalDocumentController();
@@ -333,15 +360,38 @@ namespace AppDocumentManagment.UI.ViewModels
                 newInternalDocument.RegistrationDate = DateTime.Now;
                 newInternalDocument.IsRegistated = true;
             }
-            result = internalDocumentController.AddInternalDocument(newInternalDocument);
-            if (result)
-            {
+            if (internalDocumentController.AddInternalDocument(newInternalDocument))
+            { 
                 MessageBox.Show("Документ зарегистрирован");
                 InternalDocumentWindow.Close();
             }
             else
             {
                 MessageBox.Show("Ошибка в регистрации документа");
+                InternalDocumentWindow.Close();
+            }
+        }
+
+        private void UpdateInternalDocument()
+        {
+            InternalDocument.InternalDocumentType = SelectedInternalDocumentType;
+            InternalDocument.InternalDocumentDate = InternalDocumentDate;
+            InternalDocument.Signatory = Signatory;
+            InternalDocument.SignatoryID = Signatory.EmployeeID;
+            InternalDocument.ApprovedManager = ApprovedManager;
+            InternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
+            InternalDocument.EmployeeRecievedDocument = EmployeeRecievedDocument;
+            InternalDocument.EmployeeRecievedDocumentID = EmployeeRecievedDocument.EmployeeID;
+            InternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
+            InternalDocumentController internalDocumentController = new InternalDocumentController();
+            if (internalDocumentController.UpdateInternalDocument(InternalDocument))
+            {
+                MessageBox.Show("Изменения сохранены");
+                InternalDocumentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при внесении изменений");
                 InternalDocumentWindow.Close();
             }
         }
@@ -397,6 +447,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 InternalDocument internalDocument = CreateInternalDocument();
                 internalDocument.EmployeeRecievedDocumentID = examiningPersonsWindow.viewModel.SelectedEmployee.EmployeeID;
                 internalDocument.EmployeeRecievedDocument = examiningPersonsWindow.viewModel.SelectedEmployee;
+                EmployeeRecievedDocument = internalDocument.EmployeeRecievedDocument;
                 InternalDocumentController internalDocumentController = new InternalDocumentController();
                 if (internalDocument.IsRegistated == false)
                 {
