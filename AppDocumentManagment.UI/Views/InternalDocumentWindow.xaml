@@ -100,117 +100,178 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40px"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Button Style="{StaticResource Buttons}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Button Style="{StaticResource Buttons}"
+                                    Padding="10 5"
+                                    Margin="20 0"
+                                    Command="{Binding IOpenSignatoryWindow}">
+                            <Grid>
+                                <TextBlock x:Name="AddSignatoryBtnTitle"
+                                               TextAlignment="Center"
+                                               Visibility="Visible">Добавить <LineBreak/> инициатора / подписанта</TextBlock>
+                                <TextBlock x:Name="ChangeSignatoryBtnTitle"
+                                               TextAlignment="Center"
+                                               Visibility="Hidden">Изменить <LineBreak/> инициатора / подписанта</TextBlock>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                              Margin="20 10">
+                        <Grid>
+                            <Border x:Name="SignatoryInfo"
+                                        CornerRadius="5"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="12"
+                                                   Text="Информация об инициаторе / подписанте"
+                                                   Margin="0 5 0 5"/>
+                                    <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding SignatoryDepartment}"
+                                                   Margin="0 5 0 0"/>
+                                    <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="12"
+                                                   Text="{Binding SignatoryPosition}"
+                                                   Margin="0 0 0 10"/>
+                                    <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding SignatoryFullName}"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Left"
+                                                   Margin="0 0 0 3"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Button Style="{StaticResource Buttons}"
                             Padding="10 5"
                             Margin="20 0"
-                            Command="{Binding IOpenSignatoryWindow}">
-                        <Grid>
-                            <TextBlock x:Name="AddSignatoryBtnTitle"
+                            Command="{Binding IOpenApprovedManagerWindow}">
+                                <Grid>
+                                    <TextBlock x:Name="AddApproveManagerBtnTitle"
                                        TextAlignment="Center"
-                                       Visibility="Visible">Добавить <LineBreak/> инициатора / подписанта</TextBlock>
-                            <TextBlock x:Name="ChangeSignatoryBtnTitle"
+                                       Visibility="Visible">Добавить <LineBreak/> лицо согласовашее документ</TextBlock>
+                                    <TextBlock x:Name="ChangeApproveManagerBtnTitle"
                                        TextAlignment="Center"
-                                       Visibility="Hidden">Изменить <LineBreak/> инициатора / подписанта</TextBlock>
+                                       Visibility="Hidden">Изменить <LineBreak/> лицо согласовашее документ</TextBlock>
+                                </Grid>
+                            </Button>
                         </Grid>
-                    </Button>
-                </Grid>
-                <Grid Grid.Row="1"
-                      Margin="20 10">
-                    <Grid>
-                        <Border x:Name="SignatoryInfo"
-                                CornerRadius="5"
-                                BorderThickness="0"
-                                BorderBrush="Transparent">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="Информация об инициаторе / подписанте"
-                                       Margin="0 5 0 5"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="{Binding SignatoryDepartment}"
-                                       Margin="0 5 0 0"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="16"
-                                       Text="{Binding SignatoryPosition}"
-                                       Margin="0 0 0 10"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="{Binding SignatoryFullName}"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 3"/>
-                            </StackPanel>
-                        </Border>
+                        <Grid Grid.Row="1"
+                              Margin="20 10">
+                            <Grid>
+                                <Border x:Name="AgreeEmployer"
+                                        CornerRadius="5"
+                                        BorderThickness="0"
+                                        BorderBrush="Transparent">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="12"
+                                                   Text="Информация о лице согласовавшем документ"
+                                                   Margin="0 5 0 5"/>
+                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding ApprovedManagerDepartment}"
+                                                   Margin="0 5 0 0"/>
+                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="12"
+                                                   Text="{Binding ApprovedManagerPosition}"
+                                                   Margin="0 0 0 10"/>
+                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                                   HorizontalAlignment="Center"
+                                                   FontSize="14"
+                                                   Text="{Binding ApprovedManagerFullName}"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Left"
+                                                   Margin="0 0 0 3"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40px"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Button Style="{StaticResource Buttons}"
-                            Padding="10 5"
-                            Margin="20 0"
-                            Command="{Binding IOpenApprovedManagerWindow}">
-                        <Grid>
-                            <TextBlock x:Name="AddApproveManagerBtnTitle"
-                                       TextAlignment="Center"
-                                       Visibility="Visible">Добавить <LineBreak/> лицо согласовашее документ</TextBlock>
-                            <TextBlock x:Name="ChangeApproveManagerBtnTitle"
-                                       TextAlignment="Center"
-                                       Visibility="Hidden">Изменить <LineBreak/> лицо согласовашее документ</TextBlock>
-                        </Grid>
-                    </Button>
-                </Grid>
-                <Grid Grid.Row="1"
-                      Margin="20 10">
+        <Grid Grid.Row="3" Margin="20 0">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Наименование документа: "
+                           Style="{StaticResource TopPanelLabel}"
+                           Foreground="Black"/>
                     <Grid>
-                        <Border x:Name="AgreeEmployer"
-                                CornerRadius="5"
-                                BorderThickness="0"
-                                BorderBrush="Transparent">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="Информация о лице согласовавшем документ"
-                                       Margin="0 5 0 5"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="{Binding ApprovedManagerDepartment}"
-                                       Margin="0 5 0 0"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="16"
-                                       Text="{Binding ApprovedManagerPosition}"
-                                       Margin="0 0 0 10"/>
-                                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       HorizontalAlignment="Center"
-                                       FontSize="20"
-                                       Text="{Binding ApprovedManagerFullName}"
-                                       TextWrapping="Wrap"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 3"/>
-                            </StackPanel>
-                        </Border>
+                        <TextBox x:Name="InternalDocumentTitle" 
+                                 Style="{StaticResource ItemTitleBox}"
+                                 VerticalAlignment="Top"
+                                 FontSize="14"
+                                 Text="{Binding InternalDocumentTitle}"
+                                 Background="WhiteSmoke"
+                                 Margin="10 0 0 0"
+                                 Width="330"
+                                 Height="50"
+                                 SpellCheck.IsEnabled="True"
+                                 TextWrapping="Wrap"/>
+                        <Label IsHitTestVisible="False" 
+                           Grid.Row="3"
+                           Foreground="DimGray"
+                           Content="Введите наименование документа..."
+                           VerticalAlignment="Top"
+                           FontSize="14"
+                           Visibility="{Binding Text.IsEmpty, ElementName=InternalDocumentTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Margin="30 10 "/>
                     </Grid>
+                </StackPanel>
+                <Label Content="Краткое содержание документа:"
+                       Style="{StaticResource TopPanelLabel}"
+                       Foreground="Black"/>
+                <Grid>
+                    <TextBox x:Name="InternalDocumentContent" 
+                             Style="{StaticResource ItemTitleBox}"
+                             VerticalAlignment="Center"
+                             FontSize="14"
+                             Text="{Binding InternalDocumentContent}"
+                             Background="WhiteSmoke"
+                             SpellCheck.IsEnabled="True"
+                             Height="100"
+                             TextWrapping="Wrap"
+                             VerticalContentAlignment="Top" 
+                             Margin="0"/>
+                    <Label IsHitTestVisible="False" 
+                           Foreground="DimGray"
+                           Content="Введите краткое содержание документа..."
+                           VerticalAlignment="Top"
+                           VerticalContentAlignment="Center"
+                           FontSize="14"
+                           Height="100"
+                           Visibility="{Binding Text.IsEmpty, ElementName=InternalDocumentContent, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Margin="10 0"/>
                 </Grid>
-            </Grid>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="4"
               Margin="0 0 0 20">

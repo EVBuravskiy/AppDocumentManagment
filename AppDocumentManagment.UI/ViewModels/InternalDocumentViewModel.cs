@@ -157,6 +157,29 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string internalDocumentTitle;
+        public string InternalDocumentTitle
+        {
+            get => internalDocumentTitle;
+            set
+            {
+                internalDocumentTitle = value;
+                OnPropertyChanged(nameof(InternalDocumentTitle));
+            }
+        }
+
+        private string internalDocumentContent;
+        public string InternalDocumentContent
+        {
+            get => internalDocumentContent;
+            set
+            {
+                internalDocumentContent = value;
+                OnPropertyChanged(nameof(InternalDocumentContent));
+            }
+        }
+
+
         public InternalDocumentViewModel(InternalDocumentWindow internalDocumentWindow, InternalDocument internalDocument = null)
         {
             InternalDocumentWindow = internalDocumentWindow;
@@ -215,6 +238,8 @@ namespace AppDocumentManagment.UI.ViewModels
                     EmployeeRecievedDocument = controller.GetEmployeeByID(InternalDocument.EmployeeRecievedDocumentID);
                 }
                 InternalDocumentDate = InternalDocument.InternalDocumentDate;
+                InternalDocumentTitle = InternalDocument.InternalDocumentTitle;
+                InternalDocumentContent = InternalDocument.InternalDocumentContent;
             }
         }
 
@@ -387,6 +412,8 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocument.EmployeeRecievedDocument = EmployeeRecievedDocument;
             InternalDocument.EmployeeRecievedDocumentID = EmployeeRecievedDocument.EmployeeID;
             InternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
+            InternalDocument.InternalDocumentTitle = InternalDocumentTitle;
+            InternalDocument.InternalDocumentContent = InternalDocumentContent;
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             if (internalDocumentController.UpdateInternalDocument(InternalDocument))
             {
@@ -406,6 +433,8 @@ namespace AppDocumentManagment.UI.ViewModels
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
             newInternalDocument.SignatoryID = Signatory.EmployeeID;
             newInternalDocument.Signatory = Signatory;
+            newInternalDocument.InternalDocumentTitle = InternalDocumentTitle;
+            newInternalDocument.InternalDocumentContent = InternalDocumentContent;
             if (ApprovedManager != null)
             {
                 newInternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;

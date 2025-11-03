@@ -105,6 +105,8 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableDocument.IsRegistated = inputDocument.IsRegistated;
                         aviableDocument.SendingDate = inputDocument.SendingDate;
                         aviableDocument.InternalDocumentStatus = inputDocument.InternalDocumentStatus;
+                        aviableDocument.InternalDocumentTitle = inputDocument.InternalDocumentTitle;
+                        aviableDocument.InternalDocumentContent = inputDocument.InternalDocumentContent;
                         context.InternalDocuments.Update(aviableDocument);
                         context.SaveChanges();
                         result = true;
