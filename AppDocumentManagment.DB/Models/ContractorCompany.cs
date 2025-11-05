@@ -15,5 +15,6 @@ namespace AppDocumentManagment.DB.Models
         public string? ContractorCompanyPhone { get; set; }
         public string? ContractorCompanyEmail { get; set; }
         List<Document> Documents { get; set; } = new List<Document>();
+        public string? ContractorInformation {  get; set; }
     }
 }
