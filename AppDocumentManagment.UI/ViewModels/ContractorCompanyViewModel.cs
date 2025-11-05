@@ -66,6 +66,17 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string contractorCompanyInformation;
+        public string ContractorCompanyInformation
+        {
+            get => contractorCompanyInformation;
+            set
+            {
+                contractorCompanyInformation = value;
+                OnPropertyChanged(nameof(ContractorCompanyInformation));
+            }
+        }
+
         private bool isNew = true;
 
         public ContractorCompanyViewModel(ContractorCompanyWindow contractorCompanyWindow, ContractorCompany? selectedContractorCompany)
@@ -80,6 +91,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 ContractorCompanyAddress = selectedContractorCompany.ContractorCompanyAddress;
                 ContractorCompanyPhone = selectedContractorCompany.ContractorCompanyPhone;
                 ContractorCompanyEmail = selectedContractorCompany.ContractorCompanyEmail;
+                ContractorCompanyInformation = selectedContractorCompany.ContractorCompanyInformation;
             }
         }
 
@@ -96,6 +108,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ContractorCompany.ContractorCompanyAddress = ContractorCompanyAddress;
             ContractorCompany.ContractorCompanyPhone = ContractorCompanyPhone;
             ContractorCompany.ContractorCompanyEmail = ContractorCompanyEmail;
+            ContractorCompany.ContractorCompanyInformation = ContractorCompanyInformation;
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             bool result = false;
             if (isNew)

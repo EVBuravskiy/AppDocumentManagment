@@ -17,5 +17,6 @@
         public List<InternalDocument> InternalDocuments { get; set; } = new List<InternalDocument>();
         public string EmployeePhone { get; set; }
         public string EmployeeEmail { get; set; }
+        public string EmployeeInformation { get; set; }
     }
 }

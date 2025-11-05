@@ -53,7 +53,7 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableContractorCompany.ContractorCompanyAddress = contractorCompany.ContractorCompanyAddress;
                         aviableContractorCompany.ContractorCompanyPhone = contractorCompany.ContractorCompanyPhone;
                         aviableContractorCompany.ContractorCompanyEmail = contractorCompany.ContractorCompanyEmail;
-                        aviableContractorCompany.ContractorInformation = contractorCompany.ContractorInformation;
+                        aviableContractorCompany.ContractorCompanyInformation = contractorCompany.ContractorCompanyInformation;
                         context.ContractorCompanies.Update(aviableContractorCompany);
                         context.SaveChanges();
                         result = true;

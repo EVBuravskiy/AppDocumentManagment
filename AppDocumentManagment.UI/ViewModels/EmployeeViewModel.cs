@@ -2,6 +2,7 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
+using Microsoft.VisualBasic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -136,6 +137,39 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private int SelectedEmployeeID = 0;
 
+        private string _employeePhone;
+        public string EmployeePhone
+        {
+            get => _employeePhone;
+            set
+            {
+                _employeePhone = value;
+                OnPropertyChanged(nameof(EmployeePhone));
+            }
+        }
+
+        private string _employeeEmail;
+        public string EmployeeEmail
+        {
+            get => _employeeEmail;
+            set
+            {
+                _employeeEmail = value;
+                OnPropertyChanged(nameof(EmployeeEmail));
+            }
+        }
+
+        private string _employeeInformation;
+        public string EmployeeInformation
+        {
+            get => _employeeInformation;
+            set
+            {
+                _employeeInformation = value;
+                OnPropertyChanged(nameof(EmployeeInformation));
+            }
+        }
+
         public EmployeeViewModel(EmployeeWindow employeeWindow)
         {
             EmployeeWindow = employeeWindow;
@@ -160,6 +194,9 @@ namespace AppDocumentManagment.UI.ViewModels
             SelectedDepartment = selectedEmployee.Department;
             EmployeeImagePath = selectedEmployee.EmployeeImagePath;
             SelectedEmployeeID = selectedEmployee.EmployeeID;
+            EmployeePhone = selectedEmployee.EmployeePhone;
+            EmployeeEmail = selectedEmployee.EmployeeEmail;
+            EmployeeInformation = selectedEmployee.EmployeeInformation;
         }
 
         private void InitializeEmployeeRoles()
@@ -220,6 +257,9 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
             //newEmployee.Department = SelectedDepartment;
             newEmployee.EmployeeImagePath = EmployeeImagePath;
+            newEmployee.EmployeePhone = EmployeePhone;
+            newEmployee.EmployeeEmail = EmployeeEmail;
+            newEmployee.EmployeeInformation = EmployeeInformation;
             if (SelectedEmployeeID == 0)
             {
                 EmployeeController controller = new EmployeeController();
@@ -294,6 +334,8 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeeImagePath = "/Resources/Images/defaultContact.png";
             SelectedEmployeeID = 0;
             SelectedDepartmentIndex = 0;
+            EmployeePhone = "";
+            EmployeeEmail = "";
         }
 
         public ICommand IExit => new RelayCommand(exit => Exit());
