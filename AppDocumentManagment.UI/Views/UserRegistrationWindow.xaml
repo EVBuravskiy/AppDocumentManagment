@@ -9,7 +9,7 @@
         MinHeight="450" 
         MinWidth="1300" 
         Height="900"
-        Width="1300"
+        Width="1800"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
@@ -207,12 +207,14 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Background="#FF6500CB">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="150"/>
-                                        <ColumnDefinition Width="150"/>
-                                        <ColumnDefinition Width="150"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="180"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="120"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0"/>
                                     <TextBlock Grid.Column="1"
@@ -230,11 +232,20 @@
                                     <TextBlock Grid.Column="4"
                                                Style="{StaticResource AdminDocumentTextblock}"
                                                Foreground="White"
-                                               Text="Логин"/>
+                                               Text="Наличие регистрации"/>
                                     <TextBlock Grid.Column="5"
                                                Style="{StaticResource AdminDocumentTextblock}"
                                                Foreground="White"
+                                               Text="Дата регистрации"/>
+                                    <TextBlock Grid.Column="6"
+                                               Style="{StaticResource AdminDocumentTextblock}"
+                                               Foreground="White"
+                                               Text="Логин"/>
+                                    <TextBlock Grid.Column="7"
+                                               Style="{StaticResource AdminDocumentTextblock}"
+                                               Foreground="White"
                                                Text="Роль"/>
+
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <ListView ItemsSource="{Binding Users}"
@@ -243,12 +254,14 @@
                                             <DataTemplate>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="60"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="80"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="250"/>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="180"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="120"/>
+                                                        <ColumnDefinition Width="120"/>
+                                                        <ColumnDefinition Width="120"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Grid Grid.Column="0">
                                                         <Border Grid.Column="0"
@@ -287,8 +300,20 @@
                                                                FontWeight="DemiBold"
                                                                TextWrapping="Wrap"
                                                                TextAlignment="Center"
-                                                               Text="{Binding Userlogin}"/>
+                                                               Text="{Binding UserIsRegistrated}"/>
                                                     <TextBlock Grid.Column="5"
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
+                                                               Text="{Binding RegistredDate}"/>
+                                                    <TextBlock Grid.Column="6"
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               FontWeight="DemiBold"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
+                                                               Text="{Binding Userlogin}"/>
+                                                    <TextBlock Grid.Column="7"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
                                                                TextWrapping="Wrap"

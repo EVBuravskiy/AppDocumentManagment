@@ -74,11 +74,12 @@
                         Padding="10"
                         Margin="5"/>
                 <Button x:Name="RegistrationBtn"
-                        Content="Регистрация пользователей"    
                         Style="{StaticResource Buttons}"
                         Padding="10"
                         Margin="5"
-                        Command="{Binding IOpenUserRegistrationWindow}"/>
+                        Command="{Binding IOpenUserRegistrationWindow}">
+                    <TextBlock TextAlignment="Center">Регистрация<LineBreak/> пользователей</TextBlock>
+                </Button>
             </StackPanel>
             <Grid Grid.Column="1">
                 <Image Source="/Resources/Images/StartPageImage.png" 

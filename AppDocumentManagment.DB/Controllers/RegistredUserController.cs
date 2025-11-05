@@ -37,6 +37,8 @@ namespace AppDocumentManagment.DB.Controllers
                     currentUser.RegistredUserPassword = inputUser.RegistredUserPassword;
                     currentUser.UserRole = inputUser.UserRole;
                     currentUser.Employee = inputUser.Employee;
+                    currentUser.IsRegistered = true;
+                    currentUser.RegistredUserTime = inputUser.RegistredUserTime;
                     context.RegistredUsers.Update(currentUser);
                     context.SaveChanges();
                     result = true;

@@ -146,7 +146,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private List<Department> Departments;
 
-        private string registerOrUpdateBtnTitle = "Зарегистрировать документ";
+        private string registerOrUpdateBtnTitle = "Зарегистрировать";
         public string RegisterOrUpdateBtnTitle
         {
             get => registerOrUpdateBtnTitle;

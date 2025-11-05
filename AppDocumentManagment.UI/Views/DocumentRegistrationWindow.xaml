@@ -9,7 +9,7 @@
         MinHeight="450" 
         MinWidth="1300" 
         Height="900"
-        Width="1300"
+        Width="1800"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>

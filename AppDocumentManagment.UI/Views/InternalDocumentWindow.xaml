@@ -336,7 +336,7 @@
                     Padding="10, 10"
                     Margin="20 5"
                     FontFamily="Arial" 
-                    FontSize="14"
+                    FontSize="16"
                     FontWeight="Bold"
                     Command="{Binding IRegisterOrUpdateInternalDocument}"/>
             <Button x:Name="SendDocument"
@@ -349,7 +349,7 @@
                     FontWeight="Bold"
                     Height="80"
                     Command="{Binding ISendToExaminingPerson}">
-                <TextBlock TextAlignment="Center"> Передать на<LineBreak/>рассмотрение</TextBlock>
+                <TextBlock TextAlignment="Center"> Направить на <LineBreak/>рассмотрение <LineBreak/>руководителю</TextBlock>
             </Button>
         </Grid>
     </Grid>

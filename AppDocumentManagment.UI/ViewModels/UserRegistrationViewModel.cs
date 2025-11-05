@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Input.Manipulations;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -192,6 +193,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     registredUser.Userlogin = user.RegistredUserLogin;
                     registredUser.UserRole = user.UserRole.ToString();
                     registredUser.UserIsRegistrated = user.IsRegistered;
+                    registredUser.RegistredDate = user.RegistredUserTime;
                 }
                 AllUsers.Add(registredUser);
             }
@@ -370,6 +372,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public string Userlogin { get; set; } = "Отсутствует";
         public string UserRole { get; set; } = "Отсутствует";
         public bool UserIsRegistrated { get; set; } = false;
+        public DateTime RegistredDate { get; set; }
     }
 
     public enum UserStatus
