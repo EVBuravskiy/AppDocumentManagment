@@ -20,7 +20,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60px"/>
             <RowDefinition Height="240px"/>
-            <RowDefinition Height="340px"/>
+            <RowDefinition Height="240px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -47,9 +49,10 @@
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel Orientation="Vertical">
-                <Label Content="Наименование контрагента"
+                <Label Content="Информация о контрагенте"
                        Style="{StaticResource TopPanelLabel}"
                        Foreground="Black"
+                       FontSize="16"
                        Margin="20 10 20 0"/>
                 <Grid>
                     <TextBox x:Name="ContractorCompanyTitle" 
@@ -58,14 +61,17 @@
                              FontSize="14"
                              Text="{Binding ContractorCompanyTitle}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             Height="80"/>
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите полное наименование контрагента..."
                            VerticalAlignment="Top"
+                           VerticalContentAlignment="Center"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           Height="80"/>
                 </Grid>
                 <Grid>
                     <TextBox x:Name="ContractorCompanyShortTitle" 
@@ -89,6 +95,7 @@
             <StackPanel>
                 <Label Content="Контактная информация"
                        Style="{StaticResource TopPanelLabel}"
+                       FontSize="16"
                        Margin="20 0"/>
                 <Grid>
                     <TextBox x:Name="ContractorCompanyAddress" 
@@ -146,6 +153,27 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3">
+            <TextBox x:Name="ContractorCompanyInfo" 
+                     Grid.Row="1"
+                     Style="{StaticResource ItemTitleBox}"
+                     VerticalAlignment="Top"
+                     FontSize="14"
+                     Text="{Binding ContractorCompanyInfo}"
+                     Background="WhiteSmoke"
+                     SpellCheck.IsEnabled="True"
+                     Height="200"/>
+            <Label IsHitTestVisible="False" 
+                   Grid.Row="1"
+                   Foreground="DimGray"
+                   Content="Введите дополнительную необходимую информацию о контрагенте..."
+                   VerticalAlignment="Top"
+                   FontSize="14"
+                   Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyInfo, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Margin="30 10"
+                   VerticalContentAlignment="Center"
+                   Height="200"/>
+        </Grid>
+        <Grid Grid.Row="4">
             <Button Content="Удалить контрагента" 
                     HorizontalAlignment="Left"
                     Style="{StaticResource Buttons}"
@@ -162,7 +190,7 @@
                     Margin="20 5"
                     FontFamily="Arial" 
                     FontSize="14"
-                    FontWeight="Bold"
+                    FontWeight="DemiBold"
                     Command="{Binding ISaveContractorCompany}"/>
         </Grid>
     </Grid>
