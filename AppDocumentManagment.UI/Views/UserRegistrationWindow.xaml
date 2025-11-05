@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="АИС Документооборот"  
         MinHeight="450" 
-        MinWidth="1000" 
-        Height="800"
-        Width="1200"
-        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
+        MinWidth="1300" 
+        Height="900"
+        Width="1300"
+        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40px"/>
         </Grid.RowDefinitions>
@@ -41,7 +41,7 @@
                    FontFamily="Arial" 
                    FontSize="14" 
                    FontWeight="Bold"
-                   Margin="200, 0"
+                   Margin="500, 0"
                    Foreground="WhiteSmoke"/>
             <Button x:Name="BackBtn"
                     Content="  Назад  "
@@ -49,7 +49,7 @@
                     Style="{StaticResource Buttons}"
                     FontFamily="Arial" 
                     FontSize="14" 
-                    Margin="90, 5"
+                    Margin="250, 5"
                     Padding="10, 0"
                     FontWeight="Bold"
                     Command="{Binding IBack}"/>
@@ -66,8 +66,9 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="210"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.Background>
@@ -120,7 +121,6 @@
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="1"/>
                         <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="#FF121212" Offset="0.796"/>
                     </LinearGradientBrush>
                 </Grid.Background>
 
@@ -303,6 +303,17 @@
                         </Grid>
                     </Grid>
                 </Grid>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Calendar HorizontalAlignment="Center" 
+                          Margin="10" 
+                          VerticalAlignment="Top"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Background="Black">

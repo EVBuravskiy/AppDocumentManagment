@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="860"
+        Height="900"
         Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -18,9 +18,9 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="80px"/>
-            <RowDefinition Height="180px"/>
+            <RowDefinition Height="200px"/>
             <RowDefinition Height="180px"/>
             <RowDefinition Height="200px"/>
             <RowDefinition Height="120px"/>
@@ -106,7 +106,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40px"/>
+                        <RowDefinition Height="60px"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
@@ -162,7 +162,7 @@
                 <Grid Grid.Column="1">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="60px"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -173,10 +173,10 @@
                                 <Grid>
                                     <TextBlock x:Name="AddApproveManagerBtnTitle"
                                        TextAlignment="Center"
-                                       Visibility="Visible">Добавить <LineBreak/> лицо согласовашее документ</TextBlock>
+                                       Visibility="Visible">Добавить сотрудника<LineBreak/> согласовашего документ</TextBlock>
                                     <TextBlock x:Name="ChangeApproveManagerBtnTitle"
                                        TextAlignment="Center"
-                                       Visibility="Hidden">Изменить <LineBreak/> лицо согласовашее документ</TextBlock>
+                                       Visibility="Hidden">Изменить сотрудника<LineBreak/> согласовашего документ</TextBlock>
                                 </Grid>
                             </Button>
                         </Grid>
@@ -279,7 +279,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Style="{StaticResource TopPanelLabel}"
@@ -287,23 +287,23 @@
                        Margin="20 0"
                        Content="Файлы приложения к документу: "/>
                 <Button Grid.Row="2" 
-                        Width="250"
                         Style="{StaticResource Buttons}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="Удалить файл из документа"
                         Padding="10 10"
                         Margin="20 0"
-                        Command="{Binding IDeleteInternalDocumentFile}"/>
+                        Command="{Binding IDeleteInternalDocumentFile}">
+                    <TextBlock TextAlignment="Center">Удалить файл<LineBreak/> из документа</TextBlock>
+                </Button>
                 <Button Grid.Row="2" 
                         Style="{StaticResource Buttons}"
-                        Width="250"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Content="Добавить файл в документ"
                         Padding="10 10"
                         Margin="20 0"
-                        Command="{Binding IBrowseInternalDocumentFiles}"/>
+                        Command="{Binding IBrowseInternalDocumentFiles}">
+                    <TextBlock TextAlignment="Center">Добавить файл<LineBreak/> в документ</TextBlock>
+                </Button>
                 <ListView Grid.Row="1"
                           x:Name="FileList"
                           Margin="20 5 20 10"
@@ -322,9 +322,8 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"
-                    Width="250"
                     Padding="10 10"
-                    Margin="20 20"
+                    Margin="20 5"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -334,9 +333,8 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
-                    Width="250"
                     Padding="10, 10"
-                    Margin="20 20"
+                    Margin="20 5"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -344,12 +342,12 @@
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
-                    Width="250"
-                    Padding="35, 5"
+                    Padding="25 5"
                     Margin="20 20"
                     FontFamily="Arial" 
                     FontSize="18"
                     FontWeight="Bold"
+                    Height="80"
                     Command="{Binding ISendToExaminingPerson}">
                 <TextBlock TextAlignment="Center"> Передать на<LineBreak/>рассмотрение</TextBlock>
             </Button>

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="530"
-        Width="520"
+        Height="900"
+        Width="600"
         Icon="/Resources/Images/AppIcon.png" 
         WindowStartupLocation="CenterScreen" 
         WindowStyle="ThreeDBorderWindow" ResizeMode="NoResize">
@@ -20,10 +20,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
-            <RowDefinition Height="150px"/>
-            <RowDefinition Height="50px"/>
+            <RowDefinition Height="60px"/>
+            <RowDefinition Height="200px"/>
+            <RowDefinition Height="80px"/>
             <RowDefinition Height="180px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -110,14 +112,14 @@
                     <Label Grid.Column="0"
                            VerticalAlignment="Center"
                            FontFamily="Arial"
-                           FontSize="14"
+                           FontSize="16"
                            FontWeight="Bold"
                            Content="Отдел/Департамент"/>
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="Arial"
-                               FontSize="14"
+                               FontSize="16"
                                FontWeight="Bold"
                                Text="{Binding UserDepartmentTitle}"/>
                 </Grid>
@@ -129,14 +131,14 @@
                     <Label Grid.Column="0"
                            VerticalAlignment="Center"
                            FontFamily="Arial"
-                           FontSize="14"
+                           FontSize="16"
                            FontWeight="Bold"
                            Content="Должность:"/>
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="Arial"
-                               FontSize="14"
+                               FontSize="16"
                                FontWeight="Bold"
                                Text="{Binding UserPosition}"/>
                 </Grid>
@@ -146,7 +148,7 @@
             <StackPanel Orientation="Vertical">
                 <Label Content="Выберите роль пользователя из предложенного списка:"
                        FontFamily="Arial"
-                       FontSize="14"
+                       FontSize="16"
                        FontWeight="Bold"
                        Margin="30, 5"/>
                 <ComboBox Height="30"
@@ -193,7 +195,7 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="5">
             <Button x:Name="DeleteBtn"
                     Content="Удалить регистрацию" 
                     HorizontalAlignment="Left"

@@ -7,8 +7,8 @@
         xmlns:uc="clr-namespace:AppDocumentManagment.UI.Utilities"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="480"
-        Width="500"
+        Height="900"
+        Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -22,10 +22,14 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="150px"/>
             <RowDefinition Height="50px"/>
-            <RowDefinition Height="140"/>
+            <RowDefinition Height="50px"/>
+            <RowDefinition Height="50px"/>
+            <RowDefinition Height="50px"/>
+            <RowDefinition Height="160px"/>
+            <RowDefinition Height="160px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -69,6 +73,8 @@
                             HorizontalAlignment="Right"
                             Foreground="Black"
                             FontWeight="DemiBold"
+                            Width="110"
+                            Height="30"
                             Padding="10 5"
                             Content="Фотография">
                     </Button>
@@ -149,6 +155,69 @@
                    Margin="30 10"/>
         </Grid>
         <Grid Grid.Row="3">
+            <Label Content="Контактная информация"
+                   Style="{StaticResource TopPanelLabel}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="18"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Content="Контактный номер телефона: "
+                   Style="{StaticResource TopPanelLabel}"
+                   Margin="20 0 0 0"/>
+            <Grid Grid.Column="1">
+                <TextBox x:Name="EmployeePhone" 
+                             Grid.Row="0"
+                             Style="{StaticResource ItemTitleBox}"
+                             VerticalAlignment="Top"
+                             FontSize="14"
+                             Text="{Binding EmployeePhone}"
+                             Background="WhiteSmoke"
+                             SpellCheck.IsEnabled="True"/>
+                <Label IsHitTestVisible="False" 
+                           Grid.Row="0"
+                           Foreground="DimGray"
+                           Content="Введите номер телефона сотрудника..."
+                           VerticalAlignment="Top"
+                           FontSize="14"
+                           Visibility="{Binding Text.IsEmpty, ElementName=EmployeePhone, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Margin="30 10"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Content="Email сотрудника: "
+                   Style="{StaticResource TopPanelLabel}"
+                   Margin="20 0 0 0"/>
+            <Grid Grid.Column="1">
+                <TextBox x:Name="EmployeeEmail" 
+                             Grid.Row="0"
+                             Style="{StaticResource ItemTitleBox}"
+                             VerticalAlignment="Top"
+                             FontSize="14"
+                             Text="{Binding EmployeeEmail}"
+                             Background="WhiteSmoke"
+                             SpellCheck.IsEnabled="True"/>
+                <Label IsHitTestVisible="False" 
+                           Grid.Row="0"
+                           Foreground="DimGray"
+                           Content="Введите Email сотрудника..."
+                           VerticalAlignment="Top"
+                           FontSize="14"
+                           Visibility="{Binding Text.IsEmpty, ElementName=EmployeeEmail, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Margin="30 10"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="6">
             <StackPanel Orientation="Vertical">
                 <Label Content="Выберите занимаемую позицию"
                        FontFamily="Arial"
@@ -184,7 +253,28 @@
                           SelectedItem="{Binding SelectedDepartment}"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="7">
+            <TextBox x:Name="EmployeeInformation" 
+                     Grid.Row="1"
+                     Style="{StaticResource ItemTitleBox}"
+                     VerticalAlignment="Top"
+                     FontSize="14"
+                     Text="{Binding EmployeeInformation}"
+                     Background="WhiteSmoke"
+                     SpellCheck.IsEnabled="True"
+                     Height="130"/>
+            <Label IsHitTestVisible="False" 
+                   Grid.Row="1"
+                   Foreground="DimGray"
+                   Content="Введите дополнительную необходимую информацию о сотруднике..."
+                   VerticalAlignment="Top"
+                   FontSize="14"
+                   Visibility="{Binding Text.IsEmpty, ElementName=EmployeeInformation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Margin="30 10"
+                   VerticalContentAlignment="Center"
+                   Height="130"/>
+        </Grid>
+        <Grid Grid.Row="8">
             <Button Content="Удалить сотрудника" 
                     HorizontalAlignment="Left"
                     Style="{StaticResource Buttons}"
@@ -193,8 +283,6 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Width="200"
-                    Height="40"
                     Command="{Binding IRemove}"/>
             <Button Content="Сохранить изменения" 
                     HorizontalAlignment="Right"
@@ -204,8 +292,6 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Width="200"
-                    Height="40"
                     Command="{Binding ISave}"/>
         </Grid>
     </Grid>

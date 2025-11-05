@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="860"
+        Height="900"
         Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -18,8 +18,9 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
-            <RowDefinition Height="720px"/>
+            <RowDefinition Height="60px"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -33,14 +34,14 @@
                    x:Name="GreetingLabel"
                    Content="Панель выбора контрагента" 
                    HorizontalAlignment="Left" 
-                   Padding="20,0"
+                   Padding="25,0"
                    Style="{StaticResource TopPanelLabel}"
                    Foreground="WhiteSmoke"/>
             <Button x:Name="ExitBtn"
                     Content="Выйти"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
-                    Margin="10, 5"
+                    Margin="15, 5"
                     Padding="20, 0"
                     Command="{Binding IExit}"/>
         </Grid>
@@ -48,13 +49,13 @@
               Margin="0 10 0 0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="60px"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="240"/>
                     </Grid.ColumnDefinitions>
                     <TextBox Grid.Column="0" 
                              x:Name="SearchStringBox" 
@@ -88,7 +89,7 @@
                     <Button Grid.Column="1"
                             Style="{StaticResource Buttons}"
                             Padding="10 5"
-                            Margin="20 0"
+                            Margin="10, 5"
                             Command="{Binding IAddNewContractorCompany}">
                         <TextBlock TextAlignment="Center">Добавить <LineBreak/> контрагента</TextBlock>
                     </Button>
@@ -136,8 +137,6 @@
               Margin="0 0 0 0"
               Background="Black">
             <Button Style="{StaticResource Buttons}"
-                    Width="250"
-                    Height="40"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Редактировать контрагента"
@@ -145,8 +144,6 @@
                     Margin="20 0"
                     Command="{Binding IEditContractorCompany}"/>
             <Button Style="{StaticResource Buttons}"
-                    Width="250"
-                    Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Content="Выбрать контрагента"

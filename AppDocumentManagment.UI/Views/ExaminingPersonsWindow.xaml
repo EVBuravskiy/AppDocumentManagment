@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="860"
+        Height="900"
         Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -18,7 +18,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="700px"/>
             <RowDefinition Height="60px"/>
         </Grid.RowDefinitions>
@@ -48,7 +48,7 @@
               Margin="0 10 0 0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="50px"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -147,8 +147,6 @@
               Background="Black">
             <Button x:Name="SelectButton"
                     Style="{StaticResource Buttons}"
-                    Width="250"
-                    Height="40"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Content="{Binding SelectButtonName}"

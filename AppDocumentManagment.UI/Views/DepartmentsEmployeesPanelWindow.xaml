@@ -8,14 +8,14 @@
         mc:Ignorable="d"
         Title="АИС Документооборот"  
         MinHeight="450" 
-        MinWidth="1120" 
-        Height="800"
-        Width="1200"
-        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
+        MinWidth="1300" 
+        Height="900"
+        Width="1300"
+        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40px"/>
         </Grid.RowDefinitions>
@@ -31,9 +31,9 @@
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center" 
                    FontFamily="Arial" 
-                   FontSize="14" 
+                   FontSize="20" 
                    FontWeight="Bold"
-                   Padding="20,0"
+                   Padding="25,0"
                    Foreground="WhiteSmoke"/>
             <Label x:Name="CurrentUserName" 
                    Content="Сотрудник"
@@ -66,6 +66,7 @@
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="370"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="210"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" 
                         Orientation="Vertical">
@@ -100,7 +101,7 @@
                         CornerRadius="2">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40px"/>
+                            <RowDefinition Height="60px"/>
                             <RowDefinition Height="40px"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
@@ -193,7 +194,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="380"/>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="50px"/>
+                                <RowDefinition Height="80px"/>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" 
                                         Orientation="Vertical">
@@ -327,7 +328,7 @@
                                        FontFamily="Arial"
                                        FontSize="20"
                                        FontWeight="DemiBold"
-                                       Margin="5 20 0 5"/>
+                                       Margin="5 5 0 5"/>
                                     <Label Grid.Column="2" 
                                        VerticalAlignment="Center"
                                        Content="{Binding DepartmentSize}"
@@ -407,7 +408,6 @@
 
                             <Grid Grid.Row="2">
                                 <Button x:Name="EditEmployee"
-                                        Content="Добавить нового сотрудника"
                                         Style="{StaticResource Buttons}"
                                         FontFamily="Arial" 
                                         FontSize="14" 
@@ -415,7 +415,9 @@
                                         Padding="10"
                                         Margin="10 5 10 5"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding IAddNewEmployee}"/>
+                                        Command="{Binding IAddNewEmployee}">
+                                    <TextBlock TextAlignment="Center"> Добавить <LineBreak/> нового сотрудника</TextBlock>
+                                </Button>
                             </Grid>
                         </Grid>
                         <!-- Employee Info -->
@@ -504,7 +506,6 @@
                             </Grid>
                             <Grid Grid.Row="3">
                                 <Button x:Name="EditThisEmployee"
-                                        Content="Редактировать данные сотрудника"
                                         Style="{StaticResource Buttons}"
                                         FontFamily="Arial" 
                                         FontSize="14" 
@@ -512,9 +513,10 @@
                                         Padding="10"
                                         Margin="10 5 10 5"
                                         HorizontalAlignment="Left"
-                                        Command="{Binding IUpdateEmployee}"/>
+                                        Command="{Binding IUpdateEmployee}">
+                                    <TextBlock TextAlignment="Center"> Редактировать<LineBreak/> данные сотрудника</TextBlock>
+                                </Button>
                                 <Button x:Name="DeleteEmployee"
-                                        Content="Удалить данного сотрудника"
                                         Style="{StaticResource Buttons}"
                                         FontFamily="Arial" 
                                         FontSize="14" 
@@ -522,11 +524,24 @@
                                         Padding="10"
                                         Margin="10 5 10 5"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding IRemoveEmployee}"/>
+                                        Command="{Binding IRemoveEmployee}">
+                                    <TextBlock TextAlignment="Center"> Удалить <LineBreak/> данного сотрудника</TextBlock>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Border>
+            </Grid>
+            <Grid Grid.Column="3">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Calendar HorizontalAlignment="Center" 
+                          Margin="10" 
+                          VerticalAlignment="Top"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Background="Black"/>

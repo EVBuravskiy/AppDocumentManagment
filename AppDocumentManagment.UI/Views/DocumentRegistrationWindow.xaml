@@ -8,13 +8,13 @@
         Title="АИС Документооборот"  
         MinHeight="450" 
         MinWidth="1300" 
-        Height="800"
+        Height="900"
         Width="1300"
-        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen">
+        Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40px"/>
         </Grid.RowDefinitions>
@@ -56,9 +56,9 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="210"/>
+                <ColumnDefinition Width="230"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.Background>
@@ -218,7 +218,7 @@
                     </Grid>
                     <Grid x:Name="ExternalDocuments"
                           Grid.Row="3"
-                          Margin="20 15 20 10"
+                          Margin="20 15 20 0"
                           Visibility="Visible">
                         <Grid>
                             <Grid>
@@ -296,7 +296,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Background="WhiteSmoke"
-                                                      Margin="0 5">
+                                                      Margin="0 5 0 0">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="50"/>
                                                         <ColumnDefinition Width="80"/>

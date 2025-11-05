@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
-        Height="860"
+        Height="900"
         Width="600"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
@@ -18,7 +18,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40px"/>
+            <RowDefinition Height="60px"/>
             <RowDefinition Height="200px"/>
             <RowDefinition Height="240px"/>
             <RowDefinition Height="200px"/>
@@ -135,7 +135,7 @@
         <Grid Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40px"/>
+                    <RowDefinition Height="50px"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -204,7 +204,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        Style="{StaticResource TopPanelLabel}"
@@ -212,23 +212,23 @@
                        Margin="20 0"
                        Content="Файлы документа: "/>
                 <Button Grid.Row="2" 
-                        Width="250"
                         Style="{StaticResource Buttons}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="Удалить файл документа"
                         Padding="10 10"
                         Margin="20 0"
-                        Command="{Binding IDeleteDocumentFile}"/>
+                        Command="{Binding IDeleteDocumentFile}">
+                    <TextBlock TextAlignment="Center">Удалить файл<LineBreak/> из документа</TextBlock>
+                </Button>
                 <Button Grid.Row="2" 
                         Style="{StaticResource Buttons}"
-                        Width="250"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Content="Добавить файл документа"
                         Padding="10 10"
                         Margin="20 0"
-                        Command="{Binding IBrowseDocumentFiles}"/>
+                        Command="{Binding IBrowseDocumentFiles}">
+                    <TextBlock TextAlignment="Center">Добавить файл<LineBreak/> в документ</TextBlock>
+                </Button>
                 <ListView Grid.Row="1"
                           x:Name="FileList"
                           Margin="20 5 20 10"
@@ -247,9 +247,8 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"
-                    Width="250"
                     Padding="10 10"
-                    Margin="20 20"
+                    Margin="20 5"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -259,9 +258,8 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
-                    Width="250"
                     Padding="10, 10"
-                    Margin="20 20"
+                    Margin="20 5"
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
@@ -269,12 +267,12 @@
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
-                    Width="250"
-                    Padding="35, 5"
+                    Padding="25 5"
                     Margin="20 20"
                     FontFamily="Arial" 
                     FontSize="18"
                     FontWeight="Bold"
+                    Height="80"
                     Command="{Binding ISendToExaminingPerson}">
                 <TextBlock TextAlignment="Center"> Передать <LineBreak/> на рассмотрение </TextBlock>
             </Button>
