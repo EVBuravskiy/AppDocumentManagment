@@ -35,6 +35,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string removeBtnTitle = "Очистить данные";
+        public string RemoveBtnTitle
+        {
+            get => removeBtnTitle;
+            set
+            {
+                removeBtnTitle = value;
+                OnPropertyChanged(nameof(RemoveBtnTitle));
+            }
+        }
         public DepartmentViewModel(DepartmentWindow departmentWindow, Department inputDepartment)
         {
             DepartmentWindow = departmentWindow;
@@ -43,6 +53,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 DepartmentTitle = _selectedDepartment.DepartmentTitle;
                 DepartmentShortTitle = _selectedDepartment.DepartmentShortTitle;
+                RemoveBtnTitle = "Удалить отдел";
             }
         }
 

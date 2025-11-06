@@ -170,6 +170,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string removeBtnTitle = "Очистить данные";
+        public string RemoveBtnTitle
+        {
+            get => removeBtnTitle;
+            set
+            {
+                removeBtnTitle = value;
+                OnPropertyChanged(nameof(RemoveBtnTitle));
+            }
+        }
         public EmployeeViewModel(EmployeeWindow employeeWindow)
         {
             EmployeeWindow = employeeWindow;
@@ -197,6 +207,7 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeePhone = selectedEmployee.EmployeePhone;
             EmployeeEmail = selectedEmployee.EmployeeEmail;
             EmployeeInformation = selectedEmployee.EmployeeInformation;
+            RemoveBtnTitle = "Удалить сотрудника";
         }
 
         private void InitializeEmployeeRoles()

@@ -90,7 +90,7 @@
                    Margin="30 10"/>
         </Grid>
         <Grid Grid.Row="5">
-            <Button Content="Удалить отдел" 
+            <Button Content="{Binding RemoveBtnTitle}" 
                     HorizontalAlignment="Left"
                     Style="{StaticResource Buttons}"
                     Padding="10 5"

@@ -415,15 +415,15 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80"/> <!-- Рег.номер -->
-                                            <ColumnDefinition Width="80"/> <!-- Дата регистрации -->
+                                            <ColumnDefinition Width="100"/> <!-- Дата регистрации -->
                                             <ColumnDefinition Width="100"/> <!-- Тип документа -->
-                                            <ColumnDefinition Width="80"/> <!-- Дата документа -->
+                                            <ColumnDefinition Width="100"/> <!-- Дата документа -->
                                             <ColumnDefinition Width="150"/> <!-- Инициатор -->
                                             <ColumnDefinition Width="200"/> <!-- Наименование -->
                                             <ColumnDefinition Width="250"/> <!-- Краткое содержание -->
                                             <ColumnDefinition Width="150"/> <!-- Согласовавшее лицо -->
                                             <ColumnDefinition Width="150"/> <!-- Кому направлено на рассмотрение -->
-                                            <ColumnDefinition Width="80"/> <!--Дата направления на рассмотрение-->
+                                            <ColumnDefinition Width="100"/> <!--Дата направления на рассмотрение-->
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
                                                    Style="{StaticResource AdminDocumentTextblock}"
@@ -506,25 +506,25 @@
                                                       Margin="0 5">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="80"/>
-                                                        <!-- 0Рег.номер -->
-                                                        <ColumnDefinition Width="80"/>
-                                                        <!-- 1Дата регистрации -->
+                                                        <!-- Рег.номер -->
                                                         <ColumnDefinition Width="100"/>
-                                                        <!-- 2Тип документа -->
-                                                        <ColumnDefinition Width="80"/>
-                                                        <!-- 3Дата документа -->
+                                                        <!-- Дата регистрации -->
+                                                        <ColumnDefinition Width="100"/>
+                                                        <!-- Тип документа -->
+                                                        <ColumnDefinition Width="100"/>
+                                                        <!-- Дата документа -->
                                                         <ColumnDefinition Width="150"/>
-                                                        <!-- 4Инициатор -->
+                                                        <!-- Инициатор -->
                                                         <ColumnDefinition Width="200"/>
-                                                        <!-- 5Наименование -->
+                                                        <!-- Наименование -->
                                                         <ColumnDefinition Width="250"/>
-                                                        <!-- 6Краткое содержание -->
+                                                        <!-- Краткое содержание -->
                                                         <ColumnDefinition Width="150"/>
-                                                        <!-- 7Согласовавшее лицо -->
+                                                        <!-- Согласовавшее лицо -->
                                                         <ColumnDefinition Width="150"/>
-                                                        <!-- 8Кому направлено на рассмотрение -->
-                                                        <ColumnDefinition Width="80"/>
-                                                        <!-- 9Дата направления на рассмотрение-->
+                                                        <!-- Кому направлено на рассмотрение -->
+                                                        <ColumnDefinition Width="100"/>
+                                                        <!--Дата направления на рассмотрение-->
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0"
                                                                Style="{StaticResource AdminDocumentTextblock}"

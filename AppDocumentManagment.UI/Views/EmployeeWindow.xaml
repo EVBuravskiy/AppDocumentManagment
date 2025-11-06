@@ -275,7 +275,7 @@
                    Height="130"/>
         </Grid>
         <Grid Grid.Row="8">
-            <Button Content="Удалить сотрудника" 
+            <Button Content="{Binding RemoveBtnTitle}" 
                     HorizontalAlignment="Left"
                     Style="{StaticResource Buttons}"
                     Padding="10 5"

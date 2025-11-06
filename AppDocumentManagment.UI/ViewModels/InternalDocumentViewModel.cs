@@ -227,10 +227,11 @@ namespace AppDocumentManagment.UI.ViewModels
                         DepartmentController departmentController = new DepartmentController();
                         Department department = departmentController.GetDepartmentByID(Signatory.DepartmentID);
                         Signatory.Department = department;
+                        SignatoryDepartment = Signatory.Department.DepartmentTitle;
+                        SignatoryPosition = Signatory.Position;
+                        SignatoryFullName = Signatory.EmployeeFullName;
+
                     }
-                    SignatoryDepartment = Signatory.Department.DepartmentTitle;
-                    SignatoryPosition = Signatory.Position;
-                    SignatoryFullName = Signatory.EmployeeFullName;
                 }
                 if(InternalDocument.EmployeeRecievedDocumentID != 0)
                 {
