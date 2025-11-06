@@ -116,6 +116,17 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private int departmentSize;
+        public int DepartmentSize
+        {
+            get => departmentSize;
+            set
+            {
+                departmentSize = value;
+                OnPropertyChanged(nameof(DepartmentSize));
+            }
+        }
+
         public DepartmentsEmployeesPanelViewModel(DepartmentsEmployeesPanelWindow inputWindow)
         {
             DepartmentsEmployeesPanelWindow = inputWindow;
@@ -176,6 +187,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                 }
             }
+            DepartmentSize = EmployeesOfDepartment.Count;
             OnPropertyChanged(nameof(EmployeesOfDepartment));
         }
 

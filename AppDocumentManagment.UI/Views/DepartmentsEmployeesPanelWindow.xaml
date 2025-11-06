@@ -10,7 +10,7 @@
         MinHeight="450" 
         MinWidth="1300" 
         Height="900"
-        Width="1300"
+        Width="1800"
         Icon="/Resources/Images/AppIcon.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
     <Grid>
@@ -192,7 +192,7 @@
                         <Grid x:Name="DetailDepartmentInfo"
                           Visibility="Visible">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="380"/>
+                                <RowDefinition Height="400"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="80px"/>
                             </Grid.RowDefinitions>
@@ -200,10 +200,10 @@
                                         Orientation="Vertical">
                                 <Grid>
                                     <Label VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
+                                           HorizontalAlignment="Center"
                                            Content="{Binding SelectedDepartment.DepartmentTitle}"
                                            FontFamily="Arial"
-                                           FontSize="16"
+                                           FontSize="26"
                                            FontWeight="DemiBold"/>
                                     <Button x:Name="EditDepartment"
                                             Content="Редактировать отдел"
@@ -215,10 +215,10 @@
                                 </Grid>
                                 <!--Deputy General Director-->
                                 <Label VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
+                                       HorizontalAlignment="Center"
                                        Content="Заместитель генерального директора"
                                        FontFamily="Arial"
-                                       FontSize="20"
+                                       FontSize="24"
                                        FontWeight="DemiBold"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -237,40 +237,69 @@
                                             TargetNullValue={StaticResource DefaultContactImage}}"
                                                Stretch="UniformToFill"/>
                                     </Border>
-                                    <StackPanel Orientation="Vertical" 
-                                                Grid.Column="1">
-                                        <TextBlock Grid.Row="1"
-                                                   Padding="10, 0"
-                                                   FontFamily="Arial"
-                                                   FontSize="20"
-                                                   HorizontalAlignment="Left"
-                                                   Text="{Binding DeputyGeneralDirector.Position}"/>
-                                        <TextBlock Margin="0 20 0 5"
-                                                   Padding="10, 0"
-                                                   FontFamily="Arial"
-                                                   FontSize="24"
-                                                   FontWeight="Bold"
-                                                   HorizontalAlignment="Left"
-                                                   Text="{Binding DeputyGeneralDirector.EmployeeLastName}"/>
-                                        <StackPanel Orientation="Horizontal" 
-                                                    HorizontalAlignment="Left">
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="280"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Grid.Row="1"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Должность: "/>
                                             <TextBlock Padding="10, 0"
                                                        FontFamily="Arial"
-                                                       FontSize="16"
-                                                       Text="{Binding DeputyGeneralDirector.EmployeeFirstName}"/>
+                                                       FontSize="20"
+                                                       FontWeight="Bold"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Фамилия, имя, отчество"/>
+                                            <TextBlock Margin="0 10 0 0"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Контактный телефон: "/>
                                             <TextBlock Padding="10, 0"
                                                        FontFamily="Arial"
-                                                       FontSize="16"
-                                                       Text="{Binding DeputyGeneralDirector.EmployeeMiddleName}"/>
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Адрес электронной почты: "/>
                                         </StackPanel>
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Grid.Row="1"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding DeputyGeneralDirector.Position}"/>
+                                            <TextBlock Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       FontWeight="Bold"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding DeputyGeneralDirector.EmployeeFullName}"/>
+                                            <TextBlock Margin="0 10 0 0"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding DeputyGeneralDirector.EmployeePhone}"/>
+                                            <TextBlock Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding DeputyGeneralDirector.EmployeeEmail}"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
                                 <!--Header of Department -->
                                 <Label VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
+                                       HorizontalAlignment="Center"
                                        Content="Руководитель отдела"
                                        FontFamily="Arial"
-                                       FontSize="20"
+                                       FontSize="24"
                                        FontWeight="DemiBold"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -289,53 +318,84 @@
                                             TargetNullValue={StaticResource DefaultContactImage}}"
                                                Stretch="UniformToFill"/>
                                     </Border>
-                                    <StackPanel Orientation="Vertical" 
-                                                Grid.Column="1">
-                                        <TextBlock Grid.Row="1"
-                                                   Padding="10, 0"
-                                                   FontFamily="Arial"
-                                                   FontSize="20"
-                                                   HorizontalAlignment="Left"
-                                                   Text="{Binding HeaderOfDepartment.Position}"/>
-                                        <TextBlock Margin="0 20 0 5"
-                                                   Padding="10, 0"
-                                                   FontFamily="Arial"
-                                                   FontSize="24"
-                                                   FontWeight="Bold"
-                                                   HorizontalAlignment="Left"
-                                                   Text="{Binding HeaderOfDepartment.EmployeeLastName}"/>
-                                        <StackPanel Orientation="Horizontal" 
-                                                    HorizontalAlignment="Left">
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="280"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Grid.Row="1"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Должность: "/>
                                             <TextBlock Padding="10, 0"
                                                        FontFamily="Arial"
-                                                       FontSize="16"
-                                                       Text="{Binding HeaderOfDepartment.EmployeeFirstName}"/>
+                                                       FontSize="20"
+                                                       FontWeight="Bold"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Фамилия, имя, отчество"/>
+                                            <TextBlock Margin="0 10 0 0"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Контактный телефон: "/>
                                             <TextBlock Padding="10, 0"
                                                        FontFamily="Arial"
-                                                       FontSize="16"
-                                                       Text="{Binding HeaderOfDepartment.EmployeeMiddleName}"/>
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="Адрес электронной почты: "/>
                                         </StackPanel>
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Grid.Row="1"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding HeaderOfDepartment.Position}"/>
+                                            <TextBlock Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       FontWeight="Bold"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding HeaderOfDepartment.EmployeeFullName}"/>
+                                            <TextBlock Margin="0 10 0 0"
+                                                       Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding HeaderOfDepartment.EmployeePhone}"/>
+                                            <TextBlock Padding="10, 0"
+                                                       FontFamily="Arial"
+                                                       FontSize="20"
+                                                       HorizontalAlignment="Left"
+                                                       Text="{Binding HeaderOfDepartment.EmployeeEmail}"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="50"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" 
-                                       VerticalAlignment="Center"
-                                       Content="Текущая численность отдела:"
-                                       FontFamily="Arial"
-                                       FontSize="20"
-                                       FontWeight="DemiBold"
-                                       Margin="5 5 0 5"/>
-                                    <Label Grid.Column="2" 
-                                       VerticalAlignment="Center"
-                                       Content="{Binding DepartmentSize}"
-                                       FontFamily="Arial"
-                                       FontSize="20"
-                                       FontWeight="DemiBold"
-                                       Margin="5 20 0 5"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label VerticalAlignment="Center"
+                                               Content="Текущая численность отдела:"
+                                               FontFamily="Arial"
+                                               FontSize="20"
+                                               FontWeight="DemiBold"
+                                               Margin="5 5 0 5"/>
+                                        <Label VerticalAlignment="Center"
+                                               Content="{Binding DepartmentSize}"
+                                               FontFamily="Arial"
+                                               FontSize="20"
+                                               FontWeight="DemiBold"
+                                               Margin="5 5 0 5"/>
+                                        <Label VerticalAlignment="Center"
+                                               Content="сотрудников"
+                                               FontFamily="Arial"
+                                               FontSize="20"
+                                               FontWeight="DemiBold"
+                                               Margin="5 5 0 5"/>
+                                    </StackPanel>
                                 </Grid>
                             </StackPanel>
                             <!-- Performers List -->
@@ -373,8 +433,8 @@
                                                         <Border BorderBrush="DimGray"
                                                             BorderThickness="2"
                                                             CornerRadius="2">
-                                                            <Image Width="50"
-                                                           Height="50"
+                                                            <Image Width="75"
+                                                           Height="75"
                                                            Source="{Binding EmployeeImagePath,
                                                         FallbackValue={StaticResource DefaultContactImage},
                                                         TargetNullValue={StaticResource DefaultContactImage}}"
@@ -382,21 +442,59 @@
                                                         </Border>
                                                     </Grid>
                                                     <Grid Grid.Column="1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="280"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock Grid.Row="1"
-                                                                   Margin="0 10 0 5"
-                                                                   Padding="10, 0"
-                                                                   FontFamily="Arial"
-                                                                   FontSize="14"
-                                                                   FontWeight="Bold"
-                                                                   HorizontalAlignment="Left"
-                                                                   Text="{Binding Position}"/>
+                                                                       Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Должность: "/>
                                                             <TextBlock Padding="10, 0"
-                                                                   FontFamily="Arial"
-                                                                   FontSize="14"
-                                                                   FontWeight="Bold"
-                                                                   HorizontalAlignment="Left"
-                                                                   Text="{Binding EmployeeFullName}"/>
+                                                                       FontFamily="Arial"
+                                                                       FontSize="14"
+                                                                       FontWeight="Bold"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Фамилия, имя, отчество"/>
+                                                            <TextBlock Margin="0 5 0 0"
+                                                                       Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Контактный телефон: "/>
+                                                            <TextBlock Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="Адрес электронной почты: "/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Grid.Row="1"
+                                                                       Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="{Binding Position}"/>
+                                                            <TextBlock Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="14"
+                                                                       FontWeight="Bold"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="{Binding EmployeeFullName}"/>
+                                                            <TextBlock Margin="0 5 0 0"
+                                                                       Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="{Binding EmployeePhone}"/>
+                                                            <TextBlock Padding="10, 0"
+                                                                       FontFamily="Arial"
+                                                                       FontSize="12"
+                                                                       HorizontalAlignment="Left"
+                                                                       Text="{Binding EmployeeEmail}"/>
                                                         </StackPanel>
                                                     </Grid>
                                                 </Grid>
@@ -425,18 +523,18 @@
                           Visibility="Hidden">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60"/>
-                                <RowDefinition Height="250"/>
+                                <RowDefinition Height="310"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="60"/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
+                                   HorizontalAlignment="Center"
                                    Content="Информация о сотруднике"
                                    FontFamily="Arial"
-                                   FontSize="20"
+                                   FontSize="26"
                                    FontWeight="DemiBold"/>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="1" Margin="0 50 0 0">
                                 <Border Grid.Column="0"
                                         BorderThickness="5"
                                         BorderBrush="DimGray"
@@ -451,58 +549,88 @@
                                                Stretch="UniformToFill"/>
                                 </Border>
                             </Grid>
-                            <Grid Grid.Row="2">
-                                <StackPanel Orientation="Vertical" 
-                                                Grid.Column="1">
-                                    <TextBlock Margin="0 20 0 0"
-                                                   Padding="10, 0"
+                            <Grid Grid.Row="2" Margin="0 30 0 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="400"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Vertical"
+                                                Grid.Column="0">
+                                        <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
                                                    FontSize="24"
                                                    FontWeight="Bold"
-                                                   HorizontalAlignment="Center"
-                                                   Text="{Binding SelectedEmployee.EmployeeLastName}"/>
-                                    <StackPanel Orientation="Horizontal" 
-                                                    HorizontalAlignment="Center">
+                                                   HorizontalAlignment="Left"
+                                                   Text="Отдел / Департамент: "/>
                                         <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
-                                                   FontSize="20"
-                                                   FontWeight="Bold"
-                                                   Text="{Binding SelectedEmployee.EmployeeFirstName}"/>
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Должность: "
+                                                   Margin="0 10"/>
                                         <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
-                                                   FontSize="20"
+                                                   FontSize="24"
                                                    FontWeight="Bold"
-                                                   Text="{Binding SelectedEmployee.EmployeeMiddleName}"/>
+                                                   HorizontalAlignment="Left"
+                                                   Text="Фамилия, имя, отчество"/>
+                                        <TextBlock Margin="0 10 0 0"
+                                                   Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Контактный телефон: "/>
+                                        <TextBlock Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Адрес электронной почты: "/>
+                                        <TextBlock Margin="0 20"
+                                                   Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="Дополнительная информация: "/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal" 
-                                                HorizontalAlignment="Center"
-                                                Margin="0 20 0 0">
+                                    <StackPanel Grid.Column="1">
                                         <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
-                                                   FontSize="16"
-                                                   HorizontalAlignment="Center"
-                                                   Text="Отдел/Департамент: "/>
-                                        <TextBlock Padding="10, 0"
-                                                   FontFamily="Arial"
-                                                   FontSize="16"
-                                                   HorizontalAlignment="Center"
+                                                   FontSize="24"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Left"
                                                    Text="{Binding SelectedEmployee.Department.DepartmentTitle}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" 
-                                                HorizontalAlignment="Center"
-                                                Margin="0 20 0 0">
                                         <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
-                                                   FontSize="16"
-                                                   HorizontalAlignment="Center"
-                                                   Text="Занимаемая должность: "/>
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding SelectedEmployee.Position}"
+                                                   Margin="0 10"/>
                                         <TextBlock Padding="10, 0"
                                                    FontFamily="Arial"
-                                                   FontSize="16"
-                                                   HorizontalAlignment="Center"
-                                                   Text="{Binding SelectedEmployee.Position}"/>
+                                                   FontSize="24"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding SelectedEmployee.EmployeeFullName}"/>
+                                        <TextBlock Margin="0 10 0 0"
+                                                   Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding SelectedEmployee.EmployeePhone}"/>
+                                        <TextBlock Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding SelectedEmployee.EmployeeEmail}"/>
+                                        <TextBlock Margin="0 20"
+                                                   Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="24"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding SelectedEmployee.EmployeeInformation}"/>
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
                             </Grid>
                             <Grid Grid.Row="3">
                                 <Button x:Name="EditThisEmployee"

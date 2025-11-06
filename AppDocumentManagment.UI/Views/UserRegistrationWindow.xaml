@@ -306,7 +306,7 @@
                                                                FontWeight="DemiBold"
                                                                TextWrapping="Wrap"
                                                                TextAlignment="Center"
-                                                               Text="{Binding RegistredDate}"/>
+                                                               Text="{Binding RegistredDate, Converter={StaticResource DateConverter}}"/>
                                                     <TextBlock Grid.Column="6"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                FontWeight="DemiBold"
