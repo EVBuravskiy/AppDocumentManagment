@@ -219,7 +219,7 @@
                     <Grid x:Name="ExternalDocuments"
                           Grid.Row="3"
                           Margin="20 15 20 0"
-                          Visibility="Visible">
+                          Visibility="Hidden">
                         <Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -231,63 +231,70 @@
                                       Margin="5">
                                     <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="150"/>
-                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="200"/>
                                         <ColumnDefinition Width="150"/>
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Рег. номер"/>
-                                    <TextBlock Grid.Column="1"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Дата регистрации"/>
-                                    <TextBlock Grid.Column="2"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Foreground="White"
-                                               Text="Номер документа"/>
-                                    <TextBlock Grid.Column="3"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Foreground="White"
-                                               Text="Дата документа"/>
-                                    <TextBlock Grid.Column="4"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Наименование документа"/>
-                                    <TextBlock Grid.Column="5"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Контрагент"/>
-                                    <TextBlock Grid.Column="6"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Кому направлено"/>
-                                    <TextBlock Grid.Column="7"
-                                               Style="{StaticResource AdminDocumentTextblock}"
-                                               Foreground="White"
-                                               TextWrapping="Wrap"
-                                               TextAlignment="Center"
-                                               Text="Дата направления"/>
+                                        <TextBlock Grid.Column="0"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Рег. номер"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Дата регистрации"/>
+                                        <TextBlock Grid.Column="2"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Foreground="White"
+                                                   Text="Номер документа"/>
+                                        <TextBlock Grid.Column="3"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Foreground="White"
+                                                   Text="Дата документа"/>
+                                        <TextBlock Grid.Column="4"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Наименование документа"/>
+                                        <TextBlock Grid.Column="5"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Контрагент"/>
+                                        <TextBlock Grid.Column="6"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Адрес контрагента"/>
+                                        <TextBlock Grid.Column="7"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Дата направления"/>
+                                        <TextBlock Grid.Column="8"
+                                                   Style="{StaticResource AdminDocumentTextblock}"
+                                                   Foreground="White"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center"
+                                                   Text="Кому направлено"/>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
@@ -298,12 +305,13 @@
                                                 <Grid Background="WhiteSmoke"
                                                       Margin="0 5 0 0">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
                                                         <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="200"/>
                                                         <ColumnDefinition Width="150"/>
                                                         <ColumnDefinition Width="100"/>
                                                     </Grid.ColumnDefinitions>
@@ -332,18 +340,17 @@
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
                                                                Text="{Binding DocumentTitle}"/>
-                                                    <StackPanel Grid.Column="5">
-                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                   TextAlignment="Center"
-                                                                   TextWrapping="Wrap"
-                                                                   Text="{Binding ContractorCompany.ContractorCompanyTitle}"/>
-                                                        <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                                                   TextAlignment="Center"
-                                                                   TextWrapping="Wrap"
-                                                                   FontSize="10"
-                                                                   Text="{Binding ContractorCompany.ContractorCompanyAddress}"/>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Column="6">
+                                                    <TextBlock Grid.Column="5" 
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               TextAlignment="Center"
+                                                               TextWrapping="Wrap"
+                                                               Text="{Binding ContractorCompany.ContractorCompanyTitle}"/>
+                                                    <TextBlock Grid.Column="6"  
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               TextAlignment="Center"
+                                                               TextWrapping="Wrap"
+                                                               Text="{Binding ContractorCompany.ContractorCompanyAddress}"/>
+                                                    <StackPanel Grid.Column="7">
                                                         <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                                                    TextAlignment="Center"
                                                                    TextWrapping="Wrap"
@@ -359,7 +366,7 @@
                                                                    FontSize="11"
                                                                    Text="{Binding EmployeeReceivedDocument.EmployeeFullName}"/>
                                                     </StackPanel>
-                                                    <TextBlock Grid.Column="7"
+                                                    <TextBlock Grid.Column="8"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
@@ -375,7 +382,7 @@
                     <Grid x:Name="InternalDocuments"
                           Grid.Row="3"
                           Margin="20 15 20 10"
-                          Visibility="Hidden">
+                          Visibility="Visible">
                         <Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -387,14 +394,16 @@
                                       Margin="5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="80"/> <!-- Рег.номер -->
+                                            <ColumnDefinition Width="80"/> <!-- Дата регистрации -->
+                                            <ColumnDefinition Width="100"/> <!-- Тип документа -->
+                                            <ColumnDefinition Width="80"/> <!-- Дата документа -->
+                                            <ColumnDefinition Width="150"/> <!-- Инициатор -->
+                                            <ColumnDefinition Width="200"/> <!-- Наименование -->
+                                            <ColumnDefinition Width="250"/> <!-- Краткое содержание -->
+                                            <ColumnDefinition Width="150"/> <!-- Согласовавшее лицо -->
+                                            <ColumnDefinition Width="150"/> <!-- Кому направлено на рассмотрение -->
+                                            <ColumnDefinition Width="80"/> <!--Дата направления на рассмотрение-->
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
                                                Style="{StaticResource AdminDocumentTextblock}"
@@ -431,14 +440,26 @@
                                                Foreground="White"
                                                TextWrapping="Wrap"
                                                TextAlignment="Center"
-                                               Text="Соласовавшее лицо"/>
+                                               Text="Наименование документа"/>
                                         <TextBlock Grid.Column="6"
                                                Style="{StaticResource AdminDocumentTextblock}"
                                                Foreground="White"
                                                TextWrapping="Wrap"
                                                TextAlignment="Center"
-                                               Text="Кому направлено"/>
+                                               Text="Краткое содержание документа"/>
                                         <TextBlock Grid.Column="7"
+                                               Style="{StaticResource AdminDocumentTextblock}"
+                                               Foreground="White"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               Text="Соласовавшее лицо"/>
+                                        <TextBlock Grid.Column="8"
+                                               Style="{StaticResource AdminDocumentTextblock}"
+                                               Foreground="White"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               Text="Кому направлено"/>
+                                        <TextBlock Grid.Column="9"
                                                Style="{StaticResource AdminDocumentTextblock}"
                                                Foreground="White"
                                                TextWrapping="Wrap"
@@ -454,14 +475,26 @@
                                                 <Grid Background="WhiteSmoke"
                                                       Margin="0 5">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
                                                         <ColumnDefinition Width="80"/>
+                                                        <!-- 0Рег.номер -->
                                                         <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="80"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="150"/>
+                                                        <!-- 1Дата регистрации -->
                                                         <ColumnDefinition Width="100"/>
+                                                        <!-- 2Тип документа -->
+                                                        <ColumnDefinition Width="80"/>
+                                                        <!-- 3Дата документа -->
+                                                        <ColumnDefinition Width="150"/>
+                                                        <!-- 4Инициатор -->
+                                                        <ColumnDefinition Width="200"/>
+                                                        <!-- 5Наименование -->
+                                                        <ColumnDefinition Width="250"/>
+                                                        <!-- 6Краткое содержание -->
+                                                        <ColumnDefinition Width="150"/>
+                                                        <!-- 7Согласовавшее лицо -->
+                                                        <ColumnDefinition Width="150"/>
+                                                        <!-- 8Кому направлено на рассмотрение -->
+                                                        <ColumnDefinition Width="80"/>
+                                                        <!-- 9Дата направления на рассмотрение-->
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0"
                                                                Style="{StaticResource AdminDocumentTextblock}"
@@ -500,7 +533,17 @@
                                                                    FontSize="11"
                                                                    Text="{Binding Signatory.EmployeeFullName}"/>
                                                     </StackPanel>
-                                                    <StackPanel Grid.Column="5">
+                                                    <TextBlock Grid.Column="5"
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               TextAlignment="Center"
+                                                               TextWrapping="Wrap"
+                                                               Text="{Binding InternalDocumentTitle}"/>
+                                                    <TextBlock Grid.Column="6"
+                                                               Style="{StaticResource AdminDocumentTextblock}"
+                                                               TextAlignment="Center"
+                                                               TextWrapping="Wrap"
+                                                               Text="{Binding InternalDocumentContent}"/>
+                                                    <StackPanel Grid.Column="7">
                                                         <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                                                    TextAlignment="Center"
                                                                    TextWrapping="Wrap"
@@ -516,7 +559,7 @@
                                                                    FontSize="11"
                                                                    Text="{Binding ApprovedManager.EmployeeFullName}"/>
                                                     </StackPanel>
-                                                    <StackPanel Grid.Column="6">
+                                                    <StackPanel Grid.Column="8">
                                                         <TextBlock Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
@@ -532,7 +575,7 @@
                                                                    FontSize="11"
                                                                    Text="{Binding EmployeeRecievedDocument.EmployeeFullName}"/>
                                                     </StackPanel>
-                                                    <TextBlock Grid.Column="7"
+                                                    <TextBlock Grid.Column="9"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
