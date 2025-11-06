@@ -32,7 +32,7 @@ namespace AppDocumentManagment.UI.Utilities
             return buffer;
         }
 
-        public bool SaveFileToFolder(DocumentFile documentFile, string filePath)
+        public bool SaveDocumentToFolder(DocumentFile documentFile, string filePath)
         {
             bool result = false;
             if (string.IsNullOrEmpty(filePath)) 
@@ -47,5 +47,22 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
+
+        public bool SaveInternalDocumentToFolder(InternalDocumentFile internalDocumentFile, string filePath)
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                string directoryPath = $"{Directory.GetCurrentDirectory}\\Documents\\";
+                filePath = $"{directoryPath}{internalDocumentFile.FileName}";
+            }
+            using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                fileStream.Write(internalDocumentFile.FileData, 0, internalDocumentFile.FileData.Length);
+                result = true;
+            }
+            return result;
+        }
+
     }
 }

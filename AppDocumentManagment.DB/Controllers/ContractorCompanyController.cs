@@ -84,5 +84,15 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return result;
         }
+
+        public ContractorCompany GetContractorCompanyByID(int contractorCompanyID)
+        {
+            ContractorCompany contractorCompany = null;
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                contractorCompany = context.ContractorCompanies.Where(c => c.ContractorCompanyID == contractorCompanyID).FirstOrDefault();
+            }
+            return contractorCompany;
+        }
     }
 }
