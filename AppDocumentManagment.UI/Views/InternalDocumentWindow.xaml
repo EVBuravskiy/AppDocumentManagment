@@ -243,7 +243,7 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=InternalDocumentTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10 "/>
+                           Margin="20 10 "/>
                     </Grid>
                 </StackPanel>
                 <Label Content="Краткое содержание документа:"

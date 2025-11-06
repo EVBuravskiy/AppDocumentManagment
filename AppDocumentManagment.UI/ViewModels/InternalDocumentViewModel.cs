@@ -533,6 +533,30 @@ namespace AppDocumentManagment.UI.ViewModels
                 InternalDocumentWindow.InternalDocumentDate.BorderThickness = new System.Windows.Thickness(2);
                 InternalDocumentWindow.InternalDocumentDate.BorderBrush = new SolidColorBrush(Colors.Transparent);
             }
+            if (string.IsNullOrEmpty(InternalDocumentTitle))
+            {
+                MessageBox.Show("Не введено наименование документа");
+                InternalDocumentWindow.InternalDocumentTitle.BorderThickness = new System.Windows.Thickness(2);
+                InternalDocumentWindow.InternalDocumentTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                InternalDocumentWindow.InternalDocumentTitle.BorderThickness = new System.Windows.Thickness(2);
+                InternalDocumentWindow.InternalDocumentTitle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (string.IsNullOrEmpty(InternalDocumentContent))
+            {
+                MessageBox.Show("Не введено краткое содержание документа");
+                InternalDocumentWindow.InternalDocumentContent.BorderThickness = new System.Windows.Thickness(2);
+                InternalDocumentWindow.InternalDocumentContent.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                InternalDocumentWindow.InternalDocumentContent.BorderThickness = new System.Windows.Thickness(2);
+                InternalDocumentWindow.InternalDocumentContent.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
             return true;
         }
 
