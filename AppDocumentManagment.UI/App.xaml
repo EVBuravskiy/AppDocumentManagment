@@ -12,6 +12,7 @@
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <u:InternalDocumentTypeConverter x:Key="InternalDocumentTypeConverter"/>
+            <u:DateConverter x:Key="DateConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
