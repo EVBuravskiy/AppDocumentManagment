@@ -149,7 +149,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EditBtn.Content = "Сохранить изменения";
             }
             _employee = selectedEmployee;
-            UserImagePath = selectedEmployee.EmployeeImagePath;
+            //UserImagePath = selectedEmployee.EmployeeImagePath;
             UserFirstName = selectedEmployee.EmployeeFirstName;
             UserLastName = selectedEmployee.EmployeeLastName;
             UserMiddleName = selectedEmployee.EmployeeMiddleName;

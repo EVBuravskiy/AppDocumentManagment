@@ -237,9 +237,9 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeePhoto employeePhoto = photoController.GetEmployeePhotoByID(employee.EmployeeID);
             if (employeePhoto != null)
             {
+                EmployeeImagePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto);
+                employeePhoto.FilePath = EmployeeImagePath;
                 employee.EmployeePhoto = employeePhoto;
-                employee.EmployeePhotoID = employeePhoto.EmployeePhotoID;
-                EmployeeImagePath = employeePhoto.FilePath;
                 return;
             }
             EmployeeImagePath = "/Resources/Images/defaultContact.png";
@@ -282,7 +282,7 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
             if(EmployeeImagePath != "/Resources/Images/defaultContact.png")
             {
-                CreateEmployeePhoto(EmployeeImagePath);
+                newEmployee.EmployeePhoto = CreateEmployeePhoto(EmployeeImagePath);
             }
             newEmployee.EmployeePhone = EmployeePhone;
             newEmployee.EmployeeEmail = EmployeeEmail;
@@ -350,21 +350,15 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeeImagePath = filePath;
         }
 
-        private EmployeePhoto CreateEmployeePhoto(string photoPath)
+        private EmployeePhoto CreateEmployeePhoto(string inputPhotoPath)
         {
+            string photoPath = FileProcessing.CopyFileToTempFolder(inputPhotoPath);
             EmployeePhoto employeePhoto = new EmployeePhoto();
             employeePhoto.FileName = FileProcessing.GetFileName(photoPath);
             employeePhoto.FileExtension = FileProcessing.GetFileExtension(photoPath);
             employeePhoto.FileData = FileProcessing.GetFileData(photoPath);
             employeePhoto.Employee = employee;
-            if (employee.EmployeePhoto.FilePath != EmployeeImagePath) 
-            {
-                employeePhoto.FilePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto, true);
-            }
-            else
-            {
-                employeePhoto.FilePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto, false);
-            }
+            employeePhoto.FilePath = photoPath;
             return employeePhoto;
         }
 

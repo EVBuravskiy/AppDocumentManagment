@@ -183,7 +183,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 User registredUser = new User();
                 registredUser.EmployeeID = employee.EmployeeID;
-                registredUser.EmployeeImagePath = employee.EmployeeImagePath;
+                //registredUser.EmployeeImagePath = employee.EmployeeImagePath;
                 registredUser.EmployeeFullName = employee.EmployeeFullName;
                 registredUser.EmployeePosition = employee.Position;
                 registredUser.EmployeeDepartmentTitle = employee.Department.DepartmentTitle;

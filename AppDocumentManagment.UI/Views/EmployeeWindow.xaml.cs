@@ -17,5 +17,6 @@ namespace AppDocumentManagment.UI.Views
             InitializeComponent();
             DataContext = viewModel;
         }
+
     }
 }

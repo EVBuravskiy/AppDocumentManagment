@@ -22,13 +22,14 @@ namespace AppDocumentManagment.UI.Utilities
         public static byte[] GetFileData(string filePath)
         {
             byte[] buffer = new byte[0];
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
-                {
-                    buffer = new byte[fileStream.Length];
-                    fileStream.ReadAsync(buffer, 0, buffer.Length);
-                }
+                return buffer;
+            }
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+            {
+                buffer = new byte[fileStream.Length];
+                fileStream.ReadAsync(buffer, 0, buffer.Length);
             }
             return buffer;
         }
@@ -36,7 +37,7 @@ namespace AppDocumentManagment.UI.Utilities
         public static bool SaveDocumentToFolder(DocumentFile documentFile, string filePath)
         {
             bool result = false;
-            if (string.IsNullOrEmpty(filePath)) 
+            if (string.IsNullOrEmpty(filePath))
             {
                 string directoryPath = $"{Directory.GetCurrentDirectory}\\Documents\\";
                 filePath = $"{directoryPath}{documentFile.FileName}";
@@ -64,59 +65,56 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
-        public static string SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
+        public static string SaveEmployeePhotoToTempFolder(EmployeePhoto photo)
         {
             if (photo == null)
             {
                 MessageBox.Show("Ошибка! Не удалось сохранить файл");
                 return null;
             }
-            string directoryPath = $"{Directory.GetCurrentDirectory}\\TempEmployeePhotos\\";
+            string directoryPath = $"{Directory.GetCurrentDirectory()}\\TempEmployeePhotos\\";
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
-            if (IsNewPhoto)
+            string filePath = $"{directoryPath}{photo.FileName}";
+            if(File.Exists(filePath))
             {
-                string filePath = $"{directoryPath}{photo.FileName}";
-                if (!File.Exists(filePath))
-                {
-                    try
-                    {
-                        using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
-                        {
-                            fileStream.Write(photo.FileData, 0, photo.FileData.Length);
-                        }
-                        return filePath;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка! Не удалось сохранить файл");
-                        return null;
-                    }
-                }
-                return null;
+                return filePath;
             }
-            else 
+            else
             {
-                if (!File.Exists(photo.FilePath))
+                try
                 {
-                    try
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
                     {
-                        using (FileStream fileStream = new FileStream(photo.FilePath, FileMode.OpenOrCreate))
-                        {
-                            fileStream.Write(photo.FileData, 0, photo.FileData.Length);
-                        }
-                        return photo.FilePath;
+                        fileStream.Write(photo.FileData, 0, photo.FileData.Length);
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка! Файл не был найден. Не удалось его сохранить повторно");
-                        return null;
-                    }
+                    return filePath;
                 }
-                return null;
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка! Не удалось сохранить файл");
+                    return null;
+                }
             }
+        }
+
+
+        public static string CopyFileToTempFolder(string sourcePath)
+        {
+            string directoryPath = $"{Directory.GetCurrentDirectory()}\\TempEmployeePhotos\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string fileName = GetFileName(sourcePath);
+            string destPath = $"{directoryPath}{fileName}";
+            if (File.Exists(sourcePath) && !File.Exists(destPath))
+            {
+                File.Copy(sourcePath, destPath);
+            }
+            return destPath;
         }
     }
 }
