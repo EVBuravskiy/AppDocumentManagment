@@ -202,7 +202,7 @@ namespace AppDocumentManagment.UI.ViewModels
             SelectedEmployeeRole = selectedEmployee.EmployeeRole;
             EmployeePosition = selectedEmployee.Position;
             SelectedDepartment = selectedEmployee.Department;
-            EmployeeImagePath = selectedEmployee.EmployeeImagePath;
+            GetEmployeePhotoPath();
             SelectedEmployeeID = selectedEmployee.EmployeeID;
             EmployeePhone = selectedEmployee.EmployeePhone;
             EmployeeEmail = selectedEmployee.EmployeeEmail;
@@ -229,6 +229,20 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 DepartmentTitleList.Add(DepartmentConverter.DepartmentToString(department));
             }
+        }
+
+        private void GetEmployeePhotoPath()
+        {
+            EmployeePhotoController photoController = new EmployeePhotoController();
+            EmployeePhoto employeePhoto = photoController.GetEmployeePhotoByID(employee.EmployeeID);
+            if (employeePhoto != null)
+            {
+                employee.EmployeePhoto = employeePhoto;
+                employee.EmployeePhotoID = employeePhoto.EmployeePhotoID;
+                EmployeeImagePath = employeePhoto.FilePath;
+                return;
+            }
+            EmployeeImagePath = "/Resources/Images/defaultContact.png";
         }
 
         public ICommand IRemove => new RelayCommand(remove => Remove());
@@ -266,8 +280,10 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.EmployeeRole = SelectedEmployeeRole;
             newEmployee.Position = EmployeePosition;
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
-            //newEmployee.Department = SelectedDepartment;
-            newEmployee.EmployeeImagePath = EmployeeImagePath;
+            if(EmployeeImagePath != "/Resources/Images/defaultContact.png")
+            {
+                CreateEmployeePhoto(EmployeeImagePath);
+            }
             newEmployee.EmployeePhone = EmployeePhone;
             newEmployee.EmployeeEmail = EmployeeEmail;
             newEmployee.EmployeeInformation = EmployeeInformation;
@@ -332,6 +348,24 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             var filePath = _imageDialogService.OpenFile("Image files|*.bmp;*.jpg;*.jpeg;*.png|All files");
             EmployeeImagePath = filePath;
+        }
+
+        private EmployeePhoto CreateEmployeePhoto(string photoPath)
+        {
+            EmployeePhoto employeePhoto = new EmployeePhoto();
+            employeePhoto.FileName = FileProcessing.GetFileName(photoPath);
+            employeePhoto.FileExtension = FileProcessing.GetFileExtension(photoPath);
+            employeePhoto.FileData = FileProcessing.GetFileData(photoPath);
+            employeePhoto.Employee = employee;
+            if (employee.EmployeePhoto.FilePath != EmployeeImagePath) 
+            {
+                employeePhoto.FilePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto, true);
+            }
+            else
+            {
+                employeePhoto.FilePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto, false);
+            }
+            return employeePhoto;
         }
 
         private void ClearFields()

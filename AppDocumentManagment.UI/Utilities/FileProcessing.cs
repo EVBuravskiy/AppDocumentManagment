@@ -33,7 +33,7 @@ namespace AppDocumentManagment.UI.Utilities
             return buffer;
         }
 
-        public bool SaveDocumentToFolder(DocumentFile documentFile, string filePath)
+        public static bool SaveDocumentToFolder(DocumentFile documentFile, string filePath)
         {
             bool result = false;
             if (string.IsNullOrEmpty(filePath)) 
@@ -49,7 +49,7 @@ namespace AppDocumentManagment.UI.Utilities
             return result;
         }
 
-        public bool SaveInternalDocumentToFolder(InternalDocumentFile internalDocumentFile, string filePath)
+        public static bool SaveInternalDocumentToFolder(InternalDocumentFile internalDocumentFile, string filePath)
         {
             bool result = false;
             if (string.IsNullOrEmpty(filePath))
@@ -64,7 +64,7 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
-        public string SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
+        public static string SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
         {
             if (photo == null)
             {
