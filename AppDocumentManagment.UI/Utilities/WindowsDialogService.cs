@@ -13,6 +13,15 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return null;
         }
+        public string SaveFile(string path)
+        {
+            var dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                return dialog.FileName;
+            }
+            return null;
+        }
 
         public void ShowMessageBox(string message)
         {

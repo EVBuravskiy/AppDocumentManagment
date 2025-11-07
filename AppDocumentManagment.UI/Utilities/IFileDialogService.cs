@@ -4,5 +4,6 @@
     {
         string OpenFile(string filter);
         void ShowMessageBox(string message);
+        string SaveFile(string filePath);
     }
 }
