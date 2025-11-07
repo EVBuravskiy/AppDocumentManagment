@@ -8,5 +8,6 @@
         public byte[] FileData { get; set; }
         public Employee Employee { get; set; }
         public int EmployeeID { get; set; }
+        public string FilePath { get; set; }
     }
 }
