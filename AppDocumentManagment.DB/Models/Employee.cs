@@ -10,7 +10,8 @@
         public int DepartmentID { get; set; }
         public string? Position { get; set; }
         public EmployeeRole EmployeeRole { get; set; }
-        public string? EmployeeImagePath { get; set; }
+        public EmployeePhoto? EmployeePhoto { get; set; }
+        public int? EmployeePhotoID { get; set; }
         public string EmployeeFullName => $"{EmployeeLastName} {EmployeeFirstName} {EmployeeMiddleName}";
         public string EmployeeShortName => $"{EmployeeLastName} {EmployeeFirstName.ElementAt(0)}.{EmployeeMiddleName.ElementAt(0)}.";
         public List<Document> Documents { get; set; } = new List<Document>();
