@@ -1,5 +1,6 @@
 ﻿using AppDocumentManagment.DB.Models;
 using System.IO;
+using System.Windows;
 
 
 namespace AppDocumentManagment.UI.Utilities
@@ -63,6 +64,29 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
-
+        public bool SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
+        {
+            bool result = false;
+            if (photo == null)
+            {
+                MessageBox.Show("Ошибка! Не удалось сохранить файл");
+                return false;
+            }
+            string directoryPath = $"{Directory.GetCurrentDirectory}\\TempEmployeePhotos\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string filePath = $"{directoryPath}{photo.FileName}";
+            if (!File.Exists(filePath) || IsNewPhoto)
+            {
+                using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+                {
+                    fileStream.Write(photo.FileData, 0, photo.FileData.Length);
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }
