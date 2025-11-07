@@ -64,29 +64,59 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
-        public bool SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
+        public string SaveEmployeePhotoToTempFolder(EmployeePhoto photo, bool IsNewPhoto)
         {
-            bool result = false;
             if (photo == null)
             {
                 MessageBox.Show("Ошибка! Не удалось сохранить файл");
-                return false;
+                return null;
             }
             string directoryPath = $"{Directory.GetCurrentDirectory}\\TempEmployeePhotos\\";
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
-            string filePath = $"{directoryPath}{photo.FileName}";
-            if (!File.Exists(filePath) || IsNewPhoto)
+            if (IsNewPhoto)
             {
-                using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+                string filePath = $"{directoryPath}{photo.FileName}";
+                if (!File.Exists(filePath))
                 {
-                    fileStream.Write(photo.FileData, 0, photo.FileData.Length);
-                    result = true;
+                    try
+                    {
+                        using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+                        {
+                            fileStream.Write(photo.FileData, 0, photo.FileData.Length);
+                        }
+                        return filePath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка! Не удалось сохранить файл");
+                        return null;
+                    }
                 }
+                return null;
             }
-            return result;
+            else 
+            {
+                if (!File.Exists(photo.FilePath))
+                {
+                    try
+                    {
+                        using (FileStream fileStream = new FileStream(photo.FilePath, FileMode.OpenOrCreate))
+                        {
+                            fileStream.Write(photo.FileData, 0, photo.FileData.Length);
+                        }
+                        return photo.FilePath;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка! Файл не был найден. Не удалось его сохранить повторно");
+                        return null;
+                    }
+                }
+                return null;
+            }
         }
     }
 }
