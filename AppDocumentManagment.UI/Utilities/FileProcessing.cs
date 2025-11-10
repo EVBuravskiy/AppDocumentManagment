@@ -34,7 +34,7 @@ namespace AppDocumentManagment.UI.Utilities
             return buffer;
         }
 
-        public static bool SaveDocumentToFolder(DocumentFile documentFile, string filePath)
+        public static bool SaveDocumentToFolder(ExternalDocumentFile documentFile, string filePath)
         {
             bool result = false;
             if (string.IsNullOrEmpty(filePath))

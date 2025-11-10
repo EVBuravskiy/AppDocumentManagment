@@ -3,11 +3,11 @@ using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
 {
-    public class DocumentController
+    public class ExternalDocumentController
     {
-        public List<Document> GetAllDocuments()
+        public List<ExtermalDocument> GetAllDocuments()
         {
-            List<Document> documents = new List<Document>();
+            List<ExtermalDocument> documents = new List<ExtermalDocument>();
             try
             {
                 using (ApplicationContext context = new ApplicationContext())
@@ -21,7 +21,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return documents;
         }
-        public bool AddDocument(Document document)
+        public bool AddDocument(ExtermalDocument document)
         {
             if (document == null) return false;
             try
@@ -47,20 +47,20 @@ namespace AppDocumentManagment.DB.Controllers
             }
         }
 
-        public bool RemoveDocument(Document document)
+        public bool RemoveDocument(ExtermalDocument document)
         {
             if (document == null) return false;
             try
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    Document aviableDocument = context.Documents.Where(x => x.DocumentID == document.DocumentID).FirstOrDefault();
+                    ExtermalDocument aviableDocument = context.Documents.Where(x => x.DocumentID == document.DocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
                         context.Documents.Remove(aviableDocument);
                         context.SaveChanges();
                     }
-                    List<DocumentFile> files = context.DocumentFiles.Where(d => d.DocumentID == document.DocumentID).ToList();
+                    List<ExternalDocumentFile> files = context.DocumentFiles.Where(d => d.DocumentID == document.DocumentID).ToList();
                     if(files != null && files.Count > 0)
                     {
                         context.DocumentFiles.RemoveRange(files);
@@ -75,7 +75,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
         }
 
-        public bool UpdateDocument(Document document)
+        public bool UpdateDocument(ExtermalDocument document)
         {
             bool result = false;
             if (document == null) return result;
@@ -83,7 +83,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    Document aviableDocument = context.Documents.Where(x => x.DocumentID == document.DocumentID).FirstOrDefault();
+                    ExtermalDocument aviableDocument = context.Documents.Where(x => x.DocumentID == document.DocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
                         aviableDocument.DocumentTitle = document.DocumentTitle;

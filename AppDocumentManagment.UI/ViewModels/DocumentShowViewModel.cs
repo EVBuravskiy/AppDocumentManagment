@@ -98,10 +98,10 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ObservableCollection<DocumentFile> DocumentFiles;
+        public ObservableCollection<ExternalDocumentFile> DocumentFiles;
 
-        private DocumentFile selectedDocumentFile;
-        public DocumentFile SelectedDocumentFile
+        private ExternalDocumentFile selectedDocumentFile;
+        public ExternalDocumentFile SelectedDocumentFile
         {
             get => selectedDocumentFile;
             set
@@ -111,13 +111,13 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public DocumentShowViewModel(DocumentDisplayWindow documentShowWindow, Document inputDocument)
+        public DocumentShowViewModel(DocumentDisplayWindow documentShowWindow, ExtermalDocument inputDocument)
         {
             DocumentShowWindow = documentShowWindow;
-            DocumentFiles = new ObservableCollection<DocumentFile>();
+            DocumentFiles = new ObservableCollection<ExternalDocumentFile>();
             if (inputDocument != null)
             {
-                DocumentType = DocumentTypeConverter.ConvertToString(inputDocument.DocumentType);
+                DocumentType = ExternalDocumentTypeConverter.ConvertToString(inputDocument.DocumentType);
                 DocumentNumber = inputDocument.DocumentNumber;
                 DocumentTitle = inputDocument.DocumentTitle;
                 ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
@@ -131,12 +131,12 @@ namespace AppDocumentManagment.UI.ViewModels
                     TextBlockCompanyPhone = contractorCompany.ContractorCompanyPhone;
                     TextBlockCompanyEmail = contractorCompany.ContractorCompanyEmail;
                 }
-                DocumentFileController documentFileController = new DocumentFileController();
-                List<DocumentFile> documentFiles = new List<DocumentFile>();
+                ExternalDocumentFileController documentFileController = new ExternalDocumentFileController();
+                List<ExternalDocumentFile> documentFiles = new List<ExternalDocumentFile>();
                 documentFiles = documentFileController.GetDocumentFiles(inputDocument.DocumentID);
                 if (documentFiles.Count > 0)
                 {
-                    foreach (DocumentFile file in documentFiles)
+                    foreach (ExternalDocumentFile file in documentFiles)
                     {
                         DocumentFiles.Add(file);
                     }

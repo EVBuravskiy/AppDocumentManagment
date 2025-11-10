@@ -22,7 +22,7 @@ namespace AppDocumentManagment.UI.Views
     public partial class DocumentWindow : Window
     {
         private DocumentViewModel viewController;
-        public DocumentWindow(Document inputDocument)
+        public DocumentWindow(ExtermalDocument inputDocument)
         {
             InitializeComponent();
             viewController = new DocumentViewModel(this, inputDocument);

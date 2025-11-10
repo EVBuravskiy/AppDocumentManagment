@@ -13,7 +13,7 @@ namespace AppDocumentManagment.UI.ViewModels
     {
         private IFileDialogService fileDialogService;
         private DocumentWindow DocumentWindow { get; set; }
-        private Document SelectedDocument { get; set; }
+        private ExtermalDocument SelectedDocument { get; set; }
         private string documentTitle;
         public string DocumentTitle
         {
@@ -61,9 +61,9 @@ namespace AppDocumentManagment.UI.ViewModels
 
         public List<string> DocumentTypes { get; set; }
 
-        private DocumentType selectedDocumentType;
+        private ExternalDocumentType selectedDocumentType;
 
-        public DocumentType SelectedDocumentType
+        public ExternalDocumentType SelectedDocumentType
         {
             get => selectedDocumentType;
             set
@@ -83,7 +83,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 {
                     selectedDocumentTypeIndex = value;
                     OnPropertyChanged(nameof(SelectedDocumentTypeIndex));
-                    SelectedDocumentType = DocumentTypeConverter.BackConvert(value);
+                    SelectedDocumentType = ExternalDocumentTypeConverter.BackConvert(value);
                 }
             }
         }
@@ -143,11 +143,11 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private List<DocumentFile> DocumentFilesList { get; set; }
+        private List<ExternalDocumentFile> DocumentFilesList { get; set; }
         
-        public ObservableCollection<DocumentFile> DocumentFiles { get; set; }
+        public ObservableCollection<ExternalDocumentFile> DocumentFiles { get; set; }
 
-        public DocumentFile SelectedDocumentFile {  get; set; }
+        public ExternalDocumentFile SelectedDocumentFile {  get; set; }
 
         private Employee EmployeeReceivedDocument { get; set; }
 
@@ -162,13 +162,13 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public DocumentViewModel(DocumentWindow window, Document selectedDocument)
+        public DocumentViewModel(DocumentWindow window, ExtermalDocument selectedDocument)
         {
             DocumentWindow = window;
             SelectedDocument = selectedDocument;
             fileDialogService = new WindowsDialogService();
-            DocumentFilesList = new List<DocumentFile>();
-            DocumentFiles = new ObservableCollection<DocumentFile>();
+            DocumentFilesList = new List<ExternalDocumentFile>();
+            DocumentFiles = new ObservableCollection<ExternalDocumentFile>();
             if (SelectedDocument != null)
             {
                 DocumentTitle = SelectedDocument.DocumentTitle;
@@ -182,7 +182,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 TextBlockCompanyEmail = $"Электронная почта: {SelectedDocument.ContractorCompany.ContractorCompanyEmail}";
                 ContractorCompanyID = SelectedDocument.ContractorCompanyID;
                 SelectedDocumentType = SelectedDocument.DocumentType;
-                SelectedDocumentTypeIndex = DocumentTypeConverter.ToIntConvert(SelectedDocument.DocumentType);
+                SelectedDocumentTypeIndex = ExternalDocumentTypeConverter.ToIntConvert(SelectedDocument.DocumentType);
                 EmployeeReceivedDocument = SelectedDocument.EmployeeReceivedDocument;
                 RegisterOrUpdateBtnTitle = "Сохранить изменения";
                 DocumentWindow.ButtonAddCompany.Visibility = Visibility.Hidden;
@@ -193,8 +193,8 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 DocumentDate = DateTime.Now;
-                DocumentFilesList = new List<DocumentFile>();
-                SelectedDocumentType = DocumentType.Contract;
+                DocumentFilesList = new List<ExternalDocumentFile>();
+                SelectedDocumentType = ExternalDocumentType.Contract;
             } 
             InitializeDocumentTypes();
         }
@@ -202,10 +202,10 @@ namespace AppDocumentManagment.UI.ViewModels
         private void InitializeDocumentTypes()
         {
             DocumentTypes = new List<string>();
-            var documentTypes = Enum.GetValues(typeof(DocumentType));
+            var documentTypes = Enum.GetValues(typeof(ExternalDocumentType));
             foreach (var type in documentTypes)
             {
-                DocumentTypes.Add(DocumentTypeConverter.ConvertToString(type));
+                DocumentTypes.Add(ExternalDocumentTypeConverter.ConvertToString(type));
             }
         }
 
@@ -231,7 +231,7 @@ namespace AppDocumentManagment.UI.ViewModels
             if(SelectedDocument != null)
             {
                 DocumentFilesList.Clear();
-                DocumentFileController documentFileController = new DocumentFileController();
+                ExternalDocumentFileController documentFileController = new ExternalDocumentFileController();
                 DocumentFilesList = documentFileController.GetDocumentFiles(SelectedDocument.DocumentID);
             }
         }
@@ -257,7 +257,7 @@ namespace AppDocumentManagment.UI.ViewModels
             string fileName = FileProcessing.GetFileName(filePath);
             string fileExtension = FileProcessing.GetFileExtension(filePath);
             byte[] fileData = FileProcessing.GetFileData(filePath);
-            DocumentFile documentFile = new DocumentFile();
+            ExternalDocumentFile documentFile = new ExternalDocumentFile();
             documentFile.FileName = fileName;
             documentFile.FileExtension = fileExtension;
             documentFile.FileData = fileData;
@@ -273,7 +273,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (SelectedDocumentFile != null)
                 {
-                    DocumentFileController documentFileController = new DocumentFileController();
+                    ExternalDocumentFileController documentFileController = new ExternalDocumentFileController();
                     result = documentFileController.RemoveDocumentFile(SelectedDocumentFile);
                 }
                 if (result)
@@ -306,9 +306,9 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void RegisterDocument()
         {
-            Document newDocument = CreateDocument();
+            ExtermalDocument newDocument = CreateDocument();
             bool result = false;
-            DocumentController documentController = new DocumentController();
+            ExternalDocumentController documentController = new ExternalDocumentController();
             if (SelectedDocument == null)
             {
                 newDocument.RegistrationDate = DateTime.Now;
@@ -342,7 +342,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 SelectedDocument.SendingDate = DateTime.Now;
             }
             bool result = false;
-            DocumentController documentController = new DocumentController();
+            ExternalDocumentController documentController = new ExternalDocumentController();
             result = documentController.UpdateDocument(SelectedDocument);
             if (result)
             {
@@ -356,9 +356,9 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private Document CreateDocument()
+        private ExtermalDocument CreateDocument()
         {
-            Document newDocument = new Document();
+            ExtermalDocument newDocument = new ExtermalDocument();
             newDocument.DocumentTitle = DocumentTitle;
             newDocument.DocumentNumber = DocumentNumber;
             newDocument.DocumentDate = DocumentDate;
@@ -387,13 +387,13 @@ namespace AppDocumentManagment.UI.ViewModels
             TextBlockCompanyAddress = "Юридический адрес: ";
             TextBlockCompanyPhone = "Контактный телефон: ";
             TextBlockCompanyEmail = "Электронная почта: ";
-            SelectedDocumentType = DocumentType.Contract;
+            SelectedDocumentType = ExternalDocumentType.Contract;
             SelectedDocumentTypeIndex = 0;
             DocumentFilesList.Clear();
             DocumentFiles.Clear();
             if (SelectedDocument != null)
             {
-                DocumentController documentController = new DocumentController();
+                ExternalDocumentController documentController = new ExternalDocumentController();
                 documentController.RemoveDocument(SelectedDocument);
             }
         }
@@ -409,9 +409,9 @@ namespace AppDocumentManagment.UI.ViewModels
             bool result = false;
             if (examiningPersonsWindow.viewModel.SelectedEmployee != null)
             {
-                Document document = CreateDocument();
+                ExtermalDocument document = CreateDocument();
                 document.EmployeeReceivedDocument = examiningPersonsWindow.viewModel.SelectedEmployee;
-                DocumentController documentController = new DocumentController();
+                ExternalDocumentController documentController = new ExternalDocumentController();
                 if (document.IsRegistated == false)
                 {
                     document.RegistrationDate = DateTime.Now;

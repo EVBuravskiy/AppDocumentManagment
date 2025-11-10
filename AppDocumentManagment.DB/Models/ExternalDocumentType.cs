@@ -1,6 +1,6 @@
 ﻿namespace AppDocumentManagment.DB.Models
 {
-    public enum DocumentType
+    public enum ExternalDocumentType
     {
         Contract,           
         CommercialOffer,    

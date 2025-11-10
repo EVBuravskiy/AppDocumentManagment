@@ -2,8 +2,9 @@
 {
     public enum InternalDocumentStatus
     {
-        Success,        //Утвержден
-        Processing,     //На рассмотрении
-        Denied          //Отказано
+        NewExternalDocument,    //Новый документ
+        UnderConsideration,     //На рассмотрении
+        Agreed,                 //Согласован
+        Refused                 //Отказан
     }
 }

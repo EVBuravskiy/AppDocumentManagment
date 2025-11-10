@@ -14,7 +14,7 @@ namespace AppDocumentManagment.DB.Models
         public string ContractorCompanyAddress { get; set; }
         public string? ContractorCompanyPhone { get; set; }
         public string? ContractorCompanyEmail { get; set; }
-        List<Document> Documents { get; set; } = new List<Document>();
+        List<ExtermalDocument> Documents { get; set; } = new List<ExtermalDocument>();
         public string? ContractorCompanyInformation {  get; set; }
     }
 }

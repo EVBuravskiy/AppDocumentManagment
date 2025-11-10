@@ -3,12 +3,12 @@ using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
 {
-    public class DocumentFileController
+    public class ExternalDocumentFileController
     {
-        public List<DocumentFile> GetDocumentFiles(int documentID)
+        public List<ExternalDocumentFile> GetDocumentFiles(int documentID)
         {
             if (documentID == 0) return null;
-            List<DocumentFile> documentFiles = new List<DocumentFile>();
+            List<ExternalDocumentFile> documentFiles = new List<ExternalDocumentFile>();
             try
             {
                 using (ApplicationContext context = new ApplicationContext())
@@ -23,7 +23,7 @@ namespace AppDocumentManagment.DB.Controllers
             return documentFiles;
         }
 
-        public bool AddDocumentFiles(List<DocumentFile> documentFiles)
+        public bool AddDocumentFiles(List<ExternalDocumentFile> documentFiles)
         {
             if (documentFiles == null || documentFiles.Count == 0) return false;
             try
@@ -41,14 +41,14 @@ namespace AppDocumentManagment.DB.Controllers
                 return false;
             }
         }
-        public bool RemoveDocumentFile(DocumentFile documentFile)
+        public bool RemoveDocumentFile(ExternalDocumentFile documentFile)
         {
             if (documentFile == null) return false;
             try
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    DocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.DocumentFileID == documentFile.DocumentFileID).FirstOrDefault();
+                    ExternalDocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.DocumentFileID == documentFile.DocumentFileID).FirstOrDefault();
                     if (aviableDocumentFile == null) return false;
                     context.DocumentFiles.Remove(aviableDocumentFile);
                     context.SaveChanges();

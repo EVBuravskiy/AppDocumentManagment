@@ -13,8 +13,8 @@ namespace AppDocumentManagment.DB.Controllers
         public DbSet<EmployeePhoto> EmployeePhotos { get; set; } = null!;
         public DbSet<RegistredUser> RegistredUsers { get; set; } = null!;
         public DbSet<ContractorCompany> ContractorCompanies { get; set; } = null!;
-        public DbSet<Document> Documents { get; set; } = null!;
-        public DbSet<DocumentFile> DocumentFiles { get; set; } = null!;
+        public DbSet<ExtermalDocument> Documents { get; set; } = null!;
+        public DbSet<ExternalDocumentFile> DocumentFiles { get; set; } = null!;
         public DbSet<InternalDocument> InternalDocuments { get; set; } = null!;
         public DbSet<InternalDocumentFile> InternalDocumentFiles { get; set; } = null!;
         public ApplicationContext() 
