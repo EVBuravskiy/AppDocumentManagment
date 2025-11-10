@@ -16,50 +16,50 @@ namespace AppDocumentManagment.UI.ViewModels
         private List<ContractorCompany> ContractorCompanies;
         private List<Department> Departments;
 
-        private List<ExtermalDocument> DocumentList;
-        public ObservableCollection<ExtermalDocument> DocumentsCollection { get; set; }
-        private ExtermalDocument selectedDocument;
-        public ExtermalDocument SelectedDocument
+        private List<ExternalDocument> ExternalDocumentList;
+        public ObservableCollection<ExternalDocument> ExternalDocumentsCollection { get; set; }
+        private ExternalDocument selectedExternalDocument;
+        public ExternalDocument SelectedExternalDocument
         {
-            get => selectedDocument;
+            get => selectedExternalDocument;
             set
             {
-                selectedDocument = value;
-                OnPropertyChanged(nameof(SelectedDocument));
-                if (SelectedDocument != null)
+                selectedExternalDocument = value;
+                OnPropertyChanged(nameof(SelectedExternalDocument));
+                if (SelectedExternalDocument != null)
                 {
-                    OpenDocumentWindow(SelectedDocument);
+                    OpenDocumentWindow(SelectedExternalDocument);
                 }
             }
         }
 
-        public ObservableCollection<string> DocumentTypes { get; private set; }
+        public ObservableCollection<string> ExternalDocumentTypes { get; private set; }
 
-        private int selectedDocumentTypeIndex;
-        public int SelectedDocumentTypeIndex
+        private int selectedExternalDocumentTypeIndex;
+        public int SelectedExternalDocumentTypeIndex
         {
-            get => selectedDocumentTypeIndex;
+            get => selectedExternalDocumentTypeIndex;
             set
             {
-                selectedDocumentTypeIndex = value;
-                OnPropertyChanged(nameof(SelectedDocumentTypeIndex));
+                selectedExternalDocumentTypeIndex = value;
+                OnPropertyChanged(nameof(SelectedExternalDocumentTypeIndex));
             }
         }
 
-        private string selectedDocumentType;
-        public string SelectedDocumentType
+        private string selectedExternalDocumentType;
+        public string SelectedExternalDocumentType
         {
-            get => selectedDocumentType;
+            get => selectedExternalDocumentType;
             set
             {
-                selectedDocumentType = value;
-                OnPropertyChanged(nameof(SelectedDocumentType));
+                selectedExternalDocumentType = value;
+                OnPropertyChanged(nameof(SelectedExternalDocumentType));
                 int index = 0;
-                for (; index < DocumentTypes.Count; index++)
+                for (; index < ExternalDocumentTypes.Count; index++)
                 {
-                    if (value.Equals(DocumentTypes[index]))
+                    if (value.Equals(ExternalDocumentTypes[index]))
                     {
-                        SelectedDocumentTypeIndex = index;
+                        SelectedExternalDocumentTypeIndex = index;
                         break;
                     }
                 }
@@ -226,10 +226,10 @@ namespace AppDocumentManagment.UI.ViewModels
             Employees = new List<Employee>();
             ContractorCompanies = new List<ContractorCompany>();
             Departments = new List<Department>();
-            DocumentList = new List<ExtermalDocument>();
-            DocumentsCollection = new ObservableCollection<ExtermalDocument>();
+            ExternalDocumentList = new List<ExternalDocument>();
+            ExternalDocumentsCollection = new ObservableCollection<ExternalDocument>();
             InternalDocumentRegistationStatus = new ObservableCollection<string>();
-            DocumentTypes = new ObservableCollection<string>();
+            ExternalDocumentTypes = new ObservableCollection<string>();
             InternalDocumentList = new List<InternalDocument>();
             InternalDocumentsCollection = new ObservableCollection<InternalDocument>();
             InternalDocumentTypes = new ObservableCollection<string>();
@@ -259,14 +259,14 @@ namespace AppDocumentManagment.UI.ViewModels
         }
         private void InitializeDocumentTypes()
         {
-            DocumentTypes.Clear();
-            DocumentTypes.Add("Все документы");
+            ExternalDocumentTypes.Clear();
+            ExternalDocumentTypes.Add("Все документы");
             var documentTypes = Enum.GetValues(typeof(ExternalDocumentType));
             foreach (var type in documentTypes)
             {
-                DocumentTypes.Add(ExternalDocumentTypeConverter.ConvertToString(type));
+                ExternalDocumentTypes.Add(ExternalDocumentTypeConverter.ConvertToString(type));
             }
-            SelectedDocumentType = DocumentTypes.FirstOrDefault();
+            SelectedExternalDocumentType = ExternalDocumentTypes.FirstOrDefault();
         }
 
         private void InitializeInternalDocumentTypes()
@@ -312,25 +312,25 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void GetAllDocuments()
         {
-            DocumentList.Clear();
+            ExternalDocumentList.Clear();
             ExternalDocumentController documentController = new ExternalDocumentController();
-            DocumentList = documentController.GetAllDocuments();
+            ExternalDocumentList = documentController.GetAllDocuments();
         }
 
 
         private void InitializeDocuments()
         {
-            DocumentsCollection.Clear();
-            if (DocumentList != null)
+            ExternalDocumentsCollection.Clear();
+            if (ExternalDocumentList != null)
             {
-                DocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                foreach (ExtermalDocument document in DocumentList)
+                ExternalDocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                foreach (ExternalDocument document in ExternalDocumentList)
                 {
                     Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
                     ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                     document.EmployeeReceivedDocument = employee;
                     document.ContractorCompany = contractorCompany;
-                    DocumentsCollection.Add(document);
+                    ExternalDocumentsCollection.Add(document);
                 }
             }
         }
@@ -389,7 +389,7 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentRegistrationWindow.SelectInternalDocumentStatus.Visibility = System.Windows.Visibility.Visible;
             IsInternalDocuments = true;
             SearchString = string.Empty;
-            SelectedDocumentType = "Все документы";
+            SelectedExternalDocumentType = "Все документы";
             GetDocumentsByDocumentType();
             SearchStringContent = "Поиск по инициатору/подписанту документа...";
             SelectedInternalDocumentRegistationStatus = InternalDocumentRegistationStatus.FirstOrDefault();
@@ -401,26 +401,26 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             if (!IsInternalDocuments)
             {
-                if (SelectedDocumentType.Equals("Все документы"))
+                if (SelectedExternalDocumentType.Equals("Все документы"))
                 {
                     InitializeDocuments();
                 }
                 else
                 {
-                    DocumentsCollection.Clear();
-                    if (DocumentList != null)
+                    ExternalDocumentsCollection.Clear();
+                    if (ExternalDocumentList != null)
                     {
-                        DocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                        foreach (ExtermalDocument document in DocumentList)
+                        ExternalDocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                        foreach (ExternalDocument document in ExternalDocumentList)
                         {
-                            ExternalDocumentType documentType = ExternalDocumentTypeConverter.ConvertToEnum(SelectedDocumentType);
-                            if (document.DocumentType == documentType)
+                            ExternalDocumentType documentType = ExternalDocumentTypeConverter.ConvertToEnum(SelectedExternalDocumentType);
+                            if (document.ExternalDocumentType == documentType)
                             {
                                 Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
                                 ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                                 document.EmployeeReceivedDocument = employee;
                                 document.ContractorCompany = contractorCompany;
-                                DocumentsCollection.Add(document);
+                                ExternalDocumentsCollection.Add(document);
                             }
                         }
                     }
@@ -493,44 +493,44 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (string.IsNullOrEmpty(searchingString))
                 {
-                    DocumentsCollection.Clear();
+                    ExternalDocumentsCollection.Clear();
                     GetDocumentsByDocumentType();
                     return;
                 }
                 GetDocumentsByDocumentType();
-                List<ExtermalDocument> documents = DocumentsCollection.ToList();
-                DocumentsCollection.Clear();
+                List<ExternalDocument> documents = ExternalDocumentsCollection.ToList();
+                ExternalDocumentsCollection.Clear();
                 if (documents != null)
                 {
                     documents.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                    foreach (ExtermalDocument document in documents)
+                    foreach (ExternalDocument document in documents)
                     {
                         Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
                         ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                         document.EmployeeReceivedDocument = employee;
                         document.ContractorCompany = contractorCompany;
-                        if (document.DocumentTitle.ToLower().Contains(searchingString.ToLower()))
+                        if (document.ExternalDocumentTitle.ToLower().Contains(searchingString.ToLower()))
                         {
-                            DocumentsCollection.Add(document);
+                            ExternalDocumentsCollection.Add(document);
                         }
                     }
-                    if (DocumentsCollection.Count == 0)
+                    if (ExternalDocumentsCollection.Count == 0)
                     {
-                        foreach (ExtermalDocument document in documents)
+                        foreach (ExternalDocument document in documents)
                         {
                             if (document.ContractorCompany.ContractorCompanyTitle.ToLower().Contains(searchingString.ToLower()))
                             {
-                                DocumentsCollection.Add(document);
+                                ExternalDocumentsCollection.Add(document);
                             }
                         }
                     }
-                    if (DocumentsCollection.Count == 0)
+                    if (ExternalDocumentsCollection.Count == 0)
                     {
-                        foreach (ExtermalDocument document in documents)
+                        foreach (ExternalDocument document in documents)
                         {
-                            if (document.DocumentNumber != null && document.DocumentNumber.ToLower().Contains(searchingString.ToLower()))
+                            if (document.ExternalDocumentNumber != null && document.ExternalDocumentNumber.ToLower().Contains(searchingString.ToLower()))
                             {
-                                DocumentsCollection.Add(document);
+                                ExternalDocumentsCollection.Add(document);
                             }
                         }
                     }
@@ -579,7 +579,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void OpenDocumentWindow(ExtermalDocument document)
+        private void OpenDocumentWindow(ExternalDocument document)
         {
             DocumentWindow documentWindow = new DocumentWindow(document);
             documentWindow.ShowDialog();

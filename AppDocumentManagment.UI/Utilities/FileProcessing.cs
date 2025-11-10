@@ -40,11 +40,11 @@ namespace AppDocumentManagment.UI.Utilities
             if (string.IsNullOrEmpty(filePath))
             {
                 string directoryPath = $"{Directory.GetCurrentDirectory}\\Documents\\";
-                filePath = $"{directoryPath}{documentFile.FileName}";
+                filePath = $"{directoryPath}{documentFile.ExternalFileName}";
             }
             using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
             {
-                fileStream.Write(documentFile.FileData, 0, documentFile.FileData.Length);
+                fileStream.Write(documentFile.ExternalFileData, 0, documentFile.ExternalFileData.Length);
                 result = true;
             }
             return result;

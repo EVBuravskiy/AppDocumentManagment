@@ -21,7 +21,7 @@ namespace AppDocumentManagment.DB.Models
         public DateTime RegistrationDate { get; set; }
         public bool IsRegistated { get; set; }
         public DateTime? SendingDate { get; set; }
-        public InternalDocumentStatus InternalDocumentStatus { get; set; }
+        public DocumentStatus InternalDocumentStatus { get; set; }
         public string InternalDocumentTitle { get; set; }
         public string InternalDocumentContent { get; set; }
     }

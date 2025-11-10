@@ -192,9 +192,9 @@
                                       FontWeight="Bold"
                                       VerticalContentAlignment="Center"
                                       HorizontalContentAlignment="Center"
-                                      ItemsSource="{Binding DocumentTypes}"
-                                      SelectedIndex="{Binding SelectedDocumentTypeIndex}"
-                                      SelectedItem="{Binding SelectedDocumentType}"
+                                      ItemsSource="{Binding ExternalDocumentTypes}"
+                                      SelectedIndex="{Binding SelectedExternalDocumentTypeIndex}"
+                                      SelectedItem="{Binding SelectedExternalDocumentType}"
                                       ScrollViewer.CanContentScroll="True"
                                       Visibility="Visible"/>
                             <ComboBox x:Name="ComboBoxInternalDocumentTypes" 
@@ -307,8 +307,8 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <ListView ItemsSource="{Binding DocumentsCollection}"
-                                              SelectedItem="{Binding SelectedDocument, Mode=TwoWay}">
+                                    <ListView ItemsSource="{Binding ExternalDocumentsCollection}"
+                                              SelectedItem="{Binding SelectedExternalDocument, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid Background="WhiteSmoke"
@@ -328,31 +328,31 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentID}"
+                                                               Text="{Binding ExternalDocumentID}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="1"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding RegistrationDate, Converter={StaticResource DateConverter}}"
+                                                               Text="{Binding ExternalDocumentDate, Converter={StaticResource DateConverter}}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="2"                                                               
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentNumber}"
+                                                               Text="{Binding ExternalDocumentNumber}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="3"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentDate, Converter={StaticResource DateConverter}}"
+                                                               Text="{Binding RegistrationDate, Converter={StaticResource DateConverter}}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="4"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentTitle}"
+                                                               Text="{Binding ExternalDocumentTitle}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="5" 
                                                                Style="{StaticResource AdminDocumentTextblock}"

@@ -111,15 +111,15 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public DocumentShowViewModel(DocumentDisplayWindow documentShowWindow, ExtermalDocument inputDocument)
+        public DocumentShowViewModel(DocumentDisplayWindow documentShowWindow, ExternalDocument inputDocument)
         {
             DocumentShowWindow = documentShowWindow;
             DocumentFiles = new ObservableCollection<ExternalDocumentFile>();
             if (inputDocument != null)
             {
-                DocumentType = ExternalDocumentTypeConverter.ConvertToString(inputDocument.DocumentType);
-                DocumentNumber = inputDocument.DocumentNumber;
-                DocumentTitle = inputDocument.DocumentTitle;
+                DocumentType = ExternalDocumentTypeConverter.ConvertToString(inputDocument.ExternalDocumentType);
+                DocumentNumber = inputDocument.ExternalDocumentNumber;
+                DocumentTitle = inputDocument.ExternalDocumentTitle;
                 ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
                 ContractorCompany contractorCompany = contractorCompanyController.GetContractorCompanyByID(inputDocument.ContractorCompanyID);
                 if (contractorCompany != null)
@@ -133,7 +133,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 ExternalDocumentFileController documentFileController = new ExternalDocumentFileController();
                 List<ExternalDocumentFile> documentFiles = new List<ExternalDocumentFile>();
-                documentFiles = documentFileController.GetDocumentFiles(inputDocument.DocumentID);
+                documentFiles = documentFileController.GetDocumentFiles(inputDocument.ExternalDocumentID);
                 if (documentFiles.Count > 0)
                 {
                     foreach (ExternalDocumentFile file in documentFiles)

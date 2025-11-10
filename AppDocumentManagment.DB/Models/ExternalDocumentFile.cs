@@ -2,11 +2,11 @@
 {
     public class ExternalDocumentFile
     {
-        public int DocumentFileID { get; set; }
-        public string FileName { get; set; }
-        public string FileExtension { get; set; }
-        public byte[] FileData { get; set; }
-        public ExtermalDocument Document { get; set; }
-        public int DocumentID { get; set; }
+        public int ExternalDocumentFileID { get; set; }
+        public string ExternalFileName { get; set; }
+        public string ExternalFileExtension { get; set; }
+        public byte[] ExternalFileData { get; set; }
+        public ExternalDocument ExternalDocument { get; set; }
+        public int ExternalDocumentID { get; set; }
     }
 }

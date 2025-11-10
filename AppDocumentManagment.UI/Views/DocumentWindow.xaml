@@ -236,7 +236,7 @@
                           SelectedItem="{Binding SelectedDocumentFile}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource AdminDocumentTextblock}" Text="{Binding FileName}"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}" Text="{Binding ExternalFileName}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

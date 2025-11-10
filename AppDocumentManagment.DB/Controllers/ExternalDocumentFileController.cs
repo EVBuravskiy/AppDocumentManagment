@@ -13,7 +13,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documentFiles = context.DocumentFiles.Where(df => df.DocumentID == documentID).ToList();
+                    documentFiles = context.DocumentFiles.Where(df => df.ExternalDocumentID == documentID).ToList();
                 }
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.DocumentFileID == documentFile.DocumentFileID).FirstOrDefault();
+                    ExternalDocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.ExternalDocumentFileID == documentFile.ExternalDocumentFileID).FirstOrDefault();
                     if (aviableDocumentFile == null) return false;
                     context.DocumentFiles.Remove(aviableDocumentFile);
                     context.SaveChanges();

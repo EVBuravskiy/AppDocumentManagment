@@ -107,6 +107,7 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableDocument.InternalDocumentStatus = inputDocument.InternalDocumentStatus;
                         aviableDocument.InternalDocumentTitle = inputDocument.InternalDocumentTitle;
                         aviableDocument.InternalDocumentContent = inputDocument.InternalDocumentContent;
+                        aviableDocument.InternalDocumentStatus = inputDocument.InternalDocumentStatus;
                         context.InternalDocuments.Update(aviableDocument);
                         context.SaveChanges();
                         result = true;

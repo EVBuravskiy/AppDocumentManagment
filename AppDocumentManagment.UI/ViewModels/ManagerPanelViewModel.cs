@@ -109,11 +109,11 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private List<ExtermalDocument> ExternalDocumentsList;
-        public ObservableCollection<ExtermalDocument> ExternalDocuments { get; set; }
+        private List<ExternalDocument> ExternalDocumentsList;
+        public ObservableCollection<ExternalDocument> ExternalDocuments { get; set; }
 
-        private ExtermalDocument selectedExternalDocument;
-        public ExtermalDocument SelectedExternalDocument
+        private ExternalDocument selectedExternalDocument;
+        public ExternalDocument SelectedExternalDocument
         {
             get => selectedExternalDocument;
             set
@@ -157,7 +157,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ManagerPanelViewModel(ManagerPanelWindow window)
         {
             ManagerPanelWindow = window;
-            ExternalDocumentsList = new List<ExtermalDocument>();
+            ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
             Employees = new List<Employee>();
             Departments = new List<Department>();
@@ -166,7 +166,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentStatus = new ObservableCollection<string>();
             ExternalDocumentTypes = new ObservableCollection<string>();
             InternalDocumentTypes = new ObservableCollection<string>();
-            ExternalDocuments = new ObservableCollection<ExtermalDocument>();
+            ExternalDocuments = new ObservableCollection<ExternalDocument>();
             InternalDocuments = new ObservableCollection<InternalDocument>();
             InitializeInternalDocumentStatus();
             InitializeExternalDocumentStatus();
@@ -272,7 +272,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ExternalDocuments.Clear();
             if (ExternalDocumentsList != null)
             {
-                foreach(ExtermalDocument document in ExternalDocumentsList)
+                foreach(ExternalDocument document in ExternalDocumentsList)
                 {
                     ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                     document.ContractorCompany = contractorCompany;
@@ -310,7 +310,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if(ExternalDocumentsList.Count > 0)
                 {
-                    foreach(ExtermalDocument externalDocument in ExternalDocumentsList)
+                    foreach(ExternalDocument externalDocument in ExternalDocumentsList)
                     {
                         ExternalDocuments.Add(externalDocument);
                     }
@@ -321,7 +321,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (ExternalDocumentsList.Count > 0)
                 { 
-                    foreach(ExtermalDocument externalDocument in ExternalDocumentsList)
+                    foreach(ExternalDocument externalDocument in ExternalDocumentsList)
                     {
                         
                     }
@@ -340,25 +340,25 @@ namespace AppDocumentManagment.UI.ViewModels
                     return;
                 }
                 //GetDocumentsByDocumentType();
-                List<ExtermalDocument> documents = ExternalDocuments.ToList();
+                List<ExternalDocument> documents = ExternalDocuments.ToList();
                 ExternalDocuments.Clear();
                 if (documents != null)
                 {
                     documents.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
-                    foreach (ExtermalDocument document in documents)
+                    foreach (ExternalDocument document in documents)
                     {
                         Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
                         ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
                         document.EmployeeReceivedDocument = employee;
                         document.ContractorCompany = contractorCompany;
-                        if (document.DocumentTitle.ToLower().Contains(searchingString.ToLower()))
+                        if (document.ExternalDocumentTitle.ToLower().Contains(searchingString.ToLower()))
                         {
                             ExternalDocuments.Add(document);
                         }
                     }
                     if (ExternalDocuments.Count == 0)
                     {
-                        foreach (ExtermalDocument document in documents)
+                        foreach (ExternalDocument document in documents)
                         {
                             if (document.ContractorCompany.ContractorCompanyTitle.ToLower().Contains(searchingString.ToLower()))
                             {
@@ -368,9 +368,9 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                     if (ExternalDocuments.Count == 0)
                     {
-                        foreach (ExtermalDocument document in documents)
+                        foreach (ExternalDocument document in documents)
                         {
-                            if (document.DocumentNumber != null && document.DocumentNumber.ToLower().Contains(searchingString.ToLower()))
+                            if (document.ExternalDocumentNumber != null && document.ExternalDocumentNumber.ToLower().Contains(searchingString.ToLower()))
                             {
                                 ExternalDocuments.Add(document);
                             }

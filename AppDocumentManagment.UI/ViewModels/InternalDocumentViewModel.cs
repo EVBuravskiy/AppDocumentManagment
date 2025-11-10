@@ -445,7 +445,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 newInternalDocument.ApprovedManager = ApprovedManager;
             }
             newInternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
-            newInternalDocument.InternalDocumentStatus = InternalDocumentStatus.UnderConsideration;
+            newInternalDocument.InternalDocumentStatus = DocumentStatus.UnderConsideration;
             newInternalDocument.InternalDocumentDate = InternalDocumentDate;
             if (InternalDocument != null)
             {

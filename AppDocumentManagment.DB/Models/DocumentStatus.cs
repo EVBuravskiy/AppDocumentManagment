@@ -1,6 +1,6 @@
 ﻿namespace AppDocumentManagment.DB.Models
 {
-    public enum InternalDocumentStatus
+    public enum DocumentStatus
     {
         UnderConsideration,     //На рассмотрении
         Agreed,                 //Согласован
