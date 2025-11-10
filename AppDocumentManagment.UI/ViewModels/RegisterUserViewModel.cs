@@ -149,7 +149,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EditBtn.Content = "Сохранить изменения";
             }
             _employee = selectedEmployee;
-            //UserImagePath = selectedEmployee.EmployeeImagePath;
+            InitializeUserPhoto();
             UserFirstName = selectedEmployee.EmployeeFirstName;
             UserLastName = selectedEmployee.EmployeeLastName;
             UserMiddleName = selectedEmployee.EmployeeMiddleName;
@@ -168,6 +168,17 @@ namespace AppDocumentManagment.UI.ViewModels
                 UserRoles.Add(UserRoleConverter.ConvertToString(role));
             }
             SelectedUserRoleIndex = 4;
+        }
+
+        private void InitializeUserPhoto()
+        {
+            EmployeePhoto employeePhoto = new EmployeePhoto();
+            EmployeePhotoController employeePhotoController = new EmployeePhotoController();
+            employeePhoto = employeePhotoController.GetEmployeePhotoByID(_employee.EmployeeID);
+            if (employeePhoto != null)
+            {
+                UserImagePath = FileProcessing.SaveEmployeePhotoToTempFolder(employeePhoto);
+            }
         }
 
         private void GetUserLogin()

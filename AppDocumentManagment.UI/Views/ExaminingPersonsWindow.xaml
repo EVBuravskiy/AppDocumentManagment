@@ -102,7 +102,7 @@
                                             <Grid Grid.Column="0">
                                                     <Image Width="100"
                                                            Height="100"
-                                                           Source="{Binding EmployeeImagePath,
+                                                           Source="{Binding EmployeePhoto.FilePath,
                                                         FallbackValue={StaticResource DefaultContactImage},
                                                         TargetNullValue={StaticResource DefaultContactImage}}"
                                                            Stretch="UniformToFill"/>

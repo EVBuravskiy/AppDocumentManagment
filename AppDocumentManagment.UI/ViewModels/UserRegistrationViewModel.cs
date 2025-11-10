@@ -1,5 +1,6 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -17,6 +18,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ObservableCollection<RegistredUser> RegistratedUsers { get; private set; }
         public ObservableCollection<User> Users { get; private set; }
         public ObservableCollection<User> AllUsers { get; private set; }
+        public List<EmployeePhoto> EmployeePhotos { get; private set; }
 
         private Employee _selectedEmployee;
         public Employee SelectedEmployee
@@ -111,7 +113,9 @@ namespace AppDocumentManagment.UI.ViewModels
             RegistratedUsers = new ObservableCollection<RegistredUser>();
             AllUsers = new ObservableCollection<User>();
             Users = new ObservableCollection<User>();
+            EmployeePhotos = new List<EmployeePhoto>();
             InitializeDepartments();
+            InitializeEmployeePhotos();
             InitializeEmployees();
             InitializeRegistratedUsers();
             InitialiseAllUsers();
@@ -144,7 +148,17 @@ namespace AppDocumentManagment.UI.ViewModels
             ComboSelectedDepartment = ComboDepartments.FirstOrDefault();
         }
 
-
+        private void InitializeEmployeePhotos()
+        {
+            EmployeePhotos.Clear();
+            EmployeePhotoController employeePhotoController = new EmployeePhotoController();
+            EmployeePhotos = employeePhotoController.GetEmployeePhotos();
+            foreach (EmployeePhoto photo in EmployeePhotos)
+            {
+                string photoPath = FileProcessing.SaveEmployeePhotoToTempFolder(photo);
+                photo.FilePath = photoPath;
+            }
+        }
         private void InitializeEmployees()
         {
             Employees.Clear();
@@ -157,6 +171,8 @@ namespace AppDocumentManagment.UI.ViewModels
                     Department deparment = Departments.Where(x => x.DepartmentID == employee.DepartmentID).FirstOrDefault();
                     employee.Department = deparment;
                     employee.DepartmentID = deparment.DepartmentID;
+                    EmployeePhoto employeePhoto = EmployeePhotos.Where(p => p.EmployeeID == employee.EmployeeID).FirstOrDefault();
+                    employee.EmployeePhoto = employeePhoto;
                     Employees.Add(employee);
                 }
             }
@@ -183,10 +199,16 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 User registredUser = new User();
                 registredUser.EmployeeID = employee.EmployeeID;
-                //registredUser.EmployeeImagePath = employee.EmployeeImagePath;
                 registredUser.EmployeeFullName = employee.EmployeeFullName;
                 registredUser.EmployeePosition = employee.Position;
-                registredUser.EmployeeDepartmentTitle = employee.Department.DepartmentTitle;
+                if (employee.Department != null)
+                {
+                    registredUser.EmployeeDepartmentTitle = employee.Department.DepartmentTitle;
+                }
+                if (employee.EmployeePhoto != null)
+                {
+                    registredUser.EmployeeImagePath = employee.EmployeePhoto.FilePath;
+                }
                 RegistredUser user = RegistratedUsers.Where(x => x.EmployeeID == employee.EmployeeID).FirstOrDefault();
                 if (user != null)
                 {

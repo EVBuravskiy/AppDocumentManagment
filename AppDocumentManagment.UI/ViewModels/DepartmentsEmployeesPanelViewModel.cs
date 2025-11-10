@@ -1,5 +1,6 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -53,6 +54,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
             }
         }
+        private List<EmployeePhoto> EmployeePhotos { get; set; }
+
         private List<Employee> allEmployees { get; set; }
         public ObservableCollection<Employee> Employees { get; set; }
 
@@ -133,6 +136,7 @@ namespace AppDocumentManagment.UI.ViewModels
             Departments = new ObservableCollection<Department>();
             EmployeesOfDepartment = new ObservableCollection<Employee>();
             PerformersOfDepartment = new ObservableCollection<Employee>();
+            GetEmployeesPhotos();
             InitializeDepartments();
             InitializeEmployees();
             SelectedDepartment = Departments.FirstOrDefault();
@@ -152,6 +156,18 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private void GetEmployeesPhotos()
+        {
+            EmployeePhotos = new List<EmployeePhoto>();
+            EmployeePhotoController employeePhotoController = new EmployeePhotoController();
+            EmployeePhotos = employeePhotoController.GetEmployeePhotos();
+            foreach (EmployeePhoto photo in EmployeePhotos)
+            {
+                string photoPath = FileProcessing.SaveEmployeePhotoToTempFolder(photo);
+                photo.FilePath = photoPath;
+            }
+        }
+
         private void InitializeEmployees()
         {
             Employees = new ObservableCollection<Employee>();
@@ -163,6 +179,8 @@ namespace AppDocumentManagment.UI.ViewModels
                 {
                     Department department = Departments.Where(x => x.DepartmentID == employee.DepartmentID).FirstOrDefault();
                     employee.Department = department;
+                    EmployeePhoto employeePhoto = EmployeePhotos.Where(p => p.EmployeeID == employee.EmployeeID).FirstOrDefault();
+                    employee.EmployeePhoto = employeePhoto;
                 }
             }
             if (allEmployees.Count > 0)
@@ -395,6 +413,7 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeeWindow employeeWindow = new EmployeeWindow(null);
             employeeWindow.ShowDialog();
             Employees.Clear();
+            GetEmployeesPhotos();
             InitializeEmployees();
             if (SelectedEmployee != null)
             {
@@ -443,6 +462,7 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeeWindow employeeWindow = new EmployeeWindow(inputEmployee);
             employeeWindow.ShowDialog();
             Employees.Clear();
+            GetEmployeesPhotos();
             InitializeEmployees();
             if (SelectedEmployee != null)
             {
