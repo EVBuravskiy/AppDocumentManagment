@@ -411,7 +411,10 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocument.ApprovedManager = ApprovedManager;
             InternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
             InternalDocument.EmployeeRecievedDocument = EmployeeRecievedDocument;
-            InternalDocument.EmployeeRecievedDocumentID = EmployeeRecievedDocument.EmployeeID;
+            if (EmployeeRecievedDocument != null)
+            {
+                InternalDocument.EmployeeRecievedDocumentID = EmployeeRecievedDocument.EmployeeID;
+            }
             InternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
             InternalDocument.InternalDocumentTitle = InternalDocumentTitle;
             InternalDocument.InternalDocumentContent = InternalDocumentContent;
@@ -465,7 +468,10 @@ namespace AppDocumentManagment.UI.ViewModels
             if (InternalDocument != null)
             {
                 InternalDocumentController internalDocumentController = new InternalDocumentController();
-                internalDocumentController.RemoveInternalDocument(InternalDocument);
+                bool result = internalDocumentController.RemoveInternalDocument(InternalDocument);
+                if (result) MessageBox.Show($"Внутренний документ {InternalDocument.InternalDocumentTitle} успешно удален");
+                else MessageBox.Show($"Ошибка при удалении внутреннего документа {InternalDocument.InternalDocumentTitle}");
+                InternalDocumentWindow.Close();
             }
         }
 
