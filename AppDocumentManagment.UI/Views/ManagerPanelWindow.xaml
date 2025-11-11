@@ -310,14 +310,14 @@
                                                    Foreground="White"
                                                    TextWrapping="Wrap"
                                                    TextAlignment="Center"
-                                                   Text="Дата направления"
+                                                   Text="Кому направлено"
                                                    Padding="3 0"/>
                                         <TextBlock Grid.Column="8"
                                                    Style="{StaticResource AdminDocumentTextblock}"
                                                    Foreground="White"
                                                    TextWrapping="Wrap"
                                                    TextAlignment="Center"
-                                                   Text="Кому направлено"
+                                                   Text="Дата направления"
                                                    Padding="3 0"/>
                                     </Grid>
                                 </Grid>

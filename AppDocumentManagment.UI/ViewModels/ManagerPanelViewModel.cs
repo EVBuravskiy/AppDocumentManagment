@@ -198,6 +198,17 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private string searchStringContent = "Поиск по наименованию документа или наименованию контрагента...";
+        public string SearchStringContent
+        {
+            get => searchStringContent;
+            set
+            {
+                searchStringContent = value;
+                OnPropertyChanged(nameof(SearchStringContent));
+            }
+        }
+
         private bool IsInternalDocument = false;
 
         public ManagerPanelViewModel(ManagerPanelWindow window)
@@ -537,6 +548,10 @@ namespace AppDocumentManagment.UI.ViewModels
                         {
                             InternalDocuments.Add(internalDocument);
                         }
+                        if (internalDocument.InternalDocumentContent.ToLower().Contains(searchingString.ToLower()))
+                        {
+                            InternalDocuments.Add(internalDocument);
+                        }
                     }
                 }
             }
@@ -554,6 +569,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ManagerPanelWindow.InternalDocuments.Visibility = System.Windows.Visibility.Hidden;
             IsInternalDocument = false;
             SearchString = string.Empty;
+            SearchStringContent = "Поиск по наименованию документа или наименованию контрагента...";
         }
 
         public ICommand IShowInternalDocuments => new RelayCommand(showInternalDocuments => ShowInternalDocuments());
@@ -568,6 +584,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ManagerPanelWindow.InternalDocuments.Visibility = System.Windows.Visibility.Visible;
             IsInternalDocument = true;
             SearchString = string.Empty;
+            SearchStringContent = "Поиск по фамилии, имени, отчеству инициатора/подписанта, либо содержанию документа...";
         }
     }
 }
