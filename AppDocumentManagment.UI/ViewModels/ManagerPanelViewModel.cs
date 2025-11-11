@@ -434,20 +434,23 @@ namespace AppDocumentManagment.UI.ViewModels
             GetExternalDocumentByDocumentStatus();
             List<ExternalDocument> externalDocuments = ExternalDocuments.ToList();
             ExternalDocuments.Clear();
-            if(selectedExternalDocumentType == "Все документы")
+            if (selectedExternalDocumentType == "Все документы")
             {
-                foreach(ExternalDocument externalDocument in ExternalDocumentsList)
+                foreach (ExternalDocument externalDocument in externalDocuments)
                 {
                     ExternalDocuments.Add(externalDocument);
                 }
                 return;
             }
-            ExternalDocumentType documentType = ExternalDocumentTypeConverter.ConvertToEnum(selectedExternalDocumentType);
-            foreach(ExternalDocument externalDocument in externalDocuments)
+            else
             {
-                if(externalDocument.ExternalDocumentType == documentType)
+                ExternalDocumentType documentType = ExternalDocumentTypeConverter.ConvertToEnum(selectedExternalDocumentType);
+                foreach (ExternalDocument externalDocument in externalDocuments)
                 {
-                    ExternalDocuments.Add(externalDocument);
+                    if (externalDocument.ExternalDocumentType == documentType)
+                    {
+                        ExternalDocuments.Add(externalDocument);
+                    }
                 }
             }
         }
@@ -459,18 +462,21 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocuments.Clear();
             if (selectedInternalDocumentType == "Все документы")
             {
-                foreach (InternalDocument internalDocument in InternalDocumentsList)
+                foreach (InternalDocument internalDocument in internalDocuments)
                 {
                     InternalDocuments.Add(internalDocument);
                 }
                 return;
             }
-            InternalDocumentType documentType = InternalDocumentTypeConverter.ConvertToEnum(selectedInternalDocumentType);
-            foreach (InternalDocument internalDocument in internalDocuments)
+            else
             {
-                if (internalDocument.InternalDocumentType == documentType)
+                InternalDocumentType documentType = InternalDocumentTypeConverter.ConvertToEnum(selectedInternalDocumentType);
+                foreach (InternalDocument internalDocument in internalDocuments)
                 {
-                    InternalDocuments.Add(internalDocument);
+                    if (internalDocument.InternalDocumentType == documentType)
+                    {
+                        InternalDocuments.Add(internalDocument);
+                    }
                 }
             }
         }
