@@ -13,7 +13,7 @@ namespace AppDocumentManagment.UI.Utilities
             {
                 if (value is DateTime date)
                 {
-                    return date.ToShortDateString();
+                    return date.ToLongDateString();
                 }
             }
             return value;

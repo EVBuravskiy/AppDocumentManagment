@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppDocumentManagment.UI.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AppDocumentManagment.UI.Views
 {
@@ -19,9 +8,12 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class CreatingInternalDocumentWindow : Window
     {
+        private CreatingInternalDocumentViewModel viewModel;
         public CreatingInternalDocumentWindow()
         {
             InitializeComponent();
+            viewModel = new CreatingInternalDocumentViewModel(this);
+            DataContext = viewModel;
         }
     }
 }

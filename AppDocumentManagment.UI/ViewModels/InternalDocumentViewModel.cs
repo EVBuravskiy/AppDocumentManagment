@@ -435,6 +435,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             InternalDocument newInternalDocument = new InternalDocument();
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
+            newInternalDocument.InternalDocumentDate = InternalDocumentDate;
             newInternalDocument.SignatoryID = Signatory.EmployeeID;
             newInternalDocument.Signatory = Signatory;
             newInternalDocument.InternalDocumentTitle = InternalDocumentTitle;

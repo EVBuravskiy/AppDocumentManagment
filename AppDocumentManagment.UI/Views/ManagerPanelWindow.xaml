@@ -247,14 +247,14 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="130"/>
                                             <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="130"/>
                                             <ColumnDefinition Width="200"/>
                                             <ColumnDefinition Width="200"/>
                                             <ColumnDefinition Width="220"/>
                                             <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="130"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
                                                    Style="{StaticResource AdminDocumentTextblock}"
@@ -330,14 +330,14 @@
                                                       Margin="0 5 0 0">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="80"/>
+                                                        <ColumnDefinition Width="130"/>
                                                         <ColumnDefinition Width="100"/>
-                                                        <ColumnDefinition Width="100"/>
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="130"/>
                                                         <ColumnDefinition Width="200"/>
                                                         <ColumnDefinition Width="200"/>
                                                         <ColumnDefinition Width="220"/>
                                                         <ColumnDefinition Width="150"/>
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="130"/>
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0"
                                                                Style="{StaticResource AdminDocumentTextblock}"
@@ -431,23 +431,23 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80"/>
                                             <!-- Рег.номер -->
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="130"/>
                                             <!-- Дата регистрации -->
                                             <ColumnDefinition Width="100"/>
                                             <!-- Тип документа -->
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="130"/>
                                             <!-- Дата документа -->
                                             <ColumnDefinition Width="150"/>
                                             <!-- Инициатор -->
-                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="150"/>
                                             <!-- Наименование -->
-                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="220"/>
                                             <!-- Краткое содержание -->
                                             <ColumnDefinition Width="150"/>
                                             <!-- Согласовавшее лицо -->
                                             <ColumnDefinition Width="150"/>
                                             <!-- Кому направлено на рассмотрение -->
-                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="130"/>
                                             <!--Дата направления на рассмотрение-->
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
@@ -532,23 +532,23 @@
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="80"/>
                                                         <!-- Рег.номер -->
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="130"/>
                                                         <!-- Дата регистрации -->
                                                         <ColumnDefinition Width="100"/>
                                                         <!-- Тип документа -->
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="130"/>
                                                         <!-- Дата документа -->
                                                         <ColumnDefinition Width="150"/>
                                                         <!-- Инициатор -->
-                                                        <ColumnDefinition Width="200"/>
+                                                        <ColumnDefinition Width="150"/>
                                                         <!-- Наименование -->
-                                                        <ColumnDefinition Width="250"/>
+                                                        <ColumnDefinition Width="220"/>
                                                         <!-- Краткое содержание -->
                                                         <ColumnDefinition Width="150"/>
                                                         <!-- Согласовавшее лицо -->
                                                         <ColumnDefinition Width="150"/>
                                                         <!-- Кому направлено на рассмотрение -->
-                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="130"/>
                                                         <!--Дата направления на рассмотрение-->
                                                     </Grid.ColumnDefinitions>
                                                     <TextBlock Grid.Column="0"
