@@ -82,5 +82,15 @@ namespace AppDocumentManagment.DB.Controllers
                 context.SaveChanges();
             }
         }
+
+        public Employee GetGeneralDirector()
+        {
+            Employee generalDirector = new Employee();
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                generalDirector = context.Employees.Where(e => e.EmployeeRole == EmployeeRole.GeneralDirector).FirstOrDefault();
+            }
+            return generalDirector;
+        }
     }
 }

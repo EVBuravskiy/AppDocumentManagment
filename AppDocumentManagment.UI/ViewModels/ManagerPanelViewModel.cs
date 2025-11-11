@@ -586,5 +586,12 @@ namespace AppDocumentManagment.UI.ViewModels
             SearchString = string.Empty;
             SearchStringContent = "Поиск по фамилии, имени, отчеству инициатора/подписанта, либо содержанию документа...";
         }
+
+        public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
+        private void CreateNewInternalDocument()
+        {
+            CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow();
+            creatingInternalDocumentWindow.Show();
+        }
     }
 }

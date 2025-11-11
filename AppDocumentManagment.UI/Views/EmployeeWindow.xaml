@@ -219,7 +219,7 @@
         </Grid>
         <Grid Grid.Row="6">
             <StackPanel Orientation="Vertical">
-                <Label Content="Выберите занимаемую позицию"
+                <Label Content="Выберите тип занимаемой должности"
                        FontFamily="Arial"
                        FontSize="14"
                        FontWeight="Bold"

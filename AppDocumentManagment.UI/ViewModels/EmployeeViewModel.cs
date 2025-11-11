@@ -287,16 +287,34 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.EmployeePhone = EmployeePhone;
             newEmployee.EmployeeEmail = EmployeeEmail;
             newEmployee.EmployeeInformation = EmployeeInformation;
+            EmployeeController employeeController = new EmployeeController();
+            if(SelectedEmployeeRole == EmployeeRole.GeneralDirector)
+            {
+                Employee generalDirector = employeeController.GetGeneralDirector();
+                if (generalDirector != null && generalDirector.EmployeeFullName != newEmployee.EmployeeFullName)
+                {
+                    MessageBox.Show("Должность генерального директора организации занята! Выберите другую должность или проверьте вводимые данные");
+                    return;
+                }
+            }
+            if(SelectedEmployeeRole != EmployeeRole.Performer)
+            {
+                List<Employee> employees = employeeController.GetEmployeesByDeparmentID(newEmployee.DepartmentID);
+                Employee currentEmployee = employees.Where(e => e.EmployeeRole == SelectedEmployeeRole).FirstOrDefault();
+                if (currentEmployee != null && currentEmployee.EmployeeFullName != newEmployee.EmployeeFullName)
+                {
+                    MessageBox.Show("Данная должность занята другим работником! Выберите другую должность или проверьте вводимые данные");
+                    return;
+                }
+            }
             if (SelectedEmployeeID == 0)
             {
-                EmployeeController controller = new EmployeeController();
-                controller.AddEmployee(newEmployee);
+                employeeController.AddEmployee(newEmployee);
             }
             else
             {
                 newEmployee.EmployeeID = SelectedEmployeeID;
-                EmployeeController controller = new EmployeeController();
-                controller.UpdateEmployee(newEmployee);
+                employeeController.UpdateEmployee(newEmployee);
             }
             MessageBox.Show("Сохранение выполнено");
             EmployeeWindow.Close();
