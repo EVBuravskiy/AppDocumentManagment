@@ -1,6 +1,6 @@
 ﻿namespace AppDocumentManagment.DB.Models
 {
-    public enum InternalDocumentTypes
+    public enum InternalDocumentType
     {
         Order,          //Приказ
         Direction,      //Указание/распоряжение

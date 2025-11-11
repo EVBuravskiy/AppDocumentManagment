@@ -3,7 +3,9 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.ObjectModel;
+using System.Reflection.Metadata;
 using System.Windows.Input;
 using System.Xml.Linq;
 
@@ -34,6 +36,17 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedExternalDocumentStatus = value;
                 OnPropertyChanged(nameof(SelectedExternalDocumentStatus));
+                if (!IsInternalDocument)
+                {
+                    if (SearchString.IsNullOrEmpty())
+                    {
+                        GetExternalDocumentsByDocumentType();
+                    }
+                    else
+                    {
+                        GetDocumentBySearchString(SearchString);
+                    }
+                }
             }
         }
 
@@ -58,6 +71,17 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedExternalDocumentType = value;
                 OnPropertyChanged(nameof(SelectedExternalDocumentType));
+                if (!IsInternalDocument)
+                {
+                    if (SearchString.IsNullOrEmpty())
+                    {
+                        GetExternalDocumentsByDocumentType();
+                    }
+                    else
+                    {
+                        GetDocumentBySearchString(SearchString);
+                    }
+                }
             }
         }
 
@@ -82,6 +106,17 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedInternalDocumentStatus = value;
                 OnPropertyChanged(nameof(SelectedInternalDocumentStatus));
+                if (IsInternalDocument)
+                {
+                    if (SearchString.IsNullOrEmpty())
+                    {
+                        GetInternalDocumentsByDocumentType();
+                    }
+                    else
+                    {
+                        GetDocumentBySearchString(SearchString);
+                    }
+                }
             }
         }
 
@@ -106,6 +141,17 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedInternalDocumentType = value;
                 OnPropertyChanged(nameof(SelectedInternalDocumentType));
+                if (IsInternalDocument)
+                {
+                    if (SearchString.IsNullOrEmpty())
+                    {
+                        GetInternalDocumentsByDocumentType();
+                    }
+                    else
+                    {
+                        GetDocumentBySearchString(SearchString);
+                    }
+                }
             }
         }
 
@@ -186,10 +232,13 @@ namespace AppDocumentManagment.UI.ViewModels
             ExternalDocumentStatus.Clear();
             ExternalDocumentStatus = new ObservableCollection<string>
                 {
-                    "Все входящие документы",
-                    "Рассмотренные входящие документы",
-                    "Входящие документы на рассмотрении"
+                    "Все входящие документы"
                 };
+            var externalDocumentStatuses = Enum.GetValues(typeof(DocumentStatus));
+            foreach (var externalDocumentStatus in externalDocumentStatuses)
+            {
+                ExternalDocumentStatus.Add(DocumentStatusConverter.ConvertToString(externalDocumentStatus));
+            }
             SelectedExternalDocumentStatusIndex = 0;
             SelectedExternalDocumentStatus = ExternalDocumentStatus.FirstOrDefault();
         }
@@ -199,10 +248,13 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentStatus.Clear();
             InternalDocumentStatus = new ObservableCollection<string>
                 {
-                    "Все внутренние документы",
-                    "Рассмотренные внутренние документы",
-                    "Внутренние документы на рассмотрении"
+                    "Все внутренние документы"
                 };
+            var internalDocumentStatuses = Enum.GetValues(typeof(DocumentStatus));
+            foreach (var internalDocumentStatus in internalDocumentStatuses)
+            {
+                InternalDocumentStatus.Add(DocumentStatusConverter.ConvertToString(internalDocumentStatus));
+            }
             SelectedInternalDocumentStatusIndex = 0;
             SelectedInternalDocumentStatus = InternalDocumentStatus.FirstOrDefault();
         }
@@ -224,7 +276,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             InternalDocumentTypes.Clear();
             InternalDocumentTypes.Add("Все документы");
-            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentTypes));
+            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentType));
             foreach (var type in internalDocumentTypes)
             {
                 InternalDocumentTypes.Add(InternalDocumentTypeConverter.ConvertToString(type));
@@ -238,6 +290,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ExternalDocumentsList.Clear();
             ExternalDocumentController documentController = new ExternalDocumentController();
             ExternalDocumentsList = documentController.GetAllDocuments();
+            ExternalDocumentsList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
         }
 
         private void GetInternalDocuments() 
@@ -245,6 +298,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentsList.Clear();
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             InternalDocumentsList = internalDocumentController.GetInternalDocuments();
+            InternalDocumentsList.Sort((d1, d2) => d2.RegistrationDate.CompareTo(d1.RegistrationDate));
         }
 
         private void GetEmployees()
@@ -275,7 +329,9 @@ namespace AppDocumentManagment.UI.ViewModels
                 foreach(ExternalDocument document in ExternalDocumentsList)
                 {
                     ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
-                    document.ContractorCompany = contractorCompany;
+                    if(contractorCompany != null) document.ContractorCompany = contractorCompany;
+                    Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
+                    if(employee != null) document.EmployeeReceivedDocument = employee;
                     ExternalDocuments.Add(document);
                 }
             }
@@ -288,17 +344,27 @@ namespace AppDocumentManagment.UI.ViewModels
                 foreach (InternalDocument internalDocument in InternalDocumentsList) 
                 {
                     Employee signatory = Employees.Where(s => s.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
-                    Department department = Departments.Where(d => d.DepartmentID == signatory.DepartmentID).FirstOrDefault();
-                    signatory.Department = department;
-                    Employee approvedManager = Employees.Where(a => a.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
-                    department = Departments.Where(d => d.DepartmentID == approvedManager.DepartmentID).FirstOrDefault();
-                    approvedManager.Department = department;
-                    Employee employeeRecievedDocument = Employees.Where(r => r.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
-                    department = Departments.Where(d => d.DepartmentID == employeeRecievedDocument.DepartmentID).FirstOrDefault();
-                    employeeRecievedDocument.Department = department;
-                    internalDocument.Signatory = signatory;
-                    internalDocument.ApprovedManager = approvedManager;
-                    internalDocument.EmployeeRecievedDocument = employeeRecievedDocument;
+                    if (signatory != null)
+                    {
+                        Department department = Departments.Where(d => d.DepartmentID == signatory.DepartmentID).FirstOrDefault();
+                        if (department != null) signatory.Department = department;
+                        Employee approvedManager = Employees.Where(a => a.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                        if (approvedManager != null)
+                        {
+                            department = Departments.Where(d => d.DepartmentID == approvedManager.DepartmentID).FirstOrDefault();
+                            approvedManager.Department = department;
+                        }
+                        Employee employeeRecievedDocument = Employees.Where(r => r.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                        if (employeeRecievedDocument != null)
+                        {
+                            department = Departments.Where(d => d.DepartmentID == employeeRecievedDocument.DepartmentID).FirstOrDefault();
+                            employeeRecievedDocument.Department = department;
+                        }
+                        internalDocument.Signatory = signatory;
+                        internalDocument.ApprovedManager = approvedManager;
+                        internalDocument.EmployeeRecievedDocument = employeeRecievedDocument;
+                        InternalDocuments.Add(internalDocument);
+                    }
                 }
             }
         }
@@ -306,25 +372,94 @@ namespace AppDocumentManagment.UI.ViewModels
         private void GetExternalDocumentByDocumentStatus()
         {
             ExternalDocuments.Clear();
-            if(selectedInternalDocumentType == "Все входящие документы")
+            List<ExternalDocument> externalDocuments = new List<ExternalDocument>();
+            if (ExternalDocumentsList.Count > 0)
             {
-                if(ExternalDocumentsList.Count > 0)
+                if (selectedExternalDocumentStatus == "Все входящие документы")
                 {
-                    foreach(ExternalDocument externalDocument in ExternalDocumentsList)
-                    {
-                        ExternalDocuments.Add(externalDocument);
-                    }
+                    externalDocuments = ExternalDocumentsList;
+                }
+                else
+                {
+                    DocumentStatus documentStatus = DocumentStatusConverter.ConvertToEnum(selectedExternalDocumentStatus);
+                    externalDocuments = ExternalDocumentsList.Where(d => d.ExternalDocumentStatus == documentStatus).ToList();
+                }
+            }
+            if (externalDocuments.Count > 0)
+            {
+                foreach (ExternalDocument externalDocument in externalDocuments)
+                {
+                    ExternalDocuments.Add(externalDocument);
+                }
+            }
+        }
+
+        private void GetInternalDocumentByDocumentStatus()
+        {
+            InternalDocuments.Clear();
+            List<InternalDocument> internalDocuments = new List<InternalDocument>();
+            if(InternalDocumentsList.Count > 0) {
+                if (selectedInternalDocumentStatus == "Все внутренние документы")
+                {
+                    internalDocuments = InternalDocumentsList;
+                }
+                else
+                {
+                    DocumentStatus documentStatus = DocumentStatusConverter.ConvertToEnum(selectedInternalDocumentStatus);
+                    internalDocuments = InternalDocumentsList.Where(d => d.InternalDocumentStatus == documentStatus).ToList();
+                }
+            }
+            if(internalDocuments.Count > 0)
+            {
+                foreach(InternalDocument internalDocument in internalDocuments)
+                {
+                    InternalDocuments.Add(internalDocument);
+                }
+            }
+        }
+
+        private void GetExternalDocumentsByDocumentType()
+        {
+            GetExternalDocumentByDocumentStatus();
+            List<ExternalDocument> externalDocuments = ExternalDocuments.ToList();
+            ExternalDocuments.Clear();
+            if(selectedExternalDocumentType == "Все документы")
+            {
+                foreach(ExternalDocument externalDocument in ExternalDocumentsList)
+                {
+                    ExternalDocuments.Add(externalDocument);
                 }
                 return;
             }
-            if(selectedInternalDocumentType == "Рассмотренные входящие документы")
+            ExternalDocumentType documentType = ExternalDocumentTypeConverter.ConvertToEnum(selectedExternalDocumentType);
+            foreach(ExternalDocument externalDocument in externalDocuments)
             {
-                if (ExternalDocumentsList.Count > 0)
-                { 
-                    foreach(ExternalDocument externalDocument in ExternalDocumentsList)
-                    {
-                        
-                    }
+                if(externalDocument.ExternalDocumentType == documentType)
+                {
+                    ExternalDocuments.Add(externalDocument);
+                }
+            }
+        }
+
+        private void GetInternalDocumentsByDocumentType()
+        {
+            GetInternalDocumentByDocumentStatus();
+            List<InternalDocument> internalDocuments = InternalDocuments.ToList();
+            InternalDocuments.Clear();
+            if (selectedInternalDocumentType == "Все документы")
+            {
+                foreach (InternalDocument internalDocument in InternalDocumentsList)
+                {
+                    InternalDocuments.Add(internalDocument);
+                }
+                return;
+            }
+            InternalDocumentType documentType = InternalDocumentTypeConverter.ConvertToEnum(selectedInternalDocumentType);
+            foreach (InternalDocument internalDocument in internalDocuments)
+            {
+                if (internalDocument.InternalDocumentType == documentType)
+                {
+                    InternalDocuments.Add(internalDocument);
                 }
             }
         }
@@ -335,11 +470,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (string.IsNullOrEmpty(searchingString))
                 {
-                    ExternalDocuments.Clear();
-                    //GetDocumentsByDocumentType();
+                    GetExternalDocumentsByDocumentType();
                     return;
                 }
-                //GetDocumentsByDocumentType();
+                GetExternalDocumentsByDocumentType();
                 List<ExternalDocument> documents = ExternalDocuments.ToList();
                 ExternalDocuments.Clear();
                 if (documents != null)
@@ -382,10 +516,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (string.IsNullOrEmpty(searchingString))
                 {
-                    //GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                    GetInternalDocumentsByDocumentType();
                     return;
                 }
-                //GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                GetInternalDocumentsByDocumentType();
                 List<InternalDocument> internalDocuments = InternalDocuments.ToList();
                 InternalDocuments.Clear();
                 if (internalDocuments != null)
@@ -419,6 +553,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ManagerPanelWindow.ExternalDocuments.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.InternalDocuments.Visibility = System.Windows.Visibility.Hidden;
             IsInternalDocument = false;
+            SearchString = string.Empty;
         }
 
         public ICommand IShowInternalDocuments => new RelayCommand(showInternalDocuments => ShowInternalDocuments());
@@ -432,6 +567,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ManagerPanelWindow.ExternalDocuments.Visibility = System.Windows.Visibility.Hidden;
             ManagerPanelWindow.InternalDocuments.Visibility = System.Windows.Visibility.Visible;
             IsInternalDocument = true;
+            SearchString = string.Empty;
         }
     }
 }

@@ -18,6 +18,16 @@ namespace AppDocumentManagment.UI.Utilities
             return value.ToString();
         }
 
+        public static string ConvertEnumToString(DocumentStatus documentStatus)
+        {
+            return documentStatus switch
+            {
+                DocumentStatus.UnderConsideration => "На рассмотрении",
+                DocumentStatus.Agreed => "Согласованo",
+                DocumentStatus.Refused => "Отказанo"
+            };
+        }
+
         public static DocumentStatus ConvertToEnum(string value)
         {
             return value switch

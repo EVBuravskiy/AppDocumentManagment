@@ -35,5 +35,12 @@ namespace AppDocumentManagment.UI.ViewModels
             DocumentRegistrationWindow documentRegistrationWindow = new DocumentRegistrationWindow();
             documentRegistrationWindow.Show();
         }
+
+        public ICommand IOpenManagerPanelWindow => new RelayCommand(openManagerPanelWindow => OpenManagerPanelWindow());
+        private void OpenManagerPanelWindow()
+        {
+            ManagerPanelWindow managerPanelWindow = new ManagerPanelWindow();
+            managerPanelWindow.Show();
+        }
     }
 }

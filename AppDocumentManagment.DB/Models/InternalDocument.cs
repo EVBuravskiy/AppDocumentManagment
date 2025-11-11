@@ -5,7 +5,7 @@ namespace AppDocumentManagment.DB.Models
     public class InternalDocument
     {
         public int InternalDocumentID { get; set; }
-        public InternalDocumentTypes InternalDocumentType { get; set; }
+        public InternalDocumentType InternalDocumentType { get; set; }
         public DateTime InternalDocumentDate { get; set; }
         public List<Employee> Employees { get; set; }
         [NotMapped]

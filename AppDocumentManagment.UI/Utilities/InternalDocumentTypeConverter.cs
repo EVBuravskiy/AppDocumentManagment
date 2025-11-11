@@ -8,27 +8,27 @@ namespace AppDocumentManagment.UI.Utilities
     {
         public static string ConvertToString(object value)
         {
-            if (value is InternalDocumentTypes type)
+            if (value is InternalDocumentType type)
             {
                 return type switch
                 {
-                    InternalDocumentTypes.Order => "Приказ",
-                    InternalDocumentTypes.Direction => "Указание/распоряжение",
-                    InternalDocumentTypes.Report => "Рапорт",
-                    InternalDocumentTypes.OfficialLetter => "Служебная записка",
+                    InternalDocumentType.Order => "Приказ",
+                    InternalDocumentType.Direction => "Указание/распоряжение",
+                    InternalDocumentType.Report => "Рапорт",
+                    InternalDocumentType.OfficialLetter => "Служебная записка",
                 };
             }
             return value.ToString();
         }
 
-        public static InternalDocumentTypes ConvertToEnum(string value)
+        public static InternalDocumentType ConvertToEnum(string value)
         {
             return value switch
             {
-                "Приказ" => InternalDocumentTypes.Order,
-                "Указание/распоряжение" => InternalDocumentTypes.Direction,
-                "Рапорт" => InternalDocumentTypes.Report,
-                "Служебная записка" => InternalDocumentTypes.OfficialLetter,
+                "Приказ" => InternalDocumentType.Order,
+                "Указание/распоряжение" => InternalDocumentType.Direction,
+                "Рапорт" => InternalDocumentType.Report,
+                "Служебная записка" => InternalDocumentType.OfficialLetter,
             };
         }
 
@@ -36,25 +36,25 @@ namespace AppDocumentManagment.UI.Utilities
         {
             return value switch
             {
-                InternalDocumentTypes.Order => 0,
-                InternalDocumentTypes.Direction => 1,
-                InternalDocumentTypes.Report => 2,
-                InternalDocumentTypes.OfficialLetter => 3,
+                InternalDocumentType.Order => 0,
+                InternalDocumentType.Direction => 1,
+                InternalDocumentType.Report => 2,
+                InternalDocumentType.OfficialLetter => 3,
                 _ => 0,
             };
         }
 
-        public static InternalDocumentTypes BackConvert(int value)
+        public static InternalDocumentType BackConvert(int value)
         {
             int inputvalue = (int)value;
             if (inputvalue == -1) inputvalue = 0;
             return inputvalue switch
             {
-                0 => InternalDocumentTypes.Order,
-                1 => InternalDocumentTypes.Direction,
-                2 => InternalDocumentTypes.Report,
-                3 => InternalDocumentTypes.OfficialLetter,
-                _ => InternalDocumentTypes.Order
+                0 => InternalDocumentType.Order,
+                1 => InternalDocumentType.Direction,
+                2 => InternalDocumentType.Report,
+                3 => InternalDocumentType.OfficialLetter,
+                _ => InternalDocumentType.Order
             };
         }
 

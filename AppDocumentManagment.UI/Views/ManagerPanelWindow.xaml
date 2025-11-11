@@ -343,7 +343,7 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentID}"
+                                                               Text="{Binding ExternalDocumentID}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="1"
                                                                Style="{StaticResource AdminDocumentTextblock}"
@@ -355,19 +355,19 @@
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentNumber}"
+                                                               Text="{Binding ExternalDocumentNumber}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="3"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentDate, Converter={StaticResource DateConverter}}"
+                                                               Text="{Binding ExternalDocumentDate, Converter={StaticResource DateConverter}}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="4"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Text="{Binding DocumentTitle}"
+                                                               Text="{Binding ExternalDocumentTitle}"
                                                                Padding="3 0"/>
                                                     <TextBlock Grid.Column="5" 
                                                                Style="{StaticResource AdminDocumentTextblock}"

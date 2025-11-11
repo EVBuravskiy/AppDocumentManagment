@@ -27,6 +27,7 @@ namespace AppDocumentManagment.UI.Utilities
                 "Коммерческое предложение" => ExternalDocumentType.CommercialOffer,
                 "Письмо/Сопроводительное письмо" => ExternalDocumentType.Letter,
                 "Представление/Требование" => ExternalDocumentType.GovernmentLetter,
+                _ => ExternalDocumentType.Contract,
             };
         }
 

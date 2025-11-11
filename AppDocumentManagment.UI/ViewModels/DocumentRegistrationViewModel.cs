@@ -273,7 +273,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             InternalDocumentTypes.Clear();
             InternalDocumentTypes.Add("Все документы");
-            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentTypes));
+            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentType));
             foreach (var type in internalDocumentTypes)
             {
                 InternalDocumentTypes.Add(InternalDocumentTypeConverter.ConvertToString(type));
@@ -440,7 +440,7 @@ namespace AppDocumentManagment.UI.ViewModels
                         InternalDocumentList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
                         foreach (InternalDocument internalDocument in InternalDocumentList)
                         {
-                            InternalDocumentTypes internalDocumentType = InternalDocumentTypeConverter.ConvertToEnum(SelectedInternalDocumentType);
+                            InternalDocumentType internalDocumentType = InternalDocumentTypeConverter.ConvertToEnum(SelectedInternalDocumentType);
                             if (internalDocument.InternalDocumentType == internalDocumentType)
                             {
                                 Employee signatory = Employees.Where(e => e.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();

@@ -17,9 +17,9 @@ namespace AppDocumentManagment.UI.ViewModels
         private IFileDialogService fileDialogService;
         public List<string> InternalDocumentTypes { get; set; }
 
-        private InternalDocumentTypes selectedInternalDocumentType;
+        private InternalDocumentType selectedInternalDocumentType;
 
-        public InternalDocumentTypes SelectedInternalDocumentType
+        public InternalDocumentType SelectedInternalDocumentType
         {
             get => selectedInternalDocumentType;
             set
@@ -247,7 +247,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void InitializeInternalDocumentTypes()
         {
             InternalDocumentTypes = new List<string>();
-            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentTypes));
+            var internalDocumentTypes = Enum.GetValues(typeof(InternalDocumentType));
             foreach (var type in internalDocumentTypes)
             {
                 InternalDocumentTypes.Add(InternalDocumentTypeConverter.ConvertToString(type));
