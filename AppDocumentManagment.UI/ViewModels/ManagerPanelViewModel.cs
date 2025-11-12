@@ -619,7 +619,9 @@ namespace AppDocumentManagment.UI.ViewModels
         private void CreateNewInternalDocument()
         {
             CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow(currentUser.EmployeeID);
-            creatingInternalDocumentWindow.Show();
+            creatingInternalDocumentWindow.ShowDialog();
+            GetInternalDocuments();
+            GetDocumentBySearchString(SearchString);
         }
     }
 }

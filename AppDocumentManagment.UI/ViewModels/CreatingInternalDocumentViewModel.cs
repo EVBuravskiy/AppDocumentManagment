@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AppDocumentManagment.UI.ViewModels
@@ -137,10 +138,32 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void SendInternalDocument()
         {
-            CreateInternalDocument();
+            InternalDocument newInternalDocument = CreateInternalDocument();
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            examiningPersonsWindow.ShowDialog();
+            Employee sendingEmployee = examiningPersonsWindow.viewModel.SelectedEmployee;
+            if (sendingEmployee == null)
+            {
+                MessageBox.Show($"Ошибка! Невозможно направить документ выбранному лицу");
+                return;
+            }
+            newInternalDocument.EmployeeRecievedDocument = sendingEmployee;
+            newInternalDocument.EmployeeRecievedDocumentID = sendingEmployee.EmployeeID;
+            newInternalDocument.SendingDate = DateTime.Now;
+            InternalDocumentController internalDocumentController = new InternalDocumentController();
+            bool result = internalDocumentController.AddInternalDocument(newInternalDocument);
+            if (result)
+            {
+                MessageBox.Show($"Документ {newInternalDocument.InternalDocumentTitle} отправлен на рассмотрение {sendingEmployee.EmployeeFullName}");
+                CreatingInternalDocumentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show($"Ошибка в сохранении созданного внутреннего документа");
+            }
         }
 
-        private void CreateInternalDocument()
+        private InternalDocument CreateInternalDocument()
         {
             InternalDocument newInternalDocument = new InternalDocument();
             newInternalDocument.InternalDocumentTitle = InternalDocumentTitle;
@@ -148,8 +171,10 @@ namespace AppDocumentManagment.UI.ViewModels
             newInternalDocument.InternalDocumentDate = InternalDocumentDate;
             newInternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
-            //newInternalDocument.InternalDocumentStatus = DocumentStatus.UnderConsideration;
+            newInternalDocument.InternalDocumentStatus = DocumentStatus.UnderConsideration;
             newInternalDocument.Signatory = currentUser;
+            newInternalDocument.SignatoryID = currentUser.EmployeeID;
+            return newInternalDocument;
         }
     }
 }

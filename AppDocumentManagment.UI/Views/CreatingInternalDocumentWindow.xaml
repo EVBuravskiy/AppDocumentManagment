@@ -189,8 +189,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="4">
-            <Button Content="Удалить документ" 
-                    HorizontalAlignment="Left"
+            <Button HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"
                     Padding="10 10"
@@ -198,9 +197,10 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IRemoveInternalDocument}"/>
+                    Command="{Binding IRemoveInternalDocument}">
+                <TextBlock TextAlignment="Center">Очистить введенные <LineBreak/> данные </TextBlock>
+            </Button>
             <Button x:Name="RegisterOrUpdateBtn"
-                    Content="{Binding RegisterOrUpdateBtnTitle}" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
@@ -209,7 +209,9 @@
                     FontFamily="Arial" 
                     FontSize="16"
                     FontWeight="Bold"
-                    Command="{Binding IRegisterOrUpdateInternalDocument}"/>
+                    Command="{Binding ICreateTask}">
+                <TextBlock TextAlignment="Center">Создать задачу</TextBlock>
+            </Button>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
