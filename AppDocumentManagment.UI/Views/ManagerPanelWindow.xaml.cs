@@ -11,10 +11,10 @@ namespace AppDocumentManagment.UI.Views
     public partial class ManagerPanelWindow : Window
     {
         private ManagerPanelViewModel viewModel;
-        public ManagerPanelWindow()
+        public ManagerPanelWindow(int currentUserID)
         {
             InitializeComponent();
-            viewModel = new ManagerPanelViewModel(this);
+            viewModel = new ManagerPanelViewModel(this, currentUserID);
             DataContext = viewModel;
         }
 

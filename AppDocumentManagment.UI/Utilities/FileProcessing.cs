@@ -100,7 +100,6 @@ namespace AppDocumentManagment.UI.Utilities
             }
         }
 
-
         public static string CopyFileToTempFolder(string sourcePath)
         {
             string directoryPath = $"{Directory.GetCurrentDirectory()}\\TempEmployeePhotos\\";
@@ -115,6 +114,21 @@ namespace AppDocumentManagment.UI.Utilities
                 File.Copy(sourcePath, destPath);
             }
             return destPath;
+        }
+
+        public static bool CheckFileExist(string fileName)
+        {
+            string directoryPath = $"{Directory.GetCurrentDirectory()}\\TempEmployeePhotos\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                return false;
+            }
+            string sourcePath = $"{directoryPath}{fileName}";
+            if (File.Exists(sourcePath))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

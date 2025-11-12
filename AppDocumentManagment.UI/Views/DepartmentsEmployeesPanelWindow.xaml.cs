@@ -22,10 +22,10 @@ namespace AppDocumentManagment.UI.Views
     {
         private DepartmentsEmployeesPanelViewModel _departmentsEmployeesPanelViewModel;
 
-        public DepartmentsEmployeesPanelWindow()
+        public DepartmentsEmployeesPanelWindow(int currentUserID)
         {
             InitializeComponent();
-            _departmentsEmployeesPanelViewModel = new DepartmentsEmployeesPanelViewModel(this);
+            _departmentsEmployeesPanelViewModel = new DepartmentsEmployeesPanelViewModel(this, currentUserID);
             DataContext = _departmentsEmployeesPanelViewModel;
         }
 

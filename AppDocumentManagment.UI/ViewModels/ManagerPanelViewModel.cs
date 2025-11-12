@@ -15,6 +15,19 @@ namespace AppDocumentManagment.UI.ViewModels
     {
         private ManagerPanelWindow ManagerPanelWindow { get; set; }
 
+        private Employee currentUser;
+
+        private string greating;
+        public string Greating
+        {
+            get => greating;
+            set
+            {
+                greating = value;
+                OnPropertyChanged(nameof(Greating));
+            }
+        }
+
         public ObservableCollection<string> ExternalDocumentStatus { get; set; }
 
         private int selectedExternalDocumentStatusIndex;
@@ -211,9 +224,10 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private bool IsInternalDocument = false;
 
-        public ManagerPanelViewModel(ManagerPanelWindow window)
+        public ManagerPanelViewModel(ManagerPanelWindow window, int currentUserID)
         {
             ManagerPanelWindow = window;
+            InitializeCurrentEmployee(currentUserID);
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
             Employees = new List<Employee>();
@@ -236,6 +250,14 @@ namespace AppDocumentManagment.UI.ViewModels
             GetInternalDocuments();
             InitializeExternalDocuments();
             InitializeInternalDocuments();
+        }
+
+        private void InitializeCurrentEmployee(int currentUserID)
+        {
+            if (currentUserID == 0) return;
+            EmployeeController employeeController = new EmployeeController();
+            currentUser = employeeController.GetEmployeeByID(currentUserID);
+            Greating = $"Добрый день, {currentUser.EmployeeFirstMiddleName}!";
         }
 
         private void InitializeExternalDocumentStatus()

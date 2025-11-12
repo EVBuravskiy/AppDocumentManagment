@@ -153,7 +153,7 @@ namespace AppDocumentManagment.UI.ViewModels
             switch (currentUser.UserRole)
             {
                 case UserRole.Administrator:
-                    AdminPanelWindow adminPanel = new AdminPanelWindow();
+                    AdminPanelWindow adminPanel = new AdminPanelWindow(currentUser.EmployeeID);
                     adminPanel.Show();
                     InitialAuthorizationWindow.Close();
                     break;

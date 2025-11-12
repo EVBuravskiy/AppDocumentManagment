@@ -12,6 +12,19 @@ namespace AppDocumentManagment.UI.ViewModels
     {
         private DepartmentsEmployeesPanelWindow DepartmentsEmployeesPanelWindow;
 
+        private Employee currentUser;
+
+        private string greating;
+        public string Greating
+        {
+            get => greating;
+            set
+            {
+                greating = value;
+                OnPropertyChanged(nameof(Greating));
+            }
+        }
+
         private bool _isEmployee = false;
 
         private string _labelListContent = "Список отделов";
@@ -130,9 +143,10 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public DepartmentsEmployeesPanelViewModel(DepartmentsEmployeesPanelWindow inputWindow)
+        public DepartmentsEmployeesPanelViewModel(DepartmentsEmployeesPanelWindow inputWindow, int currentUserID)
         {
             DepartmentsEmployeesPanelWindow = inputWindow;
+            InitializeCurrentUser(currentUserID);
             Departments = new ObservableCollection<Department>();
             EmployeesOfDepartment = new ObservableCollection<Employee>();
             PerformersOfDepartment = new ObservableCollection<Employee>();
@@ -140,6 +154,14 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeDepartments();
             InitializeEmployees();
             SelectedDepartment = Departments.FirstOrDefault();
+        }
+
+        private void InitializeCurrentUser(int currentUserID)
+        {
+            if (currentUserID == 0) return;
+            EmployeeController employeeController = new EmployeeController();
+            currentUser = employeeController.GetEmployeeByID(currentUserID);
+            Greating = $"Добрый день, {currentUser.EmployeeFirstMiddleName}!";
         }
 
         private void InitializeDepartments()

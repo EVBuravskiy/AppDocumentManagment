@@ -4,6 +4,7 @@ using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 
@@ -12,6 +13,19 @@ namespace AppDocumentManagment.UI.ViewModels
     public class DocumentRegistrationViewModel : BaseViewModelClass
     {
         private DocumentRegistrationWindow DocumentRegistrationWindow;
+        private Employee currentUser;
+
+        private string greating;
+        public string Greating
+        {
+            get => greating;
+            set
+            {
+                greating = value;
+                OnPropertyChanged(nameof(Greating));
+            }
+        }
+
         private List<Employee> Employees;
         private List<ContractorCompany> ContractorCompanies;
         private List<Department> Departments;
@@ -220,9 +234,10 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SearchStringContent));
             }
         }
-        public DocumentRegistrationViewModel(DocumentRegistrationWindow window)
+        public DocumentRegistrationViewModel(DocumentRegistrationWindow window, int currentUserID)
         {
             DocumentRegistrationWindow = window;
+            InitializeCurrentUser(currentUserID);
             Employees = new List<Employee>();
             ContractorCompanies = new List<ContractorCompany>();
             Departments = new List<Department>();
@@ -244,6 +259,14 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeDocuments();
             GetAllInternalDocuments();
             InitializeInternalDocuments();
+        }
+
+        private void InitializeCurrentUser(int currentUserID)
+        {
+            if (currentUserID == 0) return;
+            EmployeeController employeeController = new EmployeeController();
+            currentUser = employeeController.GetEmployeeByID(currentUserID);
+            Greating = $"Добрый день, {currentUser.EmployeeFirstMiddleName}!";
         }
 
         private void InitializeDocumentRegistrationStatus()

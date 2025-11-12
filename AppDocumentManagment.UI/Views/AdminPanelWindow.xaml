@@ -30,17 +30,20 @@
                    HorizontalAlignment="Left" 
                    Style="{StaticResource TopPanelLabel}"
                    Padding="20,0"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
             <Label x:Name="CurrentUserName" 
-                   Content="Сотрудник"
+                   Content="{Binding Greating}"
                    HorizontalAlignment="Right"
                    Style="{StaticResource TopPanelLabel}"
-                   Margin="100, 0"/>
+                   Margin="20, 0"/>
             <Button x:Name="ExitBtn"
                     Content="Выйти"
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
                     Margin="10, 5"
                     Padding="10, 0"/>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

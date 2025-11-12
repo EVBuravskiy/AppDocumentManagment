@@ -22,10 +22,10 @@ namespace AppDocumentManagment.UI.Views
     {
         private AdminPanelViewModel _adminPanelViewModel;
 
-        public AdminPanelWindow()
+        public AdminPanelWindow(int currentUserID)
         {
             InitializeComponent();
-            _adminPanelViewModel = new AdminPanelViewModel(this);
+            _adminPanelViewModel = new AdminPanelViewModel(this, currentUserID);
             DataContext = _adminPanelViewModel;
         }
     }

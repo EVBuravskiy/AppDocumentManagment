@@ -21,9 +21,9 @@ namespace AppDocumentManagment.UI.Views
     public partial class DocumentRegistrationWindow : Window
     {
         private DocumentRegistrationViewModel viewModel;
-        public DocumentRegistrationWindow()
+        public DocumentRegistrationWindow(int currentUserID)
         {
-            viewModel = new DocumentRegistrationViewModel(this);
+            viewModel = new DocumentRegistrationViewModel(this, currentUserID);
             InitializeComponent();
             DataContext = viewModel;
         }

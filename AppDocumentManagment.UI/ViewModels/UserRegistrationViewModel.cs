@@ -12,6 +12,18 @@ namespace AppDocumentManagment.UI.ViewModels
     {
         UserRegistrationWindow UserRegistrationWindow;
 
+        private Employee currentUser;
+
+        private string greating;
+        public string Greating
+        {
+            get => greating;
+            set
+            {
+                greating = value;
+                OnPropertyChanged(nameof(Greating));
+            }
+        }
         public ObservableCollection<Department> Departments { get; private set; }
         public ObservableCollection<string> ComboDepartments { get; private set; }
         public ObservableCollection<Employee> Employees { get; private set; }
@@ -30,7 +42,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedEmployee));
                 if (SelectedEmployee != null)
                 {
-                    OpenResterUserWindow();
+                    OpenRegisterUserWindow();
                 }
             }
         }
@@ -104,9 +116,10 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public UserRegistrationViewModel(UserRegistrationWindow userRegistrationWindow)
+        public UserRegistrationViewModel(UserRegistrationWindow userRegistrationWindow, int currentUserID)
         {
             UserRegistrationWindow = userRegistrationWindow;
+            InitializeCurrentUser(currentUserID);
             Departments = new ObservableCollection<Department>();
             ComboDepartments = new ObservableCollection<string>();
             Employees = new ObservableCollection<Employee>();
@@ -122,6 +135,15 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeComboDepartments();
             GetRegistratedUsersList();
         }
+
+        private void InitializeCurrentUser(int currentUserID)
+        {
+            if (currentUserID == 0) return;
+            EmployeeController employeeController = new EmployeeController();
+            currentUser = employeeController.GetEmployeeByID(currentUserID);
+            Greating = $"Добрый день, {currentUser.EmployeeFirstMiddleName}!";
+        }
+
 
         private void InitializeDepartments()
         {
@@ -357,7 +379,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void OpenResterUserWindow()
+        private void OpenRegisterUserWindow()
         {
             RegisterUserWindow registerUserWindow = new RegisterUserWindow(SelectedEmployee, SelectedUser.UserIsRegistrated);
             registerUserWindow.ShowDialog();
@@ -372,7 +394,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBack => new RelayCommand(back => Back());
         private void Back()
         {
-            AdminPanelWindow adminPanelWindow = new AdminPanelWindow();
+            AdminPanelWindow adminPanelWindow = new AdminPanelWindow(currentUser.EmployeeID);
             adminPanelWindow.Show();
             UserRegistrationWindow.Close();
         }

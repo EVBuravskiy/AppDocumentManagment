@@ -282,12 +282,26 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
             if(EmployeeImagePath != "/Resources/Images/defaultContact.png")
             {
-                newEmployee.EmployeePhoto = CreateEmployeePhoto(EmployeeImagePath);
+                string fileName = FileProcessing.GetFileName(EmployeeImagePath);
+                if (FileProcessing.CheckFileExist(fileName))
+                {
+                    newEmployee.EmployeePhoto = CreateEmployeePhoto(EmployeeImagePath);
+                }
             }
             newEmployee.EmployeePhone = ValidateData.TrimInputString(EmployeePhone);
             newEmployee.EmployeeEmail = ValidateData.TrimInputString(EmployeeEmail);
             newEmployee.EmployeeInformation = EmployeeInformation;
             EmployeeController employeeController = new EmployeeController();
+            if (employee == null)
+            {
+                List<Employee> aviableEmployees = employeeController.GetAllEmployees();
+                var aviableEmployee = aviableEmployees.Where(e => e.EmployeeFullName == newEmployee.EmployeeFullName).FirstOrDefault();
+                if (aviableEmployee != null)
+                {
+                    MessageBox.Show("Данный сотрудник уже внесен в базу данных!");
+                    return;
+                }
+            }
             if(SelectedEmployeeRole == EmployeeRole.GeneralDirector)
             {
                 Employee generalDirector = employeeController.GetGeneralDirector();
@@ -297,7 +311,8 @@ namespace AppDocumentManagment.UI.ViewModels
                     return;
                 }
             }
-            if(SelectedEmployeeRole != EmployeeRole.Performer)
+            
+            if (SelectedEmployeeRole != EmployeeRole.Performer)
             {
                 List<Employee> employees = employeeController.GetEmployeesByDeparmentID(newEmployee.DepartmentID);
                 Employee currentEmployee = employees.Where(e => e.EmployeeRole == SelectedEmployeeRole).FirstOrDefault();
