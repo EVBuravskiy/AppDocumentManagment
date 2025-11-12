@@ -618,7 +618,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
         private void CreateNewInternalDocument()
         {
-            CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow(int currentUserID);
+            CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow(currentUser.EmployeeID);
             creatingInternalDocumentWindow.Show();
         }
     }
