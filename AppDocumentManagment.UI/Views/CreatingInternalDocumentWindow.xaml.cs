@@ -13,7 +13,7 @@ namespace AppDocumentManagment.UI.Views
         {
             InitializeComponent();
             viewModel = new CreatingInternalDocumentViewModel(this);
-            DataContext = viewModel;
+            DataContext = viewModel; 
         }
     }
 }
