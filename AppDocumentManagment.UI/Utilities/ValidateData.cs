@@ -35,6 +35,21 @@ namespace AppDocumentManagment.UI.Utilities
             string pattern = @"^[a-zA-Z][a-zA-Z0-9_]{5,25}$";
             return Regex.IsMatch(inputString, pattern);
         }
+
+        static public bool ValidateEmail(string inputString, int length)
+        {
+            if (String.IsNullOrEmpty(inputString)) return false;
+            if (inputString.Length < length) return false;
+            string pattern = @"^[-\w.]+@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,4}$";
+            return Regex.IsMatch(inputString, pattern);
+        }
+
+        static public bool ValidatePhone(string inputString, int length)
+        {
+            if (String.IsNullOrEmpty(inputString)) return false;
+            string pattern = @"^\d{11}$";
+            return Regex.IsMatch(inputString, pattern);
+        }
     }
 }
 

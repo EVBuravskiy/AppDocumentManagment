@@ -274,9 +274,9 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             if (!ValidateEmployee()) return;
             Employee newEmployee = new Employee();
-            newEmployee.EmployeeFirstName = EmployeeFirstName;
-            newEmployee.EmployeeLastName = EmployeeLastName;
-            newEmployee.EmployeeMiddleName = EmployeeMiddleName;
+            newEmployee.EmployeeFirstName = ValidateData.TrimInputString(EmployeeFirstName);
+            newEmployee.EmployeeLastName = ValidateData.TrimInputString(EmployeeLastName);
+            newEmployee.EmployeeMiddleName = ValidateData.TrimInputString(EmployeeMiddleName);
             newEmployee.EmployeeRole = SelectedEmployeeRole;
             newEmployee.Position = EmployeePosition;
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
@@ -284,8 +284,8 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 newEmployee.EmployeePhoto = CreateEmployeePhoto(EmployeeImagePath);
             }
-            newEmployee.EmployeePhone = EmployeePhone;
-            newEmployee.EmployeeEmail = EmployeeEmail;
+            newEmployee.EmployeePhone = ValidateData.TrimInputString(EmployeePhone);
+            newEmployee.EmployeeEmail = ValidateData.TrimInputString(EmployeeEmail);
             newEmployee.EmployeeInformation = EmployeeInformation;
             EmployeeController employeeController = new EmployeeController();
             if(SelectedEmployeeRole == EmployeeRole.GeneralDirector)
@@ -357,6 +357,30 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 EmployeeWindow.EmployeePosition.BorderThickness = new System.Windows.Thickness(2);
                 EmployeeWindow.EmployeePosition.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(EmployeeEmail) || !ValidateData.ValidateEmail(EmployeeEmail, EmployeeEmail.Length))
+            {
+                MessageBox.Show("Неправильно введен email сотрудника");
+                EmployeeWindow.EmployeeEmail.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeEmail.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                EmployeeWindow.EmployeeEmail.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeeEmail.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(EmployeePhone) | !ValidateData.ValidatePhone(EmployeePhone, EmployeePhone.Length))
+            {
+                MessageBox.Show("Неправильно введен номер телефона сотрудника");
+                EmployeeWindow.EmployeePhone.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeePhone.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                EmployeeWindow.EmployeePhone.BorderThickness = new System.Windows.Thickness(2);
+                EmployeeWindow.EmployeePhone.BorderBrush = new SolidColorBrush(Colors.Gray);
             }
             return true;
         }
