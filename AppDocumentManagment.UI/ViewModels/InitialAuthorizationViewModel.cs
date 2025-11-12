@@ -70,13 +70,19 @@ namespace AppDocumentManagment.UI.ViewModels
                     OnPropertyChanged(nameof(PasswordBorderColor));
                     PasswordBorderThickness = 1;
                     OnPropertyChanged(nameof(PasswordBorderThickness));
-                    PasswordTipText = "Пароль введен";
+                    PasswordTipText = "Пароль принят";
                     OnPropertyChanged(nameof(PasswordTipText));
                 }
                 password = verifiablePassword;
                 OnPropertyChanged(nameof(Password));
             }
         }
+
+        public InitialAuthorizationViewModel(InitialAuthorizationWindow window)
+        {
+            InitialAuthorizationWindow = window;
+        }
+
         public ICommand IAuthorization => new RelayCommand(authorization => StartWorking());
 
         private void StartWorking()
@@ -151,10 +157,11 @@ namespace AppDocumentManagment.UI.ViewModels
                     adminPanel.Show();
                     InitialAuthorizationWindow.Close();
                     break;
-                case UserRole.GeneralDirector: break;
-                case UserRole.DeputyGeneralDirector: break;
+                case UserRole.GeneralDirector: 
+                case UserRole.DeputyGeneralDirector: 
                 case UserRole.HeadOfDepartment: break;
                 case UserRole.Performer: break;
+                case UserRole.Сlerk: break;
             }
         }
     }

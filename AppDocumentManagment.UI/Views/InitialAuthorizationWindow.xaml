@@ -32,16 +32,16 @@
         </Label>
         <Grid HorizontalAlignment="Center"
               VerticalAlignment="Center">
-            <Border>
-                <Grid Height="340" 
-                      Width="580"
-                      >
-                    <Grid.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Black" Offset="1"/>
-                            <GradientStop Color="White" Offset="0"/>
-                        </LinearGradientBrush>
-                    </Grid.Background>
+            <Border Height="340"
+                    Width="580"
+                    CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="2*"/>

@@ -209,7 +209,8 @@ namespace AppDocumentManagment.UI.ViewModels
             }
             RegistredUser registredUser = new RegistredUser();
             registredUser.RegistredUserLogin = UserLogin;
-            registredUser.RegistredUserPassword = PassHasher.CalculateMD5Hash(UserPassword);
+            string passwordforhasher = $"{UserLogin}-{UserPassword}";
+            registredUser.RegistredUserPassword = PassHasher.CalculateMD5Hash(passwordforhasher);
             registredUser.UserRole = SelectedUserRole;
             registredUser.RegistredUserTime = DateTime.Now;
             registredUser.EmployeeID = _employee.EmployeeID;
