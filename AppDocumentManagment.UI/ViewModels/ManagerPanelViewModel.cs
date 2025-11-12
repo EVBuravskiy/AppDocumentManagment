@@ -227,7 +227,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ManagerPanelViewModel(ManagerPanelWindow window, int currentUserID)
         {
             ManagerPanelWindow = window;
-            InitializeCurrentEmployee(currentUserID);
+            InitializeCurrentUser(currentUserID);
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
             Employees = new List<Employee>();
@@ -252,7 +252,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeInternalDocuments();
         }
 
-        private void InitializeCurrentEmployee(int currentUserID)
+        private void InitializeCurrentUser(int currentUserID)
         {
             if (currentUserID == 0) return;
             EmployeeController employeeController = new EmployeeController();
@@ -618,7 +618,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
         private void CreateNewInternalDocument()
         {
-            CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow();
+            CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow(int currentUserID);
             creatingInternalDocumentWindow.Show();
         }
     }

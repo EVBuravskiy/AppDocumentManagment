@@ -10,6 +10,7 @@ namespace AppDocumentManagment.UI.ViewModels
     public class CreatingInternalDocumentViewModel : BaseViewModelClass
     {
         private CreatingInternalDocumentWindow CreatingInternalDocumentWindow { get; set; }
+        private Employee currentUser;
         private IFileDialogService fileDialogService;
         private Employee CurrentSignatory;
         public List<string> InternalDocumentTypes { get; set; }
@@ -78,16 +79,23 @@ namespace AppDocumentManagment.UI.ViewModels
         public InternalDocumentFile SelectedInternalDocumentFile { get; set; }
 
 
-        public CreatingInternalDocumentViewModel(CreatingInternalDocumentWindow window)
+        public CreatingInternalDocumentViewModel(CreatingInternalDocumentWindow window, int currentUserID)
         {
             CreatingInternalDocumentWindow = window;
-            //TODO: Разработать механизм передачи данных о пользователе между окнами
+            InitializeCurrentUser(currentUserID);
             CurrentSignatory = null;
             fileDialogService = new WindowsDialogService();
             InternalDocumentTypes = new List<string>();
             InitializeInternalDocumentTypes();
             InternalDocumentDate = DateTime.Now;
             InternalDocumentFiles = new ObservableCollection<InternalDocumentFile>();
+        }
+
+        private void InitializeCurrentUser(int currentUserID)
+        {
+            if (currentUserID == 0) return;
+            EmployeeController employeeController = new EmployeeController();
+            currentUser = employeeController.GetEmployeeByID(currentUserID);
         }
 
         private void InitializeInternalDocumentTypes()
@@ -141,7 +149,7 @@ namespace AppDocumentManagment.UI.ViewModels
             newInternalDocument.InternalDocumentFiles = InternalDocumentFiles.ToList();
             newInternalDocument.InternalDocumentType = SelectedInternalDocumentType;
             //newInternalDocument.InternalDocumentStatus = DocumentStatus.UnderConsideration;
-            newInternalDocument.Signatory = CurrentSignatory;
+            newInternalDocument.Signatory = currentUser;
         }
     }
 }

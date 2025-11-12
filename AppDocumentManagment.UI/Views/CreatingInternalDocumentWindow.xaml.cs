@@ -9,10 +9,10 @@ namespace AppDocumentManagment.UI.Views
     public partial class CreatingInternalDocumentWindow : Window
     {
         private CreatingInternalDocumentViewModel viewModel;
-        public CreatingInternalDocumentWindow()
+        public CreatingInternalDocumentWindow(int currentUserID)
         {
             InitializeComponent();
-            viewModel = new CreatingInternalDocumentViewModel(this);
+            viewModel = new CreatingInternalDocumentViewModel(this, currentUserID);
             DataContext = viewModel; 
         }
     }
