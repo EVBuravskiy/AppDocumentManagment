@@ -2,7 +2,6 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
-using Microsoft.VisualBasic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -280,10 +279,10 @@ namespace AppDocumentManagment.UI.ViewModels
             newEmployee.EmployeeRole = SelectedEmployeeRole;
             newEmployee.Position = EmployeePosition;
             newEmployee.DepartmentID = SelectedDepartment.DepartmentID;
-            if(EmployeeImagePath != "/Resources/Images/defaultContact.png")
+            if (EmployeeImagePath != "/Resources/Images/defaultContact.png")
             {
                 string fileName = FileProcessing.GetFileName(EmployeeImagePath);
-                if (FileProcessing.CheckFileExist(fileName))
+                if (!FileProcessing.CheckFileExist(fileName))
                 {
                     newEmployee.EmployeePhoto = CreateEmployeePhoto(EmployeeImagePath);
                 }
@@ -302,7 +301,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     return;
                 }
             }
-            if(SelectedEmployeeRole == EmployeeRole.GeneralDirector)
+            if (SelectedEmployeeRole == EmployeeRole.GeneralDirector)
             {
                 Employee generalDirector = employeeController.GetGeneralDirector();
                 if (generalDirector != null && generalDirector.EmployeeFullName != newEmployee.EmployeeFullName)
@@ -311,7 +310,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     return;
                 }
             }
-            
+
             if (SelectedEmployeeRole != EmployeeRole.Performer)
             {
                 List<Employee> employees = employeeController.GetEmployeesByDeparmentID(newEmployee.DepartmentID);

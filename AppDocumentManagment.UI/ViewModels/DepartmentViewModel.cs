@@ -78,6 +78,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 MessageBox.Show($"Удаление отдела {DepartmentTitle} выполнено успешно");
                 DepartmentTitle = "";
                 DepartmentShortTitle = "";
+                DepartmentWindow.Close();
                 return;
             }
             MessageBox.Show($"Ошибка! Удаление отдела {DepartmentTitle} не выполнено");
@@ -109,6 +110,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 MessageBox.Show($"Сохранение отдела {DepartmentTitle} выполнено успешно");
                 DepartmentTitle = "";
                 DepartmentShortTitle = "";
+                DepartmentWindow.Close();
                 return;
             }
             MessageBox.Show($"Ошибка! Сохранение отдела {DepartmentTitle} не выполнено");

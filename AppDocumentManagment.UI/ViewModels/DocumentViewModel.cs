@@ -396,6 +396,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 ExternalDocumentController documentController = new ExternalDocumentController();
                 documentController.RemoveDocument(SelectedDocument);
             }
+            DocumentWindow.Close();
         }
 
         public ICommand IExit => new RelayCommand(exit => DocumentWindow.Close());
@@ -428,10 +429,12 @@ namespace AppDocumentManagment.UI.ViewModels
             if (result)
             {
                 MessageBox.Show("Документ успешно направлен");
+                DocumentWindow.Close();
             }
             else
             {
                 MessageBox.Show("Ошибка в отправке документа");
+                DocumentWindow.Close();
             }
         }
 
