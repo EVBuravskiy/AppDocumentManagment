@@ -128,5 +128,15 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return null;
         }
+
+        public bool CheckAviableRegistredUsers()
+        {
+            using (ApplicationContext context = new ApplicationContext()) {
+                List<RegistredUser> registredUsers = GetAllRegistredUsers();
+                RegistredUser admin = registredUsers.Where(e => e.UserRole == UserRole.Administrator).FirstOrDefault();
+                if (admin != null) return true;
+                return false;
+            }
+        }
     }
 }

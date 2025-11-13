@@ -81,6 +81,16 @@ namespace AppDocumentManagment.UI.ViewModels
         public InitialAuthorizationViewModel(InitialAuthorizationWindow window)
         {
             InitialAuthorizationWindow = window;
+            InitializeFirstStart();
+        }
+
+        private void InitializeFirstStart()
+        {
+            RegistredUserController controller = new RegistredUserController();
+            if (!controller.CheckAviableRegistredUsers())
+            {
+                DefaultAdmin.CreateDefaultAdmin();
+            }
         }
 
         public ICommand IAuthorization => new RelayCommand(authorization => StartWorking());
@@ -134,7 +144,6 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(PasswordTipText));
                 return;
             }
-
             RegistredUserController controller = new RegistredUserController();
             RegistredUser currentUser = controller.GetRegistratedUser(checkedLogin, checkedPassword);
             if (currentUser.RegistredUserLogin == null)

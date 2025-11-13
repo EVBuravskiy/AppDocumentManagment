@@ -92,5 +92,15 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return generalDirector;
         }
+
+        public bool CheckAviableEmployee()
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                List<Employee> employees = GetAllEmployees();
+                if (employees.Count > 0) return true;
+                return false;
+            }
+        }
     }
 }
