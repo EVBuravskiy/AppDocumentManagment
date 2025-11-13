@@ -222,12 +222,13 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private bool IsInternalDocument = false;
+        private bool IsInternalDocument { get; set; }
 
         public ManagerPanelViewModel(ManagerPanelWindow window, int currentUserID)
         {
             ManagerPanelWindow = window;
             InitializeCurrentUser(currentUserID);
+            IsInternalDocument = false;
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
             Employees = new List<Employee>();
@@ -332,6 +333,30 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             InternalDocumentsList = internalDocumentController.GetInternalDocuments();
             InternalDocumentsList.Sort((d1, d2) => d2.RegistrationDate.CompareTo(d1.RegistrationDate));
+            foreach (InternalDocument internalDocument in InternalDocumentsList)
+            {
+                Employee signatory = Employees.Where(s => s.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
+                if (signatory != null)
+                {
+                    Department department = Departments.Where(d => d.DepartmentID == signatory.DepartmentID).FirstOrDefault();
+                    if (department != null) signatory.Department = department;
+                }
+                Employee approvedManager = Employees.Where(a => a.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                if (approvedManager != null)
+                {
+                    Department department = Departments.Where(d => d.DepartmentID == approvedManager.DepartmentID).FirstOrDefault();
+                    approvedManager.Department = department;
+                }
+                Employee employeeRecievedDocument = Employees.Where(r => r.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                if (employeeRecievedDocument != null)
+                {
+                    Department department = Departments.Where(d => d.DepartmentID == employeeRecievedDocument.DepartmentID).FirstOrDefault();
+                    employeeRecievedDocument.Department = department;
+                }
+                internalDocument.Signatory = signatory;
+                internalDocument.ApprovedManager = approvedManager;
+                internalDocument.EmployeeRecievedDocument = employeeRecievedDocument;
+            }
         }
 
         private void GetEmployees()
@@ -381,23 +406,23 @@ namespace AppDocumentManagment.UI.ViewModels
                     {
                         Department department = Departments.Where(d => d.DepartmentID == signatory.DepartmentID).FirstOrDefault();
                         if (department != null) signatory.Department = department;
-                        Employee approvedManager = Employees.Where(a => a.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
-                        if (approvedManager != null)
-                        {
-                            department = Departments.Where(d => d.DepartmentID == approvedManager.DepartmentID).FirstOrDefault();
-                            approvedManager.Department = department;
-                        }
-                        Employee employeeRecievedDocument = Employees.Where(r => r.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
-                        if (employeeRecievedDocument != null)
-                        {
-                            department = Departments.Where(d => d.DepartmentID == employeeRecievedDocument.DepartmentID).FirstOrDefault();
-                            employeeRecievedDocument.Department = department;
-                        }
-                        internalDocument.Signatory = signatory;
-                        internalDocument.ApprovedManager = approvedManager;
-                        internalDocument.EmployeeRecievedDocument = employeeRecievedDocument;
-                        InternalDocuments.Add(internalDocument);
                     }
+                    Employee approvedManager = Employees.Where(a => a.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
+                    if (approvedManager != null)
+                    {
+                        Department department = Departments.Where(d => d.DepartmentID == approvedManager.DepartmentID).FirstOrDefault();
+                        approvedManager.Department = department;
+                    }
+                    Employee employeeRecievedDocument = Employees.Where(r => r.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
+                    if (employeeRecievedDocument != null)
+                    {
+                        Department department = Departments.Where(d => d.DepartmentID == employeeRecievedDocument.DepartmentID).FirstOrDefault();
+                        employeeRecievedDocument.Department = department;
+                    }
+                    internalDocument.Signatory = signatory;
+                    internalDocument.ApprovedManager = approvedManager;
+                    internalDocument.EmployeeRecievedDocument = employeeRecievedDocument;
+                    InternalDocuments.Add(internalDocument);
                 }
             }
         }
@@ -566,12 +591,6 @@ namespace AppDocumentManagment.UI.ViewModels
                     internalDocuments.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
                     foreach (InternalDocument internalDocument in internalDocuments)
                     {
-                        Employee signatory = Employees.Where(e => e.EmployeeID == internalDocument.SignatoryID).FirstOrDefault();
-                        internalDocument.Signatory = signatory;
-                        Employee approvedManager = Employees.Where(e => e.EmployeeID == internalDocument.ApprovedManagerID).FirstOrDefault();
-                        internalDocument.ApprovedManager = approvedManager;
-                        Employee employeeRecivedDocument = Employees.Where(e => e.EmployeeID == internalDocument.EmployeeRecievedDocumentID).FirstOrDefault();
-                        internalDocument.EmployeeRecievedDocument = employeeRecivedDocument;
                         if (internalDocument.Signatory.EmployeeFullName.ToLower().Contains(searchingString.ToLower()))
                         {
                             InternalDocuments.Add(internalDocument);
@@ -618,10 +637,12 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
         private void CreateNewInternalDocument()
         {
+            IsInternalDocument = true;
             CreatingInternalDocumentWindow creatingInternalDocumentWindow = new CreatingInternalDocumentWindow(currentUser.EmployeeID);
             creatingInternalDocumentWindow.ShowDialog();
             GetInternalDocuments();
             GetDocumentBySearchString(SearchString);
+
         }
     }
 }

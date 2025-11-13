@@ -174,7 +174,18 @@ namespace AppDocumentManagment.UI.ViewModels
             newInternalDocument.InternalDocumentStatus = DocumentStatus.UnderConsideration;
             newInternalDocument.Signatory = currentUser;
             newInternalDocument.SignatoryID = currentUser.EmployeeID;
+            newInternalDocument.InternalDocumentRegistrationNumber = GetInternalDocumentNumber();
+            newInternalDocument.RegistrationDate = DateTime.Now;
+            newInternalDocument.IsRegistated = true;
             return newInternalDocument;
+        }
+        
+        private string GetInternalDocumentNumber()
+        {
+            InternalDocumentController internalDocumentController = new InternalDocumentController();
+            string type = InternalDocumentTypeConverter.ConvertToString(SelectedInternalDocumentType).Substring(0, 2);
+            int number = internalDocumentController.GetCountInternalDocumentByType(SelectedInternalDocumentType) + 1;
+            return $"{number}/{type}";
         }
     }
 }
