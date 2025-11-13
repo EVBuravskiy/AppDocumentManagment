@@ -102,6 +102,7 @@ namespace AppDocumentManagment.DB.Controllers
                         }
                         aviableDocument.InternalDocumentFiles = inputDocument.InternalDocumentFiles;
                         aviableDocument.RegistrationDate = inputDocument.RegistrationDate;
+                        aviableDocument.InternalDocumentDate = inputDocument.InternalDocumentDate;
                         aviableDocument.IsRegistated = inputDocument.IsRegistated;
                         aviableDocument.SendingDate = inputDocument.SendingDate;
                         aviableDocument.InternalDocumentStatus = inputDocument.InternalDocumentStatus;
@@ -120,6 +121,15 @@ namespace AppDocumentManagment.DB.Controllers
                 result = false;
             }
             return result;
+        }
+
+        public int GetCountInternalDocumentByType(InternalDocumentType type)
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                List<InternalDocument> documents = context.InternalDocuments.Where(d => d.InternalDocumentType == type).ToList();
+                return documents.Count;
+            }
         }
     }
 }

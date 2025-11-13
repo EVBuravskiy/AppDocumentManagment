@@ -3,7 +3,6 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -387,6 +386,9 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             if (InternalDocument == null)
             {
+                string type = InternalDocumentTypeConverter.ConvertToString(newInternalDocument.InternalDocumentType).Substring(0, 2);
+                int number = internalDocumentController.GetCountInternalDocumentByType(newInternalDocument.InternalDocumentType) + 1;
+                newInternalDocument.InternalDocumentRegistrationNumber = $"{number}/{type}"; 
                 newInternalDocument.RegistrationDate = DateTime.Now;
                 newInternalDocument.IsRegistated = true;
             }
@@ -409,7 +411,10 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocument.Signatory = Signatory;
             InternalDocument.SignatoryID = Signatory.EmployeeID;
             InternalDocument.ApprovedManager = ApprovedManager;
-            InternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
+            if (InternalDocument.ApprovedManager != null)
+            {
+                InternalDocument.ApprovedManagerID = ApprovedManager.EmployeeID;
+            }
             InternalDocument.EmployeeRecievedDocument = EmployeeRecievedDocument;
             if (EmployeeRecievedDocument != null)
             {

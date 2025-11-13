@@ -559,7 +559,7 @@
                                                                TextAlignment="Center"
                                                                TextWrapping="Wrap"
                                                                Padding="3 0"
-                                                               Text="{Binding InternalDocumentID}"/>
+                                                               Text="{Binding InternalDocumentRegistrationNumber}"/>
                                                     <TextBlock Grid.Column="1"
                                                                Style="{StaticResource AdminDocumentTextblock}"
                                                                TextAlignment="Center"
