@@ -168,7 +168,9 @@
                              FontSize="14"
                              Text="{Binding UserLogin}"
                              Margin="20 5"
-                             Background="WhiteSmoke"/>
+                             Background="WhiteSmoke" 
+                             GotFocus="EmployeeLogin_GotFocus" 
+                             LostFocus="EmployeeLogin_LostFocus"/>
                     <Label IsHitTestVisible="False"
                            Foreground="DimGray"
                            Content="Создайте логин пользователя для регистрации..."
@@ -184,7 +186,9 @@
                              FontSize="14"
                              Text="{Binding UserPassword}"
                              Margin="20 0"
-                             Background="WhiteSmoke"/>
+                             Background="WhiteSmoke" 
+                             GotFocus="EmployeePassword_GotFocus" 
+                             LostFocus="EmployeePassword_LostFocus"/>
                     <Label IsHitTestVisible="False"
                            Foreground="DimGray"
                            Content="Создайте пароль пользователя для его регистрации..."
@@ -193,6 +197,22 @@
                            Visibility="{Binding Text.IsEmpty, ElementName=EmployeePassword, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 0"/>
                 </Grid>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="4">
+            <StackPanel Orientation="Vertical"
+                        Margin="20 5">
+            <TextBlock Style="{StaticResource AdminDocumentTextblock}" 
+                       Foreground="White"
+                       FontSize="18"
+                       Text="{Binding RequirementsTitle}"/>
+            <TextBlock Style="{StaticResource AdminDocumentTextblock}" 
+                       Foreground="White"
+                       FontSize="16"
+                       TextAlignment="Justify"
+                       Text="{Binding Requirements}"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="5">

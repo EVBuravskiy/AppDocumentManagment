@@ -166,11 +166,19 @@ namespace AppDocumentManagment.UI.ViewModels
                     adminPanel.Show();
                     InitialAuthorizationWindow.Close();
                     break;
-                case UserRole.GeneralDirector: 
+                case UserRole.GeneralDirector:
                 case UserRole.DeputyGeneralDirector: 
-                case UserRole.HeadOfDepartment: break;
-                case UserRole.Performer: break;
-                case UserRole.Сlerk: break;
+                case UserRole.HeadOfDepartment:
+                 case UserRole.Performer:
+                    ManagerPanelWindow managerPanel = new ManagerPanelWindow(currentUser.EmployeeID);
+                    managerPanel.Show();
+                    InitialAuthorizationWindow.Close();
+                    break;
+                case UserRole.Сlerk: 
+                    DocumentRegistrationWindow documentRegistrationWindow = new DocumentRegistrationWindow(currentUser.EmployeeID);
+                    documentRegistrationWindow.Show();
+                    InitialAuthorizationWindow.Close();
+                    break;
             }
         }
     }

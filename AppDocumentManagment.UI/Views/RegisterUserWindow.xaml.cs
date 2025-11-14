@@ -29,5 +29,25 @@ namespace AppDocumentManagment.UI.Views
             _viewModel = new RegisterUserViewModel(this, selectedEmployee, isRegistred);
             DataContext = _viewModel;
         }
+
+        private void EmployeeLogin_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ShowLoginRequirements();
+        }
+
+        private void EmployeePassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ShowPasswordRequirements();
+        }
+
+        private void EmployeeLogin_LostFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ShowDefaultRequirements();
+        }
+
+        private void EmployeePassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.ShowDefaultRequirements();
+        }
     }
 }

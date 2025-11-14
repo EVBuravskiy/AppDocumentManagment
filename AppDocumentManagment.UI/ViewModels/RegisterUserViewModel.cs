@@ -135,6 +135,34 @@ namespace AppDocumentManagment.UI.ViewModels
         private bool _isRegistred = false;
         private int _userId = 0;
 
+        private string requirementsTitle = "ТРЕБОВАНИЯ К ЛОГИНУ И ПАРОЛЮ ПОЛЬЗОВАТЕЛЯ:";
+        public string RequirementsTitle
+        {
+            get => requirementsTitle;
+            set
+            {
+                requirementsTitle = value;
+                OnPropertyChanged(nameof(RequirementsTitle));
+            }
+        }
+
+        private string requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры " +
+            "и иметь длину не менее 5 символов и не более 25 символов:\n" +
+            "Примеры: 'User01', '01User', ...\n" +
+            "Пароль пользователя должен содержать буквы латинского алфавита и цифры " +
+            "и иметь длину не менее 5 символов:\n" +
+            "Примеры: 'User01','01User', ...\n" +
+            "ВНИМАНИЕ! НЕ ДОПУСКАЕТСЯ ВВЕДЕНИЕ ИНЫХ СИМВОЛОВ, НЕ ПРЕДУСМОТРЕННЫХ ТРЕБОВАНИЯМИ";
+        public string Requirements
+        {
+            get => requirements;
+            set
+            {
+                requirements = value;
+                OnPropertyChanged(nameof(Requirements));
+            }
+        }
+
         public RegisterUserViewModel(RegisterUserWindow window, Employee selectedEmployee, bool isRegistred)
         {
             RegisterUserWindow = window;
@@ -247,6 +275,13 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EmployeeLogin.BorderBrush = new SolidColorBrush(Colors.Red);
                 return false;
             }
+            if (!ValidateData.ValidateLogin(UserLogin, UserLogin.Length))
+            {
+                MessageBox.Show("Логин сотрудника не соответствует требованиям");
+                RegisterUserWindow.EmployeeLogin.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeeLogin.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
             else
             {
                 RegisterUserWindow.EmployeeLogin.BorderThickness = new System.Windows.Thickness(2);
@@ -259,12 +294,49 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Red);
                 return false;
             }
+            if (!ValidateData.ValidatePassword(UserPassword, UserPassword.Length))
+            {
+                MessageBox.Show("Пароль для сотрудника не соответствует требованиям");
+                RegisterUserWindow.EmployeePassword.BorderThickness = new System.Windows.Thickness(2);
+                RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
             else
             {
                 RegisterUserWindow.EmployeePassword.BorderThickness = new System.Windows.Thickness(2);
                 RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Gray);
             }
             return true;
+        }
+
+        public void ShowLoginRequirements()
+        {
+            RequirementsTitle = "ТРЕБОВАНИЯ К ЛОГИНУ ПОЛЬЗОВАТЕЛЯ:";
+            Requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры" +
+            "и иметь длину не менее 5 символов и не более 25 символов:\n" +
+            "Примеры: 'User01', '01User', ...\n" +
+            "ВНИМАНИЕ! НЕ ДОПУСКАЕТСЯ ВВЕДЕНИЕ В ЛОГИН ИНЫХ СИМВОЛОВ, НЕ ПРЕДУСМОТРЕННЫХ ТРЕБОВАНИЯМИ";
+        }
+
+        public void ShowPasswordRequirements()
+        {
+            RequirementsTitle = "ТРЕБОВАНИЯ К ПАРОЛЮ ПОЛЬЗОВАТЕЛЯ:";
+            Requirements = "Пароль пользователя должен содержать буквы латинского алфавита и цифры" +
+            "и иметь длину не менее 5 символов:\n" +
+            "Примеры: 'User01','01User', ...\n" +
+            "ВНИМАНИЕ! НЕ ДОПУСКАЕТСЯ ВВЕДЕНИЕ В ПАРОЛЬ ИНЫХ СИМВОЛОВ, НЕ ПРЕДУСМОТРЕННЫХ ТРЕБОВАНИЯМИ";
+        }
+
+        public void ShowDefaultRequirements()
+        {
+            RequirementsTitle = "ТРЕБОВАНИЯ К ЛОГИНУ И ПАРОЛЮ ПОЛЬЗОВАТЕЛЯ:";
+            Requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры" +
+            "и иметь длину не менее 5 символов и не более 25 символов:\n" +
+            "Примеры: 'User01', '01User', ...\n" +
+            "Пароль пользователя должен содержать буквы латинского алфавита и цифры" +
+            "и иметь длину не менее 5 символов:\n" +
+            "Примеры: 'User01','01User', ...\n" +
+            "ВНИМАНИЕ! НЕ ДОПУСКАЕТСЯ ВВЕДЕНИЕ ИНЫХ СИМВОЛОВ, НЕ ПРЕДУСМОТРЕННЫХ ТРЕБОВАНИЯМИ";
         }
 
         public ICommand IRemoveRegistration => new RelayCommand(removeRegistration => RemoveRegistration());
