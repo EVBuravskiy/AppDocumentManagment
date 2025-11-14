@@ -215,7 +215,7 @@
                     FontSize="18"
                     FontWeight="Bold"
                     Command="{Binding ISendToWork}">
-                <TextBlock TextAlignment="Center"> Направить на<LineBreak/>исполнение</TextBlock>
+                <TextBlock TextAlignment="Center"> Перенаправить<LineBreak/>документ</TextBlock>
             </Button>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"

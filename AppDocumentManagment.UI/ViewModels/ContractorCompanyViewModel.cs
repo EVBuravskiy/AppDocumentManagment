@@ -1,5 +1,6 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Windows;
 using System.Windows.Input;
@@ -167,6 +168,44 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 ContractorCompanyWindow.ContractorCompanyAddress.BorderThickness = new System.Windows.Thickness(2);
                 ContractorCompanyWindow.ContractorCompanyAddress.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(ContractorCompanyEmail))
+            {
+                MessageBox.Show("Не введен адрес email организации");
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else if(!ValidateData.ValidateEmail(ContractorCompanyEmail, ContractorCompanyEmail.Length))
+            {
+                MessageBox.Show("Неправильно введен email организации");
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyEmail.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            if (string.IsNullOrEmpty(ContractorCompanyPhone))
+            {
+                MessageBox.Show("Не введен номер телефона организации");
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else if(!ValidateData.ValidatePhone(ContractorCompanyPhone, ContractorCompanyPhone.Length))
+            {
+                MessageBox.Show("Неправильно введен номер телефона организации");
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderThickness = new System.Windows.Thickness(2);
+                ContractorCompanyWindow.ContractorCompanyPhone.BorderBrush = new SolidColorBrush(Colors.Gray);
             }
             return true;
         }

@@ -275,7 +275,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EmployeeLogin.BorderBrush = new SolidColorBrush(Colors.Red);
                 return false;
             }
-            if (!ValidateData.ValidateLogin(UserLogin, UserLogin.Length))
+            else if (!ValidateData.ValidateLogin(UserLogin, UserLogin.Length))
             {
                 MessageBox.Show("Логин сотрудника не соответствует требованиям");
                 RegisterUserWindow.EmployeeLogin.BorderThickness = new System.Windows.Thickness(2);
@@ -294,7 +294,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 RegisterUserWindow.EmployeePassword.BorderBrush = new SolidColorBrush(Colors.Red);
                 return false;
             }
-            if (!ValidateData.ValidatePassword(UserPassword, UserPassword.Length))
+            else if (!ValidateData.ValidatePassword(UserPassword, UserPassword.Length))
             {
                 MessageBox.Show("Пароль для сотрудника не соответствует требованиям");
                 RegisterUserWindow.EmployeePassword.BorderThickness = new System.Windows.Thickness(2);
