@@ -328,7 +328,17 @@ namespace AppDocumentManagment.UI.ViewModels
             ExternalDocumentsList.Clear();
             ExternalDocumentController documentController = new ExternalDocumentController();
             ExternalDocumentsList = documentController.GetAllDocuments();
-            ExternalDocumentsList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+            if (ExternalDocumentsList.Count > 0)
+            {
+                ExternalDocumentsList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
+                foreach (ExternalDocument document in ExternalDocumentsList)
+                {
+                    ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
+                    if (contractorCompany != null) document.ContractorCompany = contractorCompany;
+                    Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
+                    if (employee != null) document.EmployeeReceivedDocument = employee;
+                }
+            }
         }
 
         private void GetInternalDocuments() 
@@ -390,10 +400,6 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 foreach(ExternalDocument document in ExternalDocumentsList)
                 {
-                    ContractorCompany contractorCompany = ContractorCompanies.Where(c => c.ContractorCompanyID == document.ContractorCompanyID).FirstOrDefault();
-                    if(contractorCompany != null) document.ContractorCompany = contractorCompany;
-                    Employee employee = Employees.Where(e => e.EmployeeID == document.EmployeeID).FirstOrDefault();
-                    if(employee != null) document.EmployeeReceivedDocument = employee;
                     ExternalDocuments.Add(document);
                 }
             }
@@ -612,6 +618,8 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany);
             externalDocumentShowWindow.ShowDialog();
+            GetExternalDocuments();
+            GetDocumentBySearchString(SearchString);
         }
 
         public ICommand IShowExternalDocuments => new RelayCommand(showExternalDocuments => ShowExternalDocuments());
@@ -652,7 +660,6 @@ namespace AppDocumentManagment.UI.ViewModels
             creatingInternalDocumentWindow.ShowDialog();
             GetInternalDocuments();
             GetDocumentBySearchString(SearchString);
-
         }
 
         public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });

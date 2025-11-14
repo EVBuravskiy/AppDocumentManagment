@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AppDocumentManagment.UI.ViewModels
@@ -183,7 +184,31 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeExternalDocumentFiles();
         }
 
-        public ICommand ISendToWork;
+        public ICommand ISendToWork => new RelayCommand(sendToWork => SendToWork());
+
+        private void SendToWork()
+        {
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            examiningPersonsWindow.ShowDialog();
+            bool result = false;
+            if (examiningPersonsWindow.viewModel.SelectedEmployee != null)
+            {
+                ExternalDocument.EmployeeReceivedDocument = examiningPersonsWindow.viewModel.SelectedEmployee;
+                ExternalDocument.SendingDate = DateTime.Now;
+                ExternalDocumentController documentController = new ExternalDocumentController();
+                result = documentController.UpdateDocument(ExternalDocument);
+            }
+            if (result)
+            {
+                MessageBox.Show("Документ успешно направлен для исполнения");
+                ExternalDocumentShowWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка в отправке документа");
+                ExternalDocumentShowWindow.Close();
+            }
+        }
 
         public ICommand ICreateTask;
 
