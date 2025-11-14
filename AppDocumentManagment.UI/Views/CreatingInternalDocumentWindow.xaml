@@ -189,7 +189,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="4">
-            <Button HorizontalAlignment="Left"
+            <Button HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"
                     Padding="10 10"
@@ -197,32 +197,34 @@
                     FontFamily="Arial" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IRemoveInternalDocument}">
-                <TextBlock TextAlignment="Center">Очистить введенные <LineBreak/> данные </TextBlock>
+                    Command="{Binding IRegisterInternalDocument}">
+                <TextBlock TextAlignment="Center">Зарегистрировать <LineBreak/> документ</TextBlock>
             </Button>
-            <Button x:Name="RegisterOrUpdateBtn"
+            <Button x:Name="CreateTask"
                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource Buttons}"
+                    Padding="10, 10"
+                    Margin="20 5"
+                    FontFamily="Arial" 
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Height="80"
+                    Visibility="Visible"
+                    Command="{Binding ICreateTask}">
+                <TextBlock TextAlignment="Center">Создать задание<LineBreak/>к документу</TextBlock>
+            </Button>
+            <Button x:Name="SendDocument"
+                    HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource Buttons}"
                     Padding="10, 10"
                     Margin="20 5"
                     FontFamily="Arial" 
-                    FontSize="16"
+                    FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding ICreateTask}">
-                <TextBlock TextAlignment="Center">Создать задачу</TextBlock>
-            </Button>
-            <Button x:Name="SendDocument"
-                    HorizontalAlignment="Right"
-                    Style="{StaticResource Buttons}"
-                    Padding="25 5"
-                    Margin="20 20"
-                    FontFamily="Arial" 
-                    FontSize="18"
-                    FontWeight="Bold"
-                    Height="80"
                     Command="{Binding ISendInternalDocument}">
-                <TextBlock TextAlignment="Center"> Направить на <LineBreak/>рассмотрение <LineBreak/>руководителю</TextBlock>
+                <TextBlock TextAlignment="Center"> Направить руководителю <LineBreak/> на рассмотрение</TextBlock>
             </Button>
         </Grid>
     </Grid>

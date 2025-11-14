@@ -154,7 +154,24 @@ namespace AppDocumentManagment.UI.ViewModels
             bool result = internalDocumentController.AddInternalDocument(newInternalDocument);
             if (result)
             {
-                MessageBox.Show($"Документ {newInternalDocument.InternalDocumentTitle} отправлен на рассмотрение {sendingEmployee.EmployeeFullName}");
+                MessageBox.Show($"Документ {newInternalDocument.InternalDocumentTitle} зарегистрирован\nи отправлен на рассмотрение {sendingEmployee.EmployeeFullName}");
+                CreatingInternalDocumentWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show($"Ошибка в сохранении созданного внутреннего документа");
+            }
+        }
+
+        public ICommand IRegisterInternalDocument => new RelayCommand(registerInternalDocument => RegisterInternalDocument());
+        private void RegisterInternalDocument()
+        {
+            InternalDocument newInternalDocument = CreateInternalDocument();
+            InternalDocumentController internalDocumentController = new InternalDocumentController();
+            bool result = internalDocumentController.AddInternalDocument(newInternalDocument);
+            if (result)
+            {
+                MessageBox.Show($"Документ {newInternalDocument.InternalDocumentTitle} зарегистрирован");
                 CreatingInternalDocumentWindow.Close();
             }
             else
