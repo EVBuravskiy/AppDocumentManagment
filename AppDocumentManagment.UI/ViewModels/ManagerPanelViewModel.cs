@@ -179,6 +179,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedExternalDocument = value;
                 OnPropertyChanged(nameof(SelectedExternalDocument));
+                if(value != null)
+                {
+                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany);
+                }
             }
         }
 
@@ -602,6 +606,12 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                 }
             }
+        }
+
+        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany)
+        {
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany);
+            externalDocumentShowWindow.ShowDialog();
         }
 
         public ICommand IShowExternalDocuments => new RelayCommand(showExternalDocuments => ShowExternalDocuments());

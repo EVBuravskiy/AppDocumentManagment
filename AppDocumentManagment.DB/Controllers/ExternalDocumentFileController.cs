@@ -41,6 +41,33 @@ namespace AppDocumentManagment.DB.Controllers
                 return false;
             }
         }
+
+        public bool AddDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument)
+        {
+            if (documentFile == null) return false;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    ExternalDocument aviableExternalDocument = context.Documents.Where(d => d.ExternalDocumentID == externalDocument.ExternalDocumentID).FirstOrDefault();
+                    if (aviableExternalDocument != null)
+                    {
+                        documentFile.ExternalDocument = aviableExternalDocument;
+                        context.DocumentFiles.Add(documentFile);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    MessageBox.Show("Ошибка при добавлении файла входящего документа в базу данных.\nВходящий документ не был найден");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка в добавлении файла входящего документа в базу данных");
+                return false;
+            }
+        }
+
         public bool RemoveDocumentFile(ExternalDocumentFile documentFile)
         {
             if (documentFile == null) return false;
