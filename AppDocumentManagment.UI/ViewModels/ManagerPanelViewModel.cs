@@ -644,5 +644,7 @@ namespace AppDocumentManagment.UI.ViewModels
             GetDocumentBySearchString(SearchString);
 
         }
+
+        public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });
     }
 }

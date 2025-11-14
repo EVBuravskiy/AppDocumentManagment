@@ -204,5 +204,6 @@ namespace AppDocumentManagment.UI.ViewModels
             int number = internalDocumentController.GetCountInternalDocumentByType(SelectedInternalDocumentType) + 1;
             return $"{number}/{type}";
         }
+        public ICommand IExit => new RelayCommand(exit => { CreatingInternalDocumentWindow.Close(); });
     }
 }

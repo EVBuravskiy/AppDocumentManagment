@@ -125,7 +125,7 @@
                                FontSize="20"
                                FontWeight="DemiBold"
                                Margin="20, 0"
-                               Width="525"
+                               Width="600"
                                Height="40"
                                VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Left"

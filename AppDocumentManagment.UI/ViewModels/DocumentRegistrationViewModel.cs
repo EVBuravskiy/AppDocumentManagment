@@ -148,7 +148,7 @@ namespace AppDocumentManagment.UI.ViewModels
                         }
                         else
                         {
-                            GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                            GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
                         }
                 }
             }
@@ -192,7 +192,7 @@ namespace AppDocumentManagment.UI.ViewModels
                     }
                     else
                     {
-                        GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                        GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
                     }
                 }
             }
@@ -249,7 +249,7 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentsCollection = new ObservableCollection<InternalDocument>();
             InternalDocumentTypes = new ObservableCollection<string>();
             InitializeDocumentRegistrationStatus();
-            GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+            GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
             InitializeDocumentTypes();
             InitializeInternalDocumentTypes();
             GetAllDepartments();
@@ -274,8 +274,8 @@ namespace AppDocumentManagment.UI.ViewModels
             InternalDocumentRegistationStatus = new ObservableCollection<string>
             {
                 "Все внутренние документы",
-                "Незарегистрированные внутренние документы",
-                "Зарегистрированные внутренние документы"
+                "Внутренние документы не отправленные на рассмотрение",
+                "Внутренние документы отправленные на рассмотрение"
             };
             SelectedInternalDocumentRegistationStatusIndex = 0;
             SelectedInternalDocumentRegistationStatus = InternalDocumentRegistationStatus.FirstOrDefault();
@@ -479,7 +479,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
             }
         }
-        private void GetDocumentsByRegistrationStatus(string selectedInternalDocumentRegistationStatus)
+        private void GetDocumentsBySendingStatus(string selectedInternalDocumentSendingStatus)
         {
             if (!IsInternalDocuments) return;
             if(SelectedInternalDocumentRegistationStatus.Equals("Все внутренние документы"))
@@ -490,8 +490,9 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 GetDocumentsByDocumentType();
                 List<InternalDocument> internalDocuments = new List<InternalDocument>();
-                if (SelectedInternalDocumentRegistationStatus.Equals("Незарегистрированные внутренние документы")) {
-                    internalDocuments = InternalDocumentsCollection.Where(r => r.IsRegistated == false).ToList();
+                if (SelectedInternalDocumentRegistationStatus.Equals("Внутренние документы не отправленные на рассмотрение")) 
+                {
+                    internalDocuments = InternalDocumentsCollection.Where(r => r.EmployeeRecievedDocument == null).ToList();
                     InternalDocumentsCollection.Clear();
                     foreach (InternalDocument document in internalDocuments)
                     {
@@ -500,7 +501,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 else
                 {
-                    internalDocuments = InternalDocumentsCollection.Where(r => r.IsRegistated == true).ToList();
+                    internalDocuments = InternalDocumentsCollection.Where(r => r.EmployeeRecievedDocument != null).ToList();
                     InternalDocumentsCollection.Clear();
                     foreach (InternalDocument document in internalDocuments)
                     {
@@ -563,10 +564,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 if (string.IsNullOrEmpty(searchingString))
                 {
-                    GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                    GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
                     return;
                 }
-                GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
                 List<InternalDocument> internalDocuments = InternalDocumentsCollection.ToList();
                 InternalDocumentsCollection.Clear();
                 if (internalDocuments != null)
@@ -619,10 +620,12 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeInternalDocuments();
             if (string.IsNullOrEmpty(SearchString))
             {
-                GetDocumentsByRegistrationStatus(SelectedInternalDocumentRegistationStatus);
+                GetDocumentsBySendingStatus(SelectedInternalDocumentRegistationStatus);
                 return;
             }
             GetDocumentBySearchString(SearchString);
         }
+
+        public ICommand IExit => new RelayCommand(exit => { DocumentRegistrationWindow.Close(); });
     }
 }
