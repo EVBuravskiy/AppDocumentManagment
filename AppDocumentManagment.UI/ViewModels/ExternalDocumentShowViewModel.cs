@@ -115,6 +115,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedExternalDocumentFile = value;
                 OnPropertyChanged(nameof(SelectedExternalDocumentFile));
+                if (value != null)
+                {
+                    BrowseToSaveExternalDocumentFile();
+                }
             }
         }
 
@@ -164,7 +168,38 @@ namespace AppDocumentManagment.UI.ViewModels
         }
 
         //TODO: Реализовать сохранение внешних документов
-        public ICommand ILoadExternalDocumentFiles;
+        public ICommand IBrowseToSaveExternalDocumentFile => new RelayCommand(browseToSaveExternalDocument => BrowseToSaveExternalDocumentFile());
+        private void BrowseToSaveExternalDocumentFile()
+        {
+            var filePath = fileDialogService.SaveFile(SelectedExternalDocumentFile.ExternalFileExtension);
+            bool result = FileProcessing.SaveExternalDocumentFileToPath(filePath, SelectedExternalDocumentFile);
+            if (result)
+            {
+                MessageBox.Show($"Файл {SelectedExternalDocumentFile.ExternalFileName} сохранен");
+            }
+            else
+            {
+                MessageBox.Show($"Файл {SelectedExternalDocumentFile.ExternalFileName} уже имеется, либо не был сохранен");
+            }
+        }
+
+        public ICommand ILoadExternalDocumentFiles => new RelayCommand(loadExternalDocumentFiles => LoadExternalDocumentFiles());
+        private void LoadExternalDocumentFiles()
+        {
+            string directoryPath = string.Empty;
+            foreach (ExternalDocumentFile file in ExternalDocumentFiles)
+            {
+                directoryPath = FileProcessing.SaveExternalDocumentFileFromDB(file, "ExternalDocuments");
+            }
+            if (string.IsNullOrEmpty(directoryPath))
+            {
+                MessageBox.Show("Не удалось сохранить файлы");
+            }
+            else
+            {
+                DirectoryProcessing.OpenDirectory(directoryPath);
+            }
+        }
 
         public ICommand IBrowseExternalDocumentFile => new RelayCommand(browseExternalDocumentFile => BrowseExternalDocumentFile());
         private void BrowseExternalDocumentFile()

@@ -181,5 +181,34 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
+
+        public static string SaveExternalDocumentFileFromDB(ExternalDocumentFile externalDocumentFile, string directoryName)
+        {
+            if (externalDocumentFile == null) return string.Empty;
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string directoryPath = $"{downloadsPath}\\{directoryName}\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string filePath = $"{directoryPath}{externalDocumentFile.ExternalFileName}";
+            SaveExternalDocumentFileToPath(filePath, externalDocumentFile);
+            return directoryPath;
+        }
+
+        public static bool SaveExternalDocumentFileToPath(string path, ExternalDocumentFile externalDocumentFile)
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(path)) return result;
+            if (!File.Exists(path))
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    fileStream.Write(externalDocumentFile.ExternalFileData, 0, externalDocumentFile.ExternalFileData.Length);
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }

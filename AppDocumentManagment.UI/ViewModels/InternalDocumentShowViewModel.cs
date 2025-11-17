@@ -169,7 +169,6 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        //TODO: Реализовать сохранение внутренних документов
         public ICommand IBrowseToSaveInternalDocumentFile => new RelayCommand(browseToSaveInternalDocument => BrowseToSaveInternalDocumentFile());
         private void BrowseToSaveInternalDocumentFile()
         {
@@ -208,7 +207,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseInternalDocumentFile => new RelayCommand(browseInternalDocumentFile => BrowseInternalDocumentFile());
         private void BrowseInternalDocumentFile()
         {
-            var filePath = fileDialogService.OpenFile("Files|*.txt;*.jpg;*.jpeg;*.png;*.pdf|All files");
+            var filePath = fileDialogService.OpenFile("Files (*.txt;*.jpg;*.jpeg;*.png;*.pdf)|*.txt;*.jpg;*.jpeg;*.png;*.pdf|All files");
             if (filePath == null) return;
             string fileName = FileProcessing.GetFileName(filePath);
             string fileExtension = FileProcessing.GetFileExtension(filePath);
