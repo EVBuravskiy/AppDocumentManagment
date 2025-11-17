@@ -2,12 +2,9 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.ObjectModel;
-using System.Reflection.Metadata;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -197,6 +194,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedInternalDocument = value;
                 OnPropertyChanged(nameof(SelectedInternalDocument));
+                if(value != null)
+                {
+                    OpenInternalDocumentShowWindow(selectedInternalDocument);
+                }
             }
         }
 
@@ -619,6 +620,14 @@ namespace AppDocumentManagment.UI.ViewModels
             ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany);
             externalDocumentShowWindow.ShowDialog();
             GetExternalDocuments();
+            GetDocumentBySearchString(SearchString);
+        }
+
+        private void OpenInternalDocumentShowWindow(InternalDocument internalDocument)
+        {
+            InternalDocumentShowWindow internalDocumentShowWindow = new InternalDocumentShowWindow(internalDocument, currentUser.EmployeeID);
+            internalDocumentShowWindow.ShowDialog();
+            GetInternalDocuments();
             GetDocumentBySearchString(SearchString);
         }
 

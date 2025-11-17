@@ -41,6 +41,30 @@ namespace AppDocumentManagment.DB.Controllers
                 return false;
             }
         }
+
+        public bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
+        {
+            if(internalDocumentFile == null) return false;
+            if(internalDocument == null) return false;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    InternalDocument aviableInternalDocument = context.InternalDocuments.Where(d => d.InternalDocumentID == internalDocument.InternalDocumentID).FirstOrDefault();
+                    if (aviableInternalDocument == null) return false;
+                    internalDocumentFile.InternalDocument = aviableInternalDocument;
+                    context.InternalDocumentFiles.Add(internalDocumentFile);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка в сохранении файла документа в базу данных");
+                return false;
+            }
+        }
+
         public bool RemoveInternalDocumentFile(InternalDocumentFile internalDocumentFile)
         {
             if (internalDocumentFile == null) return false;

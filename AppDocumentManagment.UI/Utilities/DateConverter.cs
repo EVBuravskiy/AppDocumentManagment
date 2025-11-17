@@ -29,5 +29,10 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return DependencyProperty.UnsetValue;
         }
+
+        public static string ConvertDateToString(DateTime date)
+        {
+            return date.ToLongDateString();
+        }
     }
 }

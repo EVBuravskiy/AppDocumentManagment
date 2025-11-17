@@ -163,6 +163,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        //TODO: Реализовать сохранение внешних документов
         public ICommand ILoadExternalDocumentFiles;
 
         public ICommand IBrowseExternalDocumentFile => new RelayCommand(browseExternalDocumentFile => BrowseExternalDocumentFile());
@@ -210,6 +211,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        //TODO: Реализовать создание задачи к документу
         public ICommand ICreateTask;
 
         public ICommand IExit => new RelayCommand(exit => { ExternalDocumentShowWindow.Close(); });
