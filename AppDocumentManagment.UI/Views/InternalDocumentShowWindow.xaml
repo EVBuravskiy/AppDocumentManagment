@@ -233,7 +233,7 @@
                         VerticalAlignment="Center"
                         Padding="10 10"
                         Margin="20 0"
-                        Command="{Binding IDownloadFiles}">
+                        Command="{Binding ILoadInternalDocumentFiles}">
                     <TextBlock TextAlignment="Center">Скачать все файлы<LineBreak/>приложенные к документу</TextBlock>
                 </Button>
                 <Button Grid.Row="2" 

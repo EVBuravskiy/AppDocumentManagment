@@ -29,7 +29,7 @@ namespace AppDocumentManagment.UI.Utilities
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
             {
                 buffer = new byte[fileStream.Length];
-                fileStream.ReadAsync(buffer, 0, buffer.Length);
+                fileStream.Read(buffer, 0, buffer.Length);
             }
             return buffer;
         }
@@ -39,7 +39,7 @@ namespace AppDocumentManagment.UI.Utilities
             bool result = false;
             if (string.IsNullOrEmpty(filePath))
             {
-                string directoryPath = $"{Directory.GetCurrentDirectory}\\Documents\\";
+                string directoryPath = $"{Directory.GetCurrentDirectory}\\ExternalDocuments\\";
                 filePath = $"{directoryPath}{documentFile.ExternalFileName}";
             }
             using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
@@ -55,7 +55,7 @@ namespace AppDocumentManagment.UI.Utilities
             bool result = false;
             if (string.IsNullOrEmpty(filePath))
             {
-                string directoryPath = $"{Directory.GetCurrentDirectory}\\Documents\\";
+                string directoryPath = $"{Directory.GetCurrentDirectory}\\InternalDocuments\\";
                 filePath = $"{directoryPath}{internalDocumentFile.FileName}";
             }
             using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
@@ -129,6 +129,57 @@ namespace AppDocumentManagment.UI.Utilities
                 return true;
             }
             return false;
+        }
+
+        public static bool SaveFileFromDB(string fileName, string directoryName, string fileExtension, byte[] fileData)
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(fileName)) return false;
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string directoryPath = $"{downloadsPath}\\{directoryName}\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string filePath = $"{directoryPath}{fileName}";
+            if (!File.Exists(filePath))
+            {
+                using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+                {
+                    fileStream.Write(fileData, 0, fileData.Length);
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        public static string SaveInternalDocumentFileFromDB(InternalDocumentFile internalDocumentFile, string directoryName)
+        {
+            if (internalDocumentFile == null) return string.Empty;
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string directoryPath = $"{downloadsPath}\\{directoryName}\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string filePath = $"{directoryPath}{internalDocumentFile.FileName}";
+            SaveInternalDocumentFileToPath(filePath, internalDocumentFile);
+            return directoryPath;
+        }
+
+        public static bool SaveInternalDocumentFileToPath(string path, InternalDocumentFile internalDocumentFile)
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(path)) return result;
+            if (!File.Exists(path))
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    fileStream.Write(internalDocumentFile.FileData, 0, internalDocumentFile.FileData.Length);
+                    result = true;
+                }
+            }
+            return result;
         }
     }
 }

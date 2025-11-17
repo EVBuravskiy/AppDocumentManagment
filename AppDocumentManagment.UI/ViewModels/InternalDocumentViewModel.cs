@@ -327,7 +327,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseInternalDocumentFiles => new RelayCommand(browseInternalDocumentFiles => BrowseInternalDocumentFile());
         private void BrowseInternalDocumentFile()
         {
-            var filePath = fileDialogService.OpenFile("Files|*.txt;*.jpg;*.jpeg;*.png;*.pdf|All files");
+            var filePath = fileDialogService.OpenFile();
             if (filePath == null) return;
             string fileName = FileProcessing.GetFileName(filePath);
             string fileExtension = FileProcessing.GetFileExtension(filePath);

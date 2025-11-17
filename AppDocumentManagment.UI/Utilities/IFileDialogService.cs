@@ -2,8 +2,9 @@
 {
     public interface IFileDialogService
     {
-        string OpenFile(string filter);
+        string OpenFile();
+        string OpenFile(string fileExtension);
         void ShowMessageBox(string message);
-        string SaveFile(string filePath);
+        string SaveFile(string fileExtension);
     }
 }

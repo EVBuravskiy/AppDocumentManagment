@@ -252,7 +252,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseDocumentFiles => new RelayCommand(browseDocumentFiles => BrowseDocumentFile());
         private void BrowseDocumentFile()
         {
-            var filePath = fileDialogService.OpenFile("Files|*.txt;*.jpg;*.jpeg;*.png;*.pdf|All files");
+            var filePath = fileDialogService.OpenFile();
             if (filePath == null) return;
             string fileName = FileProcessing.GetFileName(filePath);
             string fileExtension = FileProcessing.GetFileExtension(filePath);

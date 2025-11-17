@@ -402,7 +402,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseEmployeeImage => new RelayCommand(browseEmployeeImage => EmployeeBrowseImage());
         private void EmployeeBrowseImage()
         {
-            var filePath = _imageDialogService.OpenFile("Image files|*.bmp;*.jpg;*.jpeg;*.png|All files");
+            var filePath = _imageDialogService.OpenFile("Image files (*.BMP;*.JPG;*.GIF;*PNG)|*.BMP;*.JPG;*.GIF;*PNG|All files (*.*)|*.*");
             EmployeeImagePath = filePath;
         }
 

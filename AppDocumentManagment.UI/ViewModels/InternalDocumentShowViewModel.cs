@@ -2,7 +2,9 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
+using Azure.Identity;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -85,7 +87,22 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private List<InternalDocumentFile> InternalDocumentFilesList;
 
-        public ObservableCollection<InternalDocumentFile> InternalDocumentFiles { get; set; } 
+        public ObservableCollection<InternalDocumentFile> InternalDocumentFiles { get; set; }
+
+        private InternalDocumentFile selectedInternalDocumentFile;
+        public InternalDocumentFile SelectedInternalDocumentFile
+        {
+            get => selectedInternalDocumentFile;
+            set
+            {
+                selectedInternalDocumentFile = value;
+                OnPropertyChanged(nameof(SelectedInternalDocumentFile));
+                if(value != null)
+                {
+                    BrowseToSaveInternalDocumentFile();
+                }
+            }
+        }
 
         public InternalDocumentShowViewModel(InternalDocumentShowWindow window, InternalDocument inputInternalDocument, int currentEmployeeID)
         {
@@ -153,7 +170,40 @@ namespace AppDocumentManagment.UI.ViewModels
         }
 
         //TODO: Реализовать сохранение внутренних документов
-        public ICommand ILoadInternalDocumentFiles;
+        public ICommand IBrowseToSaveInternalDocumentFile => new RelayCommand(browseToSaveInternalDocument => BrowseToSaveInternalDocumentFile());
+        private void BrowseToSaveInternalDocumentFile()
+        {
+            var filePath = fileDialogService.SaveFile(SelectedInternalDocumentFile.FileExtension);
+            //bool result = FileProcessing.SaveFileToPath(filePath, SelectedInternalDocumentFile.FileData);
+            bool result = FileProcessing.SaveInternalDocumentFileToPath(filePath, SelectedInternalDocumentFile);
+            if (result)
+            {
+                MessageBox.Show($"Файл {SelectedInternalDocumentFile.FileName} сохранен");
+            }
+            else
+            {
+                MessageBox.Show($"Файл {SelectedInternalDocumentFile.FileName} уже имеется, либо не был сохранен");
+            }
+        }
+
+        public ICommand ILoadInternalDocumentFiles => new RelayCommand(loadInternalDocumentFiles => LoadInternalDocumentFiles());
+        private void LoadInternalDocumentFiles()
+        {
+            string directoryPath = string.Empty;
+            foreach (InternalDocumentFile file in InternalDocumentFiles)
+            {
+                directoryPath = FileProcessing.SaveInternalDocumentFileFromDB(file, "Internals");
+            }
+            if (string.IsNullOrEmpty(directoryPath))
+            {
+                MessageBox.Show("Не удалось сохранить файлы");
+            }
+            else
+            {
+                DirectoryProcessing.OpenDirectory(directoryPath);
+            }
+        }
+
 
         public ICommand IBrowseInternalDocumentFile => new RelayCommand(browseInternalDocumentFile => BrowseInternalDocumentFile());
         private void BrowseInternalDocumentFile()
