@@ -130,6 +130,12 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 CurrentEmployee = GetEmployeeByID(currentEmployeeID);
             }
+            if(CurrentEmployee.EmployeeRole == EmployeeRole.Performer)
+            {
+                InternalDocumentShowWindow.InternalDocumentContent.Height = new GridLength(380, GridUnitType.Pixel);
+                InternalDocumentShowWindow.InternalDocumentButtons.Height = new GridLength(0, GridUnitType.Pixel);
+                InternalDocumentShowWindow.DocumentContent.Height = 330;
+            }
         }
 
         private Employee GetEmployeeByID(int employeeID)
@@ -251,7 +257,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в отправке документа");
-                InternalDocumentShowWindow.Close();
             }
         }
 
@@ -278,7 +283,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в согласовании документа");
-                InternalDocumentShowWindow.Close();
             }
 
         }

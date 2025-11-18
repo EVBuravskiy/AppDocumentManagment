@@ -178,7 +178,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedExternalDocument));
                 if(value != null)
                 {
-                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany);
+                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany, currentUser.EmployeeRole);
                 }
             }
         }
@@ -328,7 +328,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ExternalDocumentsList.Clear();
             ExternalDocumentController documentController = new ExternalDocumentController();
-            ExternalDocumentsList = documentController.GetAllDocuments();
+            ExternalDocumentsList = documentController.GetExternalDocumentsByEmployeeReceivedDocumentID(currentUser.EmployeeID);
             if (ExternalDocumentsList.Count > 0)
             {
                 ExternalDocumentsList.Sort((d1, d2) => d1.RegistrationDate.CompareTo(d2.RegistrationDate));
@@ -346,7 +346,7 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             InternalDocumentsList.Clear();
             InternalDocumentController internalDocumentController = new InternalDocumentController();
-            InternalDocumentsList = internalDocumentController.GetInternalDocuments();
+            InternalDocumentsList = internalDocumentController.GetInternalDocumentsByEmployeeRecievedDocumentID(currentUser.EmployeeID);
             InternalDocumentsList.Sort((d1, d2) => d2.RegistrationDate.CompareTo(d1.RegistrationDate));
             foreach (InternalDocument internalDocument in InternalDocumentsList)
             {
@@ -615,9 +615,9 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany)
+        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany, EmployeeRole role)
         {
-            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany);
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany, role);
             externalDocumentShowWindow.ShowDialog();
             GetExternalDocuments();
             GetDocumentBySearchString(SearchString);

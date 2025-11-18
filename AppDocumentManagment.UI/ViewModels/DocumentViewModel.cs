@@ -323,7 +323,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в регистрации документа");
-                DocumentWindow.Close();
             }
         }
 
@@ -352,7 +351,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в обновлении документа");
-                DocumentWindow.Close();
             }
         }
 
@@ -434,7 +432,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в отправке документа");
-                DocumentWindow.Close();
             }
         }
 

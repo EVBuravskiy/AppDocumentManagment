@@ -21,8 +21,8 @@
             <RowDefinition Height="60px"/>
             <RowDefinition Height="120px"/>
             <RowDefinition Height="240px"/>
-            <RowDefinition Height="320px"/>
-            <RowDefinition Height="100px"/>
+            <RowDefinition Height="320px" x:Name="ExternalDocumentFiles"/>
+            <RowDefinition Height="100px" x:Name="ExternalDocumentButtons"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">

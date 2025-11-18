@@ -121,12 +121,11 @@ namespace AppDocumentManagment.UI.Utilities
             string directoryPath = $"{Directory.GetCurrentDirectory()}\\TempEmployeePhotos\\";
             if (!Directory.Exists(directoryPath))
             {
-                return true;
-            }
-            string sourcePath = $"{directoryPath}{fileName}";
-            if (File.Exists(sourcePath))
-            {
-                return true;
+                string sourcePath = $"{directoryPath}{fileName}";
+                if (File.Exists(sourcePath))
+                {
+                    return true;
+                }
             }
             return false;
         }

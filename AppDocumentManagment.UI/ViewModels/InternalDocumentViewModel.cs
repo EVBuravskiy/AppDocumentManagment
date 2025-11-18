@@ -400,7 +400,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в регистрации документа");
-                InternalDocumentWindow.Close();
             }
         }
 
@@ -432,7 +431,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка при внесении изменений");
-                InternalDocumentWindow.Close();
             }
         }
 
@@ -516,7 +514,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в отправке документа");
-                InternalDocumentWindow.Close();
             }
         }
 

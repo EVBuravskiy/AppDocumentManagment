@@ -15,6 +15,16 @@ namespace AppDocumentManagment.DB.Controllers
             return internalDocuments;
         }
 
+        public List<InternalDocument> GetInternalDocumentsByEmployeeRecievedDocumentID(int employeeRecievedDocumentID)
+        {
+            List<InternalDocument> internalDocuments = new List<InternalDocument>();
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                internalDocuments = context.InternalDocuments.Where(d => d.EmployeeRecievedDocumentID == employeeRecievedDocumentID).ToList();
+            }
+            return internalDocuments;
+        }
+
         public bool AddInternalDocument(InternalDocument inputDocument)
         {
             if (inputDocument == null) return false;
@@ -99,12 +109,12 @@ namespace AppDocumentManagment.DB.Controllers
                         {
                             Employee recievedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.EmployeeRecievedDocumentID).FirstOrDefault();
                             aviableDocument.EmployeeRecievedDocumentID = recievedManager.EmployeeID;
+                            aviableDocument.SendingDate = inputDocument.SendingDate;
                         }
                         aviableDocument.InternalDocumentFiles = inputDocument.InternalDocumentFiles;
                         aviableDocument.RegistrationDate = inputDocument.RegistrationDate;
                         aviableDocument.InternalDocumentDate = inputDocument.InternalDocumentDate;
                         aviableDocument.IsRegistated = inputDocument.IsRegistated;
-                        aviableDocument.SendingDate = inputDocument.SendingDate;
                         aviableDocument.InternalDocumentStatus = inputDocument.InternalDocumentStatus;
                         aviableDocument.InternalDocumentTitle = inputDocument.InternalDocumentTitle;
                         aviableDocument.InternalDocumentContent = inputDocument.InternalDocumentContent;

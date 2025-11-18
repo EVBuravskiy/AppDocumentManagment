@@ -11,10 +11,10 @@ namespace AppDocumentManagment.UI.Views
     public partial class ExternalDocumentShowWindow : Window
     {
         private ExternalDocumentShowViewModel viewModel;
-        public ExternalDocumentShowWindow(ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany)
+        public ExternalDocumentShowWindow(ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany, EmployeeRole employeeRole)
         {
             InitializeComponent();
-            viewModel = new ExternalDocumentShowViewModel(this, inputExternalDocument, documentContractorCompany);
+            viewModel = new ExternalDocumentShowViewModel(this, inputExternalDocument, documentContractorCompany, employeeRole);
             DataContext = viewModel;
         }
     }

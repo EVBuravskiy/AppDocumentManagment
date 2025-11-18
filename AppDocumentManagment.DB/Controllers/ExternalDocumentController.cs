@@ -12,7 +12,24 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documents = context.Documents.ToList();
+                    documents = context.ExternalDocuments.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+            }
+            return documents;
+        }
+
+        public List<ExternalDocument> GetExternalDocumentsByEmployeeReceivedDocumentID(int employeeReceivedDocumentID)
+        {
+            List<ExternalDocument> documents = new List<ExternalDocument>();
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    documents = context.ExternalDocuments.Where(d => d.EmployeeID == employeeReceivedDocumentID).ToList();
                 }
             }
             catch (Exception ex)
@@ -35,7 +52,7 @@ namespace AppDocumentManagment.DB.Controllers
                         Employee employee = context.Employees.Where(e => e.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
                         document.EmployeeReceivedDocument = employee;
                     }
-                    context.Documents.Add(document);
+                    context.ExternalDocuments.Add(document);
                     context.SaveChanges();
                     return true;
                 }
@@ -54,16 +71,16 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument aviableDocument = context.Documents.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
+                    ExternalDocument aviableDocument = context.ExternalDocuments.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
-                        context.Documents.Remove(aviableDocument);
+                        context.ExternalDocuments.Remove(aviableDocument);
                         context.SaveChanges();
                     }
-                    List<ExternalDocumentFile> files = context.DocumentFiles.Where(d => d.ExternalDocumentID == document.ExternalDocumentID).ToList();
+                    List<ExternalDocumentFile> files = context.ExternalDocumentFiles.Where(d => d.ExternalDocumentID == document.ExternalDocumentID).ToList();
                     if(files != null && files.Count > 0)
                     {
-                        context.DocumentFiles.RemoveRange(files);
+                        context.ExternalDocumentFiles.RemoveRange(files);
                     }
                     return true;
                 }
@@ -83,7 +100,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument aviableDocument = context.Documents.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
+                    ExternalDocument aviableDocument = context.ExternalDocuments.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
                         aviableDocument.ExternalDocumentTitle = document.ExternalDocumentTitle;
@@ -99,10 +116,10 @@ namespace AppDocumentManagment.DB.Controllers
                         {
                             Employee employee = context.Employees.Where(x => x.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
                             aviableDocument.EmployeeReceivedDocument = employee;
+                            aviableDocument.SendingDate = document.SendingDate;
                         }
-                        aviableDocument.SendingDate = document.SendingDate;
                         aviableDocument.ExternalDocumentStatus = document.ExternalDocumentStatus;
-                        context.Documents.Update(aviableDocument);
+                        context.ExternalDocuments.Update(aviableDocument);
                         context.SaveChanges();
                         result = true; 
                     }

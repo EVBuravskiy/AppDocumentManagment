@@ -13,8 +13,8 @@ namespace AppDocumentManagment.UI.Views
 
         public InternalDocumentShowWindow(InternalDocument internalDocument, int currentEmployeeID)
         {
-            viewModel = new InternalDocumentShowViewModel(this, internalDocument, currentEmployeeID);
             InitializeComponent();
+            viewModel = new InternalDocumentShowViewModel(this, internalDocument, currentEmployeeID);
             DataContext = viewModel;
         }
     }

@@ -122,7 +122,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany)
+        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany, EmployeeRole role)
         {
             ExternalDocumentShowWindow = externalDocumentShowWindow;
             fileDialogService = new WindowsDialogService();
@@ -145,6 +145,11 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 GetExternalDocumentFiles();
                 InitializeExternalDocumentFiles();
+                if(role == EmployeeRole.Performer)
+                {
+                    ExternalDocumentShowWindow.ExternalDocumentFiles.Height = new GridLength(420, GridUnitType.Pixel);
+                    ExternalDocumentShowWindow.ExternalDocumentButtons.Height = new GridLength(0, GridUnitType.Pixel);
+                }
             }
         }
 
@@ -167,7 +172,6 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        //TODO: Реализовать сохранение внешних документов
         public ICommand IBrowseToSaveExternalDocumentFile => new RelayCommand(browseToSaveExternalDocument => BrowseToSaveExternalDocumentFile());
         private void BrowseToSaveExternalDocumentFile()
         {
@@ -242,7 +246,6 @@ namespace AppDocumentManagment.UI.ViewModels
             else
             {
                 MessageBox.Show("Ошибка в отправке документа");
-                ExternalDocumentShowWindow.Close();
             }
         }
 

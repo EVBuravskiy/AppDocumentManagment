@@ -13,7 +13,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documentFiles = context.DocumentFiles.Where(df => df.ExternalDocumentID == documentID).ToList();
+                    documentFiles = context.ExternalDocumentFiles.Where(df => df.ExternalDocumentID == documentID).ToList();
                 }
             }
             catch (Exception ex)
@@ -30,7 +30,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    context.DocumentFiles.AddRange(documentFiles);
+                    context.ExternalDocumentFiles.AddRange(documentFiles);
                     context.SaveChanges();
                     return true;
                 }
@@ -49,11 +49,11 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument aviableExternalDocument = context.Documents.Where(d => d.ExternalDocumentID == externalDocument.ExternalDocumentID).FirstOrDefault();
+                    ExternalDocument aviableExternalDocument = context.ExternalDocuments.Where(d => d.ExternalDocumentID == externalDocument.ExternalDocumentID).FirstOrDefault();
                     if (aviableExternalDocument != null)
                     {
                         documentFile.ExternalDocument = aviableExternalDocument;
-                        context.DocumentFiles.Add(documentFile);
+                        context.ExternalDocumentFiles.Add(documentFile);
                         context.SaveChanges();
                         return true;
                     }
@@ -75,9 +75,9 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.ExternalDocumentFileID == documentFile.ExternalDocumentFileID).FirstOrDefault();
+                    ExternalDocumentFile aviableDocumentFile = context.ExternalDocumentFiles.Where(f => f.ExternalDocumentFileID == documentFile.ExternalDocumentFileID).FirstOrDefault();
                     if (aviableDocumentFile == null) return false;
-                    context.DocumentFiles.Remove(aviableDocumentFile);
+                    context.ExternalDocumentFiles.Remove(aviableDocumentFile);
                     context.SaveChanges();
                     return true;
                 }

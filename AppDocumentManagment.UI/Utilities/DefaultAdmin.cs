@@ -45,6 +45,7 @@ namespace AppDocumentManagment.UI.Utilities
             defaultEmployee.EmployeeFirstName = "Default";
             defaultEmployee.EmployeeLastName = "Default";
             defaultEmployee.EmployeeMiddleName = "Default";
+            defaultEmployee.EmployeeRole = EmployeeRole.Performer;
             DepartmentController departmentController = new DepartmentController();
             Department department = departmentController.GetDepartmentByTitle(defaultDepartment.DepartmentTitle);
             defaultEmployee.DepartmentID = department.DepartmentID;

@@ -23,7 +23,7 @@
             <RowDefinition Height="120px"/>
             <RowDefinition Height="250px" x:Name="InternalDocumentContent"/>
             <RowDefinition Height="220px"/>
-            <RowDefinition Height="150px"/>
+            <RowDefinition Height="150px" x:Name="InternalDocumentButtons"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -199,7 +199,7 @@
                            Text="{Binding InternalDocumentContent}"
                            Background="WhiteSmoke"
                            Padding="10 5"
-                           Height="220"
+                           Height="200"
                            TextAlignment="Justify"
                            TextWrapping="Wrap"/>
                 </Grid>
@@ -259,7 +259,8 @@
                     FontFamily="Arial" 
                     FontSize="18"
                     FontWeight="Bold"
-                    Command="{Binding IAgreeInternalDocument}">
+                    Command="{Binding IAgreeInternalDocument}"
+                    Visibility="Visible">
                 <TextBlock TextAlignment="Center"> Согласовать <LineBreak/>документ</TextBlock>
             </Button>
 
@@ -272,7 +273,8 @@
                     FontFamily="Arial" 
                     FontSize="18"
                     FontWeight="Bold"
-                    Command="{Binding ICreateTask}">
+                    Command="{Binding ICreateTask}"
+                    Visibility="Visible">
                 <TextBlock TextAlignment="Center"> Создать задание<LineBreak/>к документу</TextBlock>
             </Button>
             <Button x:Name="SendDocument"
