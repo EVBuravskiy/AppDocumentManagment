@@ -61,7 +61,9 @@
                      FontSize="14"
                      Text="{Binding DepartmentTitle}"
                      Background="WhiteSmoke"
-                     SpellCheck.IsEnabled="True"/>
+                     SpellCheck.IsEnabled="True"
+                     ToolTip="Введите полное наименование отдела / департамента"
+                     />
             <Label IsHitTestVisible="False" 
                    Grid.Row="1"
                    Foreground="DimGray"
@@ -79,7 +81,9 @@
                      FontSize="14"
                      Text="{Binding DepartmentShortTitle}"
                      Background="WhiteSmoke"
-                     SpellCheck.IsEnabled="True"/>
+                     SpellCheck.IsEnabled="True"
+                     ToolTip="Введите сокращенное наименование отдела / департамента"
+                     />
             <Label IsHitTestVisible="False" 
                    Grid.Row="1"
                    Foreground="DimGray"

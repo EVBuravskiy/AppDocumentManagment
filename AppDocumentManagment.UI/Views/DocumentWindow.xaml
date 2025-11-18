@@ -83,7 +83,9 @@
                              FontSize="14"
                              Text="{Binding DocumentNumber}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             ToolTip="Введите номер входящего документа"
+                             />
                     <Label IsHitTestVisible="False" 
                            Grid.Row="1"
                            Foreground="DimGray"
@@ -120,7 +122,9 @@
                              Text="{Binding DocumentTitle}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
-                             TextWrapping="Wrap"/>
+                             TextWrapping="Wrap"
+                             ToolTip="Введите наименование входящего документа"
+                             />
                     <Label IsHitTestVisible="False" 
                            Grid.Row="3"
                            Foreground="DimGray"

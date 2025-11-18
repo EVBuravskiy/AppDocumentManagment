@@ -191,7 +191,9 @@
                 <Label Content="Краткое содержание документа:"
                        Style="{StaticResource TopPanelLabel}"
                        Foreground="Black"/>
-                <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                <Grid>
+                <TextBlock x:Name="DocumentContent"
+                    Style="{StaticResource AdminDocumentTextblock}"
                            VerticalAlignment="Center"
                            FontSize="14"
                            Text="{Binding InternalDocumentContent}"
@@ -199,8 +201,18 @@
                            Padding="10 5"
                            Height="220"
                            TextAlignment="Justify"
-                           TextWrapping="Wrap">
-                </TextBlock>
+                           TextWrapping="Wrap"
+                           ToolTip="Введите содержание документа"
+                           />
+                    <Label IsHitTestVisible="False"
+                           Foreground="DimGray"
+                           Content="Введите содержание документа..."
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentContent, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Padding="10 5"
+                           Height="220"/>
+                </Grid>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4"

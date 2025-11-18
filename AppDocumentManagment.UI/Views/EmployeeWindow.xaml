@@ -92,7 +92,9 @@
                              FontSize="14"
                              Text="{Binding EmployeeLastName}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             ToolTip="Введите фамилию сотрудника. Фамилия может содержать только буквы русского алфавита и дефис"
+                             />
                     <Label IsHitTestVisible="False" 
                            Grid.Row="0"
                            Foreground="DimGray"
@@ -116,7 +118,9 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=EmployeeFirstName, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           ToolTip="Введите имя сотрудника. Имя может содержать только буквы русского алфавита и дефис"
+                           />
                     <TextBox x:Name="EmployeeMiddleName" 
                              Grid.Row="2"
                              Style="{StaticResource ItemTitleBox}"
@@ -124,7 +128,9 @@
                              FontSize="14"
                              Text="{Binding EmployeeMiddleName}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             ToolTip="При наличии введите отчество сотрудника. Отчество может содержать только буквы русского алфавита и дефис"
+                             />
                     <Label IsHitTestVisible="False" 
                            Grid.Row="2"
                            Foreground="DimGray"
@@ -152,7 +158,9 @@
                    VerticalAlignment="Top"
                    FontSize="14"
                    Visibility="{Binding Text.IsEmpty, ElementName=EmployeePosition, Converter={StaticResource BooleanToVisibilityConverter}}"
-                   Margin="30 10"/>
+                   Margin="30 10"
+                   ToolTip="Введите должность сотрудника"
+                   />
         </Grid>
         <Grid Grid.Row="3">
             <Label Content="Контактная информация"
@@ -186,7 +194,9 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=EmployeePhone, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                       ToolTip="Введите номер телефона сотрудника. Номер телефона должен состоять из 11 цифр"
+                       />
             </Grid>
         </Grid>
         <Grid Grid.Row="5">
@@ -206,7 +216,9 @@
                              FontSize="14"
                              Text="{Binding EmployeeEmail}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                         ToolTip="Введите адрес электронной почты сотрудника. Адрес электронной почты может содержать буквы латинского алфавита, цифры, тире, нижнее подчеркивание"
+                         />
                 <Label IsHitTestVisible="False" 
                            Grid.Row="0"
                            Foreground="DimGray"

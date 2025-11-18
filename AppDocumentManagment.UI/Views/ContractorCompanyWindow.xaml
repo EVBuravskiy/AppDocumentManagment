@@ -62,7 +62,9 @@
                              Text="{Binding ContractorCompanyTitle}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
-                             Height="80"/>
+                             Height="80"
+                             ToolTip="Введите полное наименование контрагента. Наименование может содержать буквы, цифры, дефис"
+                             />
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите полное наименование контрагента..."
@@ -87,7 +89,9 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyShortTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           ToolTip="Введите сокращенное наименование контрагента. Наименование может содержать буквы, цифры, дефис"
+                           />
                 </Grid>
             </StackPanel>
         </Grid>
@@ -116,7 +120,9 @@
                            FontSize="14"
                            Height="80"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyAddress, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           ToolTip="Введите адрес контрагента. Адрес может содержать буквы, цифры(индекс), дефис, косую линию"
+                           />
                 </Grid>
                 <Grid>
                     <TextBox x:Name="ContractorCompanyPhone" 
@@ -132,7 +138,9 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyPhone, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           ToolTip="Введите контактный телефон контрагента. Телефон контрагента должен содержать 11 цифр"
+                           />
                 </Grid>
                 <Grid>
                     <TextBox x:Name="ContractorCompanyEmail" 
@@ -148,7 +156,9 @@
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyEmail, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                           Margin="30 10"
+                           ToolTip="Введите адрес электронной почты контрагента. Адрес электронной почты может содержать буквы латинского алфавита, цифры, тире, нижнее подчеркивание"
+                           />
                 </Grid>
             </StackPanel>
         </Grid>

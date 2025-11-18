@@ -13,7 +13,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private InitialAuthorizationWindow InitialAuthorizationWindow { get; set; }
         public SolidColorBrush LoginBorderColor { get; set; } = new SolidColorBrush(Colors.DimGray);
         public int LoginBorderThickness { get; set; } = 1;
-        public string LoginTipText { get; set; } = "Введите логин... Логин должен состоять из любых латинских букв(в верхнем или нижнем регистре), цифр и подчеркивания";
+        public string LoginTipText { get; set; } = "Введите логин... Логин может состоять из любых латинских букв(в верхнем или нижнем регистре), цифр и подчеркивания";
         private string login;
         public string Login
         {
@@ -46,7 +46,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         public SolidColorBrush PasswordBorderColor { get; set; } = new SolidColorBrush(Colors.DimGray);
         public int PasswordBorderThickness { get; set; } = 1;
-        public string PasswordTipText { get; set; } = "Введите пароль...Пароль должен содержать символы латинского алфавита в верхнем и нижнем регистре, цифры. Недопустимо вводить спецсимволы (*,.<>/?!@&^%$#(){}[]).";
+        public string PasswordTipText { get; set; } = "Введите пароль...Пароль может содержать символы латинского алфавита в верхнем и нижнем регистре, цифры. Недопустимо вводить спецсимволы (*,.<>/?!@&^%$#(){}[]).";
 
         private string password;
         public string Password
@@ -77,6 +77,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(Password));
             }
         }
+
 
         public InitialAuthorizationViewModel(InitialAuthorizationWindow window)
         {

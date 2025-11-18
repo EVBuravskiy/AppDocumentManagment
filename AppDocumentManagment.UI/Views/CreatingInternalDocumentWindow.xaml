@@ -106,11 +106,13 @@
                                  Width="330"
                                  Height="50"
                                  SpellCheck.IsEnabled="True"
-                                 TextWrapping="Wrap"/>
+                                 TextWrapping="Wrap"
+                                 ToolTip="Введите наименование внутреннего документа"
+                                 />
                         <Label IsHitTestVisible="False" 
                            Grid.Row="3"
                            Foreground="DimGray"
-                           Content="Введите наименование документа..."
+                           Content="Введите наименование внутреннего документа..."
                            VerticalAlignment="Top"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=InternalDocumentTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -140,7 +142,9 @@
                            FontSize="14"
                            Height="300"
                            Visibility="{Binding Text.IsEmpty, ElementName=InternalDocumentContent, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="10 0"/>
+                           Margin="10 0"
+                           ToolTip="Введите содержание внутреннего документа"
+                           />
                 </Grid>
             </StackPanel>
         </Grid>

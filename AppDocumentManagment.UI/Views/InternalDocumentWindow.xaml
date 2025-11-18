@@ -235,7 +235,8 @@
                                  Width="330"
                                  Height="50"
                                  SpellCheck.IsEnabled="True"
-                                 TextWrapping="Wrap"/>
+                                 TextWrapping="Wrap"
+                                 ToolTip="Введите наименование документа"/>
                         <Label IsHitTestVisible="False" 
                            Grid.Row="3"
                            Foreground="DimGray"
@@ -260,7 +261,8 @@
                              Height="100"
                              TextWrapping="Wrap"
                              VerticalContentAlignment="Top" 
-                             Margin="0"/>
+                             Margin="0"
+                             ToolTip="Введите краткое содержание документа"/>
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите краткое содержание документа..."
