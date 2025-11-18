@@ -82,7 +82,9 @@
                              FontSize="14"
                              Text="{Binding ContractorCompanyShortTitle}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                            ToolTip="Введите сокращенное наименование контрагента. Наименование может содержать буквы, цифры, дефис"
+                             />
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите сокращенное наименование контрагента..."
@@ -90,7 +92,6 @@
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyShortTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"
-                           ToolTip="Введите сокращенное наименование контрагента. Наименование может содержать буквы, цифры, дефис"
                            />
                 </Grid>
             </StackPanel>
@@ -111,7 +112,9 @@
                              SpellCheck.IsEnabled="True"
                              Height="80"
                              TextWrapping="Wrap"
-                             VerticalContentAlignment="Top"/>
+                             VerticalContentAlignment="Top"
+                             ToolTip="Введите адрес контрагента. Адрес может содержать буквы, цифры(индекс), дефис, косую линию"
+                             />
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите адрес контрагента..."
@@ -121,7 +124,6 @@
                            Height="80"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyAddress, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"
-                           ToolTip="Введите адрес контрагента. Адрес может содержать буквы, цифры(индекс), дефис, косую линию"
                            />
                 </Grid>
                 <Grid>
@@ -131,7 +133,9 @@
                              FontSize="14"
                              Text="{Binding ContractorCompanyPhone}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             ToolTip="Введите контактный телефон контрагента. Телефон контрагента должен содержать 11 цифр"
+                             />
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите контактный телефон контрагента..."
@@ -139,7 +143,6 @@
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyPhone, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"
-                           ToolTip="Введите контактный телефон контрагента. Телефон контрагента должен содержать 11 цифр"
                            />
                 </Grid>
                 <Grid>
@@ -149,7 +152,9 @@
                              FontSize="14"
                              Text="{Binding ContractorCompanyEmail}"
                              Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"/>
+                             SpellCheck.IsEnabled="True"
+                             ToolTip="Введите адрес электронной почты контрагента. Адрес электронной почты может содержать буквы латинского алфавита, цифры, тире, нижнее подчеркивание"
+                             />
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите адрес электронной почты контрагента..."
@@ -157,7 +162,6 @@
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=ContractorCompanyEmail, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Margin="30 10"
-                           ToolTip="Введите адрес электронной почты контрагента. Адрес электронной почты может содержать буквы латинского алфавита, цифры, тире, нижнее подчеркивание"
                            />
                 </Grid>
             </StackPanel>
@@ -171,7 +175,9 @@
                      Text="{Binding ContractorCompanyInfo}"
                      Background="WhiteSmoke"
                      SpellCheck.IsEnabled="True"
-                     Height="200"/>
+                     Height="200"
+                     ToolTip="Введите дополнительную информацию о контрагенте..."
+                     />
             <Label IsHitTestVisible="False" 
                    Grid.Row="1"
                    Foreground="DimGray"

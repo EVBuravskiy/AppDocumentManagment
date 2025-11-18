@@ -201,17 +201,7 @@
                            Padding="10 5"
                            Height="220"
                            TextAlignment="Justify"
-                           TextWrapping="Wrap"
-                           ToolTip="Введите содержание документа"
-                           />
-                    <Label IsHitTestVisible="False"
-                           Foreground="DimGray"
-                           Content="Введите содержание документа..."
-                           VerticalAlignment="Center"
-                           FontSize="14"
-                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentContent, Converter={StaticResource BooleanToVisibilityConverter}}"
-                            Padding="10 5"
-                           Height="220"/>
+                           TextWrapping="Wrap"/>
                 </Grid>
             </StackPanel>
         </Grid>
