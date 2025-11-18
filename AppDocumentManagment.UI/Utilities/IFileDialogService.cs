@@ -5,6 +5,6 @@
         string OpenFile();
         string OpenFile(string fileExtension);
         void ShowMessageBox(string message);
-        string SaveFile(string fileExtension);
+        string SaveFile(string fileExtension, string fileName);
     }
 }

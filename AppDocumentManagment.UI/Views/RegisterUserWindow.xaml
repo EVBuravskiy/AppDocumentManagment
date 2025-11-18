@@ -170,7 +170,8 @@
                              Margin="20 5"
                              Background="WhiteSmoke" 
                              GotFocus="EmployeeLogin_GotFocus" 
-                             LostFocus="EmployeeLogin_LostFocus"/>
+                             LostFocus="EmployeeLogin_LostFocus"
+                             ToolTip="{Binding LoginTipText}"/>
                     <Label IsHitTestVisible="False"
                            Foreground="DimGray"
                            Content="Создайте логин пользователя для регистрации..."
@@ -188,7 +189,8 @@
                              Margin="20 0"
                              Background="WhiteSmoke" 
                              GotFocus="EmployeePassword_GotFocus" 
-                             LostFocus="EmployeePassword_LostFocus"/>
+                             LostFocus="EmployeePassword_LostFocus"
+                             ToolTip="{Binding PasswordTipText}"/>
                     <Label IsHitTestVisible="False"
                            Foreground="DimGray"
                            Content="Создайте пароль пользователя для его регистрации..."

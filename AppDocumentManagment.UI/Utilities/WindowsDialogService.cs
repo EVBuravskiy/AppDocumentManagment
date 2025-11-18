@@ -1,6 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
 using Microsoft.Win32;
 using System.Data;
+using System.IO;
 
 namespace AppDocumentManagment.UI.Utilities
 {
@@ -32,10 +33,12 @@ namespace AppDocumentManagment.UI.Utilities
             return null;
         }
 
-        public string SaveFile(string fileExtension)
+        public string SaveFile(string fileExtension, string fileName)
         {
             var dialog = new SaveFileDialog();
             dialog.Filter = GetFileFilter(fileExtension);
+            dialog.FileName = fileName;
+            dialog.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
 
             dialog.FilterIndex = 1;
 

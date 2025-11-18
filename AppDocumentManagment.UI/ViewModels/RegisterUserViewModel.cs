@@ -146,9 +146,9 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private string requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры " +
+        private string requirements = "Логин пользователя должен содержать буквы латинского алфавита " +
             "и иметь длину не менее 5 символов и не более 25 символов:\n" +
-            "Примеры: 'User01', '01User', ...\n" +
+            "Примеры: 'Currentuser', 'Currentuser', ...\n" +
             "Пароль пользователя должен содержать буквы латинского алфавита и цифры " +
             "и иметь длину не менее 5 символов:\n" +
             "Примеры: 'User01','01User', ...\n" +
@@ -160,6 +160,34 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 requirements = value;
                 OnPropertyChanged(nameof(Requirements));
+            }
+        }
+
+        private string loginTipText = "Логин пользователя должен содержать буквы латинского алфавита " +
+            "и иметь длину не менее 5 символов и не более 25 символов:\n" +
+            "Примеры: 'Currentuser', 'Currentuser', ...\n";
+
+        public string LoginTipText
+        {
+            get => loginTipText;
+            set
+            {
+                loginTipText = value;
+                OnPropertyChanged(nameof(LoginTipText));
+            }
+        }
+
+        private string passwordTipText = "Пароль пользователя должен содержать буквы латинского алфавита и цифры " +
+            "и иметь длину не менее 5 символов:\n" +
+            "Примеры: 'User01','01User', ...\n";
+
+        public string PasswordTipText
+        {
+            get => passwordTipText;
+            set
+            {
+                passwordTipText = value;
+                OnPropertyChanged(nameof(PasswordTipText));
             }
         }
 
@@ -312,9 +340,9 @@ namespace AppDocumentManagment.UI.ViewModels
         public void ShowLoginRequirements()
         {
             RequirementsTitle = "ТРЕБОВАНИЯ К ЛОГИНУ ПОЛЬЗОВАТЕЛЯ:";
-            Requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры" +
+            Requirements = "Логин пользователя должен содержать буквы латинского алфавита " +
             "и иметь длину не менее 5 символов и не более 25 символов:\n" +
-            "Примеры: 'User01', '01User', ...\n" +
+            "Примеры: 'Currentuser', 'Currentuser', ...\n" +
             "ВНИМАНИЕ! НЕ ДОПУСКАЕТСЯ ВВЕДЕНИЕ В ЛОГИН ИНЫХ СИМВОЛОВ, НЕ ПРЕДУСМОТРЕННЫХ ТРЕБОВАНИЯМИ";
         }
 
@@ -330,9 +358,9 @@ namespace AppDocumentManagment.UI.ViewModels
         public void ShowDefaultRequirements()
         {
             RequirementsTitle = "ТРЕБОВАНИЯ К ЛОГИНУ И ПАРОЛЮ ПОЛЬЗОВАТЕЛЯ:";
-            Requirements = "Логин пользователя должен содержать буквы латинского алфавита и цифры" +
+            Requirements = "Логин пользователя должен содержать буквы латинского алфавита " +
             "и иметь длину не менее 5 символов и не более 25 символов:\n" +
-            "Примеры: 'User01', '01User', ...\n" +
+            "Примеры: 'Currentuser', 'Currentuser', ...\n" +
             "Пароль пользователя должен содержать буквы латинского алфавита и цифры" +
             "и иметь длину не менее 5 символов:\n" +
             "Примеры: 'User01','01User', ...\n" +

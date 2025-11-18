@@ -171,7 +171,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseToSaveExternalDocumentFile => new RelayCommand(browseToSaveExternalDocument => BrowseToSaveExternalDocumentFile());
         private void BrowseToSaveExternalDocumentFile()
         {
-            var filePath = fileDialogService.SaveFile(SelectedExternalDocumentFile.ExternalFileExtension);
+            var filePath = fileDialogService.SaveFile(SelectedExternalDocumentFile.ExternalFileExtension, SelectedExternalDocumentFile.ExternalFileName);
             bool result = FileProcessing.SaveExternalDocumentFileToPath(filePath, SelectedExternalDocumentFile);
             if (result)
             {

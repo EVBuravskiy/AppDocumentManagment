@@ -2,9 +2,7 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
-using Azure.Identity;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -172,8 +170,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IBrowseToSaveInternalDocumentFile => new RelayCommand(browseToSaveInternalDocument => BrowseToSaveInternalDocumentFile());
         private void BrowseToSaveInternalDocumentFile()
         {
-            var filePath = fileDialogService.SaveFile(SelectedInternalDocumentFile.FileExtension);
-            //bool result = FileProcessing.SaveFileToPath(filePath, SelectedInternalDocumentFile.FileData);
+            var filePath = fileDialogService.SaveFile(SelectedInternalDocumentFile.FileExtension, SelectedInternalDocumentFile.FileName);
             bool result = FileProcessing.SaveInternalDocumentFileToPath(filePath, SelectedInternalDocumentFile);
             if (result)
             {

@@ -14,7 +14,7 @@ namespace AppDocumentManagment.UI.Utilities
             bool result = RegistredDefaultAdmin(defaultEmployee);
             if (result)
             {
-                MessageBox.Show("Дефолтный администратора создан");
+                MessageBox.Show("Создан администратор по умолчанию");
                 return true;
             }
             else
@@ -31,16 +31,12 @@ namespace AppDocumentManagment.UI.Utilities
             defaultDepartment.DepartmentShortTitle = "Default";
             DepartmentController departmentController = new DepartmentController();
             bool result = departmentController.AddDepartment(defaultDepartment);
-            if (result)
-            {
-                MessageBox.Show("Дефолтный отдел создан");
-                return defaultDepartment;
-            }
-            else
+            if (!result)
             {
                 MessageBox.Show("Ошибка создания дефолтного отдела");
                 return null;
             }
+            return defaultDepartment;
         }
 
         private static Employee CreateDefaultEmployee(Department defaultDepartment)
