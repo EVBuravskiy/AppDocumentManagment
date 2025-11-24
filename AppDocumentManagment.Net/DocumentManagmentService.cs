@@ -37,23 +37,19 @@ namespace AppDocumentManagment.Net
             if(clients.Count == 0) nextClientID = 1;
         }
 
-        //Методы отправления сообщений на сервер
-        void SendMessage(string message, int userID)
-        {
-
-        }
-
         //Методы работы с отделами / департаментами
         bool AddDepartments(Department department)
         {
             DeparmentController deparmentController = new DeparmentController();
-            return departmentController.AddDepartments(department);
+            bool result = departmentController.AddDepartments(department);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<Department> GetAllDepartments()
         {
             DeparmentController deparmentController = new DeparmentController();
-            deparmentController.GetAllDepartments();
+            return deparmentController.GetAllDepartments();
         }
 
         Department GetDepartmentByID(int departmentID)
@@ -77,13 +73,17 @@ namespace AppDocumentManagment.Net
         bool UpdateDepartment(Department inputDepartment)
         {
             DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.UpdateDepartment(inputDepartment);
+            bool result = deparmentController.UpdateDepartment(inputDepartment);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool RemoveDepartment(Department inputDepartment)
         {
             DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.RemoveDepartment(inputDepartment);
+            bool result = deparmentController.RemoveDepartment(inputDepartment);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         //Методы работы с сотрудниками
@@ -91,6 +91,7 @@ namespace AppDocumentManagment.Net
         {
             EmployeeController employeeController = new EmployeeController();
             employeeController.AddEmployee(newEmployee);
+            SendMessageAboutDataUpdate();
         }
 
         List<Employee> GetAllEmployees()
@@ -132,13 +133,16 @@ namespace AppDocumentManagment.Net
         bool DeleteEmployee(Employee employee)
         {
             EmployeeController employeeController = new EmployeeController();
-            return employeeController.DeleteEmployee(employee);
+            bool result = employeeController.DeleteEmployee(employee);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         void UpdateEmployee(Employee employee)
         {
             EmployeeController employeeController = new EmployeeController();
             employeeController.UpdateEmployee(employee);
+            SendMessageAboutDataUpdate();
         }
 
         bool CheckAviableEmployee()
@@ -170,7 +174,9 @@ namespace AppDocumentManagment.Net
         bool AddContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
-            return contractorCompanyController.AddContractorCompany(contractorCompany);
+            bool result = contractorCompanyController.AddContractorCompany(contractorCompany);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<ContractorCompany> GetContractorCompanies()
@@ -194,20 +200,26 @@ namespace AppDocumentManagment.Net
         bool UpdateContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
-            return contractorCompanyController.UpdateContractorCompany(contractorCompany);
+            bool result = contractorCompanyController.UpdateContractorCompany(contractorCompany);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool RemoveContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
-            return contractorCompanyController.RemoveContractorCompany(contractorCompany);
+            bool result = contractorCompanyController.RemoveContractorCompany(contractorCompany);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         //Методы работы с входящими документами
         bool AddExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
-            return externalDocumentController.AddExternalDocument(externalDocument);
+            bool result = externalDocumentController.AddExternalDocument(externalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<ExternalDocument> GetAllExternalDocuments()
@@ -225,26 +237,34 @@ namespace AppDocumentManagment.Net
         bool RemoveExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
-            return externalDocumentController.RemoveDocument(externalDocument);
+            bool result = externalDocumentController.RemoveDocument(externalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool UpdateExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
-            return externalDocumentController.UpdateDocument(externalDocument);
+            bool result = externalDocumentController.UpdateDocument(externalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         //Методы работы с файлами входящих документов
         bool AddExternalDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
-            return externalDocumentFileController.AddDocumentFile(documentFile, externalDocument);
+            bool result = externalDocumentFileController.AddDocumentFile(documentFile, externalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool AddExternalDocumentFiles(List<ExternalDocumentFiles> externalDocumentFiles)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
-            return externalDocumentFileController.AddDocumentFiles(externalDocumentFiles);
+            bool result = externalDocumentFileController.AddDocumentFiles(externalDocumentFiles);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<ExternalDocumentFile> GetExternalDocumentFiles(int externalDocumentID)
@@ -256,14 +276,18 @@ namespace AppDocumentManagment.Net
         bool RemoveExternalDocumentFile(ExternalDocumentFile externalDocumentFile)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
-            return externalDocumentFileController.RemoveDocumentFile(externalDocumentFile);
+            bool result = externalDocumentFileController.RemoveDocumentFile(externalDocumentFile);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         //Методы работы с внутренними документами
         bool AddInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
-            return internalDocumentController.AddInternalDocument(internalDocument);
+            bool result = internalDocumentController.AddInternalDocument(internalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<InternalDocument> GetInternalDocuments()
@@ -281,13 +305,17 @@ namespace AppDocumentManagment.Net
         bool RemoveInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
-            return internalDocumentController.RemoveInternalDocument(internalDocument);
+            bool result = internalDocumentController.RemoveInternalDocument(internalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool UpdateInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
-            internalDocumentController.UpdateInternalDocument(internalDocument);
+            bool result = internalDocumentController.UpdateInternalDocument(internalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         int GetCountInternalDocumentByType(InternalDocumentType type)
@@ -300,13 +328,17 @@ namespace AppDocumentManagment.Net
         bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
-            return internalDocumentFileController.AddInternalDocumentFile(internalDocumentFile, internalDocument);
+            bool result = internalDocumentFileController.AddInternalDocumentFile(internalDocumentFile, internalDocument);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool AddInternalDocumentFiles(List<InternalDocumentFile> internalDocumentFiles)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
-            return internalDocumentFileController.AddItemInternalDocumentFiles(internalDocumentFiles);
+            bool result = internalDocumentFileController.AddItemInternalDocumentFiles(internalDocumentFiles);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<InternalDocumentFile> GetInternalDocumentFiles(int internalDocumentID)
@@ -318,14 +350,18 @@ namespace AppDocumentManagment.Net
         bool RemoveInternalDocumentFile(InternalDocumentFile internalDocumentFile)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
-            return internalDocumentFileController.RemoveInternalDocumentFile(internalDocumentFile);
+            bool result = internalDocumentFileController.RemoveInternalDocumentFile(internalDocumentFile);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         //Методы работы с регистрацией пользователей
         bool AddRegistratedUser(RegistratedUser registratedUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            registredUserController.AddRegistratedUser(registratedUser);
+            bool result = egistredUserController.AddRegistratedUser(registratedUser);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         List<RegistredUser> GetAllRegistredUsers()
@@ -349,19 +385,34 @@ namespace AppDocumentManagment.Net
         bool UpdateRegistratedUser(RegistratedUser registratedUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            return registredUserController.UpdateRegistratedUser(registratedUser);
+            bool result = registredUserController.UpdateRegistratedUser(registratedUser);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool RemoveRegistratedUser(RegistratedUser registratedUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            return registredUserController.RemoveRegistratedUser(registratedUser);
+            bool result = registredUserController.RemoveRegistratedUser(registratedUser);
+            SendMessageAboutDataUpdate();
+            return result;
         }
 
         bool CheckAviableRegistredUsers()
         {
             RegistredUserController registredUserController = new RegistredUserController();
             return registredUserController.CheckAviableRegistredUsers();
+        }
+
+        void SendMessageAboutDataUpdate()
+        {
+            if (clients.Count > 0)
+            {
+                foreach (ServerClient client in clients)
+                {
+                    client.OperationContext.GetCallbackChannel<IServerUpdateDataCallback>().UpdateDataCallBack("Обновление в базе данных");
+                }
+            }
         }
     }
 }

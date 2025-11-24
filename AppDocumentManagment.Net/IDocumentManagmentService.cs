@@ -13,10 +13,6 @@
         [OperationContract]
         void Disconnect(int clientID);
 
-        //Методы отправления сообщений на сервер
-        [OperationContract(IsOneWay = true)]
-        void SendMessage(string message, int userID);
-
         //Методы работы с отделами / департаментами
         [OperationContract]
         bool AddDepartments(Department department);
@@ -184,7 +180,7 @@
     }
 
     //Интерфейс работы на стороне клиента
-    public interface IServerChatCallback
+    public interface IServerUpdateDataCallback
     {
         [OperationContract(IsOneWay = true)]
         void UpdateDataCallBack(string message);
