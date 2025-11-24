@@ -1,4 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -17,7 +20,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+                Console.WriteLine("Ошибка в получении файла документа из базы данных");
             }
             return documents;
         }
@@ -34,7 +37,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+                Console.WriteLine("Ошибка в получении файла документа из базы данных");
             }
             return documents;
         }
@@ -59,7 +62,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении документа в базу данных");
                 return false;
             }
         }
@@ -78,7 +81,7 @@ namespace AppDocumentManagment.DB.Controllers
                         context.SaveChanges();
                     }
                     List<ExternalDocumentFile> files = context.ExternalDocumentFiles.Where(d => d.ExternalDocumentID == document.ExternalDocumentID).ToList();
-                    if(files != null && files.Count > 0)
+                    if (files != null && files.Count > 0)
                     {
                         context.ExternalDocumentFiles.RemoveRange(files);
                     }
@@ -87,7 +90,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в удалении документа из базы данных или его файлов");
+                Console.WriteLine("Ошибка в удалении документа из базы данных или его файлов");
                 return false;
             }
         }
@@ -121,16 +124,17 @@ namespace AppDocumentManagment.DB.Controllers
                         aviableDocument.ExternalDocumentStatus = document.ExternalDocumentStatus;
                         context.ExternalDocuments.Update(aviableDocument);
                         context.SaveChanges();
-                        result = true; 
+                        result = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в обновлении документа в базе данных или его файлов");
+                Console.WriteLine("Ошибка в обновлении документа в базе данных или его файлов");
                 result = false;
             }
             return result;
         }
     }
 }
+

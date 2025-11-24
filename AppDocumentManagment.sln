@@ -5,12 +5,11 @@ VisualStudioVersion = 17.14.36127.28
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.UI", "AppDocumentManagment.UI\AppDocumentManagment.UI.csproj", "{A3E20C86-FFE4-465F-9835-8F522CED6449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.DB", "AppDocumentManagment.DB\AppDocumentManagment.DB.csproj", "{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.Net", "AppDocumentManagment.Net\AppDocumentManagment.Net.csproj", "{8B77CED3-9624-428A-9746-FD90AD6FA0EF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A} = {8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.NetworkHost", "AppDocumentManagment.NetworkHost\AppDocumentManagment.NetworkHost.csproj", "{B9FEB514-AA00-4701-BA2B-1253745BB8E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.DB", "AppDocumentManagment.DB\AppDocumentManagment.DB.csproj", "{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +21,18 @@ Global
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D71BC15-2B9E-4424-BD74-6F31DFCAAA8A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B77CED3-9624-428A-9746-FD90AD6FA0EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B77CED3-9624-428A-9746-FD90AD6FA0EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B77CED3-9624-428A-9746-FD90AD6FA0EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B77CED3-9624-428A-9746-FD90AD6FA0EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FEB514-AA00-4701-BA2B-1253745BB8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FEB514-AA00-4701-BA2B-1253745BB8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FEB514-AA00-4701-BA2B-1253745BB8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FEB514-AA00-4701-BA2B-1253745BB8E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

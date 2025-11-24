@@ -1,4 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -18,7 +21,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+                Console.WriteLine("Ошибка в получении файла документа из базы данных");
             }
             return documentFiles;
         }
@@ -37,7 +40,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении списка файлов документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении списка файлов документа в базу данных");
                 return false;
             }
         }
@@ -57,13 +60,13 @@ namespace AppDocumentManagment.DB.Controllers
                         context.SaveChanges();
                         return true;
                     }
-                    MessageBox.Show("Ошибка при добавлении файла входящего документа в базу данных.\nВходящий документ не был найден");
+                    Console.WriteLine("Ошибка при добавлении файла входящего документа в базу данных.\nВходящий документ не был найден");
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в добавлении файла входящего документа в базу данных");
+                Console.WriteLine("Ошибка в добавлении файла входящего документа в базу данных");
                 return false;
             }
         }
@@ -84,9 +87,10 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в удалении файла документа из базы данных");
+                Console.WriteLine("Ошибка в удалении файла документа из базы данных");
                 return false;
             }
         }
     }
 }
+

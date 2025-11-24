@@ -1,4 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -32,7 +35,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    if(inputDocument.SignatoryID == 0)
+                    if (inputDocument.SignatoryID == 0)
                     {
                         return false;
                     }
@@ -53,7 +56,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении документа в базу данных");
                 return false;
             }
         }
@@ -81,7 +84,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в удалении документа из базы данных или его файлов");
+                Console.WriteLine("Ошибка в удалении документа из базы данных или его файлов");
                 return false;
             }
         }
@@ -105,7 +108,7 @@ namespace AppDocumentManagment.DB.Controllers
                             Employee approvedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.ApprovedManagerID).FirstOrDefault();
                             aviableDocument.ApprovedManagerID = approvedManager.EmployeeID;
                         }
-                        if(inputDocument.EmployeeRecievedDocumentID != 0)
+                        if (inputDocument.EmployeeRecievedDocumentID != 0)
                         {
                             Employee recievedManager = context.Employees.Where(e => e.EmployeeID == inputDocument.EmployeeRecievedDocumentID).FirstOrDefault();
                             aviableDocument.EmployeeRecievedDocumentID = recievedManager.EmployeeID;
@@ -127,7 +130,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в обновлении документа в базе данных или его файлов");
+                Console.WriteLine("Ошибка в обновлении документа в базе данных или его файлов");
                 result = false;
             }
             return result;

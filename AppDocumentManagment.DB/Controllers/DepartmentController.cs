@@ -1,4 +1,6 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AppDocumentManagment.DB.Controllers
 {
@@ -88,7 +90,7 @@ namespace AppDocumentManagment.DB.Controllers
         public bool RemoveDepartment(Department inputDepartment)
         {
             bool result = false;
-            using(ApplicationContext context = new ApplicationContext())
+            using (ApplicationContext context = new ApplicationContext())
             {
                 Department currentDepartment = context.Departments.FirstOrDefault(x => x.DepartmentID == inputDepartment.DepartmentID);
                 if (currentDepartment == null)
@@ -103,3 +105,4 @@ namespace AppDocumentManagment.DB.Controllers
         }
     }
 }
+

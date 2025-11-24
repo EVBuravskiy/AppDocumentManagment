@@ -1,4 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -18,7 +21,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+                Console.WriteLine("Ошибка в получении файла документа из базы данных");
             }
             return documentFiles;
         }
@@ -37,15 +40,15 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении списка файлов документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении списка файлов документа в базу данных");
                 return false;
             }
         }
 
         public bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
         {
-            if(internalDocumentFile == null) return false;
-            if(internalDocument == null) return false;
+            if (internalDocumentFile == null) return false;
+            if (internalDocument == null) return false;
             try
             {
                 using (ApplicationContext context = new ApplicationContext())
@@ -60,7 +63,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении файла документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении файла документа в базу данных");
                 return false;
             }
         }
@@ -81,10 +84,9 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в удалении файла документа из базы данных");
+                Console.WriteLine("Ошибка в удалении файла документа из базы данных");
                 return false;
             }
         }
     }
 }
-

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using AppDocumentManagment.DB.Models;
@@ -22,7 +21,7 @@ namespace AppDocumentManagment.Net
                 ClientID = nextClientID,
                 OperationContext = OperationContext.Current,
             };
-            nextClientID ++;
+            nextClientID++;
             clients.Add(newClient);
             return newClient.ClientID;
         }
@@ -34,383 +33,387 @@ namespace AppDocumentManagment.Net
             {
                 clients.Remove(client);
             }
-            if(clients.Count == 0) nextClientID = 1;
+            if (clients.Count == 0) nextClientID = 1;
         }
 
         //Методы работы с отделами / департаментами
-        bool AddDepartments(Department department)
+        public bool AddDepartments(Department department)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            bool result = departmentController.AddDepartments(department);
-            SendMessageAboutDataUpdate();
+            DepartmentController departmentController = new DepartmentController();
+            bool result = departmentController.AddDepartment(department);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<Department> GetAllDepartments()
+        public List<Department> GetAllDepartments()
         {
-            DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.GetAllDepartments();
+            DepartmentController departmentController = new DepartmentController();
+            return departmentController.GetAllDepartments();
         }
 
-        Department GetDepartmentByID(int departmentID)
+        public Department GetDepartmentByID(int departmentID)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.GetDepartmentByID(departmentID);
+            DepartmentController departmentController = new DepartmentController();
+            return departmentController.GetDepartmentByID(departmentID);
         }
 
-        Department GetDepartmentByTitle(string departmentTitle)
+        public Department GetDepartmentByTitle(string departmentTitle)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.GetDepartmentByTitle(departmentTitle);
+            DepartmentController departmentController = new DepartmentController();
+            return departmentController.GetDepartmentByTitle(departmentTitle);
         }
 
-        Department GetDepartmentByShortTitle(string departmentShortTitle)
+        public Department GetDepartmentByShortTitle(string departmentShortTitle)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            return deparmentController.GetDepartmentByShortTitle(departmentShortTitle);
+            DepartmentController departmentController = new DepartmentController();
+            return departmentController.GetDepartmentByShortTitle(departmentShortTitle);
         }
 
-        bool UpdateDepartment(Department inputDepartment)
+        public bool UpdateDepartment(Department inputDepartment)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            bool result = deparmentController.UpdateDepartment(inputDepartment);
-            SendMessageAboutDataUpdate();
+            DepartmentController departmentController = new DepartmentController();
+            bool result = departmentController.UpdateDepartment(inputDepartment);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool RemoveDepartment(Department inputDepartment)
+        public bool RemoveDepartment(Department inputDepartment)
         {
-            DeparmentController deparmentController = new DeparmentController();
-            bool result = deparmentController.RemoveDepartment(inputDepartment);
-            SendMessageAboutDataUpdate();
+            DepartmentController departmentController = new DepartmentController();
+            bool result = departmentController.RemoveDepartment(inputDepartment);
+            SendMessageAboutUpdate();
             return result;
         }
 
         //Методы работы с сотрудниками
-        void AddEmployee(Employee newEmployee)
+        public bool AddEmployee(Employee newEmployee)
         {
             EmployeeController employeeController = new EmployeeController();
-            employeeController.AddEmployee(newEmployee);
-            SendMessageAboutDataUpdate();
+            bool result = employeeController.AddEmployee(newEmployee);
+            SendMessageAboutUpdate();
+            return result;
         }
 
-        List<Employee> GetAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetAllEmployees();
         }
 
-        Employee GetEmployeeByID(int employeeID)
+        public Employee GetEmployeeByID(int employeeID)
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetEmployeeByID(employeeID);
         }
 
-        List<Employee> GetEmployeesByDepartmentID(int departmentID)
+        public List<Employee> GetEmployeesByDepartmentID(int departmentID)
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetEmployeesByDeparmentID(departmentID);
         }
 
-        List<Employee> GetPerformersByDepartmentID(int departmentID)
+        public List<Employee> GetPerformersByDepartmentID(int departmentID)
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetPerformers(departmentID);
         }
 
-        List<Employee> GetHeadsByDepartmentID(int departmentID)
+        public List<Employee> GetHeadsByDepartmentID(int departmentID)
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetHeads(departmentID);
+
         }
 
-        Employee GetGeneralDirector()
+        public Employee GetGeneralDirector()
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.GetGeneralDirector();
         }
 
-        bool DeleteEmployee(Employee employee)
+        public bool DeleteEmployee(Employee employee)
         {
             EmployeeController employeeController = new EmployeeController();
             bool result = employeeController.DeleteEmployee(employee);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        void UpdateEmployee(Employee employee)
+        public bool UpdateEmployee(Employee employee)
         {
             EmployeeController employeeController = new EmployeeController();
-            employeeController.UpdateEmployee(employee);
-            SendMessageAboutDataUpdate();
+            bool result = employeeController.UpdateEmployee(employee);
+            SendMessageAboutUpdate();
+            return result;
         }
 
-        bool CheckAviableEmployee()
+        public bool CheckAviableEmployee()
         {
             EmployeeController employeeController = new EmployeeController();
             return employeeController.CheckAviableEmployee();
         }
 
         //Методы работы с фотографиями сотрудников
-        bool AddEmployeePhoto(EmployeePhoto employeePhoto)
+        public bool AddEmployeePhoto(EmployeePhoto employeePhoto)
         {
             EmployeePhotoController employeePhotoController = new EmployeePhotoController();
-            return employeePhotoController.AddEmployeePhoto(employeePhoto);
+            bool result = employeePhotoController.AddEmployeePhoto(employeePhoto);
+            SendMessageAboutUpdate();
+            return result;
         }
 
-        List<EmployeePhoto> GetEmployeePhotos()
+        public List<EmployeePhoto> GetEmployeePhotos()
         {
             EmployeePhotoController employeePhotoController = new EmployeePhotoController();
             return employeePhotoController.GetEmployeePhotos();
         }
 
-        EmployeePhoto GetEmployeePhotoByEmployeeID(int employeeID)
+        public EmployeePhoto GetEmployeePhotoByEmployeeID(int employeeID)
         {
             EmployeePhotoController employeePhotoController = new EmployeePhotoController();
             return employeePhotoController.GetEmployeePhotoByID(employeeID);
         }
 
         //Методы работы с компаниями-контрагентами
-        bool AddContractorCompany(ContractorCompany contractorCompany)
+        public bool AddContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             bool result = contractorCompanyController.AddContractorCompany(contractorCompany);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<ContractorCompany> GetContractorCompanies()
+        public List<ContractorCompany> GetContractorCompanies()
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             return contractorCompanyController.GetContractorCompanies();
         }
 
-        ContractorCompany GetContractorCompany(ContractorCompany contractorCompany)
+        public ContractorCompany GetContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             return contractorCompanyController.GetContractorCompany(contractorCompany);
         }
 
-        ContractorCompany GetContractorCompanyByID(int contractorCompanyID)
+        public ContractorCompany GetContractorCompanyByID(int contractorCompanyID)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             return contractorCompanyController.GetContractorCompanyByID(contractorCompanyID);
         }
 
-        bool UpdateContractorCompany(ContractorCompany contractorCompany)
+        public bool UpdateContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             bool result = contractorCompanyController.UpdateContractorCompany(contractorCompany);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool RemoveContractorCompany(ContractorCompany contractorCompany)
+        public bool RemoveContractorCompany(ContractorCompany contractorCompany)
         {
             ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
             bool result = contractorCompanyController.RemoveContractorCompany(contractorCompany);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
+
 
         //Методы работы с входящими документами
-        bool AddExternalDocument(ExternalDocument externalDocument)
+        public bool AddExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
-            bool result = externalDocumentController.AddExternalDocument(externalDocument);
-            SendMessageAboutDataUpdate();
+            bool result = externalDocumentController.AddDocument(externalDocument);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<ExternalDocument> GetAllExternalDocuments()
+        public List<ExternalDocument> GetAllExternalDocuments()
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
             return externalDocumentController.GetAllDocuments();
         }
 
-        List<ExternalDocument> GetExternalDocumentsByEmployeeReceivedDocumentID(int employeeReceivedDocumentID)
+        public List<ExternalDocument> GetExternalDocumentsByEmployeeReceivedDocumentID(int employeeReceivedDocumentID)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
             return externalDocumentController.GetExternalDocumentsByEmployeeReceivedDocumentID(employeeReceivedDocumentID);
         }
 
-        bool RemoveExternalDocument(ExternalDocument externalDocument)
+        public bool RemoveExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
             bool result = externalDocumentController.RemoveDocument(externalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool UpdateExternalDocument(ExternalDocument externalDocument)
+        public bool UpdateExternalDocument(ExternalDocument externalDocument)
         {
             ExternalDocumentController externalDocumentController = new ExternalDocumentController();
             bool result = externalDocumentController.UpdateDocument(externalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
         //Методы работы с файлами входящих документов
-        bool AddExternalDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument)
+        public bool AddExternalDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
             bool result = externalDocumentFileController.AddDocumentFile(documentFile, externalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool AddExternalDocumentFiles(List<ExternalDocumentFiles> externalDocumentFiles)
+        public bool AddExternalDocumentFiles(List<ExternalDocumentFile> externalDocumentFiles)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
             bool result = externalDocumentFileController.AddDocumentFiles(externalDocumentFiles);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<ExternalDocumentFile> GetExternalDocumentFiles(int externalDocumentID)
+        public List<ExternalDocumentFile> GetExternalDocumentFiles(int externalDocumentID)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
             return externalDocumentFileController.GetDocumentFiles(externalDocumentID);
         }
 
-        bool RemoveExternalDocumentFile(ExternalDocumentFile externalDocumentFile)
+        public bool RemoveExternalDocumentFile(ExternalDocumentFile externalDocumentFile)
         {
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
             bool result = externalDocumentFileController.RemoveDocumentFile(externalDocumentFile);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
         //Методы работы с внутренними документами
-        bool AddInternalDocument(InternalDocument internalDocument)
+        public bool AddInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             bool result = internalDocumentController.AddInternalDocument(internalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<InternalDocument> GetInternalDocuments()
+        public List<InternalDocument> GetInternalDocuments()
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             return internalDocumentController.GetInternalDocuments();
         }
 
-        List<InternalDocument> GetInternalDocumentsByEmployeeRecievedDocumentID(int employeeRecievedDocumentID)
+        public List<InternalDocument> GetInternalDocumentsByEmployeeRecievedDocumentID(int employeeRecievedDocumentID)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
-            return internalDocumentController.GetAllDocumentsByEmployeeRecievedDocumentID(employeeRecievedDocumentID);
+            return internalDocumentController.GetInternalDocumentsByEmployeeRecievedDocumentID(employeeRecievedDocumentID);
         }
 
-        bool RemoveInternalDocument(InternalDocument internalDocument)
+        public bool RemoveInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             bool result = internalDocumentController.RemoveInternalDocument(internalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool UpdateInternalDocument(InternalDocument internalDocument)
+        public bool UpdateInternalDocument(InternalDocument internalDocument)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             bool result = internalDocumentController.UpdateInternalDocument(internalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        int GetCountInternalDocumentByType(InternalDocumentType type)
+        public int GetCountInternalDocumentByType(InternalDocumentType type)
         {
             InternalDocumentController internalDocumentController = new InternalDocumentController();
             return internalDocumentController.GetCountInternalDocumentByType(type);
         }
 
         //Методы работы с файлами внутренних документов
-        bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
+        public bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
             bool result = internalDocumentFileController.AddInternalDocumentFile(internalDocumentFile, internalDocument);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool AddInternalDocumentFiles(List<InternalDocumentFile> internalDocumentFiles)
+        public bool AddInternalDocumentFiles(List<InternalDocumentFile> internalDocumentFiles)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
-            bool result = internalDocumentFileController.AddItemInternalDocumentFiles(internalDocumentFiles);
-            SendMessageAboutDataUpdate();
+            bool result = internalDocumentFileController.AddInternalDocumentFiles(internalDocumentFiles);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<InternalDocumentFile> GetInternalDocumentFiles(int internalDocumentID)
+        public List<InternalDocumentFile> GetInternalDocumentFiles(int internalDocumentID)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
             return internalDocumentFileController.GetInternalDocumentFiles(internalDocumentID);
         }
 
-        bool RemoveInternalDocumentFile(InternalDocumentFile internalDocumentFile)
+        public bool RemoveInternalDocumentFile(InternalDocumentFile internalDocumentFile)
         {
             InternalDocumentFileController internalDocumentFileController = new InternalDocumentFileController();
             bool result = internalDocumentFileController.RemoveInternalDocumentFile(internalDocumentFile);
-            SendMessageAboutDataUpdate();
+            SendMessageAboutUpdate();
             return result;
         }
 
         //Методы работы с регистрацией пользователей
-        bool AddRegistratedUser(RegistratedUser registratedUser)
+        public bool AddRegistratedUser(RegistredUser registredUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            bool result = egistredUserController.AddRegistratedUser(registratedUser);
-            SendMessageAboutDataUpdate();
+            bool result = registredUserController.AddRegistratedUser(registredUser);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        List<RegistredUser> GetAllRegistredUsers()
+        public List<RegistredUser> GetAllRegistredUsers()
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            return registredUserController.GetAllRegisteredUsers();
+            return registredUserController.GetAllRegistredUsers();
         }
 
-        RegistredUser GetRegistredUser(string login, string password)
+        public RegistredUser GetRegistredUser(string login, string password)
         {
             RegistredUserController registredUserController = new RegistredUserController();
             return registredUserController.GetRegistratedUser(login, password);
         }
 
-        RegistredUser UserAutentication(string login, string password)
+        public bool UpdateRegistratedUser(RegistredUser registredUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            return registredUserController.UserAutentication(login, password);
-        }
-
-        bool UpdateRegistratedUser(RegistratedUser registratedUser)
-        {
-            RegistredUserController registredUserController = new RegistredUserController();
-            bool result = registredUserController.UpdateRegistratedUser(registratedUser);
-            SendMessageAboutDataUpdate();
+            bool result = registredUserController.UpdateRegistratedUser(registredUser);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool RemoveRegistratedUser(RegistratedUser registratedUser)
+        public bool RemoveRegistratedUser(RegistredUser registredUser)
         {
             RegistredUserController registredUserController = new RegistredUserController();
-            bool result = registredUserController.RemoveRegistratedUser(registratedUser);
-            SendMessageAboutDataUpdate();
+            bool result = registredUserController.RemoveRegistratedUser(registredUser);
+            SendMessageAboutUpdate();
             return result;
         }
 
-        bool CheckAviableRegistredUsers()
+        public bool CheckAviableRegistredUsers()
         {
             RegistredUserController registredUserController = new RegistredUserController();
             return registredUserController.CheckAviableRegistredUsers();
         }
 
-        void SendMessageAboutDataUpdate()
+        /// <summary>
+        /// /////////////////////////////
+        /// </summary>
+
+        private void SendMessageAboutUpdate()
         {
             if (clients.Count > 0)
             {
-                foreach (ServerClient client in clients)
+                foreach (var client in clients)
                 {
-                    client.OperationContext.GetCallbackChannel<IServerUpdateDataCallback>().UpdateDataCallBack("Обновление в базе данных");
+                    client.OperationContext.GetCallbackChannel<IServerUpdateDataCallback>().UpdateDataCallBack("Обновлена база данных");
                 }
             }
         }

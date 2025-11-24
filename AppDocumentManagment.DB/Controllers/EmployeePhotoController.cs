@@ -1,4 +1,7 @@
 ﻿using AppDocumentManagment.DB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -8,7 +11,7 @@ namespace AppDocumentManagment.DB.Controllers
         public List<EmployeePhoto> GetEmployeePhotos()
         {
             List<EmployeePhoto> employeePhotos = new List<EmployeePhoto>();
-            using(ApplicationContext context = new ApplicationContext())
+            using (ApplicationContext context = new ApplicationContext())
             {
                 employeePhotos = context.EmployeePhotos.ToList();
             }
@@ -18,9 +21,9 @@ namespace AppDocumentManagment.DB.Controllers
         public EmployeePhoto GetEmployeePhotoByID(int employeeID)
         {
             EmployeePhoto employeePhoto = new EmployeePhoto();
-            using(ApplicationContext context = new ApplicationContext()) 
+            using (ApplicationContext context = new ApplicationContext())
             {
-                employeePhoto = context.EmployeePhotos.Where(e => e.EmployeeID == employeeID).FirstOrDefault();   
+                employeePhoto = context.EmployeePhotos.Where(e => e.EmployeeID == employeeID).FirstOrDefault();
             }
             return employeePhoto;
         }
@@ -38,9 +41,10 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении фотографии работника");
+                Console.WriteLine("Ошибка в сохранении фотографии работника");
             }
             return false;
         }
     }
 }
+

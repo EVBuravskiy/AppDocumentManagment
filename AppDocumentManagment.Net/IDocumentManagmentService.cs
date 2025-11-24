@@ -1,8 +1,12 @@
-﻿namespace AppDocumentManagment.Net
+﻿using System.ServiceModel;
+using AppDocumentManagment.DB.Models;
+using System.Collections.Generic;
+
+namespace AppDocumentManagment.Net
 {
     // ПРИМЕЧАНИЕ. Можно использовать команду "Переименовать" в меню "Рефакторинг", чтобы изменить имя интерфейса "IDocumentManagmentService" в коде и файле конфигурации.
     //Интерфейс работы сервера
-    [ServiceContract(CallbackContract = typeof(IServerChatCallback))]
+    [ServiceContract(CallbackContract = typeof(IServerUpdateDataCallback))]
     public interface IDocumentManagmentService
     {
         //Метод подключения к сервису
@@ -36,8 +40,8 @@
         bool RemoveDepartment(Department inputDepartment);
 
         //Методы работы с сотрудниками
-        [OperationContract(IsOneWay = true)]
-        void AddEmployee(Employee newEmployee);
+        [OperationContract]
+        bool AddEmployee(Employee newEmployee);
 
         [OperationContract]
         List<Employee> GetAllEmployees();
@@ -60,8 +64,8 @@
         [OperationContract]
         bool DeleteEmployee(Employee employee);
 
-        [OperationContract(IsOneWay = true)]
-        void UpdateEmployee(Employee employee);
+        [OperationContract]
+        bool UpdateEmployee(Employee employee);
 
         [OperationContract]
         bool CheckAviableEmployee();
@@ -116,7 +120,7 @@
         bool AddExternalDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument);
 
         [OperationContract]
-        bool AddExternalDocumentFiles(List<ExternalDocumentFiles> externalDocumentFiles);
+        bool AddExternalDocumentFiles(List<ExternalDocumentFile> externalDocumentFiles);
 
         [OperationContract]
         List<ExternalDocumentFile> GetExternalDocumentFiles(int externalDocumentID);
@@ -158,7 +162,7 @@
 
         //Методы работы с регистрацией пользователей
         [OperationContract]
-        bool AddRegistratedUser(RegistratedUser registratedUser);
+        bool AddRegistratedUser(RegistredUser registredUser);
 
         [OperationContract]
         List<RegistredUser> GetAllRegistredUsers();
@@ -167,13 +171,10 @@
         RegistredUser GetRegistredUser(string login, string password);
 
         [OperationContract]
-        RegistredUser UserAutentication(string login, string password);
+        bool UpdateRegistratedUser(RegistredUser registredUser);
 
         [OperationContract]
-        bool UpdateRegistratedUser(RegistratedUser registratedUser);
-
-        [OperationContract]
-        bool RemoveRegistratedUser(RegistratedUser registratedUser);
+        bool RemoveRegistratedUser(RegistredUser registredUser);
 
         [OperationContract]
         bool CheckAviableRegistredUsers();
@@ -185,5 +186,4 @@
         [OperationContract(IsOneWay = true)]
         void UpdateDataCallBack(string message);
     }
-
 }

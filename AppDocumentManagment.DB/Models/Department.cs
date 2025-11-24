@@ -1,4 +1,6 @@
-﻿namespace AppDocumentManagment.DB.Models
+﻿using System.Collections.Generic;
+
+namespace AppDocumentManagment.DB.Models
 {
     public class Department
     {
