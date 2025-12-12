@@ -38,7 +38,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении фотографии работника");
+                Console.WriteLine("Ошибка в сохранении фотографии работника");
             }
             return false;
         }

@@ -2,6 +2,7 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -47,7 +48,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedExternalDocumentStatus));
                 if (!IsInternalDocument)
                 {
-                    if (string.IsNullOrEmpty(SearchString))
+                    if (SearchString.IsNullOrEmpty())
                     {
                         GetExternalDocumentsByDocumentType();
                     }
@@ -82,7 +83,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedExternalDocumentType));
                 if (!IsInternalDocument)
                 {
-                    if (string.IsNullOrEmpty(SearchString))
+                    if (SearchString.IsNullOrEmpty())
                     {
                         GetExternalDocumentsByDocumentType();
                     }
@@ -117,7 +118,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedInternalDocumentStatus));
                 if (IsInternalDocument)
                 {
-                    if (string.IsNullOrEmpty(SearchString))
+                    if (SearchString.IsNullOrEmpty())
                     {
                         GetInternalDocumentsByDocumentType();
                     }
@@ -152,7 +153,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedInternalDocumentType));
                 if (IsInternalDocument)
                 {
-                    if (string.IsNullOrEmpty(SearchString))
+                    if (SearchString.IsNullOrEmpty())
                     {
                         GetInternalDocumentsByDocumentType();
                     }

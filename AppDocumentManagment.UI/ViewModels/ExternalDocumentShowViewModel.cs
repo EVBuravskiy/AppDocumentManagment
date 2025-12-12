@@ -219,7 +219,7 @@ namespace AppDocumentManagment.UI.ViewModels
             documentFile.ExternalFileData = fileData;
             documentFile.ExternalDocument = ExternalDocument;
             ExternalDocumentFileController externalDocumentFileController = new ExternalDocumentFileController();
-            externalDocumentFileController.AddDocumentFile(documentFile, ExternalDocument);
+            externalDocumentFileController.AddExternalDocumentFile(documentFile, ExternalDocument);
             GetExternalDocumentFiles();
             InitializeExternalDocumentFiles();
         }

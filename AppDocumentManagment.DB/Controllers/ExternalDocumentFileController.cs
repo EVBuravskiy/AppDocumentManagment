@@ -13,12 +13,12 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documentFiles = context.DocumentFiles.Where(df => df.ExternalDocumentID == documentID).ToList();
+                    documentFiles = context.ExternalDocumentFiles.Where(df => df.ExternalDocumentID == documentID).ToList();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в получении файла документа из базы данных");
+                Console.WriteLine("Ошибка в получении файла документа из базы данных");
             }
             return documentFiles;
         }
@@ -30,17 +30,44 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    context.DocumentFiles.AddRange(documentFiles);
+                    context.ExternalDocumentFiles.AddRange(documentFiles);
                     context.SaveChanges();
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в сохранении списка файлов документа в базу данных");
+                Console.WriteLine("Ошибка в сохранении списка файлов документа в базу данных");
                 return false;
             }
         }
+
+        public bool AddExternalDocumentFile(ExternalDocumentFile documentFile, ExternalDocument externalDocument)
+        {
+            if (documentFile == null) return false;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    ExternalDocument aviableExternalDocument = context.ExternalDocuments.Where(d => d.ExternalDocumentID == externalDocument.ExternalDocumentID).FirstOrDefault();
+                    if (aviableExternalDocument != null)
+                    {
+                        documentFile.ExternalDocument = aviableExternalDocument;
+                        context.ExternalDocumentFiles.Add(documentFile);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    Console.WriteLine("Ошибка при добавлении файла входящего документа в базу данных.\nВходящий документ не был найден");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка в добавлении файла входящего документа в базу данных");
+                return false;
+            }
+        }
+
         public bool RemoveDocumentFile(ExternalDocumentFile documentFile)
         {
             if (documentFile == null) return false;
@@ -48,16 +75,16 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocumentFile aviableDocumentFile = context.DocumentFiles.Where(f => f.ExternalDocumentFileID == documentFile.ExternalDocumentFileID).FirstOrDefault();
+                    ExternalDocumentFile aviableDocumentFile = context.ExternalDocumentFiles.Where(f => f.ExternalDocumentFileID == documentFile.ExternalDocumentFileID).FirstOrDefault();
                     if (aviableDocumentFile == null) return false;
-                    context.DocumentFiles.Remove(aviableDocumentFile);
+                    context.ExternalDocumentFiles.Remove(aviableDocumentFile);
                     context.SaveChanges();
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка в удалении файла документа из базы данных");
+                Console.WriteLine("Ошибка в удалении файла документа из базы данных");
                 return false;
             }
         }
