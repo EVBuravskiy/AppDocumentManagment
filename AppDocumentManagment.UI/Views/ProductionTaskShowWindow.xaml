@@ -1,4 +1,4 @@
-﻿<Window x:Class="AppDocumentManagment.UI.Views.ProductionTaskWindow"
+﻿<Window x:Class="AppDocumentManagment.UI.Views.ProductionTaskShowWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -52,29 +52,17 @@
             <Grid>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="TaskTitle" 
-                             Grid.Row="0"
-                             Style="{StaticResource ItemTitleBox}"
-                             VerticalAlignment="Top"
-                             FontSize="14"
-                             Text="{Binding DocumentNumber}"
-                             Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"
-                             ToolTip="Введите наименование задачи..."
-                             />
-                    <Label IsHitTestVisible="False" 
-                           Grid.Row="0"
-                           Foreground="DimGray"
-                           Content="Введите наименование задачи..."
-                           VerticalAlignment="Top"
-                           FontSize="14"
-                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentNumber, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                    <TextBlock Grid.Row="0" 
+                               Margin="27 0 0 0"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Text="Наименование задачи:"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
@@ -98,95 +86,66 @@
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="180"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Margin="27 0 0 0"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
-                                   Text="Введите или выберите дату срока выполнения задания:"/>
-                        <DatePicker Grid.Column="1"
-                                    x:Name="DocumentDate"
-                                    Background="White"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    BorderBrush="Transparent"
-                                    FontFamily="Arial"
-                                    FontSize="13"
-                                    FontWeight="DemiBold"
-                                    HorizontalContentAlignment="Left"
-                                    Margin="0 0,20,0"
-                                    Padding="10 0"
-                                    SelectedDateFormat="Short" IsDropDownOpen="False"
-                                    SelectedDate="{Binding DocumentDate}"/>
+                                   Text="Срок выполнения:"/>
+                        <TextBlock Grid.Column="1"
+                                   Margin="0 0 0 0"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="10.10.2025"/>
+                        <TextBlock x:Name="ImportantTask"
+                                   Visibility="Visible"
+                                   Grid.Column="2"
+                                   Margin="0 0 20 0"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Foreground="Red"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="СРОЧНОЕ ВЫПОЛЕНИЕ!!!"/>
                     </Grid>
-                    <TextBox x:Name="DocumentTitle" 
-                             Grid.Row="3"
-                             Style="{StaticResource ItemTitleBox}"
-                             VerticalAlignment="Top"
-                             FontSize="14"
-                             Text="{Binding DocumentTitle}"
-                             Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"
-                             TextWrapping="Wrap"
-                             Height="80"
-                             ToolTip="Введите описание задачи"
-                             />
-                    <Label IsHitTestVisible="False" 
-                           Grid.Row="3"
-                           Foreground="DimGray"
-                           Content="Введите описание задачи..."
-                           VerticalAlignment="Center"
-                           FontSize="14"
-                           Visibility="{Binding Text.IsEmpty, ElementName=DocumentTitle, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="3">
+                        <TextBlock Grid.Row="3"
+                                   Margin="27 0 0 0"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   Text="Описание задачи"/>
+                        <TextBlock Grid.Row="3"
+                                   Margin="27 0 0 0"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   Text="Описание задачи"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="180"/>
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="SubTask" 
-                             Grid.Column="0"
-                             Style="{StaticResource ItemTitleBox}"
-                             VerticalAlignment="Top"
-                             FontSize="14"
-                             Text="{Binding DocumentTitle}"
-                             Background="WhiteSmoke"
-                             SpellCheck.IsEnabled="True"
-                             TextWrapping="Wrap"
-                             ToolTip="Введите описание задачи"
-                             />
-                <Label IsHitTestVisible="False" 
-                           Grid.Column="0"
-                           Foreground="DimGray"
-                           Content="Введите подзадачу..."
-                           VerticalAlignment="Top"
-                           FontSize="14"
-                           Visibility="{Binding Text.IsEmpty, ElementName=SubTask, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30,10,30,0"/>
-                <Grid Grid.Column="1">
-                    <Button Style="{StaticResource Buttons}"
-                            Height="40"
-                            Width="150"
-                            Padding="0"
-                            Margin="0 0 20 0"
-                            HorizontalAlignment="Right"
-                            Command="{Binding IOpenContractorCompanyListWindow}">
-                        <Grid>
-                            <TextBlock x:Name="ButtonAddSubTask"
-                                   TextAlignment="Center"
-                                   Visibility="Visible">Добавить <LineBreak/> подзадачу</TextBlock>
-                        </Grid>
-                    </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="180"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Margin="27 0 0 5"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Text="Подзадачи текущей задачи:"/>
                 </Grid>
-            </Grid>
                 <Grid>
                     <ListView Margin="20 0" 
                               MinHeight="120">
@@ -287,32 +246,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Grid>
-                    <Button Style="{StaticResource Buttons}"
-                            Height="40"
-                            Width="150"
-                            Padding="0"
-                            Margin="20 5 0 0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                        Command="{Binding IOpenContractorCompanyListWindow}">
-                        <TextBlock x:Name="ButtonRemovePerformarce"
-                                   TextAlignment="Center"
-                                   Visibility="Visible">Удалить<LineBreak/> исполнителя</TextBlock>
-                    </Button>
-                    <Button Style="{StaticResource Buttons}"
-                            Height="40"
-                            Width="150"
-                            Padding="0"
-                            Margin="0 5 20 0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                        Command="{Binding IOpenContractorCompanyListWindow}">
-                    <TextBlock x:Name="ButtonAddPerformarce"
-                                   TextAlignment="Center"
-                                   Visibility="Visible">Добавить <LineBreak/> исполнителя</TextBlock>
-                </Button>
-                </Grid>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="4"
@@ -325,13 +258,13 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            Foreground="White"
-                           Margin="20 0"
+                           Margin="20 -25"
                            FontSize="14"
                            FontWeight="Bold"
                            Text="Файлы приложенные к задаче: "/>
                 <ListView Grid.Row="1"
                           x:Name="FileList"
-                          Margin="20 0 20 10"
+                          Margin="20 -25 20 10"
                           ItemsSource="{Binding DocumentFiles}"
                           SelectedItem="{Binding SelectedDocumentFile}">
                     <ListView.ItemTemplate>
@@ -383,7 +316,7 @@
                     FontSize="18"
                     FontWeight="Bold"
                     Command="{Binding ISendToExaminingPerson}">
-                <TextBlock TextAlignment="Center"> Направить на <LineBreak/>исполнение</TextBlock>
+                <TextBlock TextAlignment="Center"> Направить на <LineBreak/>проверку</TextBlock>
             </Button>
         </Grid>
         <Grid Grid.Row="7" Background="Black"/>
