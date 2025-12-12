@@ -17,6 +17,10 @@ namespace AppDocumentManagment.DB.Controllers
         public DbSet<ExternalDocumentFile> ExternalDocumentFiles { get; set; } = null!;
         public DbSet<InternalDocument> InternalDocuments { get; set; } = null!;
         public DbSet<InternalDocumentFile> InternalDocumentFiles { get; set; } = null!;
+        public DbSet<ProductionSubTask> ProductionSubTasks { get; set; } = null!;
+        public DbSet<ProductionTaskComment> ProductionTaskComments { get; set; } = null!;
+        public DbSet<ProductionTaskFile> ProductionTaskFiles { get; set; } = null!;
+        public DbSet<ProductionTask> ProductionTasks { get; set; } = null!;
         public ApplicationContext() 
         {
             Database.EnsureCreated();
