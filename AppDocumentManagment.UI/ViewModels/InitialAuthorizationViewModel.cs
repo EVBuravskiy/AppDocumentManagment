@@ -15,7 +15,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public int LoginBorderThickness { get; set; } = 1;
         private string loginTipText = "Введите логин... Логин может состоять из любых латинских букв(в верхнем или нижнем регистре), цифр и подчеркивания";
         public string LoginTipText
-        {
+        { 
             get => loginTipText;
             set
             {
