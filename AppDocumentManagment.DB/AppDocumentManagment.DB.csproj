@@ -121,6 +121,10 @@
     <Compile Include="Controllers\ExternalDocumentFileController.cs" />
     <Compile Include="Controllers\InternalDocumentController.cs" />
     <Compile Include="Controllers\InternalDocumentFileController.cs" />
+    <Compile Include="Controllers\ProductionSubTaskController.cs" />
+    <Compile Include="Controllers\ProductionTaskCommentController.cs" />
+    <Compile Include="Controllers\ProductionTaskController.cs" />
+    <Compile Include="Controllers\ProductionTaskFileController.cs" />
     <Compile Include="Controllers\RegistredUserController.cs" />
     <Compile Include="Models\ContractorCompany.cs" />
     <Compile Include="Models\Department.cs" />
@@ -134,6 +138,11 @@
     <Compile Include="Models\InternalDocument.cs" />
     <Compile Include="Models\InternalDocumentFile.cs" />
     <Compile Include="Models\InternalDocumentType.cs" />
+    <Compile Include="Models\ProductionSubTask.cs" />
+    <Compile Include="Models\ProductionTask.cs" />
+    <Compile Include="Models\ProductionTaskComment.cs" />
+    <Compile Include="Models\ProductionTaskFile.cs" />
+    <Compile Include="Models\ProductionTaskStatus.cs" />
     <Compile Include="Models\RegistredUser.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
