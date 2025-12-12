@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
+        xmlns:uc="clr-namespace:AppDocumentManagment.UI.Views.UserControllers"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
         MinHeight="450" 
@@ -98,7 +99,7 @@
                     <TextBlock TextAlignment="Center"> Поставленные <LineBreak/> задания</TextBlock>
                 </Button>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" x:Name="DocumentPanel" Visibility="Visible">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="1"/>
@@ -663,6 +664,137 @@
                         </Grid>
                     </Grid>
 
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" x:Name="TaskPanel" Visibility="Visible">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="#FF121212" Offset="0.796"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"
+                           Style="{StaticResource AdminDocumentTextblock}"
+                           TextAlignment="Left"
+                           TextWrapping="Wrap"
+                           Padding="20 0"
+                           FontSize="25"
+                           FontFamily="Impact"
+                           FontWeight="Bold"
+                           Text="Задачи на исполнении"
+                           Foreground="DarkSlateGray"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="330"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" 
+                            BorderBrush="LightCoral" 
+                            CornerRadius="5"
+                            BorderThickness="5">
+                        <StackPanel Orientation="Vertical" 
+                                    Grid.Column="0">
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Padding="10 10"
+                                       FontSize="20"
+                                       FontFamily="Impact"
+                                       Foreground="Brown"
+                                       Text="Новые задачи"
+                                       Background="LightCoral"/>
+                            <ListView ItemsSource="{Binding InternalDocuments}"
+                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:ProductionTaskItem Background="LightCoral"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="1" 
+                            BorderBrush="LightSalmon" 
+                            CornerRadius="5"
+                            BorderThickness="5">
+                        <StackPanel Orientation="Vertical" 
+                                    Grid.Column="0">
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Padding="10 10"
+                                       FontSize="20"
+                                       FontFamily="Impact"
+                                       Foreground="OrangeRed"
+                                       Text="В процессе"
+                                       Background="LightSalmon"/>
+                            <ListView ItemsSource="{Binding InternalDocuments}"
+                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:ProductionTaskItem Background="LightSalmon"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="2" 
+                            BorderBrush="LightYellow" 
+                            CornerRadius="5"
+                            BorderThickness="5">
+                        <StackPanel Orientation="Vertical" 
+                                    Grid.Column="0">
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Padding="10 10"
+                                       FontSize="20"
+                                       FontFamily="Impact"
+                                       Foreground="DimGray"
+                                       Text="На проверке"
+                                       Background="LightYellow"/>
+                            <ListView ItemsSource="{Binding InternalDocuments}"
+                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:ProductionTaskItem Background="LightYellow"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="3" 
+                            BorderBrush="GreenYellow" 
+                            CornerRadius="5"
+                            BorderThickness="5">
+                        <StackPanel Orientation="Vertical" 
+                                    Grid.Column="0">
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Padding="10 10"
+                                       FontSize="20"
+                                       FontFamily="Impact"
+                                       Foreground="DarkSlateGray"
+                                       Text="Завершенные"
+                                       Background="GreenYellow"/>
+                            <ListView ItemsSource="{Binding InternalDocuments}"
+                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <uc:ProductionTaskItem Background="GreenYellow"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Grid>
             <Grid Grid.Column="2"
