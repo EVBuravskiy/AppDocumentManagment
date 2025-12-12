@@ -1,8 +1,5 @@
 ﻿using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.DB.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AppDocumentManagment.DB.Controllers
 {
@@ -134,8 +131,7 @@ namespace AppDocumentManagment.DB.Controllers
 
         public bool CheckAviableRegistredUsers()
         {
-            using (ApplicationContext context = new ApplicationContext())
-            {
+            using (ApplicationContext context = new ApplicationContext()) {
                 List<RegistredUser> registredUsers = GetAllRegistredUsers();
                 RegistredUser admin = registredUsers.Where(e => e.UserRole == UserRole.Administrator).FirstOrDefault();
                 if (admin != null) return true;
@@ -144,4 +140,3 @@ namespace AppDocumentManagment.DB.Controllers
         }
     }
 }
-

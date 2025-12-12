@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AppDocumentManagment.DB.Models
+﻿namespace AppDocumentManagment.DB.Models
 {
     public class RegistredUser
     {
@@ -9,7 +7,7 @@ namespace AppDocumentManagment.DB.Models
         public string RegistredUserPassword { get; set; }
         public UserRole UserRole { get; set; }
         public DateTime RegistredUserTime { get; set; }
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
         public int EmployeeID { get; set; }
         public bool IsRegistered { get; set; } = false;
     }

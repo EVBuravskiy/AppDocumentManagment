@@ -2,9 +2,9 @@
 {
     public enum ExternalDocumentType
     {
-        Contract,
-        CommercialOffer,
-        Letter,
-        GovernmentLetter,
+        Contract,           
+        CommercialOffer,    
+        Letter,             
+        GovernmentLetter,   
     }
 }

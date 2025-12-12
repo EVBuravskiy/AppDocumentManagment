@@ -1,7 +1,4 @@
 ﻿using AppDocumentManagment.DB.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -15,29 +12,12 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    documents = context.ExternalDocuments.ToList();
+                    documents = context.Documents.ToList();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в получении файла документа из базы данных");
-            }
-            return documents;
-        }
-
-        public List<ExternalDocument> GetExternalDocumentsByEmployeeReceivedDocumentID(int employeeReceivedDocumentID)
-        {
-            List<ExternalDocument> documents = new List<ExternalDocument>();
-            try
-            {
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    documents = context.ExternalDocuments.Where(d => d.EmployeeID == employeeReceivedDocumentID).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка в получении файла документа из базы данных");
+                MessageBox.Show("Ошибка в получении файла документа из базы данных");
             }
             return documents;
         }
@@ -55,14 +35,14 @@ namespace AppDocumentManagment.DB.Controllers
                         Employee employee = context.Employees.Where(e => e.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
                         document.EmployeeReceivedDocument = employee;
                     }
-                    context.ExternalDocuments.Add(document);
+                    context.Documents.Add(document);
                     context.SaveChanges();
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в сохранении документа в базу данных");
+                MessageBox.Show("Ошибка в сохранении документа в базу данных");
                 return false;
             }
         }
@@ -74,23 +54,23 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument aviableDocument = context.ExternalDocuments.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
+                    ExternalDocument aviableDocument = context.Documents.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
-                        context.ExternalDocuments.Remove(aviableDocument);
+                        context.Documents.Remove(aviableDocument);
                         context.SaveChanges();
                     }
-                    List<ExternalDocumentFile> files = context.ExternalDocumentFiles.Where(d => d.ExternalDocumentID == document.ExternalDocumentID).ToList();
-                    if (files != null && files.Count > 0)
+                    List<ExternalDocumentFile> files = context.DocumentFiles.Where(d => d.ExternalDocumentID == document.ExternalDocumentID).ToList();
+                    if(files != null && files.Count > 0)
                     {
-                        context.ExternalDocumentFiles.RemoveRange(files);
+                        context.DocumentFiles.RemoveRange(files);
                     }
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в удалении документа из базы данных или его файлов");
+                MessageBox.Show("Ошибка в удалении документа из базы данных или его файлов");
                 return false;
             }
         }
@@ -103,7 +83,7 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument aviableDocument = context.ExternalDocuments.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
+                    ExternalDocument aviableDocument = context.Documents.Where(x => x.ExternalDocumentID == document.ExternalDocumentID).FirstOrDefault();
                     if (aviableDocument != null)
                     {
                         aviableDocument.ExternalDocumentTitle = document.ExternalDocumentTitle;
@@ -119,22 +99,21 @@ namespace AppDocumentManagment.DB.Controllers
                         {
                             Employee employee = context.Employees.Where(x => x.EmployeeID == document.EmployeeReceivedDocument.EmployeeID).FirstOrDefault();
                             aviableDocument.EmployeeReceivedDocument = employee;
-                            aviableDocument.SendingDate = document.SendingDate;
                         }
+                        aviableDocument.SendingDate = document.SendingDate;
                         aviableDocument.ExternalDocumentStatus = document.ExternalDocumentStatus;
-                        context.ExternalDocuments.Update(aviableDocument);
+                        context.Documents.Update(aviableDocument);
                         context.SaveChanges();
-                        result = true;
+                        result = true; 
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в обновлении документа в базе данных или его файлов");
+                MessageBox.Show("Ошибка в обновлении документа в базе данных или его файлов");
                 result = false;
             }
             return result;
         }
     }
 }
-

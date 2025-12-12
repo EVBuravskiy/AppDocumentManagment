@@ -1,7 +1,4 @@
 ﻿using AppDocumentManagment.DB.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace AppDocumentManagment.DB.Controllers
@@ -21,7 +18,7 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в получении файла документа из базы данных");
+                MessageBox.Show("Ошибка в получении файла документа из базы данных");
             }
             return documentFiles;
         }
@@ -40,34 +37,10 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в сохранении списка файлов документа в базу данных");
+                MessageBox.Show("Ошибка в сохранении списка файлов документа в базу данных");
                 return false;
             }
         }
-
-        public bool AddInternalDocumentFile(InternalDocumentFile internalDocumentFile, InternalDocument internalDocument)
-        {
-            if (internalDocumentFile == null) return false;
-            if (internalDocument == null) return false;
-            try
-            {
-                using (ApplicationContext context = new ApplicationContext())
-                {
-                    InternalDocument aviableInternalDocument = context.InternalDocuments.Where(d => d.InternalDocumentID == internalDocument.InternalDocumentID).FirstOrDefault();
-                    if (aviableInternalDocument == null) return false;
-                    internalDocumentFile.InternalDocument = aviableInternalDocument;
-                    context.InternalDocumentFiles.Add(internalDocumentFile);
-                    context.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка в сохранении файла документа в базу данных");
-                return false;
-            }
-        }
-
         public bool RemoveInternalDocumentFile(InternalDocumentFile internalDocumentFile)
         {
             if (internalDocumentFile == null) return false;
@@ -84,9 +57,10 @@ namespace AppDocumentManagment.DB.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка в удалении файла документа из базы данных");
+                MessageBox.Show("Ошибка в удалении файла документа из базы данных");
                 return false;
             }
         }
     }
 }
+

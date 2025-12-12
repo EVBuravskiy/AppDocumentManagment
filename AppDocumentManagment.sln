@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36127.28
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.UI", "AppDocumentManagment.UI\AppDocumentManagment.UI.csproj", "{A3E20C86-FFE4-465F-9835-8F522CED6449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.DB", "AppDocumentManagment.DB\AppDocumentManagment.DB.csproj", "{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDocumentManagment.DB", "AppDocumentManagment.DB\AppDocumentManagment.DB.csproj", "{B38929D2-64DE-48F2-B27B-80CEFDF1943A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3E20C86-FFE4-465F-9835-8F522CED6449}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D2C2203-67AE-4A7F-BF9F-F5DE25BC35FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B38929D2-64DE-48F2-B27B-80CEFDF1943A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B38929D2-64DE-48F2-B27B-80CEFDF1943A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B38929D2-64DE-48F2-B27B-80CEFDF1943A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B38929D2-64DE-48F2-B27B-80CEFDF1943A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,22 +1,16 @@
 ﻿using AppDocumentManagment.DB.Models;
-using Microsoft.EntityFrameworkCore.Query;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AppDocumentManagment.DB.Controllers
 {
     public class EmployeeController
     {
-        public bool AddEmployee(Employee newEmployee)
+        public void AddEmployee(Employee newEmployee)
         {
-            bool result = false;
             using (ApplicationContext context = new ApplicationContext())
             {
                 context.Employees.Add(newEmployee);
                 context.SaveChanges();
-                result = true;
             }
-            return result;
         }
 
         public List<Employee> GetAllEmployees()
@@ -80,16 +74,13 @@ namespace AppDocumentManagment.DB.Controllers
             return result;
         }
 
-        public bool UpdateEmployee(Employee inputEmployee)
+        public void UpdateEmployee(Employee inputEmployee)
         {
-            bool result = false;
             using (ApplicationContext context = new ApplicationContext())
             {
                 context.Employees.Update(inputEmployee);
                 context.SaveChanges();
-                result = true;
             }
-            return result;
         }
 
         public Employee GetGeneralDirector()
