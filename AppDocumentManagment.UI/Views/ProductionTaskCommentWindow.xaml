@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppDocumentManagment.UI.Views"
+        xmlns:ti="clr-namespace:AppDocumentManagment.UI.Views.UserControllers"
         mc:Ignorable="d"
         Title="АИС Документооборот"  
         Height="900"
@@ -54,11 +55,10 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Margin="20 10">
-                    <ListView ItemsSource="{Binding ContractorCompanies}"
-                              SelectedItem="{Binding SelectedContractorCompany}">
+                    <ListView ItemsSource="{Binding ProductionTaskComments}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                
+                                <ti:ProductionTaskCommentItem Width="530"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -70,7 +70,7 @@
                              VerticalAlignment="Top"
                              VerticalContentAlignment="Top"
                              FontSize="14"
-                             Text="{Binding ContractorCompanyShortTitle}"
+                             Text="{Binding ProductionTaskCommentText}"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
                              ToolTip="Введите комментарий..."
@@ -79,7 +79,7 @@
                     <Label IsHitTestVisible="False" 
                            Foreground="DimGray"
                            Content="Введите комментарий..."
-                           VerticalAlignment="Top"
+                           VerticalAlignment="Center"
                            Height="160"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=TaskComment, Converter={StaticResource BooleanToVisibilityConverter}}"

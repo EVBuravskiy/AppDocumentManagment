@@ -232,8 +232,9 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IOpenProductionTaskCommentWindow => new RelayCommand(openProductionTaskCommentWindow => OpenProductionTaskCommentWindow());
         private void OpenProductionTaskCommentWindow()
         {
-            ProductionTaskCommentWindow productionTaskCommentWindow = new ProductionTaskCommentWindow();
+            ProductionTaskCommentWindow productionTaskCommentWindow = new ProductionTaskCommentWindow(null, CurrentEmployee);
             productionTaskCommentWindow.ShowDialog();
+            ProductionTaskComments = productionTaskCommentWindow.viewModel.ProductionTaskCommentsList;
         }
     }
 }

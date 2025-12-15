@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,12 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class ProductionTaskCommentWindow : Window
     {
-        public ProductionTaskCommentWindow()
+        public ProductionTaskCommentViewModel viewModel { get; set; }
+        public ProductionTaskCommentWindow(ProductionTask currentProductionTask, Employee currentEmployee)
         {
+            viewModel = new ProductionTaskCommentViewModel(this, currentProductionTask, currentEmployee);
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

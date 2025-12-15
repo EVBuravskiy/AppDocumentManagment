@@ -395,7 +395,7 @@
                     FontFamily="Futura Now" 
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IShowComment}"/>
+                    Command="{Binding IOpenProductionTaskCommentWindow}"/>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
