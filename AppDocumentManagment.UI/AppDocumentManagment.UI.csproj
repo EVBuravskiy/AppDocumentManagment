@@ -14,7 +14,6 @@
     <None Remove="Resources\Images\SearchIcon.png" />
     <None Remove="Resources\Images\ShowPassword.png" />
     <None Remove="Resources\Images\StartPageImage.png" />
-    <None Remove="Views\AppIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,7 +26,6 @@
     <Resource Include="Resources\Images\SearchIcon.png" />
     <Resource Include="Resources\Images\ShowPassword.png" />
     <Resource Include="Resources\Images\StartPageImage.png" />
-    <Resource Include="Views\AppIcon.png" />
   </ItemGroup>
 
 </Project>
