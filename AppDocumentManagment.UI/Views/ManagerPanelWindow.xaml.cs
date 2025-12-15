@@ -11,6 +11,12 @@ namespace AppDocumentManagment.UI.Views
     public partial class ManagerPanelWindow : Window
     {
         private ManagerPanelViewModel viewModel;
+
+        public ManagerPanelWindow()
+        {
+            InitializeComponent();
+        }
+
         public ManagerPanelWindow(int currentUserID)
         {
             InitializeComponent();

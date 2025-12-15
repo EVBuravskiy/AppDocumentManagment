@@ -684,43 +684,17 @@
                            TextWrapping="Wrap"
                            Padding="20 0"
                            FontSize="25"
-                           FontFamily="Impact"
+                           FontFamily="Futura Now"
                            FontWeight="Bold"
                            Text="Задачи на исполнении"
                            Foreground="DarkSlateGray"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="330"/>
-                        <ColumnDefinition Width="330"/>
-                        <ColumnDefinition Width="330"/>
-                        <ColumnDefinition Width="330"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" 
-                            BorderBrush="LightCoral" 
-                            CornerRadius="5"
-                            BorderThickness="5">
-                        <StackPanel Orientation="Vertical" 
-                                    Grid.Column="0">
-                            <TextBlock Style="{StaticResource AdminDocumentTextblock}"
-                                       TextAlignment="Center"
-                                       TextWrapping="Wrap"
-                                       Padding="10 10"
-                                       FontSize="20"
-                                       FontFamily="Impact"
-                                       Foreground="Brown"
-                                       Text="Новые задачи"
-                                       Background="LightCoral"/>
-                            <ListView ItemsSource="{Binding InternalDocuments}"
-                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <uc:ProductionTaskItem Background="LightCoral"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Column="1" 
                             BorderBrush="LightSalmon" 
                             CornerRadius="5"
                             BorderThickness="5">
@@ -731,9 +705,9 @@
                                        TextWrapping="Wrap"
                                        Padding="10 10"
                                        FontSize="20"
-                                       FontFamily="Impact"
-                                       Foreground="OrangeRed"
-                                       Text="В процессе"
+                                       FontFamily="Georgia"
+                                       Foreground="Brown"
+                                       Text="В РАБОТЕ"
                                        Background="LightSalmon"/>
                             <ListView ItemsSource="{Binding InternalDocuments}"
                                       SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
@@ -745,7 +719,7 @@
                             </ListView>
                         </StackPanel>
                     </Border>
-                    <Border Grid.Column="2" 
+                    <Border Grid.Column="1" 
                             BorderBrush="LightYellow" 
                             CornerRadius="5"
                             BorderThickness="5">
@@ -756,9 +730,9 @@
                                        TextWrapping="Wrap"
                                        Padding="10 10"
                                        FontSize="20"
-                                       FontFamily="Impact"
+                                       FontFamily="Helvetica Now"
                                        Foreground="DimGray"
-                                       Text="На проверке"
+                                       Text="НА ПРОВЕРКЕ"
                                        Background="LightYellow"/>
                             <ListView ItemsSource="{Binding InternalDocuments}"
                                       SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
@@ -770,7 +744,7 @@
                             </ListView>
                         </StackPanel>
                     </Border>
-                    <Border Grid.Column="3" 
+                    <Border Grid.Column="2" 
                             BorderBrush="GreenYellow" 
                             CornerRadius="5"
                             BorderThickness="5">
@@ -781,9 +755,10 @@
                                        TextWrapping="Wrap"
                                        Padding="10 10"
                                        FontSize="20"
-                                       FontFamily="Impact"
+                                       FontFamily="Futura Now"
+                                       FontWeight="Bold"
                                        Foreground="DarkSlateGray"
-                                       Text="Завершенные"
+                                       Text="ВЫПОЛНЕННЫЕ"
                                        Background="GreenYellow"/>
                             <ListView ItemsSource="{Binding InternalDocuments}"
                                       SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">

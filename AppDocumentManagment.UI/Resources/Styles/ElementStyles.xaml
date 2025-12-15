@@ -3,7 +3,7 @@
 
     <!-- Buttons -->
     <Style x:Key="Buttons" TargetType="Button">
-        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontFamily" Value="Futura Now"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Background" Value="{DynamicResource ButtonNormalColor}"/>
@@ -33,7 +33,7 @@
     
     <!-- Top panel label -->
     <Style x:Key="TopPanelLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontFamily" Value="Futura Now"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -139,7 +139,7 @@
     <!-- Textblock for Admin and Document panel -->
     <Style x:Key="AdminDocumentTextblock" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontFamily" Value="Futura Now"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
         <Setter Property="TextWrapping" Value="Wrap"/>

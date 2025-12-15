@@ -71,7 +71,7 @@
                            VerticalAlignment="Center"
                            Margin="30 0"
                            Foreground="Gray"
-                           FontFamily="Arial"
+                           FontFamily="Futura Now"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=SearchStringBox, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <Button HorizontalAlignment="Right"

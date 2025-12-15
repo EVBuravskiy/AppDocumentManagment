@@ -326,7 +326,7 @@
                     Style="{StaticResource Buttons}"
                     Padding="10 10"
                     Margin="20 5"
-                    FontFamily="Arial" 
+                    FontFamily="Futura Now" 
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IRemoveInternalDocument}"/>
@@ -337,7 +337,7 @@
                     Style="{StaticResource Buttons}"
                     Padding="10, 10"
                     Margin="20 5"
-                    FontFamily="Arial" 
+                    FontFamily="Futura Now" 
                     FontSize="16"
                     FontWeight="Bold"
                     Command="{Binding IRegisterOrUpdateInternalDocument}"/>
@@ -346,7 +346,7 @@
                     Style="{StaticResource Buttons}"
                     Padding="25 5"
                     Margin="20 20"
-                    FontFamily="Arial" 
+                    FontFamily="Futura Now" 
                     FontSize="18"
                     FontWeight="Bold"
                     Height="80"

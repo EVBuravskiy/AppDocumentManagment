@@ -35,7 +35,7 @@
             </Grid.Background>
             <Label Grid.Row="0" 
                    x:Name="GreetingLabel"
-                   Content="Панель редактирования задачи" 
+                   Content="Панель задачи" 
                    HorizontalAlignment="Left" 
                    Padding="20,0"
                    Style="{StaticResource TopPanelLabel}"
@@ -57,7 +57,8 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" 
+                    <TextBlock Grid.Row="0"
+                               FontFamily="Futura Now"
                                Margin="27 0 0 0"
                                FontSize="14"
                                FontWeight="Bold"
@@ -70,6 +71,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Margin="27 0 0 0"
+                                   FontFamily="Futura Now"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
@@ -113,7 +115,7 @@
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="СРОЧНОЕ ВЫПОЛЕНИЕ!!!"/>
+                                   Text="ВАЖНАЯ ЗАДАЧА!!!"/>
                     </Grid>
                     <StackPanel Orientation="Vertical" Grid.Row="3">
                         <TextBlock Grid.Row="3"
@@ -121,7 +123,7 @@
                                    FontSize="14"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
-                                   Text="Описание задачи"/>
+                                   Text="Описание задачи:"/>
                         <TextBlock Grid.Row="3"
                                    Margin="27 0 0 0"
                                    FontSize="14"
@@ -195,23 +197,23 @@
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Grid.Row="1"
                                                            Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="Должность: "/>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="14"
                                                            HorizontalAlignment="Left"
                                                            Text="Фамилия, имя, отчество"/>
                                         <TextBlock Margin="0 5 0 0"
                                                            Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="Контактный телефон: "/>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="Адрес электронной почты: "/>
@@ -219,24 +221,24 @@
                                     <StackPanel Grid.Column="1">
                                         <TextBlock Grid.Row="1"
                                                            Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="{Binding Position}"/>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="14"
                                                            FontWeight="Bold"
                                                            HorizontalAlignment="Left"
                                                            Text="{Binding EmployeeFullName}"/>
                                         <TextBlock Margin="0 5 0 0"
                                                            Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="{Binding EmployeePhone}"/>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Impact"
+                                                           FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
                                                            Text="{Binding EmployeeEmail}"/>
@@ -302,7 +304,7 @@
                     Style="{StaticResource Buttons}"
                     Padding="10 5"
                     Margin="20 5"
-                    FontFamily="Arial" 
+                    FontFamily="Futura Now"
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IRemoveDocument}"/>
@@ -312,7 +314,7 @@
                     Style="{StaticResource Buttons}"
                     Padding="25 5"
                     Margin="20 5"
-                    FontFamily="Arial" 
+                    FontFamily="Futura Now"
                     FontSize="18"
                     FontWeight="Bold"
                     Command="{Binding ISendToExaminingPerson}">

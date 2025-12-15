@@ -20,8 +20,8 @@
                Style="{StaticResource TopPanelLabel}"
                VerticalAlignment="Top"
                FontSize="32"
-               FontFamily="Impact" 
-               FontWeight="Normal">
+               FontFamily="Futura Now" 
+               FontWeight="Bold">
             <Label.Foreground>
                 <RadialGradientBrush>
                     <GradientStop Color="#FF65037D" Offset="0.288"/>
@@ -52,11 +52,12 @@
                         <Label Content="Для авторизации в системе введите Ваши логин и пароль" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center" 
-                               FontSize="20" 
+                               FontSize="18" 
                                Foreground="Black"
                                HorizontalContentAlignment="Center" 
                                VerticalContentAlignment="Center" 
-                               FontFamily="Impact">
+                               FontFamily="Futura Now"
+                               FontWeight="Bold">
                         </Label>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -74,7 +75,8 @@
                                Margin="25,0,10,0"
                                HorizontalContentAlignment="Left" 
                                VerticalContentAlignment="Center" 
-                               FontFamily="Impact" FontSize="16"
+                               FontFamily="Futura Now" FontSize="20"
+                               FontWeight="Bold"
                                Foreground="Black"/>
                         <Label Content="Пароль"
                                Grid.Column="0" 
@@ -82,7 +84,8 @@
                                Margin="25,0,10,0"
                                HorizontalContentAlignment="Left" 
                                VerticalContentAlignment="Center" 
-                               FontFamily="Impact" FontSize="16"
+                               FontFamily="Futura Now" FontSize="20"
+                               FontWeight="Bold"
                                Foreground="Black" Grid.RowSpan="2"/>
                         <TextBox x:Name="LoginBox" 
                                  Grid.Column="1" 
@@ -151,8 +154,9 @@
                                 Content="Войти в систему" 
                                 HorizontalAlignment="Right" 
                                 Margin="20" 
-                                FontFamily="Impact" 
-                                FontSize="16"
+                                FontFamily="Futura Now" 
+                                FontSize="20"
+                                FontWeight="Bold"
                                 Style="{StaticResource Buttons}"
                                 Command="{Binding IAuthorization}"/>
                     </Grid>
