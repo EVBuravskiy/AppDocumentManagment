@@ -139,7 +139,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void SendInternalDocument()
         {
             InternalDocument newInternalDocument = CreateInternalDocument();
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true, null);
             examiningPersonsWindow.ShowDialog();
             Employee sendingEmployee = examiningPersonsWindow.viewModel.SelectedEmployee;
             if (sendingEmployee == null)

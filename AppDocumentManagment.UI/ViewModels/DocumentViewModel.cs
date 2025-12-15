@@ -403,7 +403,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void SendToExaminingPerson()
         {
             if (!ValidationDocument()) return;
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true, null);
             examiningPersonsWindow.ShowDialog();
             bool result = false;
             if (examiningPersonsWindow.viewModel.SelectedEmployee != null)

@@ -229,6 +229,8 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private bool IsInternalDocument { get; set; }
 
+        private List<ProductionTask> ProductionTasksList;
+
         public ManagerPanelViewModel(ManagerPanelWindow window, int currentUserID)
         {
             ManagerPanelWindow = window;
@@ -236,6 +238,7 @@ namespace AppDocumentManagment.UI.ViewModels
             IsInternalDocument = false;
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
+            ProductionTasksList = new List<ProductionTask>();
             Employees = new List<Employee>();
             Departments = new List<Department>();
             ContractorCompanies = new List<ContractorCompany>();
@@ -254,6 +257,7 @@ namespace AppDocumentManagment.UI.ViewModels
             GetContractorCompanies();
             GetExternalDocuments();
             GetInternalDocuments();
+            GetProductionTasks();
             InitializeExternalDocuments();
             InitializeInternalDocuments();
         }
@@ -615,6 +619,16 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private void GetProductionTasks()
+        {
+            ProductionTaskController productionTaskController = new ProductionTaskController();
+            ProductionTasksList = productionTaskController.GetProductionTasks();
+            foreach(ProductionTask task in ProductionTasksList)
+            {
+                var productionTask = task;
+            }
+        }
+
         private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany, EmployeeRole role)
         {
             ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany, role);
@@ -669,6 +683,14 @@ namespace AppDocumentManagment.UI.ViewModels
             creatingInternalDocumentWindow.ShowDialog();
             GetInternalDocuments();
             GetDocumentBySearchString(SearchString);
+        }
+
+        public ICommand IAddNewTask => new RelayCommand(addNewTask => AddNewTask());
+        private void AddNewTask()
+        {
+            ProductionTaskWindow productionTaskWindow = new ProductionTaskWindow(currentUser, null, null);
+            productionTaskWindow.ShowDialog();
+            GetProductionTasks();
         }
 
         public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });

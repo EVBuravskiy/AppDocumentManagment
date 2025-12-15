@@ -283,7 +283,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IOpenApprovedManagerWindow => new RelayCommand(openApprovedManagerWindow => OpenApprovedManagerWindow());
         private void OpenApprovedManagerWindow()
         {
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true, null);
             examiningPersonsWindow.ShowDialog();
             if(examiningPersonsWindow.viewModel.SelectedEmployee != null)
             {
@@ -305,7 +305,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IOpenSignatoryWindow => new RelayCommand(openSignatoryWindow => OpenSignatoryWindow());
         private void OpenSignatoryWindow()
         {
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(false);
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(false, null);
             examiningPersonsWindow.ShowDialog();
             if (examiningPersonsWindow.viewModel.SelectedEmployee != null)
             {
@@ -483,7 +483,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void SendToExaminingPerson()
         {
             if (!ValidationInternalDocument()) return;
-            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true);
+            ExaminingPersonsWindow examiningPersonsWindow = new ExaminingPersonsWindow(true, null);
             examiningPersonsWindow.ShowDialog();
             bool result = false;
             if (examiningPersonsWindow.viewModel.SelectedEmployee != null)

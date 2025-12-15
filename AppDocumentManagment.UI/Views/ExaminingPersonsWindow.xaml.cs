@@ -1,18 +1,8 @@
 ﻿using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace AppDocumentManagment.UI.Views
 {
@@ -22,9 +12,9 @@ namespace AppDocumentManagment.UI.Views
     public partial class ExaminingPersonsWindow : Window
     {
         public ExaminingPersonViewModel viewModel;
-        public ExaminingPersonsWindow(bool needManager)
+        public ExaminingPersonsWindow(bool needManager, Department selectDepartment)
         {
-            viewModel = new ExaminingPersonViewModel(this, needManager);
+            viewModel = new ExaminingPersonViewModel(this, needManager, selectDepartment);
             InitializeComponent();
             DataContext = viewModel;
         }

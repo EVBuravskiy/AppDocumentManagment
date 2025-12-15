@@ -16,5 +16,6 @@
         public ProductionTaskStatus ProductionTaskStatus { get; set; }
         public List<ProductionSubTask>? ProductionSubTasks { get; set; }
         public List<ProductionTaskComment>? ProductionTaskComments { get; set; }
+        public List<ProductionTaskFile>? ProductionTaskFiles { get; set; }
     }
 }

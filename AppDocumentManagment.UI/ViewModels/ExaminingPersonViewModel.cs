@@ -12,6 +12,8 @@ namespace AppDocumentManagment.UI.ViewModels
         ExaminingPersonsWindow ExaminingPersonsWindow;
 
         private bool NeedManager = false;
+
+        private Department SelectDepartment {  get; set; }
         private List<Department> DepartmentsList { get; set; }
 
         private List<EmployeePhoto> EmployeePhotos { get; set; }
@@ -64,10 +66,11 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ExaminingPersonViewModel(ExaminingPersonsWindow examiningPersonsWindow, bool needManager)
+        public ExaminingPersonViewModel(ExaminingPersonsWindow examiningPersonsWindow, bool needManager, Department selectDepartment)
         {
             ExaminingPersonsWindow = examiningPersonsWindow;
             NeedManager = needManager;
+            SelectDepartment = selectDepartment;
             PanelName = NeedManager == true ? "Список руководства организации" : "Список сотрудников";
             SelectButtonName = NeedManager == true ? "Выбрать руководителя" : "Выбрать сотрудника";
             EmployeesList = new List<Employee>();
@@ -77,6 +80,7 @@ namespace AppDocumentManagment.UI.ViewModels
             GetEmployeesPhotos();
             GetEmployeeList();
             InitializeEmployees();
+            SelectDepartment = selectDepartment;
         }
 
         private void GetEmployeeList()
@@ -84,6 +88,7 @@ namespace AppDocumentManagment.UI.ViewModels
             EmployeesList.Clear();
             EmployeeController employeeController = new EmployeeController();
             List<Employee> employees = new List<Employee>();
+            List<Employee> managers = new List<Employee>();
             employees = employeeController.GetAllEmployees();
             if (NeedManager)
             {
@@ -91,15 +96,26 @@ namespace AppDocumentManagment.UI.ViewModels
                 {
                     if (employee.EmployeeRole != EmployeeRole.Performer)
                     {
-                        EmployeesList.Add(employee);
+                        managers.Add(employee);
                     }
                 }
+                employees = managers;
             }
-            else
+            if (SelectDepartment == null)
             {
                 foreach (Employee employee in employees)
                 {
                     EmployeesList.Add(employee);
+                }
+            }
+            else
+            {
+                foreach(Employee employee in employees)
+                {
+                    if(employee.DepartmentID == SelectDepartment.DepartmentID)
+                    {
+                        EmployeesList.Add(employee);
+                    }
                 }
             }
             foreach (Employee employee in EmployeesList)
