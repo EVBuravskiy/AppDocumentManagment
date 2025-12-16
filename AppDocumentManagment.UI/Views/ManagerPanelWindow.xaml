@@ -666,7 +666,7 @@
 
                 </Grid>
             </Grid>
-            <Grid Grid.Column="1" x:Name="TaskPanel" Visibility="Visible">
+            <Grid Grid.Column="1" x:Name="TaskPanel" Visibility="Hidden">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="1"/>
@@ -719,11 +719,11 @@
                                        Foreground="Brown"
                                        Text="В РАБОТЕ"
                                        Background="LightSalmon"/>
-                            <ListView ItemsSource="{Binding InternalDocuments}"
-                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                            <ListView ItemsSource="{Binding ProductionTaskInProgress}"
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}" Background="Transparent">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Background="LightSalmon"/>
+                                        <uc:ProductionTaskItem Width="430" Background="Transparent"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -744,11 +744,11 @@
                                        Foreground="DimGray"
                                        Text="НА ПРОВЕРКЕ"
                                        Background="LightYellow"/>
-                            <ListView ItemsSource="{Binding InternalDocuments}"
-                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                            <ListView ItemsSource="{Binding ProductionTaskUnderInspection}"
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Background="LightYellow"/>
+                                        <uc:ProductionTaskItem Background="LightYellow" Width="430"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -770,11 +770,11 @@
                                        Foreground="DarkSlateGray"
                                        Text="ВЫПОЛНЕННЫЕ"
                                        Background="GreenYellow"/>
-                            <ListView ItemsSource="{Binding InternalDocuments}"
-                                      SelectedItem="{Binding SelectedInternalDocument, Mode=TwoWay}">
+                            <ListView ItemsSource="{Binding ProductionTaskDone}"
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Background="GreenYellow"/>
+                                        <uc:ProductionTaskItem Background="GreenYellow" Width="430"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>

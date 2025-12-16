@@ -20,7 +20,7 @@ namespace AppDocumentManagment.DB.Controllers
             EmployeePhoto employeePhoto = new EmployeePhoto();
             using(ApplicationContext context = new ApplicationContext()) 
             {
-                employeePhoto = context.EmployeePhotos.Where(e => e.EmployeeID == employeeID).FirstOrDefault();   
+                employeePhoto = context.EmployeePhotos.SingleOrDefault(e => e.EmployeeID == employeeID);   
             }
             return employeePhoto;
         }

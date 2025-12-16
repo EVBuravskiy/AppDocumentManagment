@@ -58,7 +58,7 @@
                     <ListView ItemsSource="{Binding ProductionTaskComments}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ti:ProductionTaskCommentItem Width="530"/>
+                                <ti:ProductionTaskCommentItem Width="520"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

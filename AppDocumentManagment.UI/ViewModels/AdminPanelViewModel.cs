@@ -66,5 +66,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ManagerPanelWindow managerPanelWindow = new ManagerPanelWindow(currentUser.EmployeeID);
             managerPanelWindow.Show();
         }
+
+        public ICommand IExit => new RelayCommand(exit => { _adminPanelWindow.Close(); });
     }
 }

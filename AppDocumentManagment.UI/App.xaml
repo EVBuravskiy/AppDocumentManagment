@@ -13,6 +13,8 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <u:InternalDocumentTypeConverter x:Key="InternalDocumentTypeConverter"/>
             <u:DateConverter x:Key="DateConverter"/>
+            <u:ImportanceConverter x:Key="ImportanceConverter"/>
+            <u:TaskStatusConverter x:Key="TaskStatusConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

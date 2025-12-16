@@ -199,9 +199,9 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 foreach (Employee employee in allEmployees)
                 {
-                    Department department = Departments.Where(x => x.DepartmentID == employee.DepartmentID).FirstOrDefault();
+                    Department department = Departments.SingleOrDefault(x => x.DepartmentID == employee.DepartmentID);
                     employee.Department = department;
-                    EmployeePhoto employeePhoto = EmployeePhotos.Where(p => p.EmployeeID == employee.EmployeeID).FirstOrDefault();
+                    EmployeePhoto employeePhoto = EmployeePhotos.SingleOrDefault(p => p.EmployeeID == employee.EmployeeID);
                     employee.EmployeePhoto = employeePhoto;
                 }
             }

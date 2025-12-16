@@ -42,7 +42,8 @@
                     HorizontalAlignment="Right"
                     Style="{StaticResource Buttons}"
                     Margin="10, 5"
-                    Padding="10, 0"/>
+                    Padding="10, 0"
+                    Command="{Binding IExit}"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">

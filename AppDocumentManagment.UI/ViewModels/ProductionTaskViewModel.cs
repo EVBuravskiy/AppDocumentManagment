@@ -193,7 +193,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 MessageBox.Show("Ошибка в сохранении задачи");
             }
-            //ProductionTaskWindow.Close();
+            ProductionTaskWindow.Close();
         }
 
         public ICommand IAddNewSubTask => new RelayCommand(addNewSubTask => AddNewSubTask());
