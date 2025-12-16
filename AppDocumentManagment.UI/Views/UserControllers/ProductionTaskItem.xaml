@@ -65,6 +65,7 @@
                     <TextBlock Grid.Column="3"
                                Text="{Binding Priority, Converter={StaticResource ImportanceConverter}}"
                                FontFamily="Impact"
+                               FontSize="22"
                                Foreground="DarkRed"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Right"

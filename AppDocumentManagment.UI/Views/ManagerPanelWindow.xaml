@@ -720,10 +720,13 @@
                                        Text="В РАБОТЕ"
                                        Background="LightSalmon"/>
                             <ListView ItemsSource="{Binding ProductionTaskInProgress}"
-                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}" Background="Transparent">
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}" 
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Height="800">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Width="430" Background="Transparent"/>
+                                        <uc:ProductionTaskItem Width="440" Background="Transparent"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -745,10 +748,13 @@
                                        Text="НА ПРОВЕРКЕ"
                                        Background="LightYellow"/>
                             <ListView ItemsSource="{Binding ProductionTaskUnderInspection}"
-                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}">
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Height="800">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Background="LightYellow" Width="430"/>
+                                        <uc:ProductionTaskItem Background="LightYellow" Width="440"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -771,10 +777,13 @@
                                        Text="ВЫПОЛНЕННЫЕ"
                                        Background="GreenYellow"/>
                             <ListView ItemsSource="{Binding ProductionTaskDone}"
-                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}">
+                                      SelectedItem="{Binding SelectedProductionTask, Mode=TwoWay}"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Height="800">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <uc:ProductionTaskItem Background="GreenYellow" Width="430"/>
+                                        <uc:ProductionTaskItem Background="GreenYellow" Width="440"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>

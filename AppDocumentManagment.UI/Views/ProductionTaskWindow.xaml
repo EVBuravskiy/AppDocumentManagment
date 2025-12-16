@@ -234,7 +234,8 @@
                            Text="Список исполнителей задачи:"/>
                 <ListView Height="110"
                           Margin="20 0"
-                          ItemsSource="{Binding ProductionTaskPerformers}">
+                          ItemsSource="{Binding ProductionTaskPerformers}"
+                          SelectedItem="{Binding SelectedTaskPerformer}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -292,7 +293,7 @@
                             Margin="20 5 0 0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
-                        Command="{Binding IOpenContractorCompanyListWindow}">
+                        Command="{Binding IRemovePerformer}">
                         <TextBlock x:Name="ButtonRemovePerformarce"
                                    TextAlignment="Center"
                                    Visibility="Visible">Удалить<LineBreak/> исполнителя</TextBlock>

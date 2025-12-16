@@ -2,8 +2,6 @@
 using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
-using Microsoft.Identity.Client;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -92,6 +90,17 @@ namespace AppDocumentManagment.UI.ViewModels
         public ObservableCollection<ProductionSubTask> ProductionSubTasks { get; set; }
 
         public ObservableCollection<Employee> ProductionTaskPerformers {  get; set; }
+
+        private Employee selectedTaskPerformer;
+        public Employee SelectedTaskPerformer
+        {
+            get => selectedTaskPerformer;
+            set
+            {
+                selectedTaskPerformer = value;
+                OnPropertyChanged(nameof(SelectedTaskPerformer));
+            }
+        }
 
         public ObservableCollection<ProductionTaskFile> ProductionTaskFiles { get; set; }
 
@@ -222,6 +231,21 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskFiles.Add(productionTaskFile);
         }
 
+        public ICommand IDeleteProductionTaskFile => new RelayCommand(removeProductionTaskFile => RemoveProductionTaskFile());
+
+        private void RemoveProductionTaskFile()
+        {
+            if (SelectedProductionTaskFile != null)
+            {
+                ProductionTaskFiles.Remove(SelectedProductionTaskFile);
+                MessageBox.Show("Удаление файла выполнено");
+            }
+            else
+            {
+                MessageBox.Show("Файл не выбран");
+            }
+        }
+
         public ICommand IOpenListPerformers => new RelayCommand(openListPerformers => OpenListPerformers());
         private void OpenListPerformers()
         {
@@ -234,6 +258,15 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        public ICommand IRemovePerformer => new RelayCommand(removePerformer => RemovePerformer());
+        private void RemovePerformer()
+        {
+            if (SelectedTaskPerformer != null)
+            {
+                ProductionTaskPerformers.Remove(SelectedTaskPerformer);
+            }
+        }
+
         public ICommand IOpenProductionTaskCommentWindow => new RelayCommand(openProductionTaskCommentWindow => OpenProductionTaskCommentWindow());
         private void OpenProductionTaskCommentWindow()
         {
@@ -241,5 +274,7 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTaskCommentWindow.ShowDialog();
             ProductionTaskComments = productionTaskCommentWindow.viewModel.ProductionTaskCommentsList;
         }
+
+
     }
 }
