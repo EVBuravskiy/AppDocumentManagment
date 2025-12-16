@@ -19,5 +19,6 @@
         public string? EmployeeEmail { get; set; }
         public string? EmployeeInformation { get; set; }
         public string EmployeeFirstMiddleName => $"{EmployeeFirstName} {EmployeeMiddleName}";
+        public List<ProductionTask> ProductionTasks { get; set; } = new List<ProductionTask>();
     }
 }

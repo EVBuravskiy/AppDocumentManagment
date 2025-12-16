@@ -17,5 +17,7 @@
         public int? EmployeeID { get; set; }
         public DateTime? SendingDate { get; set; }
         public DocumentStatus ExternalDocumentStatus { get; set; }
+        public ProductionTask? ProductionTask { get; set; }
+        public int ProductionTaskID { get; set; } = 0;
     }
 }

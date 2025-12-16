@@ -71,6 +71,7 @@
                              VerticalContentAlignment="Top"
                              FontSize="14"
                              Text="{Binding ProductionTaskCommentText}"
+                             TextWrapping="Wrap"
                              Background="WhiteSmoke"
                              SpellCheck.IsEnabled="True"
                              ToolTip="Введите комментарий..."
@@ -80,10 +81,11 @@
                            Foreground="DimGray"
                            Content="Введите комментарий..."
                            VerticalAlignment="Center"
+                           VerticalContentAlignment="Center"
                            Height="160"
                            FontSize="14"
                            Visibility="{Binding Text.IsEmpty, ElementName=TaskComment, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Margin="30 10"
+                           Margin="30 0"
                            />
                 </Grid>
             </Grid>

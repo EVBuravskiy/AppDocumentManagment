@@ -25,5 +25,8 @@ namespace AppDocumentManagment.DB.Models
         public DocumentStatus InternalDocumentStatus { get; set; }
         public string InternalDocumentTitle { get; set; }
         public string InternalDocumentContent { get; set; }
+        public ProductionTask? ProductionTask { get; set; }
+        public int ProductionTaskID { get; set; } = 0;
+
     }
 }

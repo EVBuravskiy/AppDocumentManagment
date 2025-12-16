@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using Microsoft.Identity.Client;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -148,19 +149,22 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTask.Priority = IsImportant;
             if (ExternalDocument != null) 
             {
-                productionTask.ExternalDocument = ExternalDocument;
+                productionTask.ExternalDocumentID = ExternalDocument.ExternalDocumentID;
             }
             if (InternalDocument != null)
             {
-                productionTask.InternalDocument = InternalDocument;
+                productionTask.InternalDocumentID = InternalDocument.InternalDocumentID;
             }
             productionTask.ProductionTaskCreateDate = DateTime.Now;
             productionTask.ProductionTaskDueDate = ProductionTaskDueDate;
             productionTask.ProductionTaskDescription = ProductionTaskDescription;
-            productionTask.Employees = new List<Employee>();
+            productionTask.EmployeesID = new List<int>();
             if (ProductionTaskPerformers.Count > 0)
             {
-                productionTask.Employees.AddRange(ProductionTaskPerformers);
+                foreach (Employee employee in ProductionTaskPerformers)
+                {
+                    productionTask.EmployeesID.Add(employee.EmployeeID);
+                }
             }
             productionTask.ProductionTaskStatus = ProductionTaskStatus.InProgress;
             productionTask.ProductionSubTasks = new List<ProductionSubTask>();
@@ -189,7 +193,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 MessageBox.Show("Ошибка в сохранении задачи");
             }
-            ProductionTaskWindow.Close();
+            //ProductionTaskWindow.Close();
         }
 
         public ICommand IAddNewSubTask => new RelayCommand(addNewSubTask => AddNewSubTask());
@@ -200,6 +204,7 @@ namespace AppDocumentManagment.UI.ViewModels
             productionSubTask.ProductionSubTaskDescription = SubProductionTaskTitle;
             productionSubTask.ProductionSubTaskCreateTime = DateTime.Now;
             ProductionSubTasks.Add(productionSubTask);
+            SubProductionTaskTitle = string.Empty;
         }
 
         public ICommand IBrowseProductionTaskFile => new RelayCommand(browseProductionTaskFile => BrowseProductionTaskFile());

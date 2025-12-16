@@ -12,24 +12,23 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    ExternalDocument externalDocument = new ExternalDocument();
-                    if (productionTask.ExternalDocumentID != 0)
-                    {
-                        externalDocument = context.ExternalDocuments.SingleOrDefault(exd => exd.ExternalDocumentID == productionTask.ExternalDocumentID);
-                    }
-                    InternalDocument internalDocument = new InternalDocument();
-                    if (productionTask.InternalDocumentID != 0)
-                    {
-                        internalDocument = context.InternalDocuments.SingleOrDefault(ind => ind.InternalDocumentID == productionTask.InternalDocumentID);
-                    }
-                    if (externalDocument != null)
-                    {
-                        productionTask.ExternalDocument = externalDocument;
-                    }
-                    if (internalDocument != null)
-                    {
-                        productionTask.InternalDocument = internalDocument;
-                    }
+                    //if (productionTask.ExternalDocumentID != 0)
+                    //{
+                    //    productionTask.ExternalDocument = context.ExternalDocuments.SingleOrDefault(exd => exd.ExternalDocumentID == productionTask.ExternalDocumentID);
+                    //}
+                    //if (productionTask.InternalDocumentID != 0)
+                    //{
+                    //    productionTask.InternalDocument = context.InternalDocuments.SingleOrDefault(ind => ind.InternalDocumentID == productionTask.InternalDocumentID);
+                    //}
+                    //List<Employee> employees = new List<Employee>();
+                    //employees.AddRange(productionTask.Employees);
+                    //productionTask.Employees.Clear();
+                    //EmployeeController employeeController = new EmployeeController();
+                    //foreach (Employee employee in employees) 
+                    //{
+                    //    Employee aviableEmployee = employeeController.GetEmployeeByID(employee.EmployeeID);
+                    //    productionTask.Employees.Add(aviableEmployee);
+                    //}
                     context.ProductionTasks.Add(productionTask);
                     context.SaveChanges();
                     result = true;
@@ -71,13 +70,20 @@ namespace AppDocumentManagment.DB.Controllers
                     allProductionTasks = context.ProductionTasks.ToList();
                     foreach (ProductionTask productionTask in allProductionTasks)
                     {
-                        foreach (Employee employee in productionTask.Employees)
+                        foreach (int ID in productionTask.EmployeesID)
                         {
-                            if (employee.EmployeeID == employeeID)
+                            if(employeeID == ID)
                             {
                                 productionTasks.Add(productionTask);
                             }
                         }
+                        //foreach (Employee employee in productionTask.Employees)
+                        //{
+                        //    if (employee.EmployeeID == employeeID)
+                        //    {
+                        //        productionTasks.Add(productionTask);
+                        //    }
+                        //}
                     }
                 }
             }

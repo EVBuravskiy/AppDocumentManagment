@@ -239,15 +239,17 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="22"/>
+                                    <ColumnDefinition Width="55"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" 
-                                                BorderBrush="DimGray"
-                                                BorderThickness="2"
-                                                CornerRadius="2">
-                                    <Image Width="20"
-                                           Height="20"
+                                        BorderBrush="DimGray"
+                                        BorderThickness="2"
+                                        CornerRadius="2"
+                                        Width="50"
+                                        Height="50">
+                                    <Image Width="50"
+                                           Height="50"
                                            Source="{Binding EmployeePhoto.FilePath,
                                         FallbackValue={StaticResource DefaultContactImage},
                                         TargetNullValue={StaticResource DefaultContactImage}}"
@@ -255,7 +257,7 @@
                                 </Border>
                                 <Grid Grid.Column="1">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="280"/>
+                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Vertical">
@@ -288,24 +290,24 @@
                                                            FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
-                                                           Text="{Binding Position}"/>
+                                                           Text="{Binding Employee.Position}"/>
                                         <TextBlock Padding="10, 0"
                                                            FontFamily="Futura Now"
                                                            FontSize="12"
                                                            FontWeight="Bold"
                                                            HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeeFullName}"/>
+                                                           Text="{Binding Employee.EmployeeFullName}"/>
                                         <TextBlock Margin="0 5 0 0"
                                                            Padding="10, 0"
                                                            FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeePhone}"/>
+                                                           Text="{Binding Employee.EmployeePhone}"/>
                                         <TextBlock Padding="10, 0"
                                                            FontFamily="Futura Now"
                                                            FontSize="12"
                                                            HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeeEmail}"/>
+                                                           Text="{Binding Employee.EmployeeEmail}"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>

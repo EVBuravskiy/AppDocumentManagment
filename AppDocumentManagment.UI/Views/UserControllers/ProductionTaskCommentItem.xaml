@@ -9,50 +9,54 @@
             Margin="10"
             CornerRadius="5">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0"
-                        BorderThickness="2"
-                        BorderBrush="DimGray"
-                        CornerRadius="2"
-                        Margin=" 0 5"
-                        Width="50">
-                    <Image Width="50"
-                           Height="50"
-                           Source="{Binding DeputyGeneralDirector.EmployeePhoto.FilePath,
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
+                    BorderThickness="2"
+                    BorderBrush="DimGray"
+                    CornerRadius="2"
+                    Margin=" 0 5"
+                    Width="55"
+                    Height="55">
+                <Image Width="55"
+                           Height="55"
+                           Source="{Binding Employee.EmployeePhoto.FilePath,
                         FallbackValue={StaticResource DefaultContactImage},
                         TargetNullValue={StaticResource DefaultContactImage}}"
                            Stretch="UniformToFill"/>
-                </Border>
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="1"
+                            Grid.Row="0"
                             Margin="0 5"
                             HorizontalAlignment="Center">
                     <TextBlock Text="{Binding Employee.Position}"
+                               TextAlignment="Left"
                                Style="{StaticResource AdminDocumentTextblock}"/>
                     <TextBlock Text="{Binding Employee.EmployeeFullName}"
+                               TextAlignment="Left"
                                Style="{StaticResource AdminDocumentTextblock}"/>
                 </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1">
-                <TextBlock Margin="10"
-                           TextWrapping="Wrap"
-                           Style="{StaticResource AdminDocumentTextblock}"
-                           Text="{Binding ProductionTaskCommentText}"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <TextBlock HorizontalAlignment="Right"
-                           Margin="0 0 20 0"
-                           Style="{StaticResource AdminDocumentTextblock}"
-                           Text="{Binding ProductionTaskCommentDate}"/>
+                <Grid Grid.Row="1">
+                    <TextBlock Margin="10"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource AdminDocumentTextblock}"
+                               TextAlignment="Justify"
+                               Text="{Binding ProductionTaskCommentText}"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <TextBlock HorizontalAlignment="Right"
+                               Margin="0 0 20 0"
+                               Style="{StaticResource AdminDocumentTextblock}"
+                               Text="{Binding ProductionTaskCommentDate, Converter={StaticResource DateConverter}}"/>
+                </Grid>
             </Grid>
         </Grid>
     </Border>
