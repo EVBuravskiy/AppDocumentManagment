@@ -113,14 +113,18 @@ namespace AppDocumentManagment.UI.ViewModels
                 ExternalDocumentController controller = new ExternalDocumentController();
                 ExternalDocument = controller.GetExternalDocumentByExternalDocumentID(currentProductionTask.ExternalDocumentID);
                 DocumentTitle = ExternalDocument.ExternalDocumentTitle;
+                ProductionTaskShowWindow.ExternalDocumentBtn.Visibility = Visibility.Visible;
+                ProductionTaskShowWindow.InternalDocumentBtn.Visibility = Visibility.Hidden;
             }
             if (currentProductionTask.InternalDocumentID != 0)
             {
                 InternalDocumentController controller = new InternalDocumentController();
                 InternalDocument = controller.GetInternalDocumentByInternalDocumentID(currentProductionTask.InternalDocumentID);
                 DocumentTitle = InternalDocument.InternalDocumentTitle;
+                ProductionTaskShowWindow.InternalDocumentBtn.Visibility = Visibility.Visible;
+                ProductionTaskShowWindow.ExternalDocumentBtn.Visibility = Visibility.Hidden;
             }
-            if(DocumentTitle == string.Empty)
+            if (DocumentTitle == string.Empty)
             {
                 ProductionTaskShowWindow.DocumentInfo.Visibility = System.Windows.Visibility.Hidden;
             }
@@ -280,6 +284,20 @@ namespace AppDocumentManagment.UI.ViewModels
                     MessageBox.Show("Ошибка в обновлении данных");
                 }
             }
+        }
+
+        public ICommand IOpenExternalDocumentWindow => new RelayCommand(openExternalDocumentWindow => OpenExternalDocumentWindow());
+        private void OpenExternalDocumentWindow()
+        {
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(ExternalDocument, ExternalDocument.ContractorCompany, CurrentEmployee);
+            externalDocumentShowWindow.Show();
+        }
+
+        public ICommand IOpenInternalDocumentWindow => new RelayCommand(openInternalDocumentWindow => OpenInternalDocumentWindow());
+        private void OpenInternalDocumentWindow()
+        {
+            InternalDocumentShowWindow internalDocumentShowWindow = new InternalDocumentShowWindow(InternalDocument, CurrentEmployee.EmployeeID);
+            internalDocumentShowWindow.Show();
         }
 
         public ICommand IExit => new RelayCommand(exit => Exit());
