@@ -22,6 +22,23 @@ namespace AppDocumentManagment.DB.Controllers
             return documents;
         }
 
+        public ExternalDocument GetExternalDocumentByExternalDocumentID(int externalDocumentID)
+        {
+            ExternalDocument document = null;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    document = context.ExternalDocuments.SingleOrDefault(d => d.ExternalDocumentID == externalDocumentID);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка в получении документа по id из базы данных");
+            }
+            return document;
+        }
+
         public List<ExternalDocument> GetExternalDocumentsByEmployeeReceivedDocumentID(int employeeReceivedDocumentID)
         {
             List<ExternalDocument> documents = new List<ExternalDocument>();

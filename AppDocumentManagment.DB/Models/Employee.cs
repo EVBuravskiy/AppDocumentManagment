@@ -1,4 +1,6 @@
-﻿namespace AppDocumentManagment.DB.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AppDocumentManagment.DB.Models
 {
     public class Employee
     {
@@ -19,6 +21,7 @@
         public string? EmployeeEmail { get; set; }
         public string? EmployeeInformation { get; set; }
         public string EmployeeFirstMiddleName => $"{EmployeeFirstName} {EmployeeMiddleName}";
+        [NotMapped]
         public List<ProductionTask> ProductionTasks { get; set; } = new List<ProductionTask>();
     }
 }

@@ -60,11 +60,12 @@
                     <TextBlock Grid.Row="0"
                                FontFamily="Futura Now"
                                Margin="27 0 0 0"
-                               FontSize="14"
+                               FontSize="22"
                                FontWeight="Bold"
                                VerticalAlignment="Center"
-                               Text="Наименование задачи:"/>
-                    <Grid Grid.Row="1">
+                               TextWrapping="Wrap"
+                               Text="{Binding ProductionTaskTitle}"/>
+                    <Grid Grid.Row="1" x:Name="DocumentInfo" Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="*"/>
@@ -76,20 +77,38 @@
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
                                    Text="Документ к заданию:"/>
-                        <Button Grid.Column="1" 
+                        <Button x:Name="ExternalDocumentBtn"
+                                Visibility="Visible"
+                                Grid.Column="1" 
                                 Background="Transparent"
                                 BorderThickness="0"
-                                HorizontalContentAlignment="Left">
-                            <TextBlock Text="Наименование документа"
+                                HorizontalContentAlignment="Left"
+                                Padding="20 0"
+                                Command="{Binding IOpenExternalDocumentWindow}">
+                            <TextBlock Text="{Binding DocumentTitle}"
                                        TextWrapping="Wrap"
                                        FontSize="14"
                                        FontWeight="Bold"/>
                         </Button>
+                        <Button x:Name="InternalDocumentBtn"
+                                Visibility="Hidden"
+                                Grid.Column="1" 
+                                Background="Transparent"
+                                BorderThickness="0"
+                                HorizontalContentAlignment="Left"
+                                Padding="20 0"
+                                Command="{Binding IOpenInternalDocumentWindow}">
+                            <TextBlock Text="{Binding DocumentTitle}"
+                                       TextWrapping="Wrap"
+                                       FontSize="14"
+                                       FontWeight="Bold"/>
+                        </Button>
+
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
@@ -104,18 +123,18 @@
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="10.10.2025"/>
+                                   Text="{Binding ProductionTaskDueDate, Converter={StaticResource DateConverter}}"/>
                         <TextBlock x:Name="ImportantTask"
                                    Visibility="Visible"
                                    Grid.Column="2"
                                    Margin="0 0 20 0"
-                                   FontSize="14"
+                                   FontSize="22"
                                    FontWeight="Bold"
                                    Foreground="Red"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="ВАЖНАЯ ЗАДАЧА!!!"/>
+                                   Text="{Binding IsImportance, Converter={StaticResource ImportanceConverter}}"/>
                     </Grid>
                     <StackPanel Orientation="Vertical" Grid.Row="3">
                         <TextBlock Grid.Row="3"
@@ -125,11 +144,11 @@
                                    VerticalAlignment="Center"
                                    Text="Описание задачи:"/>
                         <TextBlock Grid.Row="3"
-                                   Margin="27 0 0 0"
+                                   Margin="27 0 10 0"
                                    FontSize="14"
-                                   FontWeight="Bold"
                                    VerticalAlignment="Center"
-                                   Text="Описание задачи"/>
+                                   TextWrapping="Wrap"
+                                   Text="{Binding ProductionTaskDescription}"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -150,15 +169,29 @@
                 </Grid>
                 <Grid>
                     <ListView Margin="20 0" 
-                              MinHeight="120">
+                              Height="110"
+                              ItemsSource="{Binding ProductionSubTasks}"
+                              SelectedItem="{Binding SelectedProductionSubTask}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Наименование подзадачи"
-                                           TextWrapping="Wrap"/>
+                                        <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}">
+                                            <TextBlock Text="{Binding ProductionSubTaskDescription}"
+                                               TextWrapping="Wrap"/>
+                                        </CheckBox>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
+                <Button Grid.Row="2" 
+                        Style="{StaticResource Buttons}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Padding="5 5"
+                        Margin="20 5 20 0"
+                        Height="40"
+                        Command="{Binding IUpdateSubTasks}">
+                    <TextBlock TextAlignment="Center">Подтвердить статус<LineBreak/>выполнения подзадачи</TextBlock>
+                </Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="3">
@@ -169,8 +202,9 @@
                            VerticalAlignment="Center"
                            Foreground="WhiteSmoke"
                            Text="Список исполнителей задачи:"/>
-                <ListView MinHeight="110"
-                          Margin="20 0">
+                <ListView Height="110"
+                          Margin="20 0"
+                          ItemsSource="{Binding ProductionTaskPerformers}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -179,69 +213,42 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" 
-                                                BorderBrush="DimGray"
-                                                BorderThickness="2"
-                                                CornerRadius="2">
+                                        BorderBrush="DimGray"
+                                        BorderThickness="2"
+                                        CornerRadius="2"
+                                        Width="40"
+                                        Height="40">
                                     <Image Width="40"
-                                                   Height="40"
-                                                   Source="{Binding EmployeePhoto.FilePath,
-                                                FallbackValue={StaticResource DefaultContactImage},
-                                                TargetNullValue={StaticResource DefaultContactImage}}"
-                                                   Stretch="UniformToFill"/>
+                                           Height="40"
+                                           Source="{Binding EmployeePhoto.FilePath,
+                                        FallbackValue={StaticResource DefaultContactImage},
+                                        TargetNullValue={StaticResource DefaultContactImage}}"
+                                           Stretch="UniformToFill"/>
                                 </Border>
                                 <Grid Grid.Column="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="280"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Grid.Row="1"
-                                                           Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="Должность: "/>
+                                    <StackPanel>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="14"
-                                                           HorizontalAlignment="Left"
-                                                           Text="Фамилия, имя, отчество"/>
+                                                   FontFamily="Arial"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding Position}"/>
+                                        <TextBlock Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="12"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding EmployeeFullName}"/>
                                         <TextBlock Margin="0 5 0 0"
-                                                           Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="Контактный телефон: "/>
+                                                   Padding="10, 0"
+                                                   FontFamily="Arial"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding EmployeePhone}"/>
                                         <TextBlock Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="Адрес электронной почты: "/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Grid.Row="1"
-                                                           Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="{Binding Position}"/>
-                                        <TextBlock Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="14"
-                                                           FontWeight="Bold"
-                                                           HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeeFullName}"/>
-                                        <TextBlock Margin="0 5 0 0"
-                                                           Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeePhone}"/>
-                                        <TextBlock Padding="10, 0"
-                                                           FontFamily="Futura Now"
-                                                           FontSize="12"
-                                                           HorizontalAlignment="Left"
-                                                           Text="{Binding EmployeeEmail}"/>
+                                                   FontFamily="Arial"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Left"
+                                                   Text="{Binding EmployeeEmail}"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -267,11 +274,11 @@
                 <ListView Grid.Row="1"
                           x:Name="FileList"
                           Margin="20 -25 20 10"
-                          ItemsSource="{Binding DocumentFiles}"
-                          SelectedItem="{Binding SelectedDocumentFile}">
+                          ItemsSource="{Binding ProductionTaskFiles}"
+                          SelectedItem="{Binding SelectedProductionTaskFile}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource AdminDocumentTextblock}" Text="{Binding ExternalFileName}"/>
+                            <TextBlock Style="{StaticResource AdminDocumentTextblock}" Text="{Binding ProductionTaskFileName}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -282,8 +289,8 @@
                         Height="35"
                         Padding="5 5"
                         Margin="20 0"
-                        Command="{Binding IDeleteDocumentFile}">
-                    <TextBlock TextAlignment="Center">Удалить файл</TextBlock>
+                        Command="{Binding ILoadProductionTaskFiles}">
+                    <TextBlock TextAlignment="Center">Скачать файлы</TextBlock>
                 </Button>
                 <Button Grid.Row="2" 
                         Style="{StaticResource Buttons}"
@@ -292,7 +299,7 @@
                         Padding="5 5"
                         Margin="20 0"
                         Height="35"
-                        Command="{Binding IBrowseDocumentFiles}">
+                        Command="{Binding IBrowseProductionTaskFile}">
                     <TextBlock TextAlignment="Center">Добавить файл</TextBlock>
                 </Button>
             </Grid>
@@ -307,7 +314,7 @@
                     FontFamily="Futura Now"
                     FontSize="14"
                     FontWeight="Bold"
-                    Command="{Binding IRemoveDocument}"/>
+                    Command="{Binding IOpenProductionTaskCommentWindow}"/>
             <Button x:Name="SendDocument"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -317,7 +324,7 @@
                     FontFamily="Futura Now"
                     FontSize="18"
                     FontWeight="Bold"
-                    Command="{Binding ISendToExaminingPerson}">
+                    Command="{Binding ISendToCreatorEmployee}">
                 <TextBlock TextAlignment="Center"> Направить на <LineBreak/>проверку</TextBlock>
             </Button>
         </Grid>

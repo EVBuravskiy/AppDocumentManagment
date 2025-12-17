@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace AppDocumentManagment.UI.Views
 {
@@ -19,9 +10,12 @@ namespace AppDocumentManagment.UI.Views
     /// </summary>
     public partial class ProductionTaskShowWindow : Window
     {
-        public ProductionTaskShowWindow()
+        private ProductionTaskShowViewModel viewModel;
+        public ProductionTaskShowWindow(Employee currentEmployee, ProductionTask currentProductionTask)
         {
             InitializeComponent();
+            viewModel = new ProductionTaskShowViewModel(this, currentEmployee, currentProductionTask);
+            DataContext = viewModel;
         }
     }
 }

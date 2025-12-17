@@ -19,6 +19,9 @@ namespace AppDocumentManagment.DB.Models
         [NotMapped]
         public List<Employee> Employees { get; set; }
         public List<int> EmployeesID { get; set; } = new List<int>();
+        [NotMapped]
+        public Employee EmployeeCreator { get; set; }
+        public int EmployeeCreatorID { get; set; }
         public ProductionTaskStatus ProductionTaskStatus { get; set; }
         public List<ProductionSubTask>? ProductionSubTasks { get; set; }
         public List<ProductionTaskComment>? ProductionTaskComments { get; set; }

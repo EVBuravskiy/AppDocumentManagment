@@ -67,5 +67,29 @@ namespace AppDocumentManagment.DB.Controllers
             }
             return productionSubTasks;
         }
+
+        public bool UpdateProductionSubTask(ProductionSubTask productionSubTask)
+        {
+            bool result = false;
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    ProductionSubTask aviableProductionSubTask = context.ProductionSubTasks.SingleOrDefault(s => s.ProductionSubTaskID == productionSubTask.ProductionSubTaskID);
+                    if (aviableProductionSubTask != null)
+                    {
+                        aviableProductionSubTask.IsDone = productionSubTask.IsDone;
+                        context.Update(aviableProductionSubTask);
+                        context.SaveChanges();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка! Ошибка в обновлении подзадачи в базе данных");
+            }
+            return result;
+        }
     }
 }

@@ -209,5 +209,34 @@ namespace AppDocumentManagment.UI.Utilities
             }
             return result;
         }
+
+        public static string SaveProductionTaskFileFromDB(ProductionTaskFile productionTaskFile, string directoryName)
+        {
+            if (productionTaskFile == null) return string.Empty;
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string directoryPath = $"{downloadsPath}\\{directoryName}\\";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string filePath = $"{directoryPath}{productionTaskFile.ProductionTaskFileName}";
+            SaveProductionTaskFileToPath(filePath, productionTaskFile);
+            return directoryPath;
+        }
+
+        public static bool SaveProductionTaskFileToPath(string path, ProductionTaskFile productionTaskFile)
+        {
+            bool result = false;
+            if (string.IsNullOrEmpty(path)) return result;
+            if (!File.Exists(path))
+            {
+                using (FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    fileStream.Write(productionTaskFile.ProductionTaskFileData, 0, productionTaskFile.ProductionTaskFileData.Length);
+                    result = true;
+                }
+            }
+            return result;
+        }
     }
 }

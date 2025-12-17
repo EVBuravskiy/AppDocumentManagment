@@ -15,6 +15,23 @@ namespace AppDocumentManagment.DB.Controllers
             return internalDocuments;
         }
 
+        public InternalDocument GetInternalDocumentByInternalDocumentID(int internalDocumentID)
+        {
+            InternalDocument internalDocument = null;
+            try
+            {
+                using(ApplicationContext context = new ApplicationContext())
+                {
+                    internalDocument = context.InternalDocuments.FirstOrDefault(id => id.InternalDocumentID == internalDocumentID);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка! Ошибка в получении внутреннего документа по id");
+            }
+            return internalDocument;
+        }
+
         public List<InternalDocument> GetInternalDocumentsByEmployeeRecievedDocumentID(int employeeRecievedDocumentID)
         {
             List<InternalDocument> internalDocuments = new List<InternalDocument>();

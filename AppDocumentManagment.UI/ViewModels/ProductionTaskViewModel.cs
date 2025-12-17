@@ -168,6 +168,8 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTask.ProductionTaskCreateDate = DateTime.Now;
             productionTask.ProductionTaskDueDate = ProductionTaskDueDate;
             productionTask.ProductionTaskDescription = ProductionTaskDescription;
+            productionTask.EmployeeCreator = CurrentEmployee;
+            productionTask.EmployeeCreatorID = CurrentEmployee.EmployeeID;
             productionTask.EmployeesID = new List<int>();
             if (ProductionTaskPerformers.Count > 0)
             {
@@ -275,7 +277,5 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTaskCommentWindow.ShowDialog();
             ProductionTaskComments = productionTaskCommentWindow.viewModel.ProductionTaskCommentsList;
         }
-
-
     }
 }

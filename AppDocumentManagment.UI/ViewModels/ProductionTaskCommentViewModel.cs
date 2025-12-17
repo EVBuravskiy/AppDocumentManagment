@@ -76,7 +76,13 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskComment productionTaskComment = new ProductionTaskComment();
             productionTaskComment.ProductionTaskCommentText = ProductionTaskCommentText;
             productionTaskComment.ProductionTaskCommentDate = DateTime.Now;
+            productionTaskComment.EmployeeID = CurrentEmployee.EmployeeID;
             productionTaskComment.Employee = CurrentEmployee;
+            if(CurrentProductionTask.ProductionTaskID != 0)
+            {
+                productionTaskComment.ProductionTask = CurrentProductionTask;
+                productionTaskComment.ProductionTaskID = CurrentProductionTask.ProductionTaskID;
+            }
             ProductionTaskCommentsList.Add(productionTaskComment);
             InitializeProductTaskComments();
         }

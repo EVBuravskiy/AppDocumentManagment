@@ -243,6 +243,10 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 selectedProductionTask = value;
                 OnPropertyChanged(nameof(SelectedProductionTask));
+                if (value != null)
+                {
+                    OpenProductionTaskShowWindow();
+                }
             }
         }
 
@@ -804,6 +808,12 @@ namespace AppDocumentManagment.UI.ViewModels
             GetProductionTasks();
             InitializeProductionTasks();
         }
+
+        private void OpenProductionTaskShowWindow()
+        {
+            ProductionTaskShowWindow productionTaskShowWindow = new ProductionTaskShowWindow(currentUser, SelectedProductionTask);
+            productionTaskShowWindow.ShowDialog();
+        } 
 
         public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });
     }
