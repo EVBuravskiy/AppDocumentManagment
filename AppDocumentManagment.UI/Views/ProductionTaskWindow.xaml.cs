@@ -14,8 +14,8 @@ namespace AppDocumentManagment.UI.Views
 
         public ProductionTaskWindow(Employee currentEmployee, ExternalDocument externalDocument, InternalDocument internalDocument)
         {
-            viewModel = new ProductionTaskViewModel(this, currentEmployee, externalDocument, internalDocument);
             InitializeComponent();
+            viewModel = new ProductionTaskViewModel(this, currentEmployee, externalDocument, internalDocument);
             DataContext = viewModel;
         }
     }

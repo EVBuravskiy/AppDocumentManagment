@@ -14,6 +14,8 @@ namespace AppDocumentManagment.UI.ViewModels
 
         ExternalDocument ExternalDocument;
 
+        Employee CurrentEmployee;
+
         private IFileDialogService fileDialogService;
 
         private string documentType;
@@ -122,11 +124,12 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany, EmployeeRole role)
+        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany, Employee currentEmployee)
         {
             ExternalDocumentShowWindow = externalDocumentShowWindow;
             fileDialogService = new WindowsDialogService();
             ExternalDocument = inputExternalDocument;
+            CurrentEmployee = currentEmployee;
             ExternalDocument.ContractorCompany = documentContractorCompany;
             ExternalDocumentFilesList = new List<ExternalDocumentFile>();
             ExternalDocumentFiles = new ObservableCollection<ExternalDocumentFile>();
@@ -145,7 +148,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 }
                 GetExternalDocumentFiles();
                 InitializeExternalDocumentFiles();
-                if(role == EmployeeRole.Performer)
+                if(CurrentEmployee.EmployeeRole == EmployeeRole.Performer)
                 {
                     ExternalDocumentShowWindow.ExternalDocumentFiles.Height = new GridLength(420, GridUnitType.Pixel);
                     ExternalDocumentShowWindow.ExternalDocumentButtons.Height = new GridLength(0, GridUnitType.Pixel);
@@ -250,7 +253,12 @@ namespace AppDocumentManagment.UI.ViewModels
         }
 
         //TODO: Реализовать создание задачи к документу
-        public ICommand ICreateTask;
+        public ICommand ICreateTask => new RelayCommand(createTask => CreateTask());
+        private void CreateTask()
+        {
+            ProductionTaskWindow productionTaskWindow = new ProductionTaskWindow(CurrentEmployee, ExternalDocument, null);
+            productionTaskWindow.ShowDialog();
+        }
 
         public ICommand IExit => new RelayCommand(exit => { ExternalDocumentShowWindow.Close(); });
     }

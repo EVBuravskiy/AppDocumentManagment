@@ -7,5 +7,6 @@
         public DateTime ProductionSubTaskCreateTime { get; set; }
         public ProductionTask ProductionTask { get; set; }
         public int ProductionTaskID { get; set; }
+        public bool IsDone { get; set; } = false;
     }
 }

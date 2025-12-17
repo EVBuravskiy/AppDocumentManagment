@@ -261,7 +261,12 @@ namespace AppDocumentManagment.UI.ViewModels
         }
 
         //TODO: Реализовать создание задачи к документу
-        public ICommand ICreateTask;
+        public ICommand ICreateTask => new RelayCommand(createTask => CreateTask());
+        private void CreateTask()
+        {
+            ProductionTaskWindow productionTaskWindow = new ProductionTaskWindow(CurrentEmployee, null, InternalDocument);
+            productionTaskWindow.ShowDialog();
+        }
 
         public ICommand IAgreeInternalDocument => new RelayCommand(agreeInternalDocument => AgreeInternalDocument());
         private void AgreeInternalDocument()
@@ -271,6 +276,7 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 InternalDocument.ApprovedManager = CurrentEmployee;
                 InternalDocument.ApprovedManagerID = CurrentEmployee.EmployeeID;
+                InternalDocument.InternalDocumentStatus = DocumentStatus.Agreed;
                 InternalDocumentController internalDocumentController = new InternalDocumentController();
                 result = internalDocumentController.UpdateInternalDocument(InternalDocument);
                 ApprovedManager = CurrentEmployee;

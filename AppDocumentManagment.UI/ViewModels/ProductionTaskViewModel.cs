@@ -137,6 +137,7 @@ namespace AppDocumentManagment.UI.ViewModels
             }
             if (DocumentTitle == string.Empty)
             {
+                ProductionTaskWindow.TaskDocument.Visibility = Visibility.Hidden;
             }
             ProductionTaskDueDate = DateTime.Now;
             ProductionTaskComments = new List<ProductionTaskComment>();

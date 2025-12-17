@@ -178,7 +178,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedExternalDocument));
                 if(value != null)
                 {
-                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany, currentUser.EmployeeRole);
+                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany, currentUser);
                 }
             }
         }
@@ -729,9 +729,9 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany, EmployeeRole role)
+        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany, Employee currentEmployee)
         {
-            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany, role);
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany, currentEmployee);
             externalDocumentShowWindow.ShowDialog();
             GetExternalDocuments();
             GetDocumentBySearchString(SearchString);
