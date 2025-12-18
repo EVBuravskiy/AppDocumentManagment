@@ -3,7 +3,6 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

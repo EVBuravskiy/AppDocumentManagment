@@ -26,5 +26,7 @@ namespace AppDocumentManagment.DB.Models
         public List<ProductionSubTask>? ProductionSubTasks { get; set; }
         public List<ProductionTaskComment>? ProductionTaskComments { get; set; }
         public List<ProductionTaskFile>? ProductionTaskFiles { get; set; }
+        public int AllSubTasks => ProductionSubTasks != null ? ProductionSubTasks.Count() : 0;
+        public int DoneSubTasks => ProductionSubTasks != null ? ProductionSubTasks.Where(st => st.IsDone == true).Count() : 0;
     }
 }

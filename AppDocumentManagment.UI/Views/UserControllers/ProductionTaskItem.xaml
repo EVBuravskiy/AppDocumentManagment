@@ -17,6 +17,7 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
@@ -43,6 +44,21 @@
                                Padding="20 0"/>
                 </Grid>
                 <Grid Grid.Row="2">
+                    <StatusBar Background="Transparent"
+                               Padding="20 0"
+                               HorizontalAlignment="Center"
+                               HorizontalContentAlignment="Stretch">
+                    <ProgressBar IsIndeterminate="False" 
+                                 Height="14" 
+                                 Width="380"
+                                 BorderBrush="DarkGreen"
+                                 BorderThickness="1"
+                                 Minimum="0"
+                                 Maximum="{Binding AllSubTasks}"
+                                 Value="{Binding DoneSubTasks, Mode=OneWay}"/>
+                </StatusBar>
+                </Grid>
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="150"/>
@@ -67,14 +83,14 @@
                                HorizontalAlignment="Right"
                                Padding="20 0"/>
                     </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <TextBlock Text="Исполнители"
                                FontFamily="Futura Now"
                                FontWeight="Bold"
                                VerticalAlignment="Center"
                                Padding="20 0"/>
                 </Grid>
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="5">
                     <ListView Padding="20 10"
                               ItemsSource="{Binding Employees}">
                         <ListView.ItemTemplate>
