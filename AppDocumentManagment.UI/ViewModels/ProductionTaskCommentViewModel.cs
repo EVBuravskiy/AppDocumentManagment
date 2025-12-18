@@ -52,6 +52,15 @@ namespace AppDocumentManagment.UI.ViewModels
                     {
                         EmployeeController employeeController = new EmployeeController();
                         Employee employee = employeeController.GetEmployeeByID(productionTaskComment.EmployeeID);
+                        if (employee != null)
+                        {
+                            EmployeePhotoController employeePhotoController = new EmployeePhotoController();
+                            EmployeePhoto photo = employeePhotoController.GetEmployeePhotoByID(employee.EmployeeID);
+                            if (photo != null)
+                            {
+                                employee.EmployeePhoto = photo;
+                            }
+                        }
                         productionTaskComment.Employee = employee;
                     }
                 }
@@ -78,12 +87,13 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTaskComment.ProductionTaskCommentDate = DateTime.Now;
             productionTaskComment.EmployeeID = CurrentEmployee.EmployeeID;
             productionTaskComment.Employee = CurrentEmployee;
-            if(CurrentProductionTask.ProductionTaskID != 0)
+            if(CurrentProductionTask != null && CurrentProductionTask.ProductionTaskID != 0)
             {
                 productionTaskComment.ProductionTask = CurrentProductionTask;
                 productionTaskComment.ProductionTaskID = CurrentProductionTask.ProductionTaskID;
             }
             ProductionTaskCommentsList.Add(productionTaskComment);
+            ProductionTaskCommentText = string.Empty;
             InitializeProductTaskComments();
         }
 

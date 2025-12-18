@@ -178,7 +178,7 @@ namespace AppDocumentManagment.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedExternalDocument));
                 if(value != null)
                 {
-                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompany, currentUser);
+                    OpenExternalDocumentShowWindow(selectedExternalDocument, selectedExternalDocument.ContractorCompanyID, currentUser);
                 }
             }
         }
@@ -256,6 +256,10 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ManagerPanelWindow = window;
             InitializeCurrentUser(currentUserID);
+            if(currentUser != null && currentUser.EmployeeRole == EmployeeRole.Performer)
+            {
+                ManagerPanelWindow.AddTaskBtn.Visibility = System.Windows.Visibility.Hidden;
+            }
             IsInternalDocument = false;
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
@@ -661,6 +665,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void GetProductionTasks()
         {
             ProductionTaskController productionTaskController = new ProductionTaskController();
+            ProductionTasksList.Clear();
             ProductionTasksList = productionTaskController.GetProductionTasks();
             //ProductionTasksList = productionTaskController.GetProductionTasksByEmployeeID(currentUser.EmployeeID);
             foreach (ProductionTask task in ProductionTasksList)
@@ -733,9 +738,9 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, ContractorCompany contractorCompany, Employee currentEmployee)
+        private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, int contractorCompanyID, Employee currentEmployee)
         {
-            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompany, currentEmployee);
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompanyID, currentEmployee);
             externalDocumentShowWindow.ShowDialog();
             GetExternalDocuments();
             GetDocumentBySearchString(SearchString);
@@ -788,6 +793,8 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ManagerPanelWindow.TaskPanel.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.DocumentPanel.Visibility = System.Windows.Visibility.Hidden;
+            GetProductionTasks();
+            InitializeProductionTasks();
         }
 
         public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
@@ -813,6 +820,8 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ProductionTaskShowWindow productionTaskShowWindow = new ProductionTaskShowWindow(currentUser, SelectedProductionTask);
             productionTaskShowWindow.ShowDialog();
+            GetProductionTasks();
+            InitializeProductionTasks();
         } 
 
         public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });

@@ -434,14 +434,16 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Grid Grid.Column="0">
                                                         <Border BorderBrush="DimGray"
-                                                            BorderThickness="2"
-                                                            CornerRadius="2">
-                                                            <Image Width="75"
-                                                           Height="75"
-                                                           Source="{Binding EmployeePhoto.FilePath,
-                                                        FallbackValue={StaticResource DefaultContactImage},
-                                                        TargetNullValue={StaticResource DefaultContactImage}}"
-                                                           Stretch="UniformToFill"/>
+                                                                BorderThickness="2"
+                                                                CornerRadius="2"
+                                                                Width="50"
+                                                                Height="50">
+                                                            <Image Width="50"
+                                                                   Height="50"
+                                                                   Source="{Binding EmployeePhoto.FilePath,
+                                                                FallbackValue={StaticResource DefaultContactImage},
+                                                                TargetNullValue={StaticResource DefaultContactImage}}"
+                                                                   Stretch="UniformToFill"/>
                                                         </Border>
                                                     </Grid>
                                                     <Grid Grid.Column="1">

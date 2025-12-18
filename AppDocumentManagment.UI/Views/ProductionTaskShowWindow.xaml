@@ -129,8 +129,8 @@
                                    Grid.Column="2"
                                    Margin="0 0 20 0"
                                    FontSize="22"
-                                   FontWeight="Bold"
-                                   Foreground="Red"
+                                   FontFamily="Impact"
+                                   Foreground="DarkRed"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
@@ -165,7 +165,15 @@
                                FontSize="14"
                                FontWeight="Bold"
                                VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
                                Text="Подзадачи текущей задачи:"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 20 5"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Text="Выполнено"/>
                 </Grid>
                 <Grid>
                     <ListView Margin="20 0" 
@@ -174,10 +182,15 @@
                               SelectedItem="{Binding SelectedProductionSubTask}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}">
-                                            <TextBlock Text="{Binding ProductionSubTaskDescription}"
-                                               TextWrapping="Wrap"/>
-                                        </CheckBox>
+                                <Grid Width="510">
+                                    <TextBlock Text="{Binding ProductionSubTaskDescription}"
+                                               Style="{StaticResource AdminDocumentTextblock}"
+                                               Padding="10 0"
+                                               TextWrapping="Wrap"
+                                               HorizontalAlignment="Left"/>
+                                    <CheckBox IsChecked="{Binding IsDone, Mode=TwoWay}"
+                                              HorizontalAlignment="Right"/>
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -316,6 +329,7 @@
                     FontWeight="Bold"
                     Command="{Binding IOpenProductionTaskCommentWindow}"/>
             <Button x:Name="SendDocument"
+                    Visibility="Visible"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Style="{StaticResource Buttons}"

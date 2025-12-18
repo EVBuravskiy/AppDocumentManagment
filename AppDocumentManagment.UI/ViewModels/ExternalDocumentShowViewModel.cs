@@ -124,13 +124,21 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
-        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, ContractorCompany documentContractorCompany, Employee currentEmployee)
+        public ExternalDocumentShowViewModel(ExternalDocumentShowWindow externalDocumentShowWindow, ExternalDocument inputExternalDocument, int documentContractorCompanyID, Employee currentEmployee)
         {
             ExternalDocumentShowWindow = externalDocumentShowWindow;
             fileDialogService = new WindowsDialogService();
             ExternalDocument = inputExternalDocument;
             CurrentEmployee = currentEmployee;
-            ExternalDocument.ContractorCompany = documentContractorCompany;
+            if (documentContractorCompanyID != 0)
+            {
+                ContractorCompanyController contractorCompanyController = new ContractorCompanyController();
+                ContractorCompany company = contractorCompanyController.GetContractorCompanyByID(documentContractorCompanyID);
+                if (company != null)
+                {
+                    ExternalDocument.ContractorCompany = company;
+                }
+            }
             ExternalDocumentFilesList = new List<ExternalDocumentFile>();
             ExternalDocumentFiles = new ObservableCollection<ExternalDocumentFile>();
             if (inputExternalDocument != null)
@@ -138,13 +146,13 @@ namespace AppDocumentManagment.UI.ViewModels
                 DocumentType = ExternalDocumentTypeConverter.ConvertToString(ExternalDocument.ExternalDocumentType);
                 DocumentNumber = inputExternalDocument.ExternalDocumentNumber;
                 DocumentTitle = inputExternalDocument.ExternalDocumentTitle;
-                if (documentContractorCompany != null)
+                if (ExternalDocument.ContractorCompany != null)
                 {
-                    TextBlockCompanyTitle = documentContractorCompany.ContractorCompanyTitle;
-                    TextBlockCompanyShortTitle = documentContractorCompany.ContractorCompanyShortTitle;
-                    TextBlockCompanyAddress = $"Юридический адрес: {documentContractorCompany.ContractorCompanyAddress}";
-                    TextBlockCompanyPhone = $"Контактный телефон: {documentContractorCompany.ContractorCompanyPhone}";
-                    TextBlockCompanyEmail = $"Адрес электронной почты: {documentContractorCompany.ContractorCompanyEmail}";
+                    TextBlockCompanyTitle = ExternalDocument.ContractorCompany.ContractorCompanyTitle;
+                    TextBlockCompanyShortTitle = ExternalDocument.ContractorCompany.ContractorCompanyShortTitle;
+                    TextBlockCompanyAddress = $"Юридический адрес: {ExternalDocument.ContractorCompany.ContractorCompanyAddress}";
+                    TextBlockCompanyPhone = $"Контактный телефон: {ExternalDocument.ContractorCompany.ContractorCompanyPhone}";
+                    TextBlockCompanyEmail = $"Адрес электронной почты: {ExternalDocument.ContractorCompany.ContractorCompanyEmail}";
                 }
                 GetExternalDocumentFiles();
                 InitializeExternalDocumentFiles();

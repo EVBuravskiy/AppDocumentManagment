@@ -126,7 +126,11 @@ namespace AppDocumentManagment.UI.ViewModels
             }
             if (DocumentTitle == string.Empty)
             {
-                ProductionTaskShowWindow.DocumentInfo.Visibility = System.Windows.Visibility.Hidden;
+                ProductionTaskShowWindow.DocumentInfo.Visibility = Visibility.Hidden;
+            }
+            if(CurrentProductionTask.ProductionTaskStatus != ProductionTaskStatus.InProgress)
+            {
+                ProductionTaskShowWindow.SendDocument.Visibility = Visibility.Hidden;
             }
             IsImportance = CurrentProductionTask.Priority;
             ProductionTaskTitle = CurrentProductionTask.ProductionTaskTitle;
@@ -134,6 +138,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskDescription = currentProductionTask.ProductionTaskDescription ?? string.Empty;
             ProductionSubTasks = new ObservableCollection<ProductionSubTask>();
             GetProductionSubTasks();
+            GetProductionTaskCreator();
             ProductionTaskPerformers = new ObservableCollection<Employee>();
             GetProductionTaskPerformers();
             ProductionTaskFilesList = new List<ProductionTaskFile>();
@@ -152,6 +157,19 @@ namespace AppDocumentManagment.UI.ViewModels
                 foreach (ProductionSubTask productionSubTask in ProductionSubTasksList)
                 {
                     ProductionSubTasks.Add(productionSubTask);
+                }
+            }
+        }
+
+        private void GetProductionTaskCreator()
+        {
+            if (CurrentProductionTask.EmployeeCreatorID != 0)
+            {
+                EmployeeController controller = new EmployeeController();
+                Employee creator = controller.GetEmployeeByID(CurrentProductionTask.EmployeeCreatorID);
+                if (creator != null)
+                {
+                    CurrentProductionTask.EmployeeCreator = creator;
                 }
             }
         }
@@ -289,7 +307,7 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IOpenExternalDocumentWindow => new RelayCommand(openExternalDocumentWindow => OpenExternalDocumentWindow());
         private void OpenExternalDocumentWindow()
         {
-            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(ExternalDocument, ExternalDocument.ContractorCompany, CurrentEmployee);
+            ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(ExternalDocument, ExternalDocument.ContractorCompanyID, CurrentEmployee);
             externalDocumentShowWindow.Show();
         }
 
@@ -298,6 +316,23 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             InternalDocumentShowWindow internalDocumentShowWindow = new InternalDocumentShowWindow(InternalDocument, CurrentEmployee.EmployeeID);
             internalDocumentShowWindow.Show();
+        }
+
+        public ICommand ISendToCreatorEmployee => new RelayCommand(sendToCreatorEmployee => SendToCreatorEmployee());
+        private void SendToCreatorEmployee()
+        {
+            CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.UnderInspection;
+            ProductionTaskController controller = new ProductionTaskController();
+            bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
+            if (result)
+            {
+                MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nЗадача направлена на проверку {CurrentProductionTask.EmployeeCreator.EmployeeFullName}");
+                Exit();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+            }
         }
 
         public ICommand IExit => new RelayCommand(exit => Exit());

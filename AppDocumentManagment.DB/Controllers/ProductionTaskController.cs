@@ -12,23 +12,6 @@ namespace AppDocumentManagment.DB.Controllers
             {
                 using (ApplicationContext context = new ApplicationContext())
                 {
-                    //if (productionTask.ExternalDocumentID != 0)
-                    //{
-                    //    productionTask.ExternalDocument = context.ExternalDocuments.SingleOrDefault(exd => exd.ExternalDocumentID == productionTask.ExternalDocumentID);
-                    //}
-                    //if (productionTask.InternalDocumentID != 0)
-                    //{
-                    //    productionTask.InternalDocument = context.InternalDocuments.SingleOrDefault(ind => ind.InternalDocumentID == productionTask.InternalDocumentID);
-                    //}
-                    //List<Employee> employees = new List<Employee>();
-                    //employees.AddRange(productionTask.Employees);
-                    //productionTask.Employees.Clear();
-                    //EmployeeController employeeController = new EmployeeController();
-                    //foreach (Employee employee in employees) 
-                    //{
-                    //    Employee aviableEmployee = employeeController.GetEmployeeByID(employee.EmployeeID);
-                    //    productionTask.Employees.Add(aviableEmployee);
-                    //}
                     context.ProductionTasks.Add(productionTask);
                     context.SaveChanges();
                     result = true;
@@ -77,13 +60,6 @@ namespace AppDocumentManagment.DB.Controllers
                                 productionTasks.Add(productionTask);
                             }
                         }
-                        //foreach (Employee employee in productionTask.Employees)
-                        //{
-                        //    if (employee.EmployeeID == employeeID)
-                        //    {
-                        //        productionTasks.Add(productionTask);
-                        //    }
-                        //}
                     }
                 }
             }
@@ -92,6 +68,27 @@ namespace AppDocumentManagment.DB.Controllers
                 Console.WriteLine("Ошибка! Ошибка в получении списка задач по идентификатору сотрудника");
             }
             return productionTasks;
+        }
+
+        public bool UpdateProductionTaskStatus(ProductionTask productionTask)
+        {
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    ProductionTask aviableProductionTask = context.ProductionTasks.FirstOrDefault(pt => pt.ProductionTaskID == productionTask.ProductionTaskID);
+                    if (aviableProductionTask == null) return false;
+                    aviableProductionTask.ProductionTaskStatus = productionTask.ProductionTaskStatus;
+                    context.ProductionTasks.Update(aviableProductionTask);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка! Ошибка в обновлении статуса задачи");
+            }
+            return false;
         }
     }
 }
