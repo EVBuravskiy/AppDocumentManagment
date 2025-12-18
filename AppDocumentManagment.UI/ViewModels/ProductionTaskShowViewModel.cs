@@ -3,6 +3,7 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -130,7 +131,11 @@ namespace AppDocumentManagment.UI.ViewModels
             }
             if(CurrentProductionTask.ProductionTaskStatus != ProductionTaskStatus.InProgress)
             {
-                ProductionTaskShowWindow.SendDocument.Visibility = Visibility.Hidden;
+                ProductionTaskShowWindow.SendTask.Visibility = Visibility.Hidden;
+                if (currentProductionTask.EmployeeCreatorID == currentEmployee.EmployeeID)
+                {
+                    ProductionTaskShowWindow.ConfirmTaskCompletion.Visibility = Visibility.Visible;
+                }
             }
             IsImportance = CurrentProductionTask.Priority;
             ProductionTaskTitle = CurrentProductionTask.ProductionTaskTitle;
@@ -327,6 +332,23 @@ namespace AppDocumentManagment.UI.ViewModels
             if (result)
             {
                 MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nЗадача направлена на проверку {CurrentProductionTask.EmployeeCreator.EmployeeFullName}");
+                Exit();
+            }
+            else
+            {
+                MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+            }
+        }
+
+        public ICommand IConfirmTaskCompletion => new RelayCommand(confirmTaskCompletion => ConfirmTaskCompletion());
+        private void ConfirmTaskCompletion()
+        {
+            CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.Done;
+            ProductionTaskController controller = new ProductionTaskController();
+            bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
+            if (result)
+            {
+                MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nВыполнение задачи подтверждено сотрудником: \n{CurrentProductionTask.EmployeeCreator.EmployeeFullName}");
                 Exit();
             }
             else

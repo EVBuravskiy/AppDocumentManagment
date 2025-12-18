@@ -42,7 +42,7 @@ namespace AppDocumentManagment.DB.Controllers
             return productionTasks;
         }
 
-        public List<ProductionTask> GetProductionTasksByEmployeeID(int employeeID)
+        public List<ProductionTask> GetProductionTasksByPerformerID(int employeeID)
         {
             List<ProductionTask> allProductionTasks = new List<ProductionTask>();
             List<ProductionTask> productionTasks = new List<ProductionTask>();
@@ -66,6 +66,23 @@ namespace AppDocumentManagment.DB.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("Ошибка! Ошибка в получении списка задач по идентификатору сотрудника");
+            }
+            return productionTasks;
+        }
+
+        public List<ProductionTask> GetProductionTasksByCreatorID(int employeeID)
+        {
+            List<ProductionTask> productionTasks = new List<ProductionTask>();
+            try
+            {
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    productionTasks = context.ProductionTasks.Where(pt => pt.EmployeeCreatorID == employeeID).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка! Ошибка в получении списка задач по идентификатору сотрудника ее создавшего");
             }
             return productionTasks;
         }

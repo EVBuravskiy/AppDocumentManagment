@@ -328,7 +328,7 @@
                     FontSize="14"
                     FontWeight="Bold"
                     Command="{Binding IOpenProductionTaskCommentWindow}"/>
-            <Button x:Name="SendDocument"
+            <Button x:Name="SendTask"
                     Visibility="Visible"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -339,7 +339,20 @@
                     FontSize="18"
                     FontWeight="Bold"
                     Command="{Binding ISendToCreatorEmployee}">
-                <TextBlock TextAlignment="Center"> Направить на <LineBreak/>проверку</TextBlock>
+                <TextBlock TextAlignment="Center"> Направить<LineBreak/>на проверку</TextBlock>
+            </Button>
+            <Button x:Name="ConfirmTaskCompletion"
+                    Visibility="Hidden"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource Buttons}"
+                    Padding="25 5"
+                    Margin="20 5"
+                    FontFamily="Futura Now"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Command="{Binding IConfirmTaskCompletion}">
+                    <TextBlock TextAlignment="Center"> Задача<LineBreak/>выполнена</TextBlock>
             </Button>
         </Grid>
         <Grid Grid.Row="7" Background="Black"/>

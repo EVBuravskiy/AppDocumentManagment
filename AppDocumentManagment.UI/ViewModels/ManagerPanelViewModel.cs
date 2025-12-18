@@ -250,20 +250,38 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private List<ProductionTask> OwnProductionTasksList { get; set; }
+
+        public ObservableCollection<ProductionTask> OwnProductionTaskInProgress { get; set; }
+        public ObservableCollection<ProductionTask> OwnProductionTaskUnderInspection { get; set; }
+        public ObservableCollection<ProductionTask> OwnProductionTaskDone { get; set; }
+
+        private ProductionTask ownSelectedProductionTask;
+        public ProductionTask OwnSelectedProductionTask
+        {
+            get => ownSelectedProductionTask;
+            set
+            {
+                ownSelectedProductionTask = value;
+                OnPropertyChanged(nameof(OwnSelectedProductionTask));
+                if (value != null)
+                {
+                    OpenOwnProductionTaskShowWindow();
+                }
+            }
+        }
+
         private List<EmployeePhoto> EmployeePhotos { get; set; }
 
         public ManagerPanelViewModel(ManagerPanelWindow window, int currentUserID)
         {
             ManagerPanelWindow = window;
             InitializeCurrentUser(currentUserID);
-            if(currentUser != null && currentUser.EmployeeRole == EmployeeRole.Performer)
-            {
-                ManagerPanelWindow.AddTaskBtn.Visibility = System.Windows.Visibility.Hidden;
-            }
             IsInternalDocument = false;
             ExternalDocumentsList = new List<ExternalDocument>();
             InternalDocumentsList = new List<InternalDocument>();
             ProductionTasksList = new List<ProductionTask>();
+            OwnProductionTasksList = new List<ProductionTask>();
             Employees = new List<Employee>();
             Departments = new List<Department>();
             ContractorCompanies = new List<ContractorCompany>();
@@ -277,6 +295,9 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskInProgress = new ObservableCollection<ProductionTask>();
             ProductionTaskUnderInspection = new ObservableCollection<ProductionTask>();
             ProductionTaskDone = new ObservableCollection<ProductionTask>();
+            OwnProductionTaskInProgress = new ObservableCollection<ProductionTask>();
+            OwnProductionTaskUnderInspection = new ObservableCollection<ProductionTask>();
+            OwnProductionTaskDone = new ObservableCollection<ProductionTask>();
             InitializeInternalDocumentStatus();
             InitializeExternalDocumentStatus();
             InitializeExternalDocumentTypes();
@@ -291,6 +312,14 @@ namespace AppDocumentManagment.UI.ViewModels
             InitializeInternalDocuments();
             GetProductionTasks();
             InitializeProductionTasks();
+            if (currentUser != null && currentUser.EmployeeRole != EmployeeRole.Performer)
+            {
+                ManagerPanelWindow.AddTaskBtn.Visibility = System.Windows.Visibility.Visible;
+                ManagerPanelWindow.AddOwnTaskBtn.Visibility = System.Windows.Visibility.Visible;
+                ManagerPanelWindow.OwnTaskBtn.Visibility = System.Windows.Visibility.Visible;
+                GetOwnProductionTasks();
+                InitializeOwnProductionTasks();
+            }
         }
 
         private void InitializeCurrentUser(int currentUserID)
@@ -666,8 +695,8 @@ namespace AppDocumentManagment.UI.ViewModels
         {
             ProductionTaskController productionTaskController = new ProductionTaskController();
             ProductionTasksList.Clear();
-            ProductionTasksList = productionTaskController.GetProductionTasks();
-            //ProductionTasksList = productionTaskController.GetProductionTasksByEmployeeID(currentUser.EmployeeID);
+            //ProductionTasksList = productionTaskController.GetProductionTasks();
+            ProductionTasksList = productionTaskController.GetProductionTasksByPerformerID(currentUser.EmployeeID);
             foreach (ProductionTask task in ProductionTasksList)
             {
                 if(task.ExternalDocumentID != 0)
@@ -738,6 +767,81 @@ namespace AppDocumentManagment.UI.ViewModels
             }
         }
 
+        private void GetOwnProductionTasks()
+        {
+            ProductionTaskController productionTaskController = new ProductionTaskController();
+            OwnProductionTasksList.Clear();
+            OwnProductionTasksList = productionTaskController.GetProductionTasksByCreatorID(currentUser.EmployeeID);
+            foreach (ProductionTask task in OwnProductionTasksList)
+            {
+                if (task.ExternalDocumentID != 0)
+                {
+                    ExternalDocument externalDocument = ExternalDocuments.SingleOrDefault(ed => ed.ExternalDocumentID == task.ExternalDocumentID);
+                    if (externalDocument != null)
+                    {
+                        task.ExternalDocument = externalDocument;
+                    }
+                }
+                if (task.InternalDocumentID != 0)
+                {
+                    InternalDocument internalDocument = InternalDocuments.SingleOrDefault(id => id.InternalDocumentID == task.InternalDocumentID);
+                    if (internalDocument != null)
+                    {
+                        task.InternalDocument = internalDocument;
+                    }
+                }
+                if (task.EmployeesID.Count > 0)
+                {
+                    task.Employees = new List<Employee>();
+                    foreach (int id in task.EmployeesID)
+                    {
+                        Employee employee = Employees.SingleOrDefault(e => e.EmployeeID == id);
+                        if (employee != null)
+                        {
+                            Department department = Departments.FirstOrDefault(d => d.DepartmentID == employee.DepartmentID);
+                            if (department != null)
+                            {
+                                employee.Department = department;
+                            }
+                            EmployeePhoto employeePhoto = EmployeePhotos.FirstOrDefault(p => p.EmployeeID == employee.EmployeeID);
+                            if (employeePhoto != null)
+                            {
+                                employee.EmployeePhoto = employeePhoto;
+                            }
+                            task.Employees.Add(employee);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InitializeOwnProductionTasks()
+        {
+            OwnProductionTaskInProgress.Clear();
+            OwnProductionTaskUnderInspection.Clear();
+            OwnProductionTaskDone.Clear();
+            if (OwnProductionTasksList.Count > 0)
+            {
+                foreach (ProductionTask productionTask in OwnProductionTasksList)
+                {
+                    if (productionTask.ProductionTaskStatus == ProductionTaskStatus.InProgress)
+                    {
+                        OwnProductionTaskInProgress.Add(productionTask);
+                        continue;
+                    }
+                    if (productionTask.ProductionTaskStatus == ProductionTaskStatus.UnderInspection)
+                    {
+                        OwnProductionTaskUnderInspection.Add(productionTask);
+                        continue;
+                    }
+                    if (productionTask.ProductionTaskStatus == ProductionTaskStatus.Done)
+                    {
+                        OwnProductionTaskDone.Add(productionTask);
+                    }
+                }
+            }
+        }
+
         private void OpenExternalDocumentShowWindow(ExternalDocument externalDocument, int contractorCompanyID, Employee currentEmployee)
         {
             ExternalDocumentShowWindow externalDocumentShowWindow = new ExternalDocumentShowWindow(externalDocument, contractorCompanyID, currentEmployee);
@@ -758,6 +862,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void ShowExternalDocuments()
         {
             ManagerPanelWindow.TaskPanel.Visibility = System.Windows.Visibility.Hidden;
+            ManagerPanelWindow.OwnTaskPanel.Visibility = System.Windows.Visibility.Hidden;
             ManagerPanelWindow.DocumentPanel.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.ComboExternalDocumentStatus.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.ComboInternalDocumentStatus.Visibility = System.Windows.Visibility.Hidden;
@@ -775,6 +880,7 @@ namespace AppDocumentManagment.UI.ViewModels
         private void ShowInternalDocuments()
         {
             ManagerPanelWindow.TaskPanel.Visibility = System.Windows.Visibility.Hidden;
+            ManagerPanelWindow.OwnTaskPanel.Visibility = System.Windows.Visibility.Hidden;
             ManagerPanelWindow.DocumentPanel.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.ComboExternalDocumentStatus.Visibility = System.Windows.Visibility.Hidden;
             ManagerPanelWindow.ComboInternalDocumentStatus.Visibility = System.Windows.Visibility.Visible;
@@ -791,10 +897,21 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IShowTasks => new RelayCommand(showTasks => ShowTasks());
         private void ShowTasks()
         {
+            ManagerPanelWindow.OwnTaskPanel.Visibility = System.Windows.Visibility.Hidden;
             ManagerPanelWindow.TaskPanel.Visibility = System.Windows.Visibility.Visible;
             ManagerPanelWindow.DocumentPanel.Visibility = System.Windows.Visibility.Hidden;
             GetProductionTasks();
             InitializeProductionTasks();
+        }
+
+        public ICommand IShowOwnTasks => new RelayCommand(showOwnTasks => ShowOwnTasks());
+        private void ShowOwnTasks()
+        {
+            ManagerPanelWindow.OwnTaskPanel.Visibility = System.Windows.Visibility.Visible;
+            ManagerPanelWindow.TaskPanel.Visibility = System.Windows.Visibility.Hidden;
+            ManagerPanelWindow.DocumentPanel.Visibility = System.Windows.Visibility.Hidden;
+            GetOwnProductionTasks();
+            InitializeOwnProductionTasks();
         }
 
         public ICommand ICreateNewInternalDocument => new RelayCommand(createNewInternalDocument => CreateNewInternalDocument());
@@ -810,10 +927,23 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IAddNewTask => new RelayCommand(addNewTask => AddNewTask());
         private void AddNewTask()
         {
-            ProductionTaskWindow productionTaskWindow = new ProductionTaskWindow(currentUser, null, null);
-            productionTaskWindow.ShowDialog();
+            AddTasks();
             GetProductionTasks();
             InitializeProductionTasks();
+        }
+
+        public ICommand IAddOwnNewTask => new RelayCommand(addOwnNewTask => AddOwnNewTask());
+        private void AddOwnNewTask()
+        {
+            AddTasks();
+            GetOwnProductionTasks();
+            InitializeOwnProductionTasks();
+        }
+
+        private void AddTasks()
+        {
+            ProductionTaskWindow productionTaskWindow = new ProductionTaskWindow(currentUser, null, null);
+            productionTaskWindow.ShowDialog();
         }
 
         private void OpenProductionTaskShowWindow()
@@ -822,7 +952,15 @@ namespace AppDocumentManagment.UI.ViewModels
             productionTaskShowWindow.ShowDialog();
             GetProductionTasks();
             InitializeProductionTasks();
-        } 
+        }
+
+        private void OpenOwnProductionTaskShowWindow()
+        {
+            ProductionTaskShowWindow productionTaskShowWindow = new ProductionTaskShowWindow(currentUser, OwnSelectedProductionTask);
+            productionTaskShowWindow.ShowDialog();
+            GetOwnProductionTasks();
+            InitializeOwnProductionTasks();
+        }
 
         public ICommand IExit => new RelayCommand(exit => { ManagerPanelWindow.Close(); });
     }
