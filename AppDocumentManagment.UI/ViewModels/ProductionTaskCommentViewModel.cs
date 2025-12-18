@@ -101,8 +101,9 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IAddProductionTaskComment => new RelayCommand(addProductionTaskComment => AddProductionTaskComment());
         private void AddProductionTaskComment()
         {
+            if(string.IsNullOrEmpty(ProductionTaskCommentText) || string.IsNullOrWhiteSpace(ProductionTaskCommentText)) return;
             ProductionTaskComment productionTaskComment = new ProductionTaskComment();
-            productionTaskComment.ProductionTaskCommentText = ProductionTaskCommentText;
+            productionTaskComment.ProductionTaskCommentText = ProductionTaskCommentText.Trim();
             productionTaskComment.ProductionTaskCommentDate = DateTime.Now;
             productionTaskComment.EmployeeID = CurrentEmployee.EmployeeID;
             productionTaskComment.Employee = CurrentEmployee;
