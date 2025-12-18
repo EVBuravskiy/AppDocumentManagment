@@ -1,5 +1,6 @@
 ﻿using AppDocumentManagment.DB.Controllers;
 using AppDocumentManagment.DB.Models;
+using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -33,10 +34,26 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskCommentWindow = productionTaskCommentWindow;
             CurrentProductionTask = currentProductionTask;
             CurrentEmployee = currentEmployee;
+            GetPhotoCurrentEmployee();
             ProductionTaskCommentsList = new List<ProductionTaskComment>();
             ProductionTaskComments = new ObservableCollection<ProductionTaskComment>();
             GetAllProductionTaskComments();
             InitializeProductTaskComments();
+        }
+
+        private void GetPhotoCurrentEmployee()
+        {
+            if (CurrentEmployee != null)
+            {
+                EmployeePhotoController employeePhotoController = new EmployeePhotoController();
+                EmployeePhoto photo = employeePhotoController.GetEmployeePhotoByID(CurrentEmployee.EmployeeID);
+                if (photo != null)
+                {
+                    string photoPath = FileProcessing.SaveEmployeePhotoToTempFolder(photo);
+                    photo.FilePath = photoPath;
+                    CurrentEmployee.EmployeePhoto = photo;
+                }
+            }
         }
 
         private void GetAllProductionTaskComments()
@@ -58,6 +75,8 @@ namespace AppDocumentManagment.UI.ViewModels
                             EmployeePhoto photo = employeePhotoController.GetEmployeePhotoByID(employee.EmployeeID);
                             if (photo != null)
                             {
+                                string photoPath = FileProcessing.SaveEmployeePhotoToTempFolder(photo);
+                                photo.FilePath = photoPath;
                                 employee.EmployeePhoto = photo;
                             }
                         }

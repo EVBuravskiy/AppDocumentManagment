@@ -495,6 +495,9 @@ namespace AppDocumentManagment.UI.ViewModels
                 InternalDocumentController internalDocumentController = new InternalDocumentController();
                 if (internalDocument.IsRegistated == false)
                 {
+                    string type = InternalDocumentTypeConverter.ConvertToString(internalDocument.InternalDocumentType).Substring(0, 2);
+                    int number = internalDocumentController.GetCountInternalDocumentByType(internalDocument.InternalDocumentType) + 1;
+                    internalDocument.InternalDocumentRegistrationNumber = $"{number}/{type}";
                     internalDocument.RegistrationDate = DateTime.Now;
                     internalDocument.SendingDate = DateTime.Now;
                     internalDocument.IsRegistated = true;
