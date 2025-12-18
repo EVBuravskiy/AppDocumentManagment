@@ -233,7 +233,8 @@
                            VerticalAlignment="Center"
                            Foreground="WhiteSmoke"
                            Text="Список исполнителей задачи:"/>
-                <ListView Height="110"
+                <ListView x:Name="PerformersList"
+                          Height="110"
                           Margin="20 0"
                           ItemsSource="{Binding ProductionTaskPerformers}"
                           SelectedItem="{Binding SelectedTaskPerformer}">

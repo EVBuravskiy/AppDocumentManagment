@@ -3,8 +3,10 @@ using AppDocumentManagment.DB.Models;
 using AppDocumentManagment.UI.Utilities;
 using AppDocumentManagment.UI.Views;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.Xml;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppDocumentManagment.UI.ViewModels
 {
@@ -154,6 +156,7 @@ namespace AppDocumentManagment.UI.ViewModels
 
         private void AddNewTask()
         {
+            if (!ValidationProductionTask()) return;
             ProductionTask productionTask = new ProductionTask();
             productionTask.ProductionTaskTitle = ProductionTaskTitle;
             productionTask.Priority = IsImportant;
@@ -184,7 +187,6 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 productionTask.ProductionSubTasks.AddRange(ProductionSubTasks);
             }
-            //скорей всего это ошибочное решение
             productionTask.ProductionTaskComments = new List<ProductionTaskComment>();
             if (ProductionTaskComments.Count > 0)
             {
@@ -208,10 +210,64 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskWindow.Close();
         }
 
+        private bool ValidationProductionTask()
+        {
+            if (string.IsNullOrEmpty(ProductionTaskTitle) || string.IsNullOrWhiteSpace(ProductionTaskTitle))
+            {
+                MessageBox.Show("Не введено наименование задачи");
+                ProductionTaskWindow.TaskTitle.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskTitle.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ProductionTaskWindow.TaskTitle.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskTitle.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (ProductionTaskDueDate < DateTime.Now)
+            {
+                MessageBox.Show("Дата задачи не может быть позже текущего времени");
+                ProductionTaskWindow.TaskDueDate.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskDueDate.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ProductionTaskWindow.TaskDueDate.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskDueDate.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (string.IsNullOrEmpty(ProductionTaskDescription) || string.IsNullOrWhiteSpace(ProductionTaskDescription))
+            {
+                MessageBox.Show("Не введено описание задачи");
+                ProductionTaskWindow.TaskDescription.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskDescription.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ProductionTaskWindow.TaskDescription.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.TaskDescription.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            if (ProductionTaskPerformers.Count == 0)
+            {
+                MessageBox.Show("Не выбраны исполнители задачи");
+                ProductionTaskWindow.PerformersList.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.PerformersList.BorderBrush = new SolidColorBrush(Colors.Red);
+                return false;
+            }
+            else
+            {
+                ProductionTaskWindow.PerformersList.BorderThickness = new System.Windows.Thickness(2);
+                ProductionTaskWindow.PerformersList.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            }
+            return true;
+        }
+
         public ICommand IAddNewSubTask => new RelayCommand(addNewSubTask => AddNewSubTask());
         private void AddNewSubTask()
         {
             if (string.IsNullOrEmpty(SubProductionTaskTitle)) return;
+            if (string.IsNullOrWhiteSpace(SubProductionTaskTitle)) return;
             ProductionSubTask productionSubTask = new ProductionSubTask();
             productionSubTask.ProductionSubTaskDescription = SubProductionTaskTitle;
             productionSubTask.ProductionSubTaskCreateTime = DateTime.Now;
@@ -276,6 +332,12 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionTaskCommentWindow productionTaskCommentWindow = new ProductionTaskCommentWindow(null, CurrentEmployee);
             productionTaskCommentWindow.ShowDialog();
             ProductionTaskComments = productionTaskCommentWindow.viewModel.ProductionTaskCommentsList;
+        }
+
+        public ICommand IExit => new RelayCommand(exit => Exit());
+        private void Exit()
+        {
+            ProductionTaskWindow.Close();
         }
     }
 }
