@@ -137,6 +137,12 @@ namespace AppDocumentManagment.UI.ViewModels
                     ProductionTaskShowWindow.ConfirmTaskCompletion.Visibility = Visibility.Visible;
                 }
             }
+            if(CurrentProductionTask.ProductionTaskStatus == ProductionTaskStatus.Done)
+            {
+                ProductionTaskShowWindow.AcceptStatus.Visibility = Visibility.Hidden;
+                ProductionTaskShowWindow.ListOfSubTask.IsEnabled = false;
+                ProductionTaskShowWindow.ConfirmTaskCompletion.Visibility= Visibility.Hidden;
+            }
             IsImportance = CurrentProductionTask.Priority;
             ProductionTaskTitle = CurrentProductionTask.ProductionTaskTitle;
             ProductionTaskDueDate = currentProductionTask.ProductionTaskDueDate;
@@ -157,6 +163,7 @@ namespace AppDocumentManagment.UI.ViewModels
             ProductionSubTasks.Clear();
             ProductionSubTaskController controller = new ProductionSubTaskController();
             ProductionSubTasksList = controller.GetProductionSubTasks(CurrentProductionTask.ProductionTaskID);
+            CurrentProductionTask.ProductionSubTasks = ProductionSubTasksList;
             if (ProductionSubTasksList != null && ProductionSubTasksList.Count > 0)
             {
                 foreach (ProductionSubTask productionSubTask in ProductionSubTasksList)
@@ -295,7 +302,9 @@ namespace AppDocumentManagment.UI.ViewModels
             {
                 UpdateProductionSubTask(productionSubTask);
             }
+            GetProductionSubTasks();
         }
+
         private void UpdateProductionSubTask(ProductionSubTask productionSubTask)
         {
             if (productionSubTask != null)
@@ -326,6 +335,21 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand ISendToCreatorEmployee => new RelayCommand(sendToCreatorEmployee => SendToCreatorEmployee());
         private void SendToCreatorEmployee()
         {
+            UpdateProductionSubTaskStatus();
+            if (CurrentProductionTask.ProductionSubTasks.Count > 0)
+            {
+                foreach (ProductionSubTask subTask in CurrentProductionTask.ProductionSubTasks)
+                {
+                    if(subTask.IsDone != true)
+                    {
+                        MessageBox.Show("Внимание! Одна или несколько подзадач не были выполнены!\n" +
+                            "Для отправки на проверку необходимо выполнить все подзадачи.\n" +
+                            "В случае невозможности выполнения подзадачи отметьте ее как выполненную\n" +
+                            "добавив комментарий или подтверждающие файлы");
+                        return;
+                    }
+                }
+            }
             CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.UnderInspection;
             ProductionTaskController controller = new ProductionTaskController();
             bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
@@ -343,17 +367,91 @@ namespace AppDocumentManagment.UI.ViewModels
         public ICommand IConfirmTaskCompletion => new RelayCommand(confirmTaskCompletion => ConfirmTaskCompletion());
         private void ConfirmTaskCompletion()
         {
-            CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.Done;
-            ProductionTaskController controller = new ProductionTaskController();
-            bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
-            if (result)
+            UpdateProductionSubTaskStatus();
+            MessageBoxResult mainMessageBoxResult = MessageBox.Show("Подтвердить завершение текущей задачи?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mainMessageBoxResult == MessageBoxResult.Yes)
             {
-                MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nВыполнение задачи подтверждено сотрудником: \n{CurrentProductionTask.EmployeeCreator.EmployeeFullName}");
-                Exit();
+                if (CurrentProductionTask != null && CurrentProductionTask.ProductionSubTasks != null && CurrentProductionTask.ProductionSubTasks.Count > 0)
+                {
+                    bool allSubTaskIsDone = true;
+                    foreach (ProductionSubTask subTask in CurrentProductionTask.ProductionSubTasks)
+                    {
+                        if (subTask.IsDone != true)
+                        {
+                            allSubTaskIsDone = false;
+                            break;
+                        }
+                    }
+                    bool TaskIsDone = true;
+                    if (!allSubTaskIsDone)
+                    {
+                        MessageBoxResult messageBoxResult = MessageBox.Show("Внимание! Одна или несколько подзадач текущей задачи не выполнены. Подтвердить завершение текущей задачи?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (messageBoxResult == MessageBoxResult.No)
+                        {
+                            TaskIsDone = false;
+                        }
+                    }
+                    if (TaskIsDone)
+                    {
+                        CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.Done;
+                        ProductionTaskController controller = new ProductionTaskController();
+                        bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
+                        if (result)
+                        {
+                            MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nВыполнение задачи подтверждено сотрудником: \n{CurrentProductionTask.EmployeeCreator.EmployeeFullName}");
+                            Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxResult messageBoxResult = MessageBox.Show("Направить текущую задачу на доработку?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (messageBoxResult == MessageBoxResult.Yes)
+                        {
+                            CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.InProgress;
+                            ProductionTaskController controller = new ProductionTaskController();
+                            bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
+                            if (result)
+                            {
+                                MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nЗадача направлена на доработку");
+                                Exit();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+                            }
+                        }
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+                if (CurrentProductionTask != null)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Направить текущую задачу на доработку?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        CurrentProductionTask.ProductionTaskStatus = ProductionTaskStatus.InProgress;
+                        ProductionTaskController controller = new ProductionTaskController();
+                        bool result = controller.UpdateProductionTaskStatus(CurrentProductionTask);
+                        if (result)
+                        {
+                            MessageBox.Show($"Статус задачи {CurrentProductionTask.ProductionTaskTitle} был обновлен.\nЗадача направлена на доработку");
+                            Exit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка! Статус задачи не был обновлен");
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
             }
         }
 

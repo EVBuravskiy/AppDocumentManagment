@@ -176,10 +176,12 @@
                                Text="Выполнено"/>
                 </Grid>
                 <Grid>
-                    <ListView Margin="20 0" 
+                    <ListView x:Name="ListOfSubTask"
+                              Margin="20 0" 
                               Height="110"
                               ItemsSource="{Binding ProductionSubTasks}"
-                              SelectedItem="{Binding SelectedProductionSubTask}">
+                              SelectedItem="{Binding SelectedProductionSubTask}"
+                              IsEnabled="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Width="510">
@@ -195,7 +197,8 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <Button Grid.Row="2" 
+                <Button x:Name="AcceptStatus"
+                        Grid.Row="2" 
                         Style="{StaticResource Buttons}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Bottom"
@@ -348,11 +351,11 @@
                     Style="{StaticResource Buttons}"
                     Padding="25 5"
                     Margin="20 5"
-                    FontFamily="Futura Now"
+                    FontFamily="Arial"
                     FontSize="18"
                     FontWeight="Bold"
                     Command="{Binding IConfirmTaskCompletion}">
-                    <TextBlock TextAlignment="Center"> Задача<LineBreak/>выполнена</TextBlock>
+                <TextBlock TextAlignment="Center"> Принять решение<LineBreak/>по задаче</TextBlock>
             </Button>
         </Grid>
         <Grid Grid.Row="7" Background="Black"/>

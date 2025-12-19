@@ -815,6 +815,9 @@ namespace AppDocumentManagment.UI.ViewModels
                         }
                     }
                 }
+                ProductionSubTaskController controller = new ProductionSubTaskController();
+                List<ProductionSubTask> subTasks = controller.GetProductionSubTasks(task.ProductionTaskID);
+                task.ProductionSubTasks = subTasks;
             }
         }
 
